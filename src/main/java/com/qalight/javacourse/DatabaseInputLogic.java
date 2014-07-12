@@ -9,6 +9,7 @@ import java.util.Map;
  */
 public class DatabaseInputLogic {
     public void writeToH2db(List<Map.Entry<String, Integer>> sortedWords, String parsedUrl)  {
+        System.out.println("URL --> " + parsedUrl + " <-- URL");
         String createTable = "CREATE TABLE " + parsedUrl + " (`id` int(5) NOT NULL auto_increment, `word` varchar(100) default NULL)";
         String preparedUpdate = "INSERT INTO " + parsedUrl + " values (default, ?)";
 
