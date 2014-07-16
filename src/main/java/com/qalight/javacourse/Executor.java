@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 public class Executor {
 
     public static void main(String[] args) {
-
+        System.out.println("stkotok - is the best developer!");
         Executor e = new Executor();
         e.inputUrlsAndStartThreads();
     }
