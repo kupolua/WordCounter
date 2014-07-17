@@ -104,8 +104,14 @@ public class AllTests {
     @Test
     public void testUrlParsing(){
         WordFilter wordFilter = new WordFilter();
-        String url = "habrahabr.ru";
-        System.out.println(wordFilter.parseUrlForDb(url));
+        //given
+        final String url = "habrahabr.ru";
+        //when
+        String parsedUrl = wordFilter.parseUrlForDb(url);
+        //then
+        final String expectedUrl = "habrahabr_ru";
+
+        Assert.assertEquals(expectedUrl, parsedUrl);
     }
 
 }
