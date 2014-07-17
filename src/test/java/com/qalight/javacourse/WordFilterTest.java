@@ -6,11 +6,11 @@ public class WordFilterTest {
 
     @Test
     public void testFilterWord() throws Exception {
-        System.out.println("11!33!-+pp");
+        System.out.println("11!33!-+pp1");
     }
 
     @Test
     public void testParseUrlForDb() throws Exception {
-        System.out.println("22!44!-+pp");
+        System.out.println("22!44!-+pp1");
     }
 }
