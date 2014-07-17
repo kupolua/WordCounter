@@ -6,11 +6,11 @@ public class WordFilterTest {
 
     @Test
     public void testFilterWord() throws Exception {
-        System.out.println("11!33!-kplt");
+        System.out.println("11!33!-kpltooo");
     }
 
     @Test
     public void testParseUrlForDb() throws Exception {
-        System.out.println("22!44!-kplt");
+        System.out.println("22!44!-kpltooo");
     }
 }
