@@ -9,8 +9,7 @@ import java.util.Map;
  */
 public class DatabaseInputLogic {
     public void writeToH2db(List<Map.Entry<String, Integer>> sortedWords, String parsedUrl)  {
-        System.out.println("URL --> " + parsedUrl + " <-- URL");
-        String createTable = "CREATE TABLE " + parsedUrl + " (`id` int(5) NOT NULL auto_increment, `word` varchar(100) default NULL)";
+        String createTable = "CREATE TABLE " + parsedUrl + " (`id` int(5) NOT NULL auto_increment, `word` varchar(200) default NULL)";
         String preparedUpdate = "INSERT INTO " + parsedUrl + " values (default, ?)";
 
         Connection conn = null;
@@ -20,11 +19,13 @@ public class DatabaseInputLogic {
             Class.forName("org.h2.Driver");
             conn = DriverManager.getConnection("jdbc:h2:~/wordsHolder", "root", "");
             statement = conn.createStatement();
+            statement.executeUpdate("DROP TABLE " + parsedUrl);
             statement.executeUpdate(createTable);
-            System.out.println("Table <" + parsedUrl + "> has been created.");
+//            System.out.println("Table <" + parsedUrl + "> has been created.");
             preparedStatement = conn.prepareStatement(preparedUpdate);
 
             for(Map.Entry<String, Integer> eachWord : sortedWords){
+//                System.out.println(eachWord.toString() + "OKOK");
                 preparedStatement.setString(1, eachWord.toString());
                 preparedStatement.executeUpdate();
             }
