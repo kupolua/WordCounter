@@ -2,6 +2,7 @@ import com.qalight.javacourse.WordCounter;
 import com.qalight.javacourse.WordCounterResultSorter;
 import com.qalight.javacourse.WordFilter;
 import org.apache.commons.validator.routines.UrlValidator;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
