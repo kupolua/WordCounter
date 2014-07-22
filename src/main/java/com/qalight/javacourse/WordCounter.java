@@ -8,6 +8,7 @@ import java.util.Map;
  */
 public class WordCounter {
 
+    // todo Проверить правильно ли считаются слова
 
     public Map<String, Integer> countWords(String plainText){
         WordFilter wordFilter = new WordFilter();
