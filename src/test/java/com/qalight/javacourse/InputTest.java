@@ -11,7 +11,7 @@ public class InputTest {
     @Test
     public void testDataIn() throws Exception {
 
-        // given
+        // given some text
         List<String> expectedClassObject = new ArrayList<String>();
 
         // when
