@@ -17,7 +17,8 @@ public class Executor {
     }
 
     public void inputUrlsAndStartThreads(){
-        Input input = new Input();
+//        Input input = new Input();
+
         List<String> urlList = input.dataIn();
 
         ExecutorService service = Executors.newCachedThreadPool();
@@ -36,9 +37,9 @@ public class Executor {
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
         List<Map.Entry<String, Integer>> list = resultSorter.sortWords(counter);
 
-        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
-        WordFilter wordFilter = new WordFilter();
-        String parsedUrl = wordFilter.parseUrlForDb(url);
-        databaseInputLogic.writeToH2db(list, parsedUrl);
+//        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
+//        WordFilter wordFilter = new WordFilter();
+//        String parsedUrl = wordFilter.parseUrlForDb(url);
+//        databaseInputLogic.writeToH2db(list, parsedUrl);
     }
 }
