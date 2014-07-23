@@ -23,7 +23,7 @@ public class DatabaseInputLogic {
         try {
             Class.forName("org.h2.Driver");
             conn = DriverManager.getConnection("jdbc:h2:~/wordsHolder", "root", "");
-            if(!checkTableIsExist(conn, parsedUrl)) {
+            if(!checkIfATableExist(conn, parsedUrl)) {
                 statement = conn.createStatement();
                 statement.executeUpdate(createTable);
                 log.info("Table <" + parsedUrl + "> has been created.");
@@ -65,19 +65,19 @@ public class DatabaseInputLogic {
         }
     }
 
-    private boolean checkTableIsExist(Connection conn, String parsedUrl){
-        boolean tableIsExist = false;
+    private boolean checkIfATableExist(Connection conn, String parsedUrl){
+        boolean isTableExist = false;
         try {
             DatabaseMetaData dbm = conn.getMetaData();
             ResultSet tables = dbm.getTables(null, null, parsedUrl.toUpperCase(), null);
             if(tables.next()){
-                tableIsExist = true;
+                isTableExist = true;
                 log.warn("Table <" + parsedUrl + "> already exist.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return tableIsExist;
+        return isTableExist;
     }
 }
