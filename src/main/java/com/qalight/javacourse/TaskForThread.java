@@ -1,5 +1,7 @@
 package com.qalight.javacourse;
 
+import java.net.URISyntaxException;
+
 /**
  * Created by box on 05.07.2014.
  */
@@ -12,6 +14,10 @@ public class TaskForThread implements Runnable{
 
     @Override
     public void run() {
-        executor.goingToCountWords(url);
+        try {
+            executor.goingToCountWords(url);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }

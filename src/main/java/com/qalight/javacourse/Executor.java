@@ -17,8 +17,7 @@ public class Executor {
     }
 
     public void inputUrlsAndStartThreads(){
-//        Input input = new Input();
-
+        Input input = new Input();
         List<String> urlList = input.dataIn();
 
         ExecutorService service = Executors.newCachedThreadPool();
