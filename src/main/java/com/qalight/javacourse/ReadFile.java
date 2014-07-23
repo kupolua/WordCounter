@@ -15,7 +15,7 @@ public class ReadFile {
 
         try {
 
-            byte[] textSources = Files.readAllBytes(Paths.get("C:\\Users\\kpl\\IdeaProjects\\GitHub-kupolua\\WordCounter\\src\\main\\resources\\" + fileName));
+            byte[] textSources = Files.readAllBytes(Paths.get("./src/main/resources/" + fileName));
             return new String(textSources);
         } catch (IOException ex) {
             ex.printStackTrace();
