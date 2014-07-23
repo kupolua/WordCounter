@@ -11,7 +11,7 @@ public class ReadFile {
 
     public String ReadFile(String fileName) {
 //        InputStream input = null;
-        String noTextSourceFile = "No Source File";
+        String noTextSourceFile = "No Source File ";
 
         try {
 
