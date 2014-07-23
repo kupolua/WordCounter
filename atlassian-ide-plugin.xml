@@ -1,0 +1,14 @@
+<atlassian-ide-plugin>
+  <project-configuration id="1">
+    <servers id="2">
+      <jira id="3">
+        <server-id id="4">e8f505be-9365-448b-9bf2-87f023045f62</server-id>
+        <name>qalight.javacourse WordCounter</name>
+        <url>http://95.158.60.148:8080</url>
+        <shared>false</shared>
+        <useSessionCookies>false</useSessionCookies>
+      </jira>
+    </servers>
+    <default-jira-server reference="4" />
+  </project-configuration>
+</atlassian-ide-plugin>

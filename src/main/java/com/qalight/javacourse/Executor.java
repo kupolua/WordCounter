@@ -11,7 +11,6 @@ import java.util.concurrent.Executors;
 public class Executor {
 
     public static void main(String[] args) {
-
         Executor e = new Executor();
         e.inputUrlsAndStartThreads();
     }
