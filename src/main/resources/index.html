@@ -13,6 +13,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/resources/scripts/mysamplecode.js" type="text/javascript"></script>
+<script src="/resources/scripts/mysamplecode.js" type="text/javascript"></script>
+
 <script>
 $(document).ready(function() {
 
@@ -28,14 +30,14 @@ $(document).ready(function() {
 	        dataString = $("#myAjaxRequestForm").serialize();
 	        
 	        //get the form data using another method 
-	        var countryCode = $("input#countryCode").val(); 
-	        dataString = "countryCode=" + countryCode;
+	        var userRequest = $("textarea#userRequest").val(); 
+	        dataString = "userRequest=" + userRequest;
 	        
 	        //make the AJAX request, dataType is set to json
 	        //meaning we are expecting JSON data in response from the server
 	        $.ajax({
 		        type: "POST",
-		        url: "../UserHTMLFormHandler",
+		        url: "./UserHTMLFormHandler",
 		        data: dataString,
 		        dataType: "json",
 		        
@@ -43,13 +45,17 @@ $(document).ready(function() {
 		        success: function( data, textStatus, jqXHR) {
 		        	//our country code was correct so we have some information to display
 		        	 if(data.success){
-		        		 $("#ajaxResponse").html("");
-		        		 $("#ajaxResponse").append("<b>Country Code:</b> " + data.countryInfo.code + "<br/>");
-		        		 $("#ajaxResponse").append("<b>Country Name:</b> " + data.countryInfo.name + "<br/>");
-		        		 $("#ajaxResponse").append("<b>Continent:</b> " + data.countryInfo.continent + "<br/>");
-		        		 $("#ajaxResponse").append("<b>Region:</b> " + data.countryInfo.region + "<br/>");
-		        		 $("#ajaxResponse").append("<b>Life Expectancy:</b> " + data.countryInfo.lifeExpectancy + "<br/>");
-		        		 $("#ajaxResponse").append("<b>GNP:</b> " + data.countryInfo.gnp + "<br/>");
+						jsonLength = data.response.length;
+						//alert(jsonLength);
+						$("#ajaxResponse").html("");
+						for(i=0; i < jsonLength; ++i) {
+							countLines = (data.response[i]).length;
+							
+							for(j=0; j < countLines; j++) {								 
+								 $("#ajaxResponse").append("<b>Word: </b> " + data.response[i][j].key + "<b> Count </b>: " + data.response[i][j].value +"<br/>");
+							}
+							$("#ajaxResponse").append("<p><h1>New Url</h1></p>");
+						}
 		        	 } 
 		        	 //display error message
 		        	 else {
@@ -98,12 +104,14 @@ Word Counter.
 </div>	
 <div id="myExample">
 	<form id="myAjaxRequestForm">
+	<div><a class='btn btn-success large-button' id='download-button' href='localIndex.html'> Download</a></div
 		<fieldset>
-			<legend>Input url by comma delimiter</legend>
+			<legend>Input url by comma delimiter http://htmlbook.ru/html/input, http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost, http://www.gradle.org/docs/current/release-notes</legend>
  
 				<p>
-					<label for="countryCode">Input url's</label><br />
-					<textarea name="countryCode" cols="140" rows="13"></textarea></p>
+					<label for="userRequest">Input url's</label><br />
+					<textarea id="userRequest" name="userRequest" cols="140" rows="13"></textarea></p>
+					
 				</p>
 				<p>
 					<input id="myButton" type="button" value="Submit" />
@@ -117,6 +125,7 @@ Word Counter.
 		</fieldset>
 	</div>	
 </div> 
+<div id="ajaxResp"></div>
  
 </div>							
 </body>

@@ -3,6 +3,7 @@ package com.qalight.javacourse.servlet;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.qalight.javacourse.Executor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,19 +40,22 @@ public class UserHTMLFormHandler extends HttpServlet {
 
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
-
+        Executor executor = new Executor();
+//        executor.inputUrls(userRequest);
         //getJasonObj
 
-
-        JsonElement countryObj = gson.toJsonTree(countryInfo);
-        if(countryInfo.getName() == null){
-            myObj.addProperty("success", false);
-        }
-        else {
+        JsonElement countryObj = gson.toJsonTree(executor.inputUrls(userRequest));
+//        JsonElement countryObj = gson.toJsonTree(countryInfo);
+//        if(countryInfo.getName() == null){
             myObj.addProperty("success", true);
-        }
+//        }
+//        else {
+//            myObj.addProperty("success", true);
+//        }
         myObj.add("response", countryObj);
+        System.out.println("myObj.toString(): " + myObj.toString());
         out.println(myObj.toString());
+
 
         out.close();
 
