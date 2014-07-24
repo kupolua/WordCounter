@@ -9,7 +9,7 @@ import java.nio.file.Paths;
  */
 public class ReadFile {
 
-    public String ReadFile(String fileName) {
+    public String readFile(String fileName) {
 //        InputStream input = null;
         String noTextSourceFile = "No Source File ";
 

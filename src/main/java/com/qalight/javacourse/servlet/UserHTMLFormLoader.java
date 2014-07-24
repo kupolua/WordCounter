@@ -31,6 +31,6 @@ public class UserHTMLFormLoader extends HttpServlet {
 
     public String userHTMLFormLoader (String fileName) {
         ReadFile readFile = new ReadFile();
-        return readFile.ReadFile(fileName);
+        return readFile.readFile(fileName);
     }
 }
