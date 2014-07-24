@@ -16,31 +16,31 @@ public class Executor {
         e.inputUrlsAndStartThreads();
     }
 
-    public void inputUrlsAndStartThreads(){
+    public void inputUrlsAndStartThreads() {
         Input input = new Input();
         List<String> urlList = input.dataIn();
 
         ExecutorService service = Executors.newCachedThreadPool();
-        for(String url : urlList){
+        for (String url : urlList) {
             service.submit(new TaskForThread(url));
         }
         service.shutdown();
     }
 
-    public  List<List> inputUrls(String userUrls){
+    public List<Map<String, Integer>> inputUrls(String userUrls, String sortingParam) {
 
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
         List<String> urlList = stringUrlsParser.urlList(userUrls);
-        List<List> urlsList = new ArrayList<List>();
-        for(String url : urlList){
-         Executor executor = new Executor();
+        List<Map<String, Integer>> urlsList = new ArrayList<Map<String, Integer>>();
+        for (String url : urlList) {
+            Executor executor = new Executor();
             urlsList.add(executor.goingToCountWords(url));
         }
         return urlsList;
     }
 
-    protected List<Map.Entry<String, Integer>> goingToCountWords(String url){
+    protected Map<String, Integer> goingToCountWords(String url) {
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
@@ -48,7 +48,7 @@ public class Executor {
         Map<String, Integer> counter = wordCounter.countWords(plainText);
 
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
-        List<Map.Entry<String, Integer>> list = resultSorter.sortWords(counter);
+        Map<String, Integer> list = resultSorter.sortWords(counter, true, true);
 
         return list;
 
