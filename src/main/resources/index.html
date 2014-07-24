@@ -30,9 +30,11 @@ $(document).ready(function() {
 	        dataString = $("#myAjaxRequestForm").serialize();
 	        
 	        //get the form data using another method 
-	        var userRequest = $("textarea#userRequest").val(); 
-	        dataString = "userRequest=" + userRequest;
-	        
+	        var userRequest = $("textarea#userRequest").val();
+	        var userCheck = $(":radio").val();
+            alert(userCheck);
+	        dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck;
+
 	        //make the AJAX request, dataType is set to json
 	        //meaning we are expecting JSON data in response from the server
 	        $.ajax({
@@ -103,13 +105,17 @@ Word Counter.
 </div>	
 <div id="myExample">
 	<form id="myAjaxRequestForm">
-	<div><a class='btn btn-success large-button' id='download-button' href='localIndex.html'> Download</a></div
+	<div><a class='btn btn-success large-button' id='download-button' href='localIndex.html'> Download</a></div>
 		<fieldset>
 			<legend>Input url by comma delimiter http://htmlbook.ru/html/input, http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost, http://www.gradle.org/docs/current/release-notes</legend>
  
 				<p>
 					<label for="userRequest">Input url's</label><br />
-					<textarea id="userRequest" name="userRequest" cols="140" rows="13"></textarea></p>
+                    <input type="radio" name="KA" value="KA" checked>Key Aascending
+                    <input type="radio" name="KD" value="KD">Value Aascending
+                    <input type="radio" name="VA" value="VA">Key Descending
+                    <input type="radio" name="VD" value="VD">Value Descending
+					<textarea id="userRequest" name="userRequest1" cols="140" rows="13"></textarea></p>
 					
 				</p>
 				<p>
