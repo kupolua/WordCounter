@@ -31,17 +31,20 @@ public class Executor {
     public List<Map<String, Integer>> inputUrls(String userUrls, String sortingParam) {
 
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
-
         List<String> urlList = stringUrlsParser.urlList(userUrls);
+
         List<Map<String, Integer>> urlsList = new ArrayList<Map<String, Integer>>();
+
         for (String url : urlList) {
             Executor executor = new Executor();
             urlsList.add(executor.goingToCountWords(url, sortingParam));
         }
+
         return urlsList;
     }
 
     protected Map<String, Integer> goingToCountWords(String url, String sortingParam) {
+
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
