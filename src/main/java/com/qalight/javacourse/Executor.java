@@ -53,7 +53,7 @@ public class Executor {
 
         return list;
 
-//        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
+//        DatabaseInputL   ogic databaseInputLogic = new DatabaseInputLogic();
 //        WordFilter wordFilter = new WordFilter();
 //        String parsedUrl = wordFilter.parseUrlForDb(url);
 //        databaseInputLogic.writeToH2db(list, parsedUrl);
