@@ -1,6 +1,6 @@
 package com.qalight.javacourse;
 
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -12,22 +12,35 @@ import java.util.concurrent.Executors;
 public class Executor {
 
     public static void main(String[] args) {
-
         Executor e = new Executor();
         e.inputUrlsAndStartThreads();
     }
 
-    public void inputUrlsAndStartThreads(){
+    public void inputUrlsAndStartThreads() {
         Input input = new Input();
         List<String> urlList = input.dataIn();
 
         ExecutorService service = Executors.newCachedThreadPool();
-        for(String url : urlList){
+        for (String url : urlList) {
             service.submit(new TaskForThread(url));
         }
         service.shutdown();
     }
-    protected void goingToCountWords(String url) throws URISyntaxException {
+
+    public List<Map<String, Integer>> inputUrls(String userUrls, String sortingParam) {
+
+        StringUrlsParser stringUrlsParser = new StringUrlsParser();
+
+        List<String> urlList = stringUrlsParser.urlList(userUrls);
+        List<Map<String, Integer>> urlsList = new ArrayList<Map<String, Integer>>();
+        for (String url : urlList) {
+            Executor executor = new Executor();
+            urlsList.add(executor.goingToCountWords(url));
+        }
+        return urlsList;
+    }
+
+    protected Map<String, Integer> goingToCountWords(String url) {
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
@@ -35,12 +48,13 @@ public class Executor {
         Map<String, Integer> counter = wordCounter.countWords(plainText);
 
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
-        List<Map.Entry<String, Integer>> list = resultSorter.sortWords(counter);
+        Map<String, Integer> list = resultSorter.sortWords(counter, true, true);
 
-        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
-        WordFilter wordFilter = new WordFilter();
-        String parsedUrl = wordFilter.parseUrlForDb(url);
-//        System.out.println(parsedUrl);
-        databaseInputLogic.writeToH2db(list, parsedUrl);
+        return list;
+
+//        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
+//        WordFilter wordFilter = new WordFilter();
+//        String parsedUrl = wordFilter.parseUrlForDb(url);
+//        databaseInputLogic.writeToH2db(list, parsedUrl);
     }
 }
