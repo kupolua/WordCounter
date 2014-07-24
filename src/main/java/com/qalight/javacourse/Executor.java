@@ -35,12 +35,12 @@ public class Executor {
         List<Map<String, Integer>> urlsList = new ArrayList<Map<String, Integer>>();
         for (String url : urlList) {
             Executor executor = new Executor();
-            urlsList.add(executor.goingToCountWords(url));
+            urlsList.add(executor.goingToCountWords(url, sortingParam));
         }
         return urlsList;
     }
 
-    protected Map<String, Integer> goingToCountWords(String url) {
+    protected Map<String, Integer> goingToCountWords(String url, String sortingParam) {
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
@@ -48,9 +48,9 @@ public class Executor {
         Map<String, Integer> counter = wordCounter.countWords(plainText);
 
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
-        Map<String, Integer> list = resultSorter.sortWords(counter, true, true);
+        Map<String, Integer> sortedWordsMap = resultSorter.sortWords(counter, sortingParam);
 
-        return list;
+        return sortedWordsMap;
 
 //        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
 //        WordFilter wordFilter = new WordFilter();
