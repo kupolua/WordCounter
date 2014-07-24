@@ -43,7 +43,7 @@ public class UserHTMLFormHandler extends HttpServlet {
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
         Executor executor = new Executor();
-//        executor.inputUrls(userRequest);
+//        executor.inputUrls(u serRequest);
         //getJasonObj
 
         JsonElement countryObj = gson.toJsonTree(executor.inputUrls(userRequest, sortingParam));
