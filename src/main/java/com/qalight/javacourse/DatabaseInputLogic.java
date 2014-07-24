@@ -1,6 +1,9 @@
 package com.qalight.javacourse;
 
-import org.apache.log4j.Logger;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.List;
@@ -10,7 +13,7 @@ import java.util.Map;
  * Created by box on 19.06.2014. !!!
  */
 public class DatabaseInputLogic {
-    static  final Logger log = Logger.getLogger(DatabaseInputLogic.class.getName());
+    static  final Logger log = LoggerFactory.getLogger(DatabaseInputLogic.class.getName());
 
     public void writeToH2db(List<Map.Entry<String, Integer>> sortedWords, String parsedUrl)  {
         log.debug("Target URL has been parsed --> " + parsedUrl + " <--");
