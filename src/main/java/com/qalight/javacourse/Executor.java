@@ -19,10 +19,11 @@ public class Executor {
     public void inputUrlsAndStartThreads() {
         Input input = new Input();
         List<String> urlList = input.dataIn();
+        String sortingParam = "VD"; // Временная заглушка. Насколько понимаю, ввод с консоли мы совсем отключим.
 
         ExecutorService service = Executors.newCachedThreadPool();
         for (String url : urlList) {
-            service.submit(new TaskForThread(url));
+            service.submit(new TaskForThread(url, sortingParam));
         }
         service.shutdown();
     }
@@ -35,22 +36,22 @@ public class Executor {
         List<Map<String, Integer>> urlsList = new ArrayList<Map<String, Integer>>();
         for (String url : urlList) {
             Executor executor = new Executor();
-            urlsList.add(executor.goingToCountWords(url));
+            urlsList.add(executor.goingToCountWords(url, sortingParam));
         }
         return urlsList;
     }
 
-    protected Map<String, Integer> goingToCountWords(String url) {
+    protected Map<String, Integer> goingToCountWords(String url, String sortingParam) {
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
         WordCounter wordCounter = new WordCounter();
-        Map<String, Integer> counter = wordCounter.countWords(plainText);
+        Map<String, Integer> countedWords = wordCounter.countWords(plainText);
 
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
-        Map<String, Integer> list = resultSorter.sortWords(counter, true, true);
+        Map<String, Integer> sortedResults = resultSorter.sortWords(countedWords, sortingParam);
 
-        return list;
+        return sortedResults;
 
 //        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
 //        WordFilter wordFilter = new WordFilter();
