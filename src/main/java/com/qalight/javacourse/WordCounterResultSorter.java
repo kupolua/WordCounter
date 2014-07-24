@@ -14,7 +14,6 @@ public class WordCounterResultSorter {
             return sortingParam;
         } else {
             sortingParam = "KD";
-            System.out.println(sortingParam);
             return sortingParam;
         }
     }
@@ -28,8 +27,9 @@ public class WordCounterResultSorter {
         }
 
         Set<Map.Entry<String, Integer>> set = counter.entrySet();
-//        System.out.println(set);
+//        System.out.println("Before sorting" + set);
         List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
+        final String finalSortingParam = sortingParam;
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 
@@ -44,12 +44,12 @@ public class WordCounterResultSorter {
                 if (isMapData02Empty)
                     return 1;
                 //none of them is empty
-//                if (sortByKV) {
+                if (finalSortingParam.equals("KV")) {
                     return (o1.getValue()).compareTo(o2.getValue());
-//                } else {
-//                    return (o2.getValue()).compareTo(o1.getValue());
+                } else {
+                    return (o2.getValue()).compareTo(o1.getValue());
                 }
-//            }
+            }
         });
 //        Map<String, Integer> sortedMap;
 //        sortedMap = (Map<String, Integer>) list;
