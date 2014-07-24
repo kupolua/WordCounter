@@ -19,10 +19,11 @@ public class Executor {
     public void inputUrlsAndStartThreads() {
         Input input = new Input();
         List<String> urlList = input.dataIn();
+        String sortingParam = "VD"; // Временная заглушка. Насколько понимаю, ввод с консоли мы совсем отключим.
 
         ExecutorService service = Executors.newCachedThreadPool();
         for (String url : urlList) {
-            service.submit(new TaskForThread(url));
+            service.submit(new TaskForThread(url, sortingParam));
         }
         service.shutdown();
     }
@@ -45,12 +46,12 @@ public class Executor {
         String plainText = iProcessing.getPlainTextByUrl(url);
 
         WordCounter wordCounter = new WordCounter();
-        Map<String, Integer> counter = wordCounter.countWords(plainText);
+        Map<String, Integer> countedWords = wordCounter.countWords(plainText);
 
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
-        Map<String, Integer> sortedWordsMap = resultSorter.sortWords(counter, sortingParam);
+        Map<String, Integer> sortedResults = resultSorter.sortWords(countedWords, sortingParam);
 
-        return sortedWordsMap;
+        return sortedResults;
 
 //        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
 //        WordFilter wordFilter = new WordFilter();

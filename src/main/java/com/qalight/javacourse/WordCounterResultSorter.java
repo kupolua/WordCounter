@@ -5,11 +5,29 @@ import java.util.*;
 /**
  * Created by box on 12.06.2014.
  */
+//todo: Сделать возможность сортировки по KA, KD, VA, VD
 public class WordCounterResultSorter {
 
-    public Map<String, Integer> sortWords(
-            Map<String, Integer> counter, final boolean sortByKV, final boolean sortAscDesc) {
+    private String checkSortingParam(String sortingParam) {
 
+        if (sortingParam.equals("KA|KD|VA|VD")) {
+            return sortingParam;
+        } else {
+            try {
+                throw new Exception("sortingParam is not valid");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            sortingParam = "KD";
+            System.out.println(sortingParam);
+        }
+
+        return sortingParam;
+    }
+
+    public Map<String, Integer> sortWords(
+            Map<String, Integer> counter, String sortingParam) {
+        sortingParam = checkSortingParam(sortingParam);
         Set<Map.Entry<String, Integer>> set = counter.entrySet();
         System.out.println(set);
         List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
@@ -27,12 +45,12 @@ public class WordCounterResultSorter {
                 if (isMapData02Empty)
                     return 1;
                 //none of them is empty
-                if (sortByKV) {
+//                if (sortByKV) {
                     return (o1.getValue()).compareTo(o2.getValue());
-                } else {
-                    return (o2.getValue()).compareTo(o1.getValue());
+//                } else {
+//                    return (o2.getValue()).compareTo(o1.getValue());
                 }
-            }
+//            }
         });
         Map<String, Integer> sortedMap;
         sortedMap = (Map<String, Integer>) list;
