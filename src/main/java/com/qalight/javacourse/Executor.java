@@ -28,33 +28,30 @@ public class Executor {
         service.shutdown();
     }
 
-    public List<Map<String, Integer>> inputUrls(String userUrls, String sortingParam) {
-
+    public List<List<Map.Entry<String, Integer>>> inputUrls(String userUrls, String sortingParam) {
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
+
         List<String> urlList = stringUrlsParser.urlList(userUrls);
-
-        List<Map<String, Integer>> urlsList = new ArrayList<Map<String, Integer>>();
-
+        List<List<Map.Entry<String, Integer>>> urlsList = new ArrayList<List<Map.Entry<String, Integer>>>();
         for (String url : urlList) {
             Executor executor = new Executor();
             urlsList.add(executor.goingToCountWords(url, sortingParam));
         }
-
         return urlsList;
     }
 
-    protected Map<String, Integer> goingToCountWords(String url, String sortingParam) {
-
+    protected List<Map.Entry<String, Integer>> goingToCountWords(String url, String sortingParam) {
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
         WordCounter wordCounter = new WordCounter();
         Map<String, Integer> countedWords = wordCounter.countWords(plainText);
-
+        System.out.println("countedWords: " + countedWords);
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
-        Map<String, Integer> sortedResults = resultSorter.sortWords(countedWords, sortingParam);
+//        Map<String, Integer> sortedResults = resultSorter.sortWords(countedWords, sortingParam);
+        List<Map.Entry<String, Integer>> list = resultSorter.sortWords(countedWords, sortingParam);
 
-        return sortedResults;
+        return list;
 
 //        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
 //        WordFilter wordFilter = new WordFilter();
