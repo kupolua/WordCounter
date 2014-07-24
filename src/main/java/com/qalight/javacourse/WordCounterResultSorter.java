@@ -8,28 +8,27 @@ import java.util.*;
 //todo: Сделать возможность сортировки по KA, KD, VA, VD
 public class WordCounterResultSorter {
 
-    private String checkSortingParam(String sortingParam) {
+    private String checkSortingParam(String sortingParam) throws Exception {
 
         if (sortingParam.equals("KA|KD|VA|VD")) {
             return sortingParam;
         } else {
-            try {
-                throw new Exception("sortingParam is not valid");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             sortingParam = "KD";
             System.out.println(sortingParam);
+            return sortingParam;
         }
-
-        return sortingParam;
     }
 
-    public Map<String, Integer> sortWords(
-            Map<String, Integer> counter, String sortingParam) {
-        sortingParam = checkSortingParam(sortingParam);
+    public List<Map.Entry<String, Integer>> sortWords(
+            Map<String, Integer> counter, String sortingParam)  {
+        try {
+            sortingParam = checkSortingParam(sortingParam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Set<Map.Entry<String, Integer>> set = counter.entrySet();
-        System.out.println(set);
+//        System.out.println(set);
         List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
@@ -52,9 +51,10 @@ public class WordCounterResultSorter {
                 }
 //            }
         });
-        Map<String, Integer> sortedMap;
-        sortedMap = (Map<String, Integer>) list;
-        return sortedMap;
+//        Map<String, Integer> sortedMap;
+//        sortedMap = (Map<String, Integer>) list;
+//        return sortedMap;
+        return list;
     }
 
 }
