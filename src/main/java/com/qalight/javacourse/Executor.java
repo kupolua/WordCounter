@@ -1,5 +1,6 @@
 package com.qalight.javacourse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -11,7 +12,6 @@ import java.util.concurrent.Executors;
 public class Executor {
 
     public static void main(String[] args) {
-
         Executor e = new Executor();
         e.inputUrlsAndStartThreads();
     }
@@ -26,7 +26,21 @@ public class Executor {
         }
         service.shutdown();
     }
-    protected void goingToCountWords(String url){
+
+    public  List<List> inputUrls(String userUrls){
+
+        StringUrlsParser stringUrlsParser = new StringUrlsParser();
+
+        List<String> urlList = stringUrlsParser.urlList(userUrls);
+        List<List> urlsList = new ArrayList<List>();
+        for(String url : urlList){
+         Executor executor = new Executor();
+            urlsList.add(executor.goingToCountWords(url));
+        }
+        return urlsList;
+    }
+
+    protected List<Map.Entry<String, Integer>> goingToCountWords(String url){
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
@@ -36,9 +50,11 @@ public class Executor {
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
         List<Map.Entry<String, Integer>> list = resultSorter.sortWords(counter);
 
-        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
-        WordFilter wordFilter = new WordFilter();
-        String parsedUrl = wordFilter.parseUrlForDb(url);
-        databaseInputLogic.writeToH2db(list, parsedUrl);
+        return list;
+
+//        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
+//        WordFilter wordFilter = new WordFilter();
+//        String parsedUrl = wordFilter.parseUrlForDb(url);
+//        databaseInputLogic.writeToH2db(list, parsedUrl);
     }
 }
