@@ -31,7 +31,7 @@ $(document).ready(function() {
 	        
 	        //get the form data using another method 
 	        var userRequest = $("textarea#userRequest").val();
-	        var userCheck = $(":radio").val();
+	        var userCheck = $('input[name=userCheck]:checked').val();
             alert(userCheck);
 	        dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck;
 
@@ -111,11 +111,18 @@ Word Counter.
  
 				<p>
 					<label for="userRequest">Input url's</label><br />
-                    <input type="radio" name="KA" value="KA" checked>Key Aascending
-                    <input type="radio" name="KD" value="KD">Value Aascending
-                    <input type="radio" name="VA" value="VA">Key Descending
-                    <input type="radio" name="VD" value="VD">Value Descending
 					<textarea id="userRequest" name="userRequest1" cols="140" rows="13"></textarea></p>
+				<p>
+					<label> Check type sorting</label>
+				</p>
+				
+				<p>
+					<input type="radio" name="userCheck" value="KA" checked>Key Aascending
+                    <input type="radio" name="userCheck" value="KD">Value Aascending
+                    <input type="radio" name="userCheck" value="VA">Key Descending
+                    <input type="radio" name="userCheck" value="VD">Value Descending
+
+				</p>
 					
 				</p>
 				<p>
