@@ -27,7 +27,6 @@ public class UserHTMLFormHandler extends HttpServlet {
 
         String userRequest = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userCheck");
-        System.out.println("userRequest: " + userRequest + "userCheck: " + sortingParam);
 
         PrintWriter out = response.getWriter();
         response.setContentType("text/html");
