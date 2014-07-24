@@ -16,7 +16,7 @@ import java.io.PrintWriter;
  * Created by kpl on 23.07.2014.
  */
 public class UserHTMLFormHandler extends HttpServlet {
-    //test5: commit and push
+    //test8: commit and push
     private static final long serialVersionUID = -6154475799000019575L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
