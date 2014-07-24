@@ -11,7 +11,9 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/build/classes/main" />
+    <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
@@ -31,15 +33,9 @@
     <orderEntry type="library" exported="" name="Gradle: commons-logging-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-beanutils-1.8.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-digester-1.8" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: log4j-1.2.17" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: jetty-server-9.0.0.RC2" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: jetty-servlet-9.0.0.RC2" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: gson-2.2.4" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: javax.servlet-3.0.0.v201112011016" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: jetty-util-9.0.0.RC2" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: jetty-http-9.0.0.RC2" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: jetty-io-9.0.0.RC2" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: jetty-security-9.0.0.RC2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: logback-classic-1.1.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: logback-core-1.1.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: slf4j-api-1.7.6" level="project" />
   </component>
 </module>
 
