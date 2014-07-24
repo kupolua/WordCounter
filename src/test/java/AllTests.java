@@ -5,6 +5,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -102,7 +103,7 @@ public class AllTests {
 
     }
     @Test
-    public void testUrlParsing(){
+    public void testUrlParsing() throws URISyntaxException {
         WordFilter wordFilter = new WordFilter();
         String url = "habrahabr.ru";
         System.out.println(wordFilter.parseUrlForDb(url));

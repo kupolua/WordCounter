@@ -1,5 +1,6 @@
 package com.qalight.javacourse;
 
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -26,7 +27,7 @@ public class Executor {
         }
         service.shutdown();
     }
-    protected void goingToCountWords(String url){
+    protected void goingToCountWords(String url) throws URISyntaxException {
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
@@ -39,6 +40,7 @@ public class Executor {
         DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
         WordFilter wordFilter = new WordFilter();
         String parsedUrl = wordFilter.parseUrlForDb(url);
+//        System.out.println(parsedUrl);
         databaseInputLogic.writeToH2db(list, parsedUrl);
     }
 }
