@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by stkotok on 19.07.2014.
  */
-public class StingUrlsParser {
+public class StringUrlsParser {
 
     public List<String> urlList(String stringUrls) {
 
