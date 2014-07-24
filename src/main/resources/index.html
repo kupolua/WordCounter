@@ -1,21 +1,19 @@
-
-
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta name="robots" content="noindex,nofollow"/>
-<title>Programmers sample guide, help is on the way</title>
-<link rel="stylesheet" href="/resources/themes/master.css" type="text/css" />
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
-<script src="/resources/scripts/mysamplecode.js" type="text/javascript"></script>
-<script src="/resources/scripts/mysamplecode.js" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="robots" content="noindex,nofollow"/>
+    <title>Programmers sample guide, help is on the way</title>
+    <link rel="stylesheet" href="/resources/themes/master.css" type="text/css"/>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="/resources/scripts/mysamplecode.js" type="text/javascript"></script>
+    <script src="/resources/scripts/mysamplecode.js" type="text/javascript"></script>
 
-<script>
+    <script>
 $(document).ready(function() {
 
 	//Stops the submit request
@@ -30,9 +28,11 @@ $(document).ready(function() {
 	        dataString = $("#myAjaxRequestForm").serialize();
 	        
 	        //get the form data using another method 
-	        var userRequest = $("textarea#userRequest").val(); 
-	        dataString = "userRequest=" + userRequest;
-	        
+	        var userRequest = $("textarea#userRequest").val();
+	        var userCheck = $('input[name=userCheck]:checked').val();
+            alert(userCheck);
+	        dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck;
+
 	        //make the AJAX request, dataType is set to json
 	        //meaning we are expecting JSON data in response from the server
 	        $.ajax({
@@ -88,44 +88,60 @@ $(document).ready(function() {
 
 });
 
-</script>
+
+    </script>
 </head>
 
 <body>
 <div id="allContent">
-<div id="myHeader">
-<div id="myLogo" class="header">
-</div>
+    <div id="myHeader">
+        <div id="myLogo" class="header">
+        </div>
 
-<h2>
-Word Counter.
-</h2>
-</div>	
-<div id="myExample">
-	<form id="myAjaxRequestForm">
-	<div><a class='btn btn-success large-button' id='download-button' href='localIndex.html'> Download</a></div
-		<fieldset>
-			<legend>Input url by comma delimiter http://htmlbook.ru/html/input, http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost, http://www.gradle.org/docs/current/release-notes</legend>
- 
-				<p>
-					<label for="userRequest">Input url's</label><br />
-					<textarea id="userRequest" name="userRequest" cols="140" rows="13"></textarea></p>
-					
-				</p>
-				<p>
-					<input id="myButton" type="button" value="Submit" />
-				</p>
-		</fieldset>
-	</form>
-	<div id="anotherSection">
-		<fieldset>
-			<legend>WordCounter response request(s)</legend>
- 				<div id="ajaxResponse"></div>
-		</fieldset>
-	</div>	
-</div> 
-<div id="ajaxResp"></div>
- 
-</div>							
+        <h2>
+            Word Counter.
+        </h2>
+    </div>
+    <div id="myExample">
+        <form id="myAjaxRequestForm">
+            <div><a class='btn btn-success large-button' id='download-button' href='localIndex.html'> Download</a></div>
+            <fieldset>
+                <legend>Input url by comma delimiter http://htmlbook.ru/html/input,
+                    http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost,
+                    http://www.gradle.org/docs/current/release-notes
+                </legend>
+
+                <p>
+                    <label for="userRequest">Input url's</label><br/>
+                    <textarea id="userRequest" name="userRequest1" cols="140" rows="13"></textarea></p>
+
+                <p>
+                    <label> Check type sorting</label>
+                </p>
+
+                <p>
+                    <input type="radio" name="userCheck" value="KA" checked>Key Aascending
+                    <input type="radio" name="userCheck" value="KD">Value Aascending
+                    <input type="radio" name="userCheck" value="VA">Key Descending
+                    <input type="radio" name="userCheck" value="VD">Value Descending
+
+                </p>
+
+                </p>
+                <p>
+                    <input id="myButton" type="button" value="Submit"/>
+                </p>
+            </fieldset>
+        </form>
+        <div id="anotherSection">
+            <fieldset>
+                <legend>WordCounter response request(s)</legend>
+                <div id="ajaxResponse"></div>
+            </fieldset>
+        </div>
+    </div>
+    <div id="ajaxResp"></div>
+
+</div>
 </body>
 </html>
