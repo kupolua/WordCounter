@@ -52,7 +52,7 @@
                             $("#ajaxResponse").html("");
                             for(i=0; i < jsonLength; ++i) {
                                 countLines = (data.response[i]).length;
-                                $("#ajaxResponse").append("<p><h1>New Url</h1></p>");
+                                $("#ajaxResponse").append("<p><h1>" + data.listUsersUrls[i]+"</h1></p>");
                                 for(j=0; j < countLines; j++) {
                                     $("#ajaxResponse").append("<b>Word: </b> " + data.response[i][j].key + "<b> Count </b>: " + data.response[i][j].value +"<br/>");
                                 }
