@@ -44,6 +44,7 @@
     <orderEntry type="library" exported="" name="Gradle: logback-classic-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: logback-core-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: slf4j-api-1.7.6" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: logback-access-1.1.2" level="project" />
   </component>
 </module>
 
