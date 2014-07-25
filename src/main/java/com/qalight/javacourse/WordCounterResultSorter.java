@@ -8,53 +8,113 @@ import java.util.*;
 //todo: Сделать возможность сортировки по KA, KD, VA, VD
 public class WordCounterResultSorter {
 
-    private String checkSortingParam(String sortingParam) throws Exception {
+    private enum SortingParamEnum {
+        KA("KA"),
+        KD("KD"),
+        VA("VA"),
+        VD("VD");
 
+        private String sortingParam;
+
+        SortingParamEnum(String sortingParam) {
+            this.sortingParam = sortingParam;
+        }
+
+        static public SortingParamEnum getType(String pType) {
+            for (SortingParamEnum type : SortingParamEnum.values()) {
+                if (type.getSortingParam().equals(pType)) {
+                    return type;
+                }
+            }
+            throw new RuntimeException("unknown type");
+        }
+
+        public String getSortingParam() {
+            return sortingParam;
+        }
+
+    }
+
+    private String checkSortingParam(String sortingParam) {
         if (sortingParam.equals("KA|KD|VA|VD")) {
             return sortingParam;
         } else {
-            sortingParam = "KD";
+            sortingParam = "VD";
+// todo: Add ERROR to Log "Not valid sorting request. Sorting will be done by VD"
+// todo: Throw notification to WEB-GUI "Not valid sorting request. Sorting will be done by Value in descending order"
             return sortingParam;
         }
     }
 
-    public List<Map.Entry<String, Integer>> sortWords(
-            Map<String, Integer> counter, String sortingParam)  {
-        try {
-            sortingParam = checkSortingParam(sortingParam);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public List<Map.Entry<String, Integer>> sortWords(Map<String, Integer> map, String sortingParam) {
+
+        sortingParam = checkSortingParam(sortingParam);
+
+        switch (SortingParamEnum.valueOf(sortingParam)) {
+            case KA:
+                System.out.println("SortingParamEnum.KA");
+                break;
+
+            case KD:
+                System.out.println("SortingParamEnum.KD");
+                break;
+
+            case VA:
+                System.out.println("SortingParamEnum.VA");
+                break;
+
+            case VD:
+                System.out.println("SortingParamEnum.VD");
+                break;
+
+            default:
+// todo: Add ERROR to Log "Not valid sorting request. Sorting will be done by VD"
+// todo: Throw notification to WEB-GUI "Not valid sorting request. Sorting will be done by Value in descending order"
+                System.out.println("SortingParamEnum.VD");
+                // sort by SortingParamEnum.VD;
+                break;
         }
 
-        Set<Map.Entry<String, Integer>> set = counter.entrySet();
-//        System.out.println("Before sorting" + set);
-        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
-        final String finalSortingParam = sortingParam;
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+        // todo: Add sortByKA
+        // todo: Add sortByKD
+        // todo: Add sortByVA
+        // todo: Add sortByVD
 
-                boolean isMapData01Empty = (o1.getValue() == null || o1.getValue().equals(""));
-                boolean isMapData02Empty = (o2.getValue() == null || o2.getValue().equals(""));
+        Map<String, Integer> sortedMap = Collections.EMPTY_MAP;
+        Set<Map.Entry<String, Integer>> sortedSetMapEntry = sortedMap.entrySet();
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(sortedSetMapEntry);
 
-                if (isMapData01Empty && isMapData02Empty)
-                    return 0;
-                // at least one of them is not empty
-                if (isMapData01Empty)
-                    return -1;
-                if (isMapData02Empty)
-                    return 1;
-                //none of them is empty
-                if (finalSortingParam.equals("KV")) {
-                    return (o1.getValue()).compareTo(o2.getValue());
-                } else {
-                    return (o2.getValue()).compareTo(o1.getValue());
-                }
-            }
-        });
-//        Map<String, Integer> sortedMap;
-//        sortedMap = (Map<String, Integer>) list;
-//        return sortedMap;
         return list;
     }
+
+//    public List<Map.Entry<String, Integer>> sortWordsOLD(
+//            Map<String, Integer> counter, String sortingParam)  {
+//        try {
+//            sortingParam = checkSortingParam(sortingParam);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        Set<Map.Entry<String, Integer>> set = counter.entrySet();
+//        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
+//        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+//            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+//
+//                boolean isMapData01Empty = (o1.getValue() == null || o1.getValue().equals(""));
+//                boolean isMapData02Empty = (o2.getValue() == null || o2.getValue().equals(""));
+//
+//                if (isMapData01Empty && isMapData02Empty)
+//                    return 0;
+//                // at least one of them is not empty
+//                if (isMapData01Empty)
+//                    return -1;
+//                if (isMapData02Empty)
+//                    return 1;
+//                //none of them is empty
+//                    return (o1.getValue()).compareTo(o2.getValue());
+//                }
+//        });
+//        return list;
+//    }
 
 }

@@ -46,16 +46,9 @@ public class Executor {
 
         WordCounter wordCounter = new WordCounter();
         Map<String, Integer> countedWords = wordCounter.countWords(plainText);
-        System.out.println("countedWords: " + countedWords);
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
-//        Map<String, Integer> sortedResults = resultSorter.sortWords(countedWords, sortingParam);
         List<Map.Entry<String, Integer>> list = resultSorter.sortWords(countedWords, sortingParam);
 
         return list;
-
-//        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
-//        WordFilter wordFilter = new WordFilter();
-//        String parsedUrl = wordFilter.parseUrlForDb(url);
-//        databaseInputLogic.writeToH2db(list, parsedUrl);
     }
 }
