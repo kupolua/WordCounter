@@ -20,13 +20,13 @@ public class WordCounterResultSorter {
             this.sortingParam = sortingParam;
         }
 
-        static public SortingParamEnum getType(String pType) {
+        static public SortingParamEnum getType(String pType) throws Exception {
             for (SortingParamEnum type : SortingParamEnum.values()) {
                 if (type.getSortingParam().equals(pType)) {
                     return type;
                 }
             }
-            throw new RuntimeException("unknown type");
+            throw new Exception("unknown type of sortingParam ");
         }
 
         public String getSortingParam() {
