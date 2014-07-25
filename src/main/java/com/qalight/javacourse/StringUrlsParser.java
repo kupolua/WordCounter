@@ -22,7 +22,6 @@ public class StringUrlsParser {
                 userUrlsList.add("http://" + url);
             }
         }
-        System.out.println("userUrlsList: " + userUrlsList);
         return userUrlsList;
     }
 
