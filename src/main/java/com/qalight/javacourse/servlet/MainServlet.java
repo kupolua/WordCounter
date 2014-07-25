@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
  */
 public class MainServlet {
     private static final Logger LOG = LoggerFactory.getLogger(MainServlet.class);
-
     public static void main(String[] args) {
         try {
             Server server = new Server(8021);
