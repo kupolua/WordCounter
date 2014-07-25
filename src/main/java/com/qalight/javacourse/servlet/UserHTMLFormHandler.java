@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.qalight.javacourse.Executor;
+import com.qalight.javacourse.StringUrlsParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,10 +43,13 @@ public class UserHTMLFormHandler extends HttpServlet {
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
         Executor executor = new Executor();
+        StringUrlsParser stringUrlsParser = new StringUrlsParser();
+
 //        executor.inputUrls(u serRequest);
         //getJasonObj
 
         JsonElement countryObj = gson.toJsonTree(executor.inputUrls(userRequest, sortingParam));
+        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.urlList(userRequest));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
 //        if(countryInfo.getName() == null){
             myObj.addProperty("success", true);
@@ -54,7 +58,8 @@ public class UserHTMLFormHandler extends HttpServlet {
 //            myObj.addProperty("success", true);
 //        }
         myObj.add("response", countryObj);
-        System.out.println("myObj.toString(): " + myObj.toString());
+        myObj.add("listUsersUrls", listUsersUrls);
+//        System.out.println("myObj.toString(): " + myObj.toString());
         out.println(myObj.toString());
 
 
