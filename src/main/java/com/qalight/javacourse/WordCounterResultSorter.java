@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by box on 12.06.2014.
  */
-//todo: Сделать возможность сортировки по KA, KD, VA, VD
+//todo: Сделать возможность  сортировки по KA, KD, VA, VD
 public class WordCounterResultSorter {
 
     private String checkSortingParam(String sortingParam) throws Exception {
