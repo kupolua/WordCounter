@@ -10,6 +10,8 @@ import java.util.Map;
 
 public class WordCounterResultSorterTest {
 
+    //todo: This test required finishing
+
     @Test
     public void sortWords() throws Exception {
 
