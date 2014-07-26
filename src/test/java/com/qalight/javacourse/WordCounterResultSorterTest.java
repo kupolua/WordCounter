@@ -21,7 +21,6 @@ public class WordCounterResultSorterTest {
             put("one", 1);
             put("two", 2);
         }};
-//        System.out.println("givenMap: \t" + hashMap.toString() + "\n");
 
         final List<String> expectedResultByKA = new ArrayList<String>() {{
             add("one=1");
