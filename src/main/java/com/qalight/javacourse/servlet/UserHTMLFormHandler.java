@@ -54,7 +54,7 @@ public class UserHTMLFormHandler extends HttpServlet {
 //            myObj.addProperty("success", true);
 //        }
         myObj.add("response", countryObj);
-//        System.out.println("myObj.toString(): " + myObj.toString());
+        System.out.println("myObj.toString(): " + myObj.toString());
         out.println(myObj.toString());
 
 
