@@ -41,16 +41,15 @@ public class Executor {
     }
 
     protected List<Map.Entry<String, Integer>> goingToCountWords(String url){
-        PlainTextGetter iProcessing = new PlainTextGetter();
-        String plainText = iProcessing.getPlainTextByUrl(url);
+        PlainTextGetter textGetter = new PlainTextGetter();
+        String plainText = textGetter.getPlainTextByUrl(url);
 
         WordCounter wordCounter = new WordCounter();
         Map<String, Integer> counter = wordCounter.countWords(plainText);
 
         WordCounterResultSorter resultSorter = new WordCounterResultSorter();
-        List<Map.Entry<String, Integer>> list = resultSorter.sortWords(counter);
 
-        return list;
+        return resultSorter.sortWords(counter);
 
 //        DatabaseInputLogic databaseInputLogic = new DatabaseInputLogic();
 //        WordFilter wordFilter = new WordFilter();

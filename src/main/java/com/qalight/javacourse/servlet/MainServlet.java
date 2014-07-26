@@ -13,6 +13,7 @@ public class MainServlet {
     private static final Logger LOG = LoggerFactory.getLogger(MainServlet.class);
     public static void main(String[] args) {
         try {
+            LOG.debug("Starting Jetty server.");
             Server server = new Server(8021);
 
             ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -25,5 +26,6 @@ public class MainServlet {
         } catch (Exception e) {
             LOG.error("Can't start embedded Jetty server.", e);
         }
+        LOG.info("Jetty server has started.");
     }
 }
