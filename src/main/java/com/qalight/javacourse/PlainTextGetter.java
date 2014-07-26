@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class PlainTextGetter {
 
-    protected String getPlainTextByUrl(String url) {
+    protected String getPlainTextByUrl(String url){
         Document html = null;
         try {
             html = Jsoup.connect(url).get();

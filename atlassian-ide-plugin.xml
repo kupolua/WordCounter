@@ -2,8 +2,8 @@
   <project-configuration id="1">
     <servers id="2">
       <jira id="3">
-        <server-id id="4">a59e4e58-bdec-46d1-8190-66bcbee0ea91</server-id>
-        <name>srv</name>
+        <server-id id="4">5693cdcf-5f29-494f-89ee-51142c583d47</server-id>
+        <name>qalight.javacourse WordCounter</name>
         <url>http://95.158.60.148:8080</url>
         <shared>false</shared>
         <useSessionCookies>false</useSessionCookies>
