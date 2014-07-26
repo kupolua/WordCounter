@@ -50,17 +50,15 @@ public class WordCounterResultSorterTest {
         List<Map.Entry<String, Integer>> actualResultByKD = resultSorter.sortWords(hashMap, "KD");
         List<Map.Entry<String, Integer>> actualResultByVA = resultSorter.sortWords(hashMap, "VA");
         List<Map.Entry<String, Integer>> actualResultByVD = resultSorter.sortWords(hashMap, "VD");
+        List<Map.Entry<String, Integer>> actualResultByBadKey = resultSorter.sortWords(hashMap, "bad key");
 
         //then
         Assert.assertEquals(expectedResultByKA.toString(), actualResultByKA.toString());
         Assert.assertEquals(expectedResultByKD.toString(), actualResultByKD.toString());
         Assert.assertEquals(expectedResultByVA.toString(), actualResultByVA.toString());
         Assert.assertEquals(expectedResultByVD.toString(), actualResultByVD.toString());
+        Assert.assertEquals(actualResultByBadKey.toString(), actualResultByVD.toString());
 
-//        System.out.println("sortedMap by KA: \n\t\t\t" + expectedResultByKA.toString() + "\n\t\t\t" + actualResultByKA.toString());
-//        System.out.println("sortedMap by KD: \n\t\t\t" + expectedResultByKD.toString() + "\n\t\t\t" + actualResultByKD.toString());
-//        System.out.println("sortedMap by VA: \n\t\t\t" + expectedResultByVA.toString() + "\n\t\t\t" + actualResultByVA.toString());
-//        System.out.println("sortedMap by VD: \n\t\t\t" + expectedResultByVD.toString() + "\n\t\t\t" + actualResultByVD.toString());
     }
 
 }
