@@ -3,6 +3,7 @@ package com.qalight.javacourse;
 /**
  * Created by box on 05.07.2014.
  */
+// todo: give meaningful name
 public class TaskForThread implements Runnable{
 
     private String url;

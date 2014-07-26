@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 public class DatabaseInputLogicTest {
 
     @Test
+    // todo: remove this test
     public void testWriteToH2db() throws Exception {
 
     }

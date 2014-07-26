@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class StringUrlsParser {
 
+    // todo: give meaningfull name
     public List<String> urlList(String stringUrls) {
 
         final String delim = ", ";
@@ -17,6 +18,7 @@ public class StringUrlsParser {
             if (url.startsWith("http://")) {
                 userUrlsList.add(url);
             } else if (url.startsWith("https://")) {
+                // todo: use meaningful log
                 userUrlsList.add("I can't read https");
             } else {
                 userUrlsList.add("http://" + url);

@@ -6,6 +6,7 @@ import org.junit.Test;
 public class PlainTextGetterTest {
 
     @Test
+    // todo: remove 'throws Exception everywhere where not necessary'
     public void testGetPlainTextByUrl() throws Exception {
 
         //   given
