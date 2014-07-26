@@ -3,6 +3,8 @@ package com.qalight.javacourse;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -10,16 +12,19 @@ import java.io.IOException;
  * Created by box on 07.06.2014.
  */
 public class PlainTextGetter {
-
+    private static final Logger LOG = LoggerFactory.getLogger(PlainTextGetter.class);
     protected String getPlainTextByUrl(String url){
-        Document html = null;
+
+        LOG.debug("Getting plain text.");
+        Document html= null;
+
         try {
             html = Jsoup.connect(url).get();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Can't connect to " + url, e);
         }
-        String plainText = new HtmlToPlainText().getPlainText(Jsoup.parse(String.valueOf(html)));
+        LOG.info("Connection to " + url + " has been successfully established.");
 
-        return plainText;
+        return new HtmlToPlainText().getPlainText(Jsoup.parse(String.valueOf(html)));
     }
 }
