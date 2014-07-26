@@ -27,10 +27,9 @@ public class WordCounterResultSorter {
         }
 
         Set<Map.Entry<String, Integer>> set = counter.entrySet();
-        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
+        final List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-
                 boolean isMapData01Empty = (o1.getValue() == null || o1.getValue().equals(""));
                 boolean isMapData02Empty = (o2.getValue() == null || o2.getValue().equals(""));
 
