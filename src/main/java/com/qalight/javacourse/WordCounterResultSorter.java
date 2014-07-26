@@ -8,39 +8,11 @@ import java.util.*;
 
 public class WordCounterResultSorter {
 
-    private enum SortingParamEnum {KA, KD, VA, VD}
-
-//    private enum SortingParamEnum {
-//        KA("KA"),
-//        KD("KD"),
-//        VA("VA"),
-//        VD("VD");
-//
-//        private String sortingParam;
-//
-//        SortingParamEnum(String sortingParam) {
-//            this.sortingParam = sortingParam;
-//        }
-//
-//        static public SortingParamEnum getType(String pType) throws Exception {
-//            for (SortingParamEnum type : SortingParamEnum.values()) {
-//                if (type.getSortingParam().equals(pType)) {
-//                    return type;
-//                }
-//            }
-//            throw new Exception("unknown type of sortingParam ");
-//        }
-//
-//        public String getSortingParam() {
-//            return sortingParam;
-//        }
-//
-//    }
-
     private String checkSortingParam(String sortingParam) {
-//        if (sortingParam.equals("KA|KD|VA|VD")) {
-        if (sortingParam.equals("KA")) {
-
+        if (sortingParam.equals("KA") ||
+                sortingParam.equals("KD") ||
+                sortingParam.equals("VA") ||
+                sortingParam.equals("VD")) {
             return sortingParam;
         } else {
             sortingParam = "VD";
@@ -51,25 +23,17 @@ public class WordCounterResultSorter {
     }
 
     public List<Map.Entry<String, Integer>> sortWords(Map<String, Integer> map, String sortingParam) {
-//        System.out.println("unsorted map: " + map);
-
-        String checkedSortingParam = checkSortingParam(sortingParam);
-//        System.out.println("checkedSortingParam: " + checkedSortingParam);
 
         Map<String, Integer> sortedMap = Collections.EMPTY_MAP;
 
-//        Map<String, Integer> map = new HashMap<String, Integer>() {{
-//            put("three", 3);
-//            put("one", 1);
-//            put("two", 2);
-//        }};
+        String checkedSortingParam = checkSortingParam(sortingParam);
 
         switch (SortingParamEnum.valueOf(checkedSortingParam)) {
             case KA:
                 sortedMap = sortByKA(map);
                 break;
             case KD:
-                sortedMap = (Map<String, Integer>) sortByKD(map);
+                sortedMap = sortByKD(map);
                 break;
             case VA:
                 sortedMap = sortByVA(map);
@@ -82,107 +46,84 @@ public class WordCounterResultSorter {
                 break;
         }
 
-        System.out.println("sortedMap by KA: " + sortedMap + "\n\n");
-
-
-//        Set<Map.Entry<String, Integer>> sortedSetMapEntry = sortedMap.entrySet();
-        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(sortedMap);
+        Set<Map.Entry<String, Integer>> sortedSetMapEntry = sortedMap.entrySet();
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(sortedSetMapEntry);
         return list;
     }
 
     //=================================================================================================================
 
+    //===== 1 = KA =====
     private <String extends Comparable, Integer extends Comparable> Map<String, Integer> sortByKA
-            (Map<String, Integer> map) {
-//    private Map<String, Integer> sortByKA
-//        (Map<String, Integer> map){
+    (Map<String, Integer> map) {
 
-//        Map<String, Integer> sortedMap = new TreeMap<String, Integer>(map);
-
-        List<String> keys = new LinkedList<String>(map.keySet());
-
-        Collections.sort(keys);
-
-        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
-
-        for (String key : keys) {
-            sortedMap.put(key, map.get(key));
-        }
-//        return map;
+        Map<String, Integer> sortedMap = new TreeMap<String, Integer>(map);
+//        System.out.println("Sorting Ascending order: " + newMapAscending);
+//        ---
+//        List<String> keys = new LinkedList<String>(map.keySet());
+//
+//        Collections.sort(keys);
+//
+//        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+//
+//        for (String key : keys) {
+//            sortedMap.put(key, map.get(key));
+//        }
         return sortedMap;
     }
 
-//    private Map<String, Integer> sortByKA(Map<String, Integer> map) {
-//        Map<String, Integer> sortedMap = map;
-//        return sortedMap;
-//    }
-
+    //===== 2 = KD =====
     private Map<String, Integer> sortByKD(Map<String, Integer> map) {
 
-        Map<String, Integer> sortedEntries = new TreeMap<String, Integer>(map);
+        Map<String, Integer> sortedEntries = new TreeMap(Collections.reverseOrder());
+        sortedEntries.putAll(map);
+//        System.out.println("Sorting Descending order: " + sortedEntries);
 
         return sortedEntries;
     }
 
-//    private Map<String, Integer> sortByKD(Map<String, Integer> map) {
-//        Map<String, Integer> sortedMap = map;
-//        return sortedMap;
-//    }
+    //===== 3 = VA =====
+    public static <K extends Comparable, V extends Comparable> Map<K, V> sortByVA(Map<K, V> map) {
+        List<Map.Entry<K, V>> entries = new LinkedList<Map.Entry<K, V>>(map.entrySet());
 
-//    private Map<String, Integer> sortByVA(Map<String, Integer> map) {
-//        Map<String, Integer> sortedMap = map;
-//        return sortedMap;
-//    }
+        Collections.sort(entries, new Comparator<Map.Entry<K, V>>() {
 
-    private <String extends Comparable, Integer extends Comparable> Map<String, Integer> sortByVA
-            (Map<String, Integer> map) {
+            @Override
+            public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
 
-        List<String> keys = new LinkedList<String>(map.keySet());
+        Map<K, V> sortedMap = new LinkedHashMap<K, V>();
 
-        Collections.sort(keys);
-
-        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
-
-        for (String key : keys) {
-            sortedMap.put(key, map.get(key));
+        for (Map.Entry<K, V> entry : entries) {
+            sortedMap.put(entry.getKey(), entry.getValue());
         }
 
         return sortedMap;
     }
 
-    private Map<String, Integer> sortByVD(Map<String, Integer> map) {
-        Map<String, Integer> sortedMap = map;
+    //===== 4 = VD =====
+    public static <K extends Comparable, V extends Comparable> Map<K, V> sortByVD(Map<K, V> map) {
+        List<Map.Entry<K, V>> entries = new LinkedList<Map.Entry<K, V>>(map.entrySet());
+
+        Collections.sort(entries, new Comparator<Map.Entry<K, V>>() {
+
+            @Override
+            public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+
+        Map<K, V> sortedMap = new LinkedHashMap<K, V>();
+
+        for (Map.Entry<K, V> entry : entries) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
         return sortedMap;
     }
 
-//    public List<Map.Entry<String, Integer>> sortWordsOLD(
-//            Map<String, Integer> counter, String sortingParam)  {
-//        try {
-//            sortingParam = checkSortingParam(sortingParam);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        Set<Map.Entry<String, Integer>> set = counter.entrySet();
-//        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
-//        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-//            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-//
-//                boolean isMapData01Empty = (o1.getValue() == null || o1.getValue().equals(""));
-//                boolean isMapData02Empty = (o2.getValue() == null || o2.getValue().equals(""));
-//
-//                if (isMapData01Empty && isMapData02Empty)
-//                    return 0;
-//                // at least one of them is not empty
-//                if (isMapData01Empty)
-//                    return -1;
-//                if (isMapData02Empty)
-//                    return 1;
-//                //none of them is empty
-//                    return (o1.getValue()).compareTo(o2.getValue());
-//                }
-//        });
-//        return list;
-//    }
+    private enum SortingParamEnum {KA, KD, VA, VD}
 
 }
