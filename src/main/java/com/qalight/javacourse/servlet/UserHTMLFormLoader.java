@@ -16,8 +16,7 @@ public class UserHTMLFormLoader extends HttpServlet {
 
     private static final long serialVersionUID = -6154475799000019575L;
 
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -26,16 +25,14 @@ public class UserHTMLFormLoader extends HttpServlet {
         try {
             message = userHTMLFormLoader("index.html");
         } catch (Exception e) {
-            // give full log message
+            // todo: give full log message UserHTMLFormLoader
             message = "Дорогой клиент, у тябя вот такая ошибка: " + e.getMessage();
         }
 
         response.getWriter().println(message);
     }
 
-    public void doPost(HttpServletRequest request,
-                       HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
