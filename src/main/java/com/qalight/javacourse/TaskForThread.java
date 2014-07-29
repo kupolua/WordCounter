@@ -3,15 +3,22 @@ package com.qalight.javacourse;
 /**
  * Created by box on 05.07.2014.
  */
+// todo: give meaningful name
 public class TaskForThread implements Runnable{
+
     private String url;
+    private String sortingParam;
+
     Executor executor = new Executor();
-    public TaskForThread(String url){
+
+    public TaskForThread(String url, String sortingParam) {
         this.url = url;
+        this.sortingParam = sortingParam;
     }
 
     @Override
     public void run() {
-        executor.goingToCountWords(url);
+        executor.goingToCountWords(url, sortingParam);
     }
+
 }
