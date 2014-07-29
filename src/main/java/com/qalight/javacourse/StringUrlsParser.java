@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class StringUrlsParser {
 
-    // todo: give meaningfull name
+    // todo: give meaningfull name urlList
     public List<String> urlList(String stringUrls) {
 
         final String delim = ", ";

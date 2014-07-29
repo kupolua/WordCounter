@@ -12,7 +12,7 @@ import java.util.Map;
 public class WordCounter {
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);
 
-    // todo: make more readable
+    // todo: make more readable countWords
     public Map<String, Integer> countWords(String plainText){
         WordFilter wordFilter = new WordFilter();
         Map<String, Integer> counter = new HashMap<String, Integer>();
