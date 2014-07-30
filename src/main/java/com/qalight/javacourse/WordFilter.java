@@ -4,7 +4,7 @@ import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
 /**
- * Created by box on 12.06.2014.
+ * Created by box on 12.06.2014...
  */
 public class WordFilter {
 
