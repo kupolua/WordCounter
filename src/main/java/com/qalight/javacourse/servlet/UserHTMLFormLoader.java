@@ -1,8 +1,6 @@
 package com.qalight.javacourse.servlet;
 
-import com.qalight.javacourse.ReadFile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.qalight.javacourse.HtmlFormReader;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,26 +11,25 @@ import java.io.IOException;
 /**
  * Created by kpl on 23.07.2014.
  */
-
+// todo: format code
 public class UserHTMLFormLoader extends HttpServlet {
-    
-    private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
+
     private static final long serialVersionUID = -6154475799000019575L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String userHTMLForm;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        userHTMLForm = userHTMLFormLoader("index.html");
-
+        String message;
         try {
-            LOG.info("Printing user HTML form.");
-            response.getWriter().println(userHTMLForm);
-        } catch (IOException e) {
-            LOG.error("userHTMLForm can't be printed.", e);
+            message = userHTMLFormLoader("index.html");
+        } catch (Exception e) {
+            // todo: give full log message UserHTMLFormLoader
+            message = "Дорогой клиент, у тябя вот такая ошибка: " + e.getMessage();
         }
+
+        response.getWriter().println(message);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +37,7 @@ public class UserHTMLFormLoader extends HttpServlet {
     }
 
     public String userHTMLFormLoader(String fileName) {
-        ReadFile readFile = new ReadFile();
-        return readFile.readFile(fileName);
+        HtmlFormReader htmlFormReader = new HtmlFormReader();
+        return htmlFormReader.readHtmlSourceFile(fileName);
     }
 }
