@@ -27,7 +27,7 @@ public class WordCounterResultSorterTestForVDSortingParam {
         }};
 
         //when
-        WordCounterResultSorter resultSorter = new WordCounterResultSorter();
+        WordsSorter resultSorter = new WordsSorter();
         List<Map.Entry<String, Integer>> actualResultByVD = resultSorter.sortWords(hashMap, "VD");
 
         //then

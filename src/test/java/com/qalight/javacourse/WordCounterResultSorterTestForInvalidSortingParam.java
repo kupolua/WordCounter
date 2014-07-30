@@ -26,7 +26,7 @@ public class WordCounterResultSorterTestForInvalidSortingParam {
         }};
 
         //when
-        WordCounterResultSorter resultSorter = new WordCounterResultSorter();
+        WordsSorter resultSorter = new WordsSorter();
         List<Map.Entry<String, Integer>> actualResultByVD = resultSorter.sortWords(hashMap, "VD");
         List<Map.Entry<String, Integer>> actualResultByBadKey = resultSorter.sortWords(hashMap, "Invalid sortingParam");
 

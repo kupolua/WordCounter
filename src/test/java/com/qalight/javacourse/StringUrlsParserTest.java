@@ -20,7 +20,7 @@ public class StringUrlsParserTest {
         }};
 
         //when
-        List<String> actualList = new StringUrlsParser().urlList(userPostStringUrls);
+        List<String> actualList = new StringUrlsParser().parseUrslList(userPostStringUrls);
 
         //then
         Assert.assertEquals(expectedList, actualList);

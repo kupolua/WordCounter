@@ -27,7 +27,7 @@ public class WordCounterResultSorterTestForKASortingParam {
         }};
 
         //when
-        WordCounterResultSorter resultSorter = new WordCounterResultSorter();
+        WordsSorter resultSorter = new WordsSorter();
         List<Map.Entry<String, Integer>> actualResultByKA = resultSorter.sortWords(hashMap, "KA");
 
         //then

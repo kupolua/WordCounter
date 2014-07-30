@@ -31,7 +31,7 @@ public class Executor {
     public List<List<Map.Entry<String, Integer>>> inputUrls(String userUrls, String sortingParam) {
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
-        List<String> urlList = stringUrlsParser.urlList(userUrls);
+        List<String> urlList = stringUrlsParser.parseUrslList(userUrls);
         List<List<Map.Entry<String, Integer>>> urlsList = new ArrayList<List<Map.Entry<String, Integer>>>();
         for (String url : urlList) {
             Executor executor = new Executor();
@@ -42,12 +42,12 @@ public class Executor {
 
     // todo: give meaningful name goingToCountWords
     protected List<Map.Entry<String, Integer>> goingToCountWords(String url, String sortingParam) {
-        PlainTextGetter iProcessing = new PlainTextGetter();
+        HTMLToTextConverter iProcessing = new HTMLToTextConverter();
         String plainText = iProcessing.getPlainTextByUrl(url);
 
         WordCounter wordCounter = new WordCounter();
         Map<String, Integer> countedWords = wordCounter.countWords(plainText);
-        WordCounterResultSorter resultSorter = new WordCounterResultSorter();
+        WordsSorter resultSorter = new WordsSorter();
         List<Map.Entry<String, Integer>> list = resultSorter.sortWords(countedWords, sortingParam);
 
         return list;

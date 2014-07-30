@@ -7,8 +7,7 @@ import java.util.*;
  */
 public class StringUrlsParser {
 
-    // todo: give meaningfull name urlList
-    public List<String> urlList(String stringUrls) {
+    public List<String> parseUrslList(String stringUrls) {
 
         final String delim = ",";
         List<String> userCheckUrlsList = new ArrayList<String>(Arrays.asList(stringUrls.replaceAll(" ","").split(delim)));
