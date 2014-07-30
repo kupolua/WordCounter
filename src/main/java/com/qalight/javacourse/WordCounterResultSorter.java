@@ -13,9 +13,11 @@ import java.util.*;
 
 public class WordCounterResultSorter {
 
+    // todo: use enumaration or  constants sortWords
+    // todo: if parameters are not correct throw exception and catch in servlet
     public List<Map.Entry<String, Integer>> sortWords(Map<String, Integer> map, String sortingParam) {
 
-        List<Map.Entry<String, Integer>> sortedWords = Collections.EMPTY_LIST;
+        List<Map.Entry<String, Integer>> sortedWords;
         if (sortingParam.equals("KA")) {
             sortedWords = sortByKA(map);
         } else if (sortingParam.equals("KD")) {

@@ -40,6 +40,7 @@ public class Executor {
         return urlsList;
     }
 
+    // todo: give meaningful name goingToCountWords
     protected List<Map.Entry<String, Integer>> goingToCountWords(String url, String sortingParam) {
         PlainTextGetter iProcessing = new PlainTextGetter();
         String plainText = iProcessing.getPlainTextByUrl(url);

@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 /**
  * Created by kpl on 23.07.2014.
  */
+// todo: give meaningful class name ReadFile
 public class ReadFile {
 
     public String readFile(String fileName) {
