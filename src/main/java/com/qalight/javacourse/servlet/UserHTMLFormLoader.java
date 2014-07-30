@@ -26,7 +26,6 @@ public class UserHTMLFormLoader extends HttpServlet {
         try {
             message = userHTMLFormLoader("index.html");
         } catch (Exception e) {
-            // give full log message
             message = "Дорогой клиент, у тябя вот такая ошибка: " + e.getMessage();
         }
 
