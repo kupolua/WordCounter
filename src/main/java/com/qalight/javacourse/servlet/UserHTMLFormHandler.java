@@ -20,16 +20,22 @@ public class UserHTMLFormHandler extends HttpServlet {
 
     private static final long serialVersionUID = -6154475799000019575L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         doPost(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
         String userRequest = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userCheck");
 
-        PrintWriter out = response.getWriter();
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         response.setContentType("text/html");
         response.setHeader("Cache-control", "no-cache, no-store");
         response.setHeader("Pragma", "no-cache");
@@ -52,7 +58,7 @@ public class UserHTMLFormHandler extends HttpServlet {
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.urlList(userRequest));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
 //        if(countryInfo.getName() == null){
-            myObj.addProperty("success", true);
+        myObj.addProperty("success", true);
 //        }
 //        else {
 //            myObj.addProperty("success", true);
