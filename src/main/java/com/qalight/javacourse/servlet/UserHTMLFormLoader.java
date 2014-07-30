@@ -24,7 +24,7 @@ public class UserHTMLFormLoader extends HttpServlet {
 
         String message;
         try {
-            message = userHTMLFormLoader("index.html");
+            message = loadUserHTMLForm("index.html");
         } catch (Exception e) {
             // give full log message
             message = "Дорогой клиент, у тябя вот такая ошибка: " + e.getMessage();
@@ -39,7 +39,7 @@ public class UserHTMLFormLoader extends HttpServlet {
         doGet(request, response);
     }
 
-    public String userHTMLFormLoader(String fileName) {
+    public String loadUserHTMLForm(String fileName) {
         ReadFile readFile = new ReadFile();
         return readFile.readFile(fileName);
     }
