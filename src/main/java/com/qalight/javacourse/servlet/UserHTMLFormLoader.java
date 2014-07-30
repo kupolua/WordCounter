@@ -13,8 +13,9 @@ import java.io.IOException;
 /**
  * Created by kpl on 23.07.2014.
  */
-// todo: format code
+
 public class UserHTMLFormLoader extends HttpServlet {
+    
     private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
     private static final long serialVersionUID = -6154475799000019575L;
 
@@ -27,16 +28,14 @@ public class UserHTMLFormLoader extends HttpServlet {
         userHTMLForm = userHTMLFormLoader("index.html");
 
         try {
-            LOG.info("Try to print user HTML form.");
+            LOG.info("Printing user HTML form.");
             response.getWriter().println(userHTMLForm);
         } catch (IOException e) {
             LOG.error("userHTMLForm can't be printed.", e);
         }
     }
 
-    public void doPost(HttpServletRequest request,
-                       HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
