@@ -30,7 +30,7 @@
                 //get the form data using another method
                 var userRequest = $("textarea#userRequest").val();
                 var userCheck = $('input[name=userCheck]:checked').val();
-                var statisticResult = $('input[name=typeStatisticResult]:checked').val();
+                var typeStatisticResult = $('input[name=typeStatisticResult]:checked').val();
                 //alert(userCheck);
                 dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck + "&typeStatisticResult=" + typeStatisticResult;
 
@@ -51,12 +51,12 @@
                             $("#ajaxResponse").html("");
 
                             for(i=0; i < jsonLength; ++i) {
-                                $("#ajaxResponse").append("<p><h1>" + data.listUsersUrls[i]+"</h1></p>");
+                                $("#ajaxResponse").append("<p><h1>" + data.listUsersUrls[i] + "</h1></p>");
                                 $("#ajaxResponse").append("<table>");
-                                $("#ajaxResponse").append("<tr><td><b>Word: </b></td><td><b> Count </b>: </td></tr>");
+                                $("#ajaxResponse").append("<tr><td><b>Word: </p></b></td><td><b> Count : </p></b></td></tr>");
                                 countLines = (data.response[i]).length;
                                     for(j=0; j < countLines; j++) {
-                                        $("#ajaxResponse").append("<tr><td>" + data.response[i][j].key + "</td><td>" + data.response[i][j].value +"</td></tr>");
+                                        $("#ajaxResponse").append("<tr><td>" + data.response[i][j].key + "</td><td>" + data.response[i][j].value + "</td></tr>");
                                     }
                                 $("#ajaxResponse").append("</table>");
                             }
