@@ -30,8 +30,9 @@
                 //get the form data using another method
                 var userRequest = $("textarea#userRequest").val();
                 var userCheck = $('input[name=userCheck]:checked').val();
+                var statisticResult = $('input[name=typeStatisticResult]:checked').val();
                 //alert(userCheck);
-                dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck;
+                dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck + "&typeStatisticResult=" + typeStatisticResult;
 
                 //make the AJAX request, dataType is set to json
                 //meaning we are expecting JSON data in response from the server
@@ -126,6 +127,14 @@
                     <input type="radio" name="userCheck" value="KD">Key Descending
                     <input type="radio" name="userCheck" value="VD">Value Descending
 
+                </p>
+                <p>
+                    <label> Check result of count words in all urls</label>
+                </p>
+
+                <p>
+                    <input type="radio" name="typeStatisticResult" value="consolidatedResult" checked>Consolidated result of count words in all urls
+                    <input type="radio" name="typeStatisticResult" value="eachUrlsResult">Get result of count words each urls
                 </p>
 
                 </p>
