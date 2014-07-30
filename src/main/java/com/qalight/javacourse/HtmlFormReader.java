@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class HtmlFormReader {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlFormReader.class);
 
-    public String readFile(String fileName) {
+    public String readHtmlSourceFile(String fileName) {
         String noHTMLSourceFile = "No Source File ";
         String errorWebpage = "Error.html";
 

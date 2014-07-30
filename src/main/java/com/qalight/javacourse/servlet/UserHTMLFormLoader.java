@@ -41,6 +41,6 @@ public class UserHTMLFormLoader extends HttpServlet {
 
     public String userHTMLFormLoader(String fileName) {
         HtmlFormReader htmlFormReader = new HtmlFormReader();
-        return htmlFormReader.readFile(fileName);
+        return htmlFormReader.readHtmlSourceFile(fileName);
     }
 }
