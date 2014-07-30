@@ -4,7 +4,7 @@ import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
 /**
- * Created by box on 12.06.2014.
+ * Created by box on 12.06.2014...
  */
 public class WordFilter {
 
@@ -16,7 +16,7 @@ public class WordFilter {
         return NON_WORD_LETTER_PATTERN.matcher(word).replaceAll("");
     }
 
-    public String parseUrlForDb(String url) throws URISyntaxException {
+    public String parseUrlForDb(String url) {
 
         return DOT_PATTERN.matcher(URL_PATTERN.matcher(url).replaceAll("")).replaceAll("_");
 //        return URL_PATTERN.matcher(url).replaceAll("_");

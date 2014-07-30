@@ -20,11 +20,11 @@ public class UserHTMLFormHandler extends HttpServlet {
 
     private static final long serialVersionUID = -6154475799000019575L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         doPost(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String userRequest = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userCheck");
