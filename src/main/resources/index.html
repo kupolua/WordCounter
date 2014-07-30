@@ -49,12 +49,16 @@
                             jsonLength = data.response.length;
                             //alert(jsonLength);
                             $("#ajaxResponse").html("");
+
                             for(i=0; i < jsonLength; ++i) {
-                                countLines = (data.response[i]).length;
                                 $("#ajaxResponse").append("<p><h1>" + data.listUsersUrls[i]+"</h1></p>");
-                                for(j=0; j < countLines; j++) {
-                                    $("#ajaxResponse").append("<b>Word: </b> " + data.response[i][j].key + "<b> Count </b>: " + data.response[i][j].value +"<br/>");
-                                }
+                                $("#ajaxResponse").append("<table>");
+                                $("#ajaxResponse").append("<tr><td><b>Word: </b></td><td><b> Count </b>: </td></tr>");
+                                countLines = (data.response[i]).length;
+                                    for(j=0; j < countLines; j++) {
+                                        $("#ajaxResponse").append("<tr><td>" + data.response[i][j].key + "</td><td>" + data.response[i][j].value +"</td></tr>");
+                                    }
+                                $("#ajaxResponse").append("</table>");
                             }
                         }
                         //display error message
