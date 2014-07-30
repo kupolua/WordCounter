@@ -16,7 +16,7 @@ public class WordFilter {
         return NON_WORD_LETTER_PATTERN.matcher(word).replaceAll("");
     }
 
-    public String parseUrlForDb(String url) throws URISyntaxException {
+    public String parseUrlForDb(String url) {
 
         return DOT_PATTERN.matcher(URL_PATTERN.matcher(url).replaceAll("")).replaceAll("_");
 //        return URL_PATTERN.matcher(url).replaceAll("_");
