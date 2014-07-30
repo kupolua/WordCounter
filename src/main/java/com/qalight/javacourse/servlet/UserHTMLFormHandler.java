@@ -45,10 +45,10 @@ public class UserHTMLFormHandler extends HttpServlet {
         Executor executor = new Executor();
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
-//        executor.inputUrls(u serRequest);
+//        executor.getCountedWords(u serRequest);
         //getJasonObj
 
-        JsonElement countryObj = gson.toJsonTree(executor.inputUrls(stringUrls, sortingParam));
+        JsonElement countryObj = gson.toJsonTree(executor.getCountedWords(stringUrls, sortingParam));
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(stringUrls));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
 //        if(countryInfo.getName() == null){
