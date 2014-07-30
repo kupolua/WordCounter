@@ -20,7 +20,7 @@ public class WordCounter {
         String[] str = plainText.split("\\s+");
         LOG.debug("Filtering and putting words to HashMap.");
         for (String eachWord : str) {
-            String filteredWord = wordFilter.filterWord(eachWord);
+            String filteredWord = wordFilter.filterWord(eachWord.toLowerCase());
             Integer foundValue = counter.get(filteredWord);
             if (foundValue == null) {
                 counter.put(filteredWord, 1);
