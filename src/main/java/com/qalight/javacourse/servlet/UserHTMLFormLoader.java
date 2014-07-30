@@ -1,6 +1,8 @@
 package com.qalight.javacourse.servlet;
 
 import com.qalight.javacourse.ReadFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,25 +13,26 @@ import java.io.IOException;
 /**
  * Created by kpl on 23.07.2014.
  */
-// todo: format code
-public class UserHTMLFormLoader extends HttpServlet {
 
+public class UserHTMLFormLoader extends HttpServlet {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
     private static final long serialVersionUID = -6154475799000019575L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        String userHTMLForm;
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        String message;
-        try {
-            message = userHTMLFormLoader("index.html");
-        } catch (Exception e) {
-            // todo: give full log message UserHTMLFormLoader
-            message = "Дорогой клиент, у тябя вот такая ошибка: " + e.getMessage();
-        }
+        userHTMLForm = userHTMLFormLoader("index.html");
 
-        response.getWriter().println(message);
+        try {
+            LOG.info("Printing user HTML form.");
+            response.getWriter().println(userHTMLForm);
+        } catch (IOException e) {
+            LOG.error("userHTMLForm can't be printed.", e);
+        }
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
