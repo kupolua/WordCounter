@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.qalight.javacourse.Executor;
 import com.qalight.javacourse.StringUrlsParser;
+import com.qalight.javacourse.UserRequestRouter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,7 @@ import java.io.PrintWriter;
  */
 public class UserHTMLFormHandler extends HttpServlet {
 
+
     private static final long serialVersionUID = -6154475799000019575L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,7 +27,7 @@ public class UserHTMLFormHandler extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        UserRequestRouter userRequestRouter = null;
         String userRequest = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userCheck");
 
@@ -43,11 +45,13 @@ public class UserHTMLFormHandler extends HttpServlet {
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
         Executor executor = new Executor();
+
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
 //        executor.inputUrls(u serRequest);
         //getJasonObj
 
+        JsonElement enumObj = gson.toJsonTree(userRequestRouter.getCountedWords(userRequest));
         JsonElement countryObj = gson.toJsonTree(executor.inputUrls(userRequest, sortingParam));
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.urlList(userRequest));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
