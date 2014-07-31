@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class HtmlFormReader {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlFormReader.class);
 
-    public String readFile(String fileName) {
+    public String readHtmlSourceFile(String fileName) {
         String noHTMLSourceFile = "No Source File ";
         String errorWebpage = "Error.html";
 
@@ -26,7 +26,7 @@ public class HtmlFormReader {
             try {
                 byte[] textSources = Files.readAllBytes(Paths.get("./src/main/resources/" + errorWebpage));
                 return new String(textSources);
-            } catch (IOException e1){
+            } catch (IOException e1) {
                 LOG.error("Error source file <" + errorWebpage + "> cannot be read.", e1);
             }
         }

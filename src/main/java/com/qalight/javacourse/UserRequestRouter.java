@@ -15,6 +15,7 @@ public enum UserRequestRouter {
             List<List<Map.Entry<String, Integer>>> countedWordsList = new ArrayList<List<Map.Entry<String, Integer>>>();
             System.out.println("CONSOLIDATEDRESULT");
 
+
             return countedWordsList;
         }
     },

@@ -33,7 +33,7 @@ public class Executor {
         Map<String, Integer> countedWords = wordCounter.countWords(plainText);
 //        WordsSorter resultSorter = new WordsSorter();
 //        List<Map.Entry<String, Integer>> list = resultSorter.getSortedWords(countedWords, sortingParam);
-        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>();
+        List<Map.Entry<String, Integer>> list = WordsSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
         return list;
     }

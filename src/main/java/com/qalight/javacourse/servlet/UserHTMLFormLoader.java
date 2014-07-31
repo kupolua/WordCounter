@@ -1,6 +1,8 @@
 package com.qalight.javacourse.servlet;
 
 import com.qalight.javacourse.HtmlFormReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,12 +13,13 @@ import java.io.IOException;
 /**
  * Created by kpl on 23.07.2014.
  */
-// todo: format code
+
 public class UserHTMLFormLoader extends HttpServlet {
 
+    private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
     private static final long serialVersionUID = -6154475799000019575L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -25,7 +28,7 @@ public class UserHTMLFormLoader extends HttpServlet {
         try {
             message = userHTMLFormLoader("index.html");
         } catch (Exception e) {
-            // todo: give full log message UserHTMLFormLoader
+            // give full log message
             message = "Дорогой клиент, у тябя вот такая ошибка: " + e.getMessage();
         }
 
@@ -38,6 +41,6 @@ public class UserHTMLFormLoader extends HttpServlet {
 
     public String userHTMLFormLoader(String fileName) {
         HtmlFormReader htmlFormReader = new HtmlFormReader();
-        return htmlFormReader.readFile(fileName);
+        return htmlFormReader.readHtmlSourceFile(fileName);
     }
 }
