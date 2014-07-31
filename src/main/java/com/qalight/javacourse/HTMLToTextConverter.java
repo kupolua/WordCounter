@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * Created by box on 07.06.2014.
+ * Created by box on 07.06.2014
  */
 public class HTMLToTextConverter {
 

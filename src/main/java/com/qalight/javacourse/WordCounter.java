@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by box on 07.06.2014.
+ * Created by box on 07.06.2014
  */
 public class WordCounter {
 
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);
 
-    public Map<String, Integer> countWords(String refinedText){
+    public Map<String, Integer> countWords(String refinedText) {
         Map<String, Integer> countedWords = new HashMap<String, Integer>();
         LOG.debug("Splitting plain text by all whitespace characters.");
         String[] str = refinedText.split("\\s+");
@@ -31,7 +31,6 @@ public class WordCounter {
         countedWords.remove("");
         return countedWords;
     }
-
 
 
 }

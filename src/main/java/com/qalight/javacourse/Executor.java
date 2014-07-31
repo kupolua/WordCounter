@@ -14,7 +14,7 @@ public class Executor {
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
         List<String> userUrlsList = stringUrlsParser.parseUrslList(userUrls);
-        
+
         List<List<Map.Entry<String, Integer>>> countedWords = new ArrayList<List<Map.Entry<String, Integer>>>();
         for (String url : userUrlsList) {
             Executor executor = new Executor();
