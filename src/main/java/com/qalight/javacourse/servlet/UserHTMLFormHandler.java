@@ -33,7 +33,7 @@ public class UserHTMLFormHandler extends HttpServlet {
         String sortingParam = request.getParameter("userCheck");
 
         String typeStatisticResult = request.getParameter("typeStatisticResult");
-        UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam);
+//        UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam);
 
         PrintWriter out = null;
         try {
@@ -59,7 +59,9 @@ public class UserHTMLFormHandler extends HttpServlet {
 //        executor.inputUrls(u serRequest);
         //getJasonObj
 
-        JsonElement countryObj = gson.toJsonTree(executor.getCountedWords(userRequest, sortingParam));
+//        JsonElement countryObj = gson.toJsonTree(executor.getCountedWords(userRequest, sortingParam));
+        JsonElement countryObj =
+                gson.toJsonTree(UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam));
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(userRequest));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
 //        if(countryInfo.getName() == null){
