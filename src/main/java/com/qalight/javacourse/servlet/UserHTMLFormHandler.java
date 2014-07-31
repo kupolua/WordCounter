@@ -19,7 +19,6 @@ import java.io.PrintWriter;
  */
 public class UserHTMLFormHandler extends HttpServlet {
 
-
     private static final long serialVersionUID = -6154475799000019575L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,13 +47,10 @@ public class UserHTMLFormHandler extends HttpServlet {
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
         Executor executor = new Executor();
-
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
 //        executor.inputUrls(u serRequest);
         //getJasonObj
-
-
 
         JsonElement countryObj = gson.toJsonTree(executor.inputUrls(userRequest, sortingParam));
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.urlList(userRequest));
