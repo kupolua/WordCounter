@@ -31,8 +31,9 @@ public class Executor {
 
         WordCounter wordCounter = new WordCounter();
         Map<String, Integer> countedWords = wordCounter.countWords(plainText);
-        WordsSorter resultSorter = new WordsSorter();
-        List<Map.Entry<String, Integer>> list = resultSorter.getSortedWords(countedWords, sortingParam);
+//        WordsSorter resultSorter = new WordsSorter();
+//        List<Map.Entry<String, Integer>> list = resultSorter.getSortedWords(countedWords, sortingParam);
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>();
 
         return list;
     }

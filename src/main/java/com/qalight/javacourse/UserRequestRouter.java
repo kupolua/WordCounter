@@ -33,10 +33,8 @@ public enum UserRequestRouter {
                 WordCounter wordCounter = new WordCounter();
                 Map<String, Integer> countedWords = wordCounter.countWords(plainText);
 
-                WordsSorter resultSorter = new WordsSorter();
-
-//                List<Map.Entry<String, Integer>> sortedWords = WordsSorter.valueOf(sortingParam).getCountedWords(countedWords);
-//                countedWordsList.add(sortedWords);
+                List<Map.Entry<String, Integer>> sortedWords = WordsSorter.valueOf(sortingParam).getSortedWords(countedWords);
+                countedWordsList.add(sortedWords);
             }
             System.out.println("EACHURLSRESULT");  //todo: Remove this sout
             return countedWordsList;

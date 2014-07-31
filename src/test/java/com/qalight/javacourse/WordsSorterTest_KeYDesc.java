@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WordCounterResultSorterTestForKDSortingParam {
+public class WordsSorterTest_KeYDesc {
 
     @Test
-    public void sortWords() throws Exception {
+    public void testGetSortedWords() throws Exception {
 
         //given
         final Map<String, Integer> hashMap = new HashMap<String, Integer>() {{
@@ -27,12 +27,10 @@ public class WordCounterResultSorterTestForKDSortingParam {
         }};
 
         //when
-        WordsSorter resultSorter = new WordsSorter();
-        List<Map.Entry<String, Integer>> actualResultByKD = resultSorter.getSortedWords(hashMap, "KD");
+        List<Map.Entry<String, Integer>> actualResultByKD = WordsSorter.valueOf("KEY_DESCENDING").getSortedWords(hashMap);
 
         //then
         Assert.assertEquals(expectedResultByKD.toString(), actualResultByKD.toString());
 
     }
-
 }
