@@ -1,6 +1,6 @@
 package com.qalight.javacourse.servlet;
 
-import com.qalight.javacourse.ReadFile;
+import com.qalight.javacourse.HtmlFormReader;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +37,7 @@ public class UserHTMLFormLoader extends HttpServlet {
     }
 
     public String userHTMLFormLoader(String fileName) {
-        ReadFile readFile = new ReadFile();
-        return readFile.readFile(fileName);
+        HtmlFormReader htmlFormReader = new HtmlFormReader();
+        return htmlFormReader.readFile(fileName);
     }
 }

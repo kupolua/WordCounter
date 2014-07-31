@@ -27,7 +27,7 @@ public class WordCounterResultSorterTestForVASortingParam {
         }};
 
         //when
-        WordCounterResultSorter resultSorter = new WordCounterResultSorter();
+        WordsSorter resultSorter = new WordsSorter();
         List<Map.Entry<String, Integer>> actualResultByVA = resultSorter.sortWords(hashMap, "VA");
 
         //then

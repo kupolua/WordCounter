@@ -26,7 +26,7 @@ public class UserHTMLFormHandler extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String userRequest = request.getParameter("userRequest");
+        String stringUrls = request.getParameter("stringUrls");
         String sortingParam = request.getParameter("userCheck");
 
         PrintWriter out = response.getWriter();
@@ -45,11 +45,11 @@ public class UserHTMLFormHandler extends HttpServlet {
         Executor executor = new Executor();
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
-//        executor.inputUrls(u serRequest);
+//        executor.getCountedWords(u serRequest);
         //getJasonObj
 
-        JsonElement countryObj = gson.toJsonTree(executor.inputUrls(userRequest, sortingParam));
-        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.urlList(userRequest));
+        JsonElement countryObj = gson.toJsonTree(executor.getCountedWords(stringUrls, sortingParam));
+        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(stringUrls));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
 //        if(countryInfo.getName() == null){
             myObj.addProperty("success", true);
