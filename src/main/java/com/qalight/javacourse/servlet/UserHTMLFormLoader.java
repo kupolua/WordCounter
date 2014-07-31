@@ -1,6 +1,6 @@
 package com.qalight.javacourse.servlet;
 
-import com.qalight.javacourse.HtmlFormReader;
+import com.qalight.javacourse.HTMLFormReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
