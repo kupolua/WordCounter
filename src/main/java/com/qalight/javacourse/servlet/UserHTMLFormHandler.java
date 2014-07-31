@@ -3,7 +3,6 @@ package com.qalight.javacourse.servlet;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.qalight.javacourse.Executor;
 import com.qalight.javacourse.StringUrlsParser;
 import com.qalight.javacourse.UserRequestRouter;
 import org.slf4j.Logger;
@@ -33,7 +32,6 @@ public class UserHTMLFormHandler extends HttpServlet {
         String sortingParam = request.getParameter("userCheck");
 
         String typeStatisticResult = request.getParameter("typeStatisticResult");
-//        UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam);
 
         PrintWriter out = null;
         try {
@@ -53,28 +51,16 @@ public class UserHTMLFormHandler extends HttpServlet {
 
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
-        Executor executor = new Executor();
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
-//        executor.inputUrls(u serRequest);
-        //getJasonObj
-
-//        JsonElement countryObj = gson.toJsonTree(executor.getCountedWords(userRequest, sortingParam));
-        JsonElement countryObj =
-                gson.toJsonTree(UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam));
+        JsonElement countryObj = gson.toJsonTree(UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam));
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(userRequest));
-//        JsonElement countryObj = gson.toJsonTree(countryInfo);
-//        if(countryInfo.getName() == null){
+
         myObj.addProperty("success", true);
-//        }
-//        else {
-//            myObj.addProperty("success", true);
-//        }
         myObj.add("response", countryObj);
         myObj.add("listUsersUrls", listUsersUrls);
-//        System.out.println("myObj.toString(): " + myObj.toString());
-        out.println(myObj.toString());
 
+        out.println(myObj.toString());
 
         out.close();
 
