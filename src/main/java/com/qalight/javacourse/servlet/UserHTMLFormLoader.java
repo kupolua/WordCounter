@@ -1,6 +1,6 @@
 package com.qalight.javacourse.servlet;
 
-import com.qalight.javacourse.ReadFile;
+import com.qalight.javacourse.HTMLFormReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 
 public class UserHTMLFormLoader extends HttpServlet {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
     private static final long serialVersionUID = -6154475799000019575L;
 
@@ -25,7 +25,7 @@ public class UserHTMLFormLoader extends HttpServlet {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        userHTMLForm = userHTMLFormLoader("index.html");
+        userHTMLForm = loadUserHTMLForm("index.html");
 
         try {
             LOG.info("Printing user HTML form.");
@@ -39,8 +39,8 @@ public class UserHTMLFormLoader extends HttpServlet {
         doGet(request, response);
     }
 
-    public String userHTMLFormLoader(String fileName) {
-        ReadFile readFile = new ReadFile();
-        return readFile.readFile(fileName);
+    public String loadUserHTMLForm(String fileName) {
+        HTMLFormReader htmlFormReader = new HTMLFormReader();
+        return htmlFormReader.readHtmlSourceFile(fileName);
     }
 }

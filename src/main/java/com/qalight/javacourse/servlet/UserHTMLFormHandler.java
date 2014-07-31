@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.qalight.javacourse.Executor;
 import com.qalight.javacourse.StringUrlsParser;
+import com.qalight.javacourse.UserRequestRouter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +30,9 @@ public class UserHTMLFormHandler extends HttpServlet {
         String userRequest = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userCheck");
 
+        String typeStatisticResult = request.getParameter("typeStatisticResult"); 
+        UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam);
+
         PrintWriter out = response.getWriter();
         response.setContentType("text/html");
         response.setHeader("Cache-control", "no-cache, no-store");
@@ -48,8 +52,8 @@ public class UserHTMLFormHandler extends HttpServlet {
 //        executor.inputUrls(u serRequest);
         //getJasonObj
 
-        JsonElement countryObj = gson.toJsonTree(executor.inputUrls(userRequest, sortingParam));
-        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.urlList(userRequest));
+        JsonElement countryObj = gson.toJsonTree(executor.getCountedWords(userRequest, sortingParam));
+        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(userRequest));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
 //        if(countryInfo.getName() == null){
             myObj.addProperty("success", true);
