@@ -28,7 +28,7 @@ public class WordCounterResultSorterTestForKASortingParam {
 
         //when
         WordsSorter resultSorter = new WordsSorter();
-        List<Map.Entry<String, Integer>> actualResultByKA = resultSorter.sortWords(hashMap, "KA");
+        List<Map.Entry<String, Integer>> actualResultByKA = resultSorter.getSortedWords(hashMap, "KA");
 
         //then
         Assert.assertEquals(expectedResultByKA.toString(), actualResultByKA.toString());

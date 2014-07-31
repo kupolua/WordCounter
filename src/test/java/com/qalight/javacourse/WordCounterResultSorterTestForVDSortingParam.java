@@ -28,7 +28,7 @@ public class WordCounterResultSorterTestForVDSortingParam {
 
         //when
         WordsSorter resultSorter = new WordsSorter();
-        List<Map.Entry<String, Integer>> actualResultByVD = resultSorter.sortWords(hashMap, "VD");
+        List<Map.Entry<String, Integer>> actualResultByVD = resultSorter.getSortedWords(hashMap, "VD");
 
         //then
         Assert.assertEquals(expectedResultByVD.toString(), actualResultByVD.toString());
