@@ -30,8 +30,9 @@
                 //get the form data using another method
                 var userRequest = $("textarea#userRequest").val();
                 var userCheck = $('input[name=userCheck]:checked').val();
+                var typeStatisticResult = $('input[name=typeStatisticResult]:checked').val();
                 //alert(userCheck);
-                dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck;
+                dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck + "&typeStatisticResult=" + typeStatisticResult;
 
                 //make the AJAX request, dataType is set to json
                 //meaning we are expecting JSON data in response from the server
@@ -48,12 +49,16 @@
                             jsonLength = data.response.length;
                             //alert(jsonLength);
                             $("#ajaxResponse").html("");
+
                             for(i=0; i < jsonLength; ++i) {
+                                $("#ajaxResponse").append("<p><h1>" + data.listUsersUrls[i] + "</h1></p>");
+                                $("#ajaxResponse").append("<table>");
+                                $("#ajaxResponse").append("<tr><td><b>Word: </p></b></td><td><b> Count : </p></b></td></tr>");
                                 countLines = (data.response[i]).length;
-                                $("#ajaxResponse").append("<p><h1>" + data.listUsersUrls[i]+"</h1></p>");
-                                for(j=0; j < countLines; j++) {
-                                    $("#ajaxResponse").append("<b>Word: </b> " + data.response[i][j].key + "<b> Count </b>: " + data.response[i][j].value +"<br/>");
-                                }
+                                    for(j=0; j < countLines; j++) {
+                                        $("#ajaxResponse").append("<tr><td>" + data.response[i][j].key + "</td><td>" + data.response[i][j].value + "</td></tr>");
+                                    }
+                                $("#ajaxResponse").append("</table>");
                             }
                         }
                         //display error message
@@ -126,6 +131,14 @@
                     <input type="radio" name="userCheck" value="KD">Key Descending
                     <input type="radio" name="userCheck" value="VD">Value Descending
 
+                </p>
+                <p>
+                    <label> Check result of count words in all urls</label>
+                </p>
+
+                <p>
+                    <input type="radio" name="typeStatisticResult" value="CONSOLIDATEDRESULT" checked>Consolidated result of count words in all urls
+                    <input type="radio" name="typeStatisticResult" value="EACHURLSRESULT">Get result of count words each urls
                 </p>
 
                 </p>
