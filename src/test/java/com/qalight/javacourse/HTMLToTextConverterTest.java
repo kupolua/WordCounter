@@ -3,9 +3,10 @@ package com.qalight.javacourse;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class PlainTextGetterTest {
+public class HTMLToTextConverterTest {
 
     @Test
+    // todo: remove 'throws Exception everywhere where not necessary'
     public void testGetPlainTextByUrl() throws Exception {
 
         //   given
@@ -13,8 +14,8 @@ public class PlainTextGetterTest {
         final int expectedTextSize = 156832;
 
         // when
-        PlainTextGetter plainTextGetter = new PlainTextGetter();
-        String actualText = plainTextGetter.getPlainTextByUrl(testUrl);
+        HTMLToTextConverter HTMLToTextConverter = new HTMLToTextConverter();
+        String actualText = HTMLToTextConverter.getPlainTextByUrl(testUrl);
 
         // then
         Assert.assertSame(testUrl.getClass(), actualText.getClass());

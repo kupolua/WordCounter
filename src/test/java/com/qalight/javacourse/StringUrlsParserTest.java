@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StingUrlsParserTest {
+public class StringUrlsParserTest {
 
     @Test
     public void testUrlList() throws Exception {
@@ -20,7 +20,7 @@ public class StingUrlsParserTest {
         }};
 
         //when
-        List<String> actualList = new StringUrlsParser().urlList(userPostStringUrls);
+        List<String> actualList = new StringUrlsParser().parseUrslList(userPostStringUrls);
 
         //then
         Assert.assertEquals(expectedList, actualList);
