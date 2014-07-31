@@ -3,7 +3,12 @@ package com.qalight.javacourse;
 import java.util.*;
 
 /**
- * Created by box on 12.06.2014. .
+ * Created by box on 12.06.2014.
+ */
+
+/**
+ * This class receive HashMap and String with sorting key with "KA" || "KD" || "VA" || "VD".
+ * If sortingParam.equals("Any other string"), sortingParam will be changed to "VD".
  */
 
 public class WordsSorter {
