@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by kpl on 30.07.2014.
+ * Created by kpl on 30.07.2014
  */
 public enum UserRequestRouter {
     CONSOLIDATEDRESULT {

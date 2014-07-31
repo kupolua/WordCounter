@@ -2,10 +2,11 @@ package com.qalight.javacourse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.regex.Pattern;
 
 /**
- * Created by stkotok on 30.07.2014.
+ * Created by stkotok on 30.07.2014
  */
 public class UnrefinedTextFilter {
 
