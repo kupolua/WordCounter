@@ -16,7 +16,7 @@ public class UnrefinedTextFilter {
 
     public String refineText(String unrefinedText) {
         LOG.debug("Filtering words.");
-        return NON_WORD_LETTER_PATTERN.matcher(unrefinedText).replaceAll("").toLowerCase();
+        return NON_WORD_LETTER_PATTERN.matcher(unrefinedText).replaceAll(" ").toLowerCase();
     }
 
 }
