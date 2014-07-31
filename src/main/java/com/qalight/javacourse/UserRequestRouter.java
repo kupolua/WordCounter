@@ -10,7 +10,7 @@ import java.util.Map;
 public enum UserRequestRouter {
     CONSOLIDATEDRESULT {
         @Override
-        public List<List<Map.Entry<String, Integer>>> getCountedWords(String userUrlsstring, String sortingParam) {
+        public List<List<Map.Entry<String, Integer>>> getCountedWords(String userUrlsString, String sortingParam) {
 
             List<List<Map.Entry<String, Integer>>> countedWordsList = new ArrayList<List<Map.Entry<String, Integer>>>();
             System.out.println("CONSOLIDATEDRESULT");

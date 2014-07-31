@@ -20,17 +20,17 @@ public class WordsSorterTest_ValDesc {
             put("two", 2);
         }};
 
-        final List<String> expectedResultByVA = new ArrayList<String>() {{
-            add("one=1");
-            add("two=2");
+        final List<String> expectedResultByVD = new ArrayList<String>() {{
             add("three=3");
+            add("two=2");
+            add("one=1");
         }};
 
         //when
         List<Map.Entry<String, Integer>> actualResultByVD = WordsSorter.valueOf("VALUE_DESCENDING").getSortedWords(hashMap);
 
         //then
-        Assert.assertEquals(expectedResultByVA.toString(), actualResultByVD.toString());
+        Assert.assertEquals(expectedResultByVD.toString(), actualResultByVD.toString());
 
     }
 }
