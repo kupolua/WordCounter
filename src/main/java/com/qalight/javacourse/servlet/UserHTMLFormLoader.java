@@ -20,31 +20,27 @@ public class UserHTMLFormLoader extends HttpServlet {
     private static final long serialVersionUID = -6154475799000019575L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        String userHTMLForm;
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        String message;
-        try {
-            message = userHTMLFormLoader("index.html");
-        } catch (Exception e) {
-            // give full log message
-            message = "Дорогой клиент, у тябя вот такая ошибка: " + e.getMessage();
-        }
+        userHTMLForm = loadUserHTMLForm("index.html");
 
         try {
-            response.getWriter().println(message);
+            LOG.info("Printing user HTML form.");
+            response.getWriter().println(userHTMLForm);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("userHTMLForm can't be printed.", e);
         }
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
-    public String userHTMLFormLoader(String fileName) {
-        HtmlFormReader htmlFormReader = new HtmlFormReader();
+    public String loadUserHTMLForm(String fileName) {
+        HTMLFormReader htmlFormReader = new HTMLFormReader();
         return htmlFormReader.readHtmlSourceFile(fileName);
     }
 }
