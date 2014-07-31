@@ -12,7 +12,7 @@ public class WordCounterTest {
     public void testCountWords() throws Exception {
 
         // given
-        final String text = "one , : \" ? \n \t ; \\ / * two, two, three, three, three.";
+        final String text = "one two two three three three";
         final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
             put("one", 1);
             put("two", 2);
