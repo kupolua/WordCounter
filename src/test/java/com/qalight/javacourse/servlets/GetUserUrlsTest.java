@@ -22,8 +22,8 @@ public class GetUserUrlsTest {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/webform");
         server.setHandler(context);
-        context.addServlet(new ServletHolder(new GetUserUrlsForm()), "/inputUrls");
-        context.addServlet(new ServletHolder(new GetUserUrls()), "/GetUserUrls");
+        context.addServlet(new ServletHolder(new GetUserUrlsForm()), "/getCountedWords");
+//        context.addServlet(new ServletHolder(new GetUserUrls()), "/GetUserUrls");
 
         server.start();
 

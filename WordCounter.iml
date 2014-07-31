@@ -11,9 +11,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/build/classes/main" />
-    <output-test url="file://$MODULE_DIR$/build/classes/test" />
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
@@ -42,9 +40,9 @@
     <orderEntry type="library" exported="" name="Gradle: jetty-io-9.0.0.RC2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jetty-security-9.0.0.RC2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: logback-classic-1.1.2" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: logback-access-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: logback-core-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: slf4j-api-1.7.6" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: logback-access-1.1.2" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">

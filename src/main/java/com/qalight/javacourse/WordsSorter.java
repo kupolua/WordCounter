@@ -6,31 +6,25 @@ import java.util.*;
  * Created by box on 12.06.2014.
  */
 
-/**
- * This class receive HashMap and String with sorting key with "KA" || "KD" || "VA" || "VD".
- * If sortingParam.equals("Any other string"), sortingParam will be changed to "VD".
- */
-
-public class WordCounterResultSorter {
+public class WordsSorter {
 
     // todo: use enumaration or  constants sortWords
     // todo: if parameters are not correct throw exception and catch in servlet
-    public List<Map.Entry<String, Integer>> sortWords(Map<String, Integer> map, String sortingParam) {
+    public List<Map.Entry<String, Integer>> sortWords(Map<String, Integer> countedWords, String sortingParam) {
 
-        //todo: 'remove = Collections.EMPTY_LIST'
-        List<Map.Entry<String, Integer>> sortedWords = Collections.EMPTY_LIST;
+        List<Map.Entry<String, Integer>> sortedWords;
         if (sortingParam.equals("KA")) {
-            sortedWords = sortByKA(map);
+            sortedWords = sortByKA(countedWords);
         } else if (sortingParam.equals("KD")) {
-            sortedWords = sortByKD(map);
+            sortedWords = sortByKD(countedWords);
         } else if (sortingParam.equals("VA")) {
-            sortedWords = sortByVA(map);
+            sortedWords = sortByVA(countedWords);
         } else if (sortingParam.equals("VD")) {
-            sortedWords = sortByVD(map);
+            sortedWords = sortByVD(countedWords);
         } else {
 // todo: Add ERROR to Log "Not valid sorting request. Sorting will be done by VD"
 // todo: Throw notification to WEB-GUI "Not valid sorting request. Sorting will be done by Value in descending order"
-            return sortByVD(map);
+            return sortByVD(countedWords);
         }
         return sortedWords;
     }
