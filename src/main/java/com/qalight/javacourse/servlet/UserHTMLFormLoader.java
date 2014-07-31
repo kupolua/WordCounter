@@ -19,7 +19,7 @@ public class UserHTMLFormLoader extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
     private static final long serialVersionUID = -6154475799000019575L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -32,7 +32,11 @@ public class UserHTMLFormLoader extends HttpServlet {
             message = "Дорогой клиент, у тябя вот такая ошибка: " + e.getMessage();
         }
 
-        response.getWriter().println(message);
+        try {
+            response.getWriter().println(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import com.qalight.javacourse.Executor;
 import com.qalight.javacourse.StringUrlsParser;
 import com.qalight.javacourse.UserRequestRouter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,14 +20,14 @@ import java.io.PrintWriter;
  * Created by kpl on 23.07.2014.
  */
 public class UserHTMLFormHandler extends HttpServlet {
-
+    private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
     private static final long serialVersionUID = -6154475799000019575L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
         String userRequest = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userCheck");
@@ -33,7 +35,12 @@ public class UserHTMLFormHandler extends HttpServlet {
         String typeStatisticResult = request.getParameter("typeStatisticResult"); 
         UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam);
 
-        PrintWriter out = response.getWriter();
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            LOG.error("Can't get writer", e);
+        }
         response.setContentType("text/html");
         response.setHeader("Cache-control", "no-cache, no-store");
         response.setHeader("Pragma", "no-cache");
