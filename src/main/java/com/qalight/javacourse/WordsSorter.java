@@ -3,7 +3,7 @@ package com.qalight.javacourse;
 import java.util.*;
 
 /**
- * Created by box on 12.06.2014.
+ * Created by box on 12.06.2014. .
  */
 
 public class WordsSorter {
