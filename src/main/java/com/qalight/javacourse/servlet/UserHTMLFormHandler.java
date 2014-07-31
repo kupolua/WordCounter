@@ -32,7 +32,7 @@ public class UserHTMLFormHandler extends HttpServlet {
         String userRequest = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userCheck");
 
-        String typeStatisticResult = request.getParameter("typeStatisticResult"); 
+        String typeStatisticResult = request.getParameter("typeStatisticResult");
         UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam);
 
         PrintWriter out = null;
@@ -63,7 +63,7 @@ public class UserHTMLFormHandler extends HttpServlet {
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(userRequest));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
 //        if(countryInfo.getName() == null){
-            myObj.addProperty("success", true);
+        myObj.addProperty("success", true);
 //        }
 //        else {
 //            myObj.addProperty("success", true);

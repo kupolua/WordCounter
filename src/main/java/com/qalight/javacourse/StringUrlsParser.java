@@ -13,7 +13,7 @@ public class StringUrlsParser {
     public List<String> parseUrslList(String stringUrls) {
 
         final String delim = ",";
-        List<String> userCheckUrlsList = new ArrayList<String>(Arrays.asList(stringUrls.replaceAll(" ","").split(delim)));
+        List<String> userCheckUrlsList = new ArrayList<String>(Arrays.asList(stringUrls.replaceAll(" ", "").split(delim)));
         List<String> userUrlsList = new ArrayList<String>();
 
         for (String url : userCheckUrlsList) {
