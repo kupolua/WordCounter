@@ -9,21 +9,23 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * Created by box on 07.06.2014.
+ * Created by box on 07.06.2014
  */
-public class PlainTextGetter {
-    private static final Logger LOG = LoggerFactory.getLogger(PlainTextGetter.class);
-    protected String getPlainTextByUrl(String url){
+public class HTMLToTextConverter {
+
+    private static final Logger LOG = LoggerFactory.getLogger(HTMLToTextConverter.class);
+
+    protected String getPlainTextByUrl(String userUrl){
 
         LOG.debug("Getting plain text.");
         Document html= null;
 
         try {
-            html = Jsoup.connect(url).get();
+            html = Jsoup.connect(userUrl).get();
         } catch (IOException e) {
-            LOG.error("Can't connect to " + url, e);
+            LOG.error("Can't connect to " + userUrl, e);
         }
-        LOG.info("Connection to " + url + " has been successfully established.");
+        LOG.info("Connection to " + userUrl + " has been successfully established.");
 
         return new HtmlToPlainText().getPlainText(Jsoup.parse(String.valueOf(html)));
     }

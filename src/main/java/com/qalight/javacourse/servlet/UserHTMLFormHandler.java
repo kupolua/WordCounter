@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.qalight.javacourse.Executor;
 import com.qalight.javacourse.StringUrlsParser;
+import com.qalight.javacourse.UserRequestRouter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,22 +21,19 @@ public class UserHTMLFormHandler extends HttpServlet {
 
     private static final long serialVersionUID = -6154475799000019575L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String userRequest = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userCheck");
 
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String typeStatisticResult = request.getParameter("typeStatisticResult"); 
+        UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam);
 
+        PrintWriter out = response.getWriter();
         response.setContentType("text/html");
         response.setHeader("Cache-control", "no-cache, no-store");
         response.setHeader("Pragma", "no-cache");
@@ -54,11 +52,11 @@ public class UserHTMLFormHandler extends HttpServlet {
 //        executor.inputUrls(u serRequest);
         //getJasonObj
 
-        JsonElement countryObj = gson.toJsonTree(executor.inputUrls(userRequest, sortingParam));
-        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.urlList(userRequest));
+        JsonElement countryObj = gson.toJsonTree(executor.getCountedWords(userRequest, sortingParam));
+        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(userRequest));
 //        JsonElement countryObj = gson.toJsonTree(countryInfo);
 //        if(countryInfo.getName() == null){
-        myObj.addProperty("success", true);
+            myObj.addProperty("success", true);
 //        }
 //        else {
 //            myObj.addProperty("success", true);

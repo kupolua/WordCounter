@@ -7,33 +7,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by box on 07.06.2014.
+ * Created by box on 07.06.2014
  */
 public class WordCounter {
+
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);
 
-    // todo: make more readable countWords
-    public Map<String, Integer> countWords(String plainText){
-        WordFilter wordFilter = new WordFilter();
-        Map<String, Integer> counter = new HashMap<String, Integer>();
+    public Map<String, Integer> countWords(String refinedText) {
+        Map<String, Integer> countedWords = new HashMap<String, Integer>();
         LOG.debug("Splitting plain text by all whitespace characters.");
-        String[] str = plainText.split("\\s+");
+        String[] str = refinedText.split("\\s+");
         LOG.debug("Filtering and putting words to HashMap.");
         for (String eachWord : str) {
-            String filteredWord = wordFilter.filterWord(eachWord.toLowerCase());
-            Integer foundValue = counter.get(filteredWord);
+            Integer foundValue = countedWords.get(eachWord);
             if (foundValue == null) {
-                counter.put(filteredWord, 1);
+                countedWords.put(eachWord, 1);
             } else {
                 Integer newCounter = ++foundValue;
-                counter.put(filteredWord, newCounter);
+                countedWords.put(eachWord, newCounter);
             }
         }
         LOG.debug("Removing all possible empty entries.");
-        counter.remove("");
-        return counter;
+        countedWords.remove("");
+        return countedWords;
     }
-
 
 
 }
