@@ -1,5 +1,8 @@
 package com.qalight.javacourse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,8 +11,8 @@ import java.util.List;
  * Created by stkotok on 19.07.2014.
  */
 public class StringUrlsParser {
+    private static final Logger LOG = LoggerFactory.getLogger(StringUrlsParser.class);
 
-    // todo: give meaningfull name urlList
     public List<String> parseUrslList(String stringUrls) {
 
         final String delim = ",";
@@ -20,7 +23,7 @@ public class StringUrlsParser {
             if (url.startsWith("http://")) {
                 userUrlsList.add(url);
             } else if (url.startsWith("https://")) {
-                // todo: use meaningful log
+                LOG.warn("Cannot handle <https://> URL.");
                 userUrlsList.add("I can't read https");
             } else {
                 userUrlsList.add("http://" + url);
