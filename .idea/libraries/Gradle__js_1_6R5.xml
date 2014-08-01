@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: js-1.6R5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/rhino/js/1.6R5/8f2f4261a6d0c808270a84ad17ed9a7e7929328/js-1.6R5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/rhino/js/1.6R5/d8b1cc32b229d7e3b7b0c43f63dfa48256a5fc63/js-1.6R5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
