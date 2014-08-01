@@ -52,14 +52,14 @@ public class UserHTMLFormHandler extends HttpServlet {
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
-
+        //todo: mainfuly countryObj
         JsonElement countryObj = gson.toJsonTree(UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam));
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(userRequest));
 
         myObj.addProperty("success", true);
         myObj.add("response", countryObj);
         myObj.add("listUsersUrls", listUsersUrls);
-
+        //todo: NullPointerExeption try catch
         out.println(myObj.toString());
 
         out.close();
