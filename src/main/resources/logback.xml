@@ -1,4 +1,4 @@
-<configuration scan="true" scanPeriod="30 seconds">
+<configuration scan="true" scanPeriod="5 seconds" debug="false">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/mylog.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
@@ -25,7 +25,7 @@
         <appender-ref ref="FILE" />
     </appender>
 
-    <root level="trace">
+    <root level="info">
         <appender-ref ref="ASYNC" />
         <appender-ref ref="STDOUT" />
     </root>
