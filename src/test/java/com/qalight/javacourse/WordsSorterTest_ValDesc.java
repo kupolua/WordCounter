@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WordCounterResultSorterTestForInvalidSortingParam {
+public class WordsSorterTest_ValDesc {
 
     @Test
-    public void testSortWords() {
+    public void testGetSortedWords() throws Exception {
 
         //given
         final Map<String, Integer> hashMap = new HashMap<String, Integer>() {{
@@ -19,6 +19,7 @@ public class WordCounterResultSorterTestForInvalidSortingParam {
             put("one", 1);
             put("two", 2);
         }};
+
         final List<String> expectedResultByVD = new ArrayList<String>() {{
             add("three=3");
             add("two=2");
@@ -26,12 +27,10 @@ public class WordCounterResultSorterTestForInvalidSortingParam {
         }};
 
         //when
-        WordsSorter resultSorter = new WordsSorter();
-        List<Map.Entry<String, Integer>> actualResultByVD = resultSorter.sortWords(hashMap, "VD");
-        List<Map.Entry<String, Integer>> actualResultByBadKey = resultSorter.sortWords(hashMap, "Invalid sortingParam");
+        List<Map.Entry<String, Integer>> actualResultByVD = WordsSorter.valueOf("VALUE_DESCENDING").getSortedWords(hashMap);
 
         //then
         Assert.assertEquals(expectedResultByVD.toString(), actualResultByVD.toString());
-        Assert.assertEquals(actualResultByBadKey.toString(), actualResultByVD.toString());
+
     }
 }
