@@ -9,10 +9,10 @@ import java.util.List;
 public class StringUrlsParserTest {
 
     @Test
-    public void testUrlList() throws Exception {
+    public void testUrlList() {
 
         // given values
-        final String userPostStringUrls = " http://htmlbook.ru/html/input ,  http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost, http://www.gradle.org/docs/current/release-notes";
+        final String userPostStringUrls = " http://htmlbook.ru/html/input ,  http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost,http://www.gradle.org/docs/current/release-notes ";
         final List<String> expectedList = new ArrayList<String>() {{
             add("http://htmlbook.ru/html/input");
             add("http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost");
