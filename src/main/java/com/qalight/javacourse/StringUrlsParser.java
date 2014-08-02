@@ -23,7 +23,7 @@ public class StringUrlsParser {
             if (url.startsWith("http://")) {
                 userUrlsList.add(url);
             } else if (url.startsWith("https://")) {
-                LOG.warn("Cannot handle <https://> URL.");
+                LOG.warn("I can not handle <https://> URL.");
                 userUrlsList.add("I can't read https");
             } else {
                 userUrlsList.add("http://" + url);
