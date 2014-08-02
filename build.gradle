@@ -1,8 +1,8 @@
 apply plugin: 'java'
-apply plugin: 'war'
+//apply plugin: 'war'
 apply plugin: 'jetty'
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 version = '1.0'
 
 configurations {
@@ -35,10 +35,11 @@ dependencies {
 
 }
 
-war {
-    from 'src/rootContent' // adds a file-set to the root of the archive
-    webInf { from 'src/additionalWebInf' } // adds a file-set to the WEB-INF dir.
-    classpath fileTree('additionalLibs') // adds a file-set to the WEB-INF/lib dir.
-    classpath configurations.moreLibs // adds a configuration to the WEB-INF/lib dir.
-    webXml = file('src/web.xml') // copies a file to WEB-INF/web.xml
-}
+// temporary ignore war task
+//war {
+//    from 'src/rootContent' // adds a file-set to the root of the archive
+//    webInf { from 'src/additionalWebInf' } // adds a file-set to the WEB-INF dir.
+//    classpath fileTree('additionalLibs') // adds a file-set to the WEB-INF/lib dir.
+//    classpath configurations.moreLibs // adds a configuration to the WEB-INF/lib dir.
+//    webXml = file('src/web.xml') // copies a file to WEB-INF/web.xml
+//}
