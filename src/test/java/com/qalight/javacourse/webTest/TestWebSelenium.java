@@ -9,6 +9,9 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+// todo: all tests should end with word *Test
+// todo: give a test meaningful name!
+// todo: move integration and functional tests to separate dir from unit tests
 public class TestWebSelenium {
 
     private WebDriver driver;

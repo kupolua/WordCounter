@@ -33,6 +33,12 @@ dependencies {
     testCompile 'com.github.detro.ghostdriver:phantomjsdriver:1.1.0'
 }
 
+// fixing http://issues.gradle.org/browse/GRADLE-1682
+tasks.withType(Test) {
+    scanForTestClasses = false
+    include "**/*Test.class" // whatever Ant pattern matches your test class files
+}
+
 // temporary ignore war task
 //war {
 //    from 'src/rootContent' // adds a file-set to the root of the archive
