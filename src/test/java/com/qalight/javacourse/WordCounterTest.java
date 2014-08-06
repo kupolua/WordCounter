@@ -14,9 +14,9 @@ public class WordCounterTest {
         // given
         final String text = "one two two three three three";
         final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
-            put("one1", 1);
-            put("two1", 2);
-            put("three1", 3);
+            put("one", 1);
+            put("two", 2);
+            put("three", 3);
         }};
 
         // when
