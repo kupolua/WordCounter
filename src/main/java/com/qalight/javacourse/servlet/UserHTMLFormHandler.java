@@ -52,7 +52,7 @@ public class UserHTMLFormHandler extends HttpServlet {
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
-        //todo: + mainfuly countryObj UserHTMLFormHandler
+        //todo: + mainfuly countryObj class: UserHTMLFormHandler
         JsonElement countedWordsList = gson.toJsonTree(UserRequestRouter.valueOf(typeStatisticResult).getCountedWords(userRequest, sortingParam));
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrslList(userRequest));
 
