@@ -7,7 +7,7 @@ import java.util.*;
  */
 
 public enum WordsSorter {
-    // todo: if parameters are not correct throw exception and catch in servlet
+    // todo: if parameters are not correct throw exception and catch in servlet class: WordsSorter
 
     KEY_ASCENDING {
         @Override

@@ -26,7 +26,7 @@ public enum UserRequestRouter {
 
                 sj.add(refinedText).add(" ");
             }
-            //todo: summedRefinedText refactor to consolidatedRefinedText
+            //todo: summedRefinedText refactor to consolidatedRefinedText class: UserRequestRouter
             String summedRefinedText = sj.toString();
 
             WordCounter wordCounter = new WordCounter();
