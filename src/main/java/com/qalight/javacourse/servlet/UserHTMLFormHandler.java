@@ -24,7 +24,7 @@ import java.util.Map;
 // todo: rename servlet classes to meaningful name. all servlets handle requests or load response
 public class UserHTMLFormHandler extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
-    private static final long serialVersionUID = -6154475799000019575L;
+    private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
