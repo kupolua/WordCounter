@@ -10,24 +10,27 @@ import java.nio.file.Paths;
 /**
  * Created by kpl on 23.07.2014.
  */
-public class HTMLFormReader {
-    private static final Logger LOG = LoggerFactory.getLogger(HTMLFormReader.class);
+// todo : add unit test
+public class HtmlFormReader {
+    private static final Logger LOG = LoggerFactory.getLogger(HtmlFormReader.class);
+    private static final String NO_HTML_SOURCE_FILE = "No Source File ";
+    private static final String ERROR_WEB_PAGE = "Error.html";
 
     public String readHtmlSourceFile(String fileName) {
-        final String NO_HTML_SOURCE_FILE = "No Source File ";
-        final String ERROR_WEBPAGE = "Error.html";
-
+        // todo: simplify logic and use single return statement
+        //
         try {
             LOG.info("Reading source file " + fileName);
             byte[] htmlSources = Files.readAllBytes(Paths.get("./src/main/resources/" + fileName));
             return new String(htmlSources);
         } catch (IOException e) {
             LOG.error("Source file <" + fileName + "> cannot be read.", e);
+            // todo: move this block to separate method
             try {
-                byte[] textSources = Files.readAllBytes(Paths.get("./src/main/resources/" + ERROR_WEBPAGE));
+                byte[] textSources = Files.readAllBytes(Paths.get("./src/main/resources/" + ERROR_WEB_PAGE));
                 return new String(textSources);
             } catch (IOException e1){
-                LOG.error("Error source file <" + ERROR_WEBPAGE + "> cannot be read.", e1);
+                LOG.error("Error source file <" + ERROR_WEB_PAGE + "> cannot be read.", e1);
             }
         }
         return NO_HTML_SOURCE_FILE;

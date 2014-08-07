@@ -11,7 +11,7 @@ public class WordCounterTest {
     @Test
     public void testCountWords() throws Exception {
 
-        // given hello
+        // given hello t
         final String text = "one two two three three three";
         final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
             put("one", 1);

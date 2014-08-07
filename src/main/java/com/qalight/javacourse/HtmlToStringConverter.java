@@ -11,11 +11,16 @@ import java.io.IOException;
 /**
  * Created by box on 07.06.2014
  */
-public class HTMLToTextConverter {
+public class HtmlToStringConverter implements ToStringConverter{
+    private static final Logger LOG = LoggerFactory.getLogger(HtmlToStringConverter.class);
+    private final HtmlToPlainText htmlToPlainText;
 
-    private static final Logger LOG = LoggerFactory.getLogger(HTMLToTextConverter.class);
+    public HtmlToStringConverter(){
+        htmlToPlainText = new HtmlToPlainText();
+    }
 
-    protected String getPlainTextByUrl(String userUrl){
+    @Override
+    public String convertToString(String userUrl){
 
         LOG.debug("Getting plain text.");
         Document html= null;
@@ -27,6 +32,9 @@ public class HTMLToTextConverter {
         }
         LOG.info("Connection to " + userUrl + " has been successfully established.");
 
-        return new HtmlToPlainText().getPlainText(Jsoup.parse(String.valueOf(html)));
+        String htmlText = String.valueOf(html);
+        Document document = Jsoup.parse(htmlText);
+
+        return htmlToPlainText.getPlainText(document);
     }
 }
