@@ -13,7 +13,7 @@ import java.io.IOException;
 // todo: all tests should end with word *Test TestWebFunctionalHttpUnit
 // todo: give a test meaningful name! TestWebFunctionalHttpUnit
 // todo: move integration and functional tests to separate dir from unit tests TestWebFunctionalHttpUnit
-public class TestWebFunctionalHttpUnit {
+public class WebFunctionalHttpUnitTest {
 
     @Test
     @Ignore
