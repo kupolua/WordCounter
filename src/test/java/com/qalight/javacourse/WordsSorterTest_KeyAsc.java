@@ -15,7 +15,7 @@ public class WordsSorterTest_KeyAsc {
 
         //given
         final Map<String, Integer> hashMap = new HashMap<String, Integer>() {{
-            put("three11", 3);
+            put("three111", 3);
             put("one", 1);
             put("two", 2);
         }};
