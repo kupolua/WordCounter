@@ -1,17 +1,19 @@
 package com.qalight.javacourse.webTest;
 
-import java.util.concurrent.TimeUnit;
-
-import org.junit.*;
-
-import static org.junit.Assert.*;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-// todo: all tests should end with word *Test
-// todo: give a test meaningful name!
-// todo: move integration and functional tests to separate dir from unit tests
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.fail;
+
+// todo: all tests should end with word *Test TestWebSelenium
+// todo: give a test meaningful name! TestWebSelenium
+// todo: move integration and functional tests to separate dir from unit tests TestWebSelenium
 public class TestWebSelenium {
 
     private WebDriver driver;
