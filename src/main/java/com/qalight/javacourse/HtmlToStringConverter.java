@@ -27,10 +27,10 @@ public class HtmlToStringConverter implements ToStringConverter{
 
         try {
             html = Jsoup.connect(userUrl).get();
+            LOG.info("Connection to " + userUrl + " has been successfully established.");
         } catch (IOException e) {
             LOG.error("Can't connect to " + userUrl, e);
         }
-        LOG.info("Connection to " + userUrl + " has been successfully established.");
 
         String htmlText = String.valueOf(html);
         Document document = Jsoup.parse(htmlText);

@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,23 +14,22 @@ public class StringUrlsParser {
     private static final String DELIMETER = ",";
 
     public List<String> parseUrlList(String stringUrls) {
-        String urls = stringUrls.replaceAll(" ", "");
-        String[] urlArr = urls.split(DELIMETER);
-        List<String> userCheckUrlsList = Arrays.asList(urlArr);
-        List<String> userUrlsList = new ArrayList<String>();
+        String urlsWithoutWhitespaces = stringUrls.replaceAll(" ", "");
+        String[] urlsThatDelimitedByComma = urlsWithoutWhitespaces.split(DELIMETER);
+        List<String> chackedUrls = new ArrayList<String>();
 
-        for (String url : userCheckUrlsList) {
+        for (String url : urlsThatDelimitedByComma) {
             if (url.startsWith("http://")) {
-                userUrlsList.add(url);
+                chackedUrls.add(url);
             } else if (url.startsWith("https://")) {
-                LOG.warn("I can not handle <https://> URL.");
+                LOG.warn("Cannot handle <"+ url +">. https protocol does not allowed.");
                 // todo: don't add error as item in list. use exception and handle it
-                userUrlsList.add("I can't read https");
+                chackedUrls.add("I can't read https");
             } else {
-                userUrlsList.add("http://" + url);
+                chackedUrls.add("http://" + url);
             }
         }
-        return userUrlsList;
+        return chackedUrls;
     }
 
 }

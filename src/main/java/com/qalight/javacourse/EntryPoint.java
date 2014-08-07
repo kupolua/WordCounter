@@ -25,9 +25,9 @@ public class EntryPoint {
             context.addServlet(new ServletHolder(new UserHTMLFormHandler()), "/UserHTMLFormHandler");
 
             server.start();
+            LOG.info("Jetty server has started.");
         } catch (Exception e) {
             LOG.error("Can't start embedded Jetty server.", e);
         }
-        LOG.info("Jetty server has started.");
     }
 }
