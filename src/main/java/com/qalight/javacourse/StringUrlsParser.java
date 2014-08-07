@@ -29,7 +29,6 @@ public class StringUrlsParser {
                 checkedUrls.add("http://" + url);
             }
         }
-
         return checkedUrls;
     }
 
