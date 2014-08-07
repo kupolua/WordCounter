@@ -29,11 +29,10 @@ public enum UserRequestRouter {
 
                 sj.add(refinedText).add(" ");
             }
-            //todo: summedRefinedText refactor to consolidatedRefinedText class: UserRequestRouter
-            String summedRefinedText = sj.toString();
+            String consolidatedRefinedText = sj.toString();
 
             WordCounter wordCounter = new WordCounter();
-            Map<String, Integer> countedWords = wordCounter.countWords(summedRefinedText);
+            Map<String, Integer> countedWords = wordCounter.countWords(consolidatedRefinedText);
 
             List<List<Map.Entry<String, Integer>>> countedWordsList = new ArrayList<List<Map.Entry<String, Integer>>>();
             List<Map.Entry<String, Integer>> sortedWords = WordsSorter.valueOf(sortingParam).getSortedWords(countedWords);
