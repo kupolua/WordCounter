@@ -72,7 +72,6 @@ public class UserHTMLFormHandler extends HttpServlet {
     }
 
     private PrintWriter getResponseWriter(HttpServletResponse response) {
-        // todo: move to separate method
         PrintWriter out = null;
         try {
             out = response.getWriter();
