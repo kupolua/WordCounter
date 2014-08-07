@@ -21,7 +21,7 @@ public class WebFunctionalHttpUnitTest {
         WebConversation wc = new WebConversation();
         try {
             HttpUnitOptions.setScriptingEnabled(false);
-            WebResponse resp = wc.getResponse("http://localhost:8021/inputForm/UserHTMLFormLoader");
+            WebResponse resp = wc.getResponse("http://localhost:8021/inputForm/UserHtmlFormLoaderServlet");
             WebForm form = resp.getForms()[0];
             form.setParameter("userRequest1", "http://www.httpunit.org/");
 //            System.out.println(form.getText());

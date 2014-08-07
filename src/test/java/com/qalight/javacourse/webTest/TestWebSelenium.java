@@ -24,7 +24,7 @@ public class TestWebSelenium {
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "http://localhost:8021/inputForm/UserHTMLFormLoader";
+        baseUrl = "http://localhost:8021/inputForm/UserHtmlFormLoaderServlet";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 

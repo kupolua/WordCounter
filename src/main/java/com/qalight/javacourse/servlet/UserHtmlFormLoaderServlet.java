@@ -18,8 +18,8 @@ import java.io.Writer;
 
 // todo: all servlets should end with Servlet word
 // todo: rename servlet classes to meaningful name. all servlets handle requests or load response
-public class UserHTMLFormLoader extends HttpServlet {
-    private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
+public class UserHtmlFormLoaderServlet extends HttpServlet {
+    private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {

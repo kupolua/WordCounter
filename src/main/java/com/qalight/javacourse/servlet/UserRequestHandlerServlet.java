@@ -20,17 +20,16 @@ import java.util.Map;
 /**
  * Created by kpl on 23.07.2014.
  */
-// todo: all servlets should end with Servlet word
-// todo: rename servlet classes to meaningful name. all servlets handle requests or load response
-public class UserHTMLFormHandler extends HttpServlet {
-    private static final Logger LOG = LoggerFactory.getLogger(UserHTMLFormLoader.class);
+// todo: 90+ all servlets should end with Servlet word
+// todo: 91+ rename servlet classes to meaningful name. all servlets handle requests or load response
+public class UserRequestHandlerServlet extends HttpServlet {
+    private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
-    // todo: refactor. too big method
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
         setResponseHeaders(response);
@@ -62,16 +61,17 @@ public class UserHTMLFormHandler extends HttpServlet {
         String sortingParam = request.getParameter("userCheck");
         String typeStatisticResult = request.getParameter("typeStatisticResult");
 
-        Gson gson = new Gson();
-        JsonObject myObj = new JsonObject();
-        StringUrlsParser stringUrlsParser = new StringUrlsParser();
 
         UserRequestRouter userRequestRouter = UserRequestRouter.valueOf(typeStatisticResult);
-
         List<List<Map.Entry<String, Integer>>> countedWords = userRequestRouter.getCountedWords(userRequest, sortingParam);
+
+        Gson gson = new Gson();
         JsonElement countedWordsList = gson.toJsonTree(countedWords);
+
+        StringUrlsParser stringUrlsParser = new StringUrlsParser();
         JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrlList(userRequest));
 
+        JsonObject myObj = new JsonObject();
         myObj.addProperty("success", true);
         myObj.add("response", countedWordsList);
         myObj.add("listUsersUrls", listUsersUrls);

@@ -1,7 +1,7 @@
 package com.qalight.javacourse;
 
-import com.qalight.javacourse.servlet.UserHTMLFormHandler;
-import com.qalight.javacourse.servlet.UserHTMLFormLoader;
+import com.qalight.javacourse.servlet.UserHtmlFormLoaderServlet;
+import com.qalight.javacourse.servlet.UserRequestHandlerServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -21,8 +21,8 @@ public class EntryPoint {
             ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
             context.setContextPath("/inputForm");
             server.setHandler(context);
-            context.addServlet(new ServletHolder(new UserHTMLFormLoader()), "/UserHTMLFormLoader");
-            context.addServlet(new ServletHolder(new UserHTMLFormHandler()), "/UserHTMLFormHandler");
+            context.addServlet(new ServletHolder(new UserHtmlFormLoaderServlet()), "/UserHtmlFormLoaderServlet");
+            context.addServlet(new ServletHolder(new UserRequestHandlerServlet()), "/UserRequestHandlerServlet");
 
             server.start();
             LOG.info("Jetty server has started.");
