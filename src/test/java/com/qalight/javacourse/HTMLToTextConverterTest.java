@@ -7,7 +7,7 @@ public class HTMLToTextConverterTest {
 
     @Test
     // todo: remove 'throws Exception everywhere where not necessary'
-    public void testGetPlainTextByUrl() throws Exception {
+    public void testGetPlainTextByUrl() {
 
         //   given
         final String testUrl = "http://english-e-books.net/books/advanced/Charlie_and_the_Chocolate_Factory-Dahl_Roald/Charlie_and_the_Chocolate_Factory-Dahl_Roald.txt";
