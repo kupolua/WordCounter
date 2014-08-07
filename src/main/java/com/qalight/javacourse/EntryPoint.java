@@ -1,5 +1,7 @@
-package com.qalight.javacourse.servlet;
+package com.qalight.javacourse;
 
+import com.qalight.javacourse.servlet.UserHTMLFormHandler;
+import com.qalight.javacourse.servlet.UserHTMLFormLoader;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -9,8 +11,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by kpl on 23.07.2014.
  */
-public class MainServlet {
-    private static final Logger LOG = LoggerFactory.getLogger(MainServlet.class);
+public class EntryPoint {
+    private static final Logger LOG = LoggerFactory.getLogger(EntryPoint.class);
     public static void main(String[] args) {
         try {
             LOG.debug("Starting Jetty server.");

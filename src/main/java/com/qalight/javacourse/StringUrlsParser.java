@@ -12,11 +12,12 @@ import java.util.List;
  */
 public class StringUrlsParser {
     private static final Logger LOG = LoggerFactory.getLogger(StringUrlsParser.class);
+    private static final String DELIMETER = ",";
 
-    public List<String> parseUrslList(String stringUrls) {
-
-        final String delim = ",";
-        List<String> userCheckUrlsList = new ArrayList<String>(Arrays.asList(stringUrls.replaceAll(" ", "").split(delim)));
+    public List<String> parseUrlList(String stringUrls) {
+        String urls = stringUrls.replaceAll(" ", "");
+        String[] urlArr = urls.split(DELIMETER);
+        List<String> userCheckUrlsList = Arrays.asList(urlArr);
         List<String> userUrlsList = new ArrayList<String>();
 
         for (String url : userCheckUrlsList) {
@@ -24,6 +25,7 @@ public class StringUrlsParser {
                 userUrlsList.add(url);
             } else if (url.startsWith("https://")) {
                 LOG.warn("I can not handle <https://> URL.");
+                // todo: don't add error as item in list. use exception and handle it
                 userUrlsList.add("I can't read https");
             } else {
                 userUrlsList.add("http://" + url);
