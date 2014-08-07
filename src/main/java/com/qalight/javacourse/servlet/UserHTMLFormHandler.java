@@ -37,15 +37,6 @@ public class UserHTMLFormHandler extends HttpServlet {
 
         String typeStatisticResult = request.getParameter("typeStatisticResult");
 
-        // todo: move to separate method
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-        } catch (IOException e) {
-            LOG.error("Can't get writer", e);
-            // todo: throw exception here
-        }
-
         setResponseHeaders(response);
 
         Gson gson = new Gson();
@@ -62,10 +53,10 @@ public class UserHTMLFormHandler extends HttpServlet {
         myObj.add("response", countedWordsList);
         myObj.add("listUsersUrls", listUsersUrls);
         //todo: + NullPointerExeption try catch UserHTMLFormHandler
-        out.println(myObj.toString());
+        getResponseWriter(response).println(myObj.toString());
 
         // todo: close in finally block, otherwise you can face memory leaks
-        out.close();
+        getResponseWriter(response).close();
 
     }
 
@@ -78,5 +69,17 @@ public class UserHTMLFormHandler extends HttpServlet {
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Max-Age", "86400");
+    }
+
+    private PrintWriter getResponseWriter(HttpServletResponse response) {
+        // todo: move to separate method
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            LOG.error("Can't get writer", e);
+            // todo: throw exception here
+        }
+        return out;
     }
 }
