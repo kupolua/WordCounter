@@ -75,10 +75,13 @@ public class UserHTMLFormHandler extends HttpServlet {
         myObj.addProperty("success", true);
         myObj.add("response", countedWordsList);
         myObj.add("listUsersUrls", listUsersUrls);
-        //todo: + NullPointerExeption try catch UserHTMLFormHandler
-        out.println(myObj.toString());
 
-        // todo: close in finally block, otherwise you can face memory leaks
-        out.close();
+        try {
+            out.println(myObj.toString());
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        } finally {
+            out.close();
+        }
     }
 }
