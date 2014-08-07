@@ -32,12 +32,35 @@ public class UserHTMLFormHandler extends HttpServlet {
 
     // todo: refactor. too big method
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        String userRequest = request.getParameter("userRequest");
-        String sortingParam = request.getParameter("userCheck");
-
-        String typeStatisticResult = request.getParameter("typeStatisticResult");
 
         setResponseHeaders(response);
+        getResponseWriter(request, response);
+
+    }
+
+    private void setResponseHeaders(HttpServletResponse response) {
+        response.setContentType("text/html");
+        response.setHeader("Cache-control", "no-cache, no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "-1");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Max-Age", "86400");
+    }
+
+    private void getResponseWriter(HttpServletRequest request, HttpServletResponse response) {
+
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            LOG.error("Can't get writer", e);
+            // todo: throw exception here
+        }
+        String userRequest = request.getParameter("userRequest");
+        String sortingParam = request.getParameter("userCheck");
+        String typeStatisticResult = request.getParameter("typeStatisticResult");
 
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
@@ -53,32 +76,9 @@ public class UserHTMLFormHandler extends HttpServlet {
         myObj.add("response", countedWordsList);
         myObj.add("listUsersUrls", listUsersUrls);
         //todo: + NullPointerExeption try catch UserHTMLFormHandler
-        getResponseWriter(response).println(myObj.toString());
+        out.println(myObj.toString());
 
         // todo: close in finally block, otherwise you can face memory leaks
-        getResponseWriter(response).close();
-
-    }
-
-    private void setResponseHeaders(HttpServletResponse response) {
-        response.setContentType("text/html");
-        response.setHeader("Cache-control", "no-cache, no-store");
-        response.setHeader("Pragma", "no-cache");
-        response.setHeader("Expires", "-1");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Access-Control-Max-Age", "86400");
-    }
-
-    private PrintWriter getResponseWriter(HttpServletResponse response) {
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-        } catch (IOException e) {
-            LOG.error("Can't get writer", e);
-            // todo: throw exception here
-        }
-        return out;
+        out.close();
     }
 }
