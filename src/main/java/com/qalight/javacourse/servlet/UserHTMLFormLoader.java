@@ -28,7 +28,7 @@ public class UserHTMLFormLoader extends HttpServlet {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        userHTMLForm = loadUserHTMLForm("index1.html");
+        userHTMLForm = loadUserHTMLForm("index.html");
 
         PrintWriter writer = null;
         try {
