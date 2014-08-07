@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 /**
  * Created by stkotok on 30.07.2014
  */
-// todo: add unit test
 public class UnrefinedTextFilter {
 
     private static final Logger LOG = LoggerFactory.getLogger(UnrefinedTextFilter.class);
