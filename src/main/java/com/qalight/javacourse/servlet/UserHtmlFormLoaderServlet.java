@@ -32,7 +32,7 @@ public class UserHtmlFormLoaderServlet extends HttpServlet {
 
         PrintWriter writer = null;
         try {
-            LOG.info("Printing user HTML form.");
+            LOG.info("Printing user html form.");
             writer = response.getWriter();
             writer.println(userHTMLForm);
         } catch (IOException e) {
