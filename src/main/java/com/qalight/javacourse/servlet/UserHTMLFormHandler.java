@@ -42,7 +42,7 @@ public class UserHTMLFormHandler extends HttpServlet {
         Gson gson = new Gson();
         JsonObject myObj = new JsonObject();
         StringUrlsParser stringUrlsParser = new StringUrlsParser();
-        //todo: + mainfuly countryObj class: UserHTMLFormHandler
+
         UserRequestRouter userRequestRouter = UserRequestRouter.valueOf(typeStatisticResult);
 
         List<List<Map.Entry<String, Integer>>> countedWords = userRequestRouter.getCountedWords(userRequest, sortingParam);
