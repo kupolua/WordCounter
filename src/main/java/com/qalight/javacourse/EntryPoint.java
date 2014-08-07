@@ -15,7 +15,7 @@ public class EntryPoint {
     private static final Logger LOG = LoggerFactory.getLogger(EntryPoint.class);
     public static void main(String[] args) {
         try {
-            LOG.debug("Starting Jetty server!");
+            LOG.debug("Starting Jetty server!!!");
             Server server = new Server(8021);
 
             ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
