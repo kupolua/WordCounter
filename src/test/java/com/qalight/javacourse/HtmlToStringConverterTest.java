@@ -19,7 +19,7 @@ public class HtmlToStringConverterTest {
         String actualText = HTMLToTextConverter.convertToString(testUrl);
 
         // then
-        // todo: test actual text, not size
+        // todo stkotok: test actual text, not size
         Assert.assertEquals(expectedTextSize, actualText.length());
     }
 }
