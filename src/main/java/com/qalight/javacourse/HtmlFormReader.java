@@ -25,16 +25,18 @@ public class HtmlFormReader {
             return new String(htmlSources);
         } catch (IOException e) {
             LOG.error("Source file <" + fileName + "> cannot be read.", e);
-            // todo: move this block to separate method
-            try {
-                byte[] textSources = Files.readAllBytes(Paths.get("./src/main/resources/" + ERROR_WEB_PAGE));
-                return new String(textSources);
-            } catch (IOException e1){
-                LOG.error("Error source file <" + ERROR_WEB_PAGE + "> cannot be read.", e1);
-            }
+            readErrorWebPage();
         }
         return NO_HTML_SOURCE_FILE;
     }
 
-    private String readErrorWebPage
+    private String readErrorWebPage() {
+        try {
+            byte[] textSources = Files.readAllBytes(Paths.get("./src/main/resources/" + ERROR_WEB_PAGE));
+            return new String(textSources);
+        } catch (IOException e1){
+            LOG.error("Error source file <" + ERROR_WEB_PAGE + "> cannot be read.", e1);
+        }
+        return NO_HTML_SOURCE_FILE;
+    }
 }
