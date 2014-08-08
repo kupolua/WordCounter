@@ -14,8 +14,6 @@ import java.io.PrintWriter;
 /**
  * Created by kpl on 23.07.2014.
  */
-// todo: 90+ all servlets should end with Servlet word
-// todo: 91+ rename servlet classes to meaningful name. all servlets handle requests or load response
 public class UserRequestHandlerServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
