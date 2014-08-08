@@ -16,21 +16,21 @@ public class StringUrlsParser {
     public List<String> parseUrlList(String stringUrls) {
         String urlsWithoutWhitespaces = stringUrls.replaceAll(" ", "");
         String[] urlsThatDelimitedByComma = urlsWithoutWhitespaces.split(DELIMETER);
-        List<String> chackedUrls = new ArrayList<String>();
+        List<String> checkedUrls = new ArrayList<String>();
 
         for (String url : urlsThatDelimitedByComma) {
             if (url.startsWith("http://")) {
-                chackedUrls.add(url);
+                checkedUrls.add(url);
             } else if (url.startsWith("https://")) {
                 LOG.warn("Cannot handle <"+ url +">. https protocol does not allowed.");
                 // todo: don't add error as item in list. use exception and handle it
-//                chackedUrls.add("I can't read https");
+                checkedUrls.add("I can't read https");
             } else {
-                chackedUrls.add("http://" + url);
+                checkedUrls.add("http://" + url);
             }
         }
 
-        return chackedUrls;
+        return checkedUrls;
     }
 
 }
