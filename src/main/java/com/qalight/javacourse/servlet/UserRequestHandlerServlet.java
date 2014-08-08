@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.qalight.javacourse.StringUrlsParser;
 import com.qalight.javacourse.UserRequestRouter;
+import com.qalight.javacourse.WordsSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,12 +59,21 @@ public class UserRequestHandlerServlet extends HttpServlet {
             // todo: throw exception here
         }
         String userRequest = request.getParameter("userRequest");
-        String sortingParam = request.getParameter("userCheck");
+        String sortingParamString = request.getParameter("userCheck");
+        WordsSorter sortingParam;
+        try {
+            sortingParam = WordsSorter.valueOf(sortingParamString);
+        } catch (IllegalArgumentException e) {
+            // todo: Print message to user form
+            throw new RuntimeException("Invalid sorting parameter: " + sortingParamString);
+            // todo: Add message to log
+            // todo: Stop code execute
+        }
         String typeStatisticResult = request.getParameter("typeStatisticResult");
 
 
         UserRequestRouter userRequestRouter = UserRequestRouter.valueOf(typeStatisticResult);
-        List<List<Map.Entry<String, Integer>>> countedWords = userRequestRouter.getCountedWords(userRequest, sortingParam);
+        List<List<Map.Entry<String, Integer>>> countedWords = userRequestRouter.getCountedWords(userRequest, sortingParamString);
 
         Gson gson = new Gson();
         JsonElement countedWordsList = gson.toJsonTree(countedWords);
