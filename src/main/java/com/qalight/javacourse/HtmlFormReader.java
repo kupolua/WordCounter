@@ -18,7 +18,6 @@ public class HtmlFormReader {
 
     public String readHtmlSourceFile(String fileName) {
         // todo: simplify logic and use single return statement
-        //
         try {
             LOG.info("Reading source file " + fileName);
             byte[] htmlSources = Files.readAllBytes(Paths.get("./src/main/resources/" + fileName));
@@ -30,7 +29,7 @@ public class HtmlFormReader {
         return NO_HTML_SOURCE_FILE;
     }
 
-    private String readErrorWebPage() {
+    public String readErrorWebPage() {
         try {
             byte[] textSources = Files.readAllBytes(Paths.get("./src/main/resources/" + ERROR_WEB_PAGE));
             return new String(textSources);
