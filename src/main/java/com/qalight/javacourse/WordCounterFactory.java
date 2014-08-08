@@ -4,9 +4,9 @@ package com.qalight.javacourse;
  * Created by kpl on 08.08.2014.
  */
 public class WordCounterFactory {
-    //todo: give meaningful name to getTypeRequest
+    //todo kupolua:  give meaningful name to getTypeRequest
     public CountedWordsGetter getTypeRequest(String typeStatisticResult) {
-        //todo: do not use if-else use OOP. See the article on G+
+        //todo kupolua:  do not use if-else use OOP. See the article on G+
         if (typeStatisticResult == null) {
             return null;
         }

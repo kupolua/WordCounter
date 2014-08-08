@@ -17,7 +17,7 @@ public class HtmlFormReader {
     private static final String ERROR_WEB_PAGE = "Error.html";
 
     public String readHtmlSourceFile(String fileName) {
-        // todo: simplify logic and use single return statement
+        // todo diverfd: simplify logic and use single return statement
         String readHtml;
         try {
             LOG.info("Reading source file " + fileName);

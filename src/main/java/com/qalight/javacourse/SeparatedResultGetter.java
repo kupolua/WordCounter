@@ -17,8 +17,8 @@ public class SeparatedResultGetter implements CountedWordsGetter {
 
         List<List<Map.Entry<String, Integer>>> countedWordsList = new ArrayList<List<Map.Entry<String, Integer>>>();
         for (String url : userUrlsList) {
-            // todo: use design patterns to check which converter to use based on request and apply converter
-            // todo: do not create new converter in 'for' block. initialize it in constructor
+            // todo kupolua: use design patterns to check which converter to use based on request and apply converter
+            // todo kupolua: do not create new converter in 'for' block. initialize it in constructor
             ToStringConverter htmlToTextConverter = new HtmlToStringConverter();
             String plainText = htmlToTextConverter.convertToString(url);
 

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by kpl on 30.07.2014.
  */
-// todo: if I use HttpServletRequest maybe I should make it as servlet?
+// todo kupolua:  if I use HttpServletRequest maybe I should make it as servlet?
 public class UserRequestRouter {
 
     public JsonObject getResponse(HttpServletRequest request) {

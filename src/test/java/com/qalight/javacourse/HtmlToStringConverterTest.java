@@ -9,8 +9,8 @@ import java.io.InputStream;
 public class HtmlToStringConverterTest {
 
     @Test
-    // todo: remove 'throws Exception everywhere where not necessary'
-    // todo: move to integration test. unit tests should not depend on internet connection
+    // todo stkotok: remove 'throws Exception everywhere where not necessary'
+    // tod: move to integration test. unit tests should not depend on internet connection
     public void testGetPlainTextByUrl() throws Exception {
 
         //   given

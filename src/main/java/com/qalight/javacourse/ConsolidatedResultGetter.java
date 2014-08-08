@@ -19,7 +19,7 @@ public class ConsolidatedResultGetter implements CountedWordsGetter{
 
         StringJoiner sj = new StringJoiner("");
         for (String url : userUrlsList) {
-            // todo: use design patterns to check which converter to use based on request and apply converter
+            // todo kupolua: use design patterns to check which converter to use based on request and apply converter
             ToStringConverter htmlToTextConverter = new HtmlToStringConverter();
             String plainText = htmlToTextConverter.convertToString(url);
             UnrefinedTextFilter unrefinedTextFilter = new UnrefinedTextFilter();
