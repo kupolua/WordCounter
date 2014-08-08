@@ -40,7 +40,7 @@ public class HtmlFormReaderTest {
     }
 
     @Test
-    @Ignore
+    @Ignore // Test marked "ignored" because HtmlFormReader not valid
     public void testReadErrorWebPage() throws Exception {
 
         // given
@@ -57,7 +57,7 @@ public class HtmlFormReaderTest {
     }
 
     @Test
-    @Ignore
+    @Ignore // Test marked "ignored" because HtmlFormReader not valid
     public void testReturnErrorPageWhenRequiredPageIsMissing() throws Exception {
 
         // given
