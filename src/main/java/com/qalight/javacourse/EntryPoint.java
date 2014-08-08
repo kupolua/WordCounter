@@ -14,6 +14,11 @@ import org.slf4j.LoggerFactory;
 public class EntryPoint {
     private static final Logger LOG = LoggerFactory.getLogger(EntryPoint.class);
     public static void main(String[] args) {
+
+        new EntryPoint().jettyStart();
+
+    }
+    public void jettyStart() {
         try {
             LOG.debug("Starting Jetty server!!!");
             Server server = new Server(8021);

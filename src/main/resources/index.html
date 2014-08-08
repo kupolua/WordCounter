@@ -63,7 +63,8 @@
                         }
                         //display error message
                         else {
-                            $("#ajaxResponse").html("<div><b>Country code in Invalid!</b></div>");
+                            $("#ajaxResponse").html("");
+                            $("#ajaxResponse").append("<p><h1>" + data.NullPointerException + "</h1></p>");
                         }
                     },
 
@@ -110,7 +111,7 @@
     </div>
     <div id="myExample">
         <form id="myAjaxRequestForm">
-            <div><a class='btn btn-success large-button' id='download-button' href='localIndex.html'> Download</a></div>
+
             <fieldset>
                 <legend>Input url by comma delimiter http://htmlbook.ru/html/input,
                     http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost,

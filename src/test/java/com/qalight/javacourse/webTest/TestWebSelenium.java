@@ -1,8 +1,8 @@
 package com.qalight.javacourse.webTest;
 
+import com.qalight.javacourse.EntryPoint;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -23,13 +23,14 @@ public class TestWebSelenium {
 
     @Before
     public void setUp() throws Exception {
+        new EntryPoint().jettyStart();
         driver = new FirefoxDriver();
         baseUrl = "http://localhost:8021/inputForm/UserHtmlFormLoaderServlet";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     @Test
-    @Ignore
+//    @Ignore
     // failed on TC -- fix it
     public void testWebForm() throws Exception {
         driver.get(baseUrl);
