@@ -9,20 +9,6 @@ import java.nio.file.Paths;
 
 public class HtmlFormReaderTest {
 
-//    @Test
-//    public void testReadHtmlSourceFile() throws Exception {
-//
-//        // given
-//        String indexHtmlString;
-//        try {
-//            final byte[] indexHtmlByte = Files.readAllBytes(Paths.get("./src/main/resources/index.html"));
-//            indexHtmlString = new String(indexHtmlByte);
-//        } catch (IOException e) {
-//            returningByteHtml = Files.readAllBytes(Paths.get("./src/main/resources/Error.html"));
-//        }
-//        String indexHtmlString = new String(indexHtmlByte);
-//    }
-
     @Test
     public void testReadHtmlSourceFile() throws Exception {
 
