@@ -1,11 +1,6 @@
 package com.qalight.javacourse.servlet;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.qalight.javacourse.StringUrlsParser;
 import com.qalight.javacourse.UserRequestRouter;
-import com.qalight.javacourse.WordsSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by kpl on 23.07.2014.
@@ -26,7 +19,7 @@ import java.util.Map;
 public class UserRequestHandlerServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
-    //todo: throws ServletException, IOException -> try
+    //todo: try throws ServletException, IOException -> try
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
@@ -58,43 +51,47 @@ public class UserRequestHandlerServlet extends HttpServlet {
             LOG.error("Can't get writer", e);
             // todo: throw exception here
         }
-        String userRequest = request.getParameter("userRequest");
-        String sortingParamString = request.getParameter("userCheck");
+
+//        String userRequest = request.getParameter("userRequest");
+//        String sortingParamString = request.getParameter("userCheck");
+//        try {
+//           WordsSorter.valueOf(sortingParamString);
+//
+//        } catch (IllegalArgumentException e) {
+//            todo: Print message to user form
+//            LOG.error("Invalid sorting parameter: " + sortingParamString, e);
+//            throw new RuntimeException("Invalid sorting parameter: " + sortingParamString);
+//            todo: Stop method execute and get some html page to user
+//        }
+//        String typeStatisticResult = request.getParameter("typeStatisticResult");
+
+
+//        UserRequestRouter userRequestRouter = UserRequestRouter.valueOf(typeStatisticResult);
+//        List<List<Map.Entry<String, Integer>>> countedWords = userRequestRouter.getCountedWords(userRequest, sortingParamString);
+
+//        Gson gson = new Gson();
+//        JsonElement countedWordsList = gson.toJsonTree(countedWords);
+
+//        StringUrlsParser stringUrlsParser = new StringUrlsParser();
+//        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrlList(userRequest));
+
+//        JsonObject myObj = new JsonObject();
+//        myObj.addProperty("success", true);
+//        myObj.add("response", countedWordsList);
+//        myObj.add("listUsersUrls", listUsersUrls);
+
         try {
-           WordsSorter.valueOf(sortingParamString);
-
-        } catch (IllegalArgumentException e) {
-            // todo: Print message to user form
-            LOG.error("Invalid sorting parameter: " + sortingParamString, e);
-            throw new RuntimeException("Invalid sorting parameter: " + sortingParamString);
-            // todo: Stop method execute and get some html page to user
-        }
-        String typeStatisticResult = request.getParameter("typeStatisticResult");
-
-
-        UserRequestRouter userRequestRouter = UserRequestRouter.valueOf(typeStatisticResult);
-        List<List<Map.Entry<String, Integer>>> countedWords = userRequestRouter.getCountedWords(userRequest, sortingParamString);
-
-        Gson gson = new Gson();
-        JsonElement countedWordsList = gson.toJsonTree(countedWords);
-
-        StringUrlsParser stringUrlsParser = new StringUrlsParser();
-        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrlList(userRequest));
-
-        JsonObject myObj = new JsonObject();
-        myObj.addProperty("success", true);
-        myObj.add("response", countedWordsList);
-        myObj.add("listUsersUrls", listUsersUrls);
-
-        try {
-            out.println(myObj.toString());
-        } catch (NullPointerException npe) {
-            LOG.error("No data to show", npe);
+//            out.println(myObj.toString());
+            UserRequestRouter userRequestRouter = new UserRequestRouter();
+            System.out.println("userRequestRouter.getResponse(request).toString(): " + userRequestRouter.getResponse(request).toString());
+            out.println(userRequestRouter.getResponse(request).toString());
+        } catch (NullPointerException npeUserRequestRouter) {
+            LOG.error("No data to show", npeUserRequestRouter);
         } finally {
             try {
                 out.close();
-            } catch (NullPointerException npe) {
-                LOG.error("Can't close connection", npe);
+            } catch (NullPointerException npeOutClose) {
+                LOG.error("Can't close connection", npeOutClose);
             }
         }
     }
