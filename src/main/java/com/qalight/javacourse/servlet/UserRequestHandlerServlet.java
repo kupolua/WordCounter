@@ -26,7 +26,7 @@ import java.util.Map;
 public class UserRequestHandlerServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
-
+    //todo: throws ServletException, IOException -> try
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
@@ -61,7 +61,8 @@ public class UserRequestHandlerServlet extends HttpServlet {
         String userRequest = request.getParameter("userRequest");
         String sortingParamString = request.getParameter("userCheck");
         try {
-            WordsSorter.valueOf(sortingParamString);
+           WordsSorter.valueOf(sortingParamString);
+
         } catch (IllegalArgumentException e) {
             // todo: Print message to user form
             LOG.error("Invalid sorting parameter: " + sortingParamString, e);
@@ -88,9 +89,13 @@ public class UserRequestHandlerServlet extends HttpServlet {
         try {
             out.println(myObj.toString());
         } catch (NullPointerException npe) {
-            npe.printStackTrace();
+            LOG.error("No data to show", npe);
         } finally {
-            out.close();
+            try {
+                out.close();
+            } catch (NullPointerException npe) {
+                LOG.error("Can't close connection", npe);
+            }
         }
     }
 }

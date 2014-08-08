@@ -35,4 +35,6 @@ public class HtmlFormReader {
         }
         return NO_HTML_SOURCE_FILE;
     }
+
+    private String readErrorWebPage
 }

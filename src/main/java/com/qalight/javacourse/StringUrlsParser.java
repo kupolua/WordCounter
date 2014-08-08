@@ -24,7 +24,7 @@ public class StringUrlsParser {
             } else if (url.startsWith("https://")) {
                 LOG.warn("Cannot handle <"+ url +">. https protocol does not allowed.");
                 // todo: don't add error as item in list. use exception and handle it
-                chackedUrls.add("I can't read https");
+//                chackedUrls.add("I can't read https");
             } else {
                 chackedUrls.add("http://" + url);
             }
