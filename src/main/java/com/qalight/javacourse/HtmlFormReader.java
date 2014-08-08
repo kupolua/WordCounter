@@ -10,29 +10,35 @@ import java.nio.file.Paths;
 /**
  * Created by kpl on 23.07.2014.
  */
-// todo : add unit test
+// todo stkotok: add unit test
 public class HtmlFormReader {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlFormReader.class);
     private static final String NO_HTML_SOURCE_FILE = "No Source File ";
     private static final String ERROR_WEB_PAGE = "Error.html";
 
     public String readHtmlSourceFile(String fileName) {
-        // todo: simplify logic and use single return statement
-        //
+        // todo diverfd: simplify logic and use single return statement
+        String readHtml;
         try {
             LOG.info("Reading source file " + fileName);
             byte[] htmlSources = Files.readAllBytes(Paths.get("./src/main/resources/" + fileName));
-            return new String(htmlSources);
+            readHtml = new String(htmlSources);
         } catch (IOException e) {
             LOG.error("Source file <" + fileName + "> cannot be read.", e);
-            // todo: move this block to separate method
-            try {
-                byte[] textSources = Files.readAllBytes(Paths.get("./src/main/resources/" + ERROR_WEB_PAGE));
-                return new String(textSources);
-            } catch (IOException e1){
-                LOG.error("Error source file <" + ERROR_WEB_PAGE + "> cannot be read.", e1);
-            }
+            readHtml = readErrorWebPage();
         }
-        return NO_HTML_SOURCE_FILE;
+        return readHtml;
+    }
+
+    private String readErrorWebPage() {
+        String readErrorHtml;
+        try {
+            byte[] errorHtmlSources = Files.readAllBytes(Paths.get("./src/main/resources/" + ERROR_WEB_PAGE));
+            readErrorHtml = new String(errorHtmlSources);
+        } catch (IOException e){
+            LOG.error("Error page source file <" + ERROR_WEB_PAGE + "> cannot be read.", e);
+            readErrorHtml = NO_HTML_SOURCE_FILE;
+        }
+        return readErrorHtml;
     }
 }

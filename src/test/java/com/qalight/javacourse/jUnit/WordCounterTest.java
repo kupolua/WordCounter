@@ -1,5 +1,6 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.jUnit;
 
+import com.qalight.javacourse.WordCounter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ public class WordCounterTest {
 
         // given hello t
         final String text = "one two two three three three";
-        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>() {{
             put("one", 1);
             put("two", 2);
             put("three", 3);

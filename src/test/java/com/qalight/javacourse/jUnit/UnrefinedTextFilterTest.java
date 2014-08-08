@@ -1,5 +1,6 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.jUnit;
 
+import com.qalight.javacourse.UnrefinedTextFilter;
 import org.junit.Assert;
 import org.junit.Test;
 

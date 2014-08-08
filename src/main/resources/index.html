@@ -29,10 +29,10 @@
 
                 //get the form data using another method
                 var userRequest = $("textarea#userRequest").val();
-                var userCheck = $('input[name=userCheck]:checked').val();
+                var userChoice = $('input[name=userChoice]:checked').val();
                 var typeStatisticResult = $('input[name=typeStatisticResult]:checked').val();
                 //alert(userCheck);
-                dataString = "userRequest=" + userRequest + "&userCheck=" + userCheck + "&typeStatisticResult=" + typeStatisticResult;
+                dataString = "userRequest=" + userRequest + "&userChoice=" + userChoice + "&typeStatisticResult=" + typeStatisticResult;
 
                 //make the AJAX request, dataType is set to json
                 //meaning we are expecting JSON data in response from the server
@@ -63,7 +63,8 @@
                         }
                         //display error message
                         else {
-                            $("#ajaxResponse").html("<div><b>Country code in Invalid!</b></div>");
+                            $("#ajaxResponse").html("");
+                            $("#ajaxResponse").append("<p><h1>" + data.NullPointerException + "</h1></p>");
                         }
                     },
 
@@ -110,7 +111,7 @@
     </div>
     <div id="myExample">
         <form id="myAjaxRequestForm">
-            <div><a class='btn btn-success large-button' id='download-button' href='localIndex.html'> Download</a></div>
+
             <fieldset>
                 <legend>Input url by comma delimiter http://htmlbook.ru/html/input,
                     http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost,
@@ -126,10 +127,10 @@
                 </p>
 
                 <p>
-                    <input type="radio" name="userCheck" value="KEY_ASCENDING" checked>Key Aascending
-                    <input type="radio" name="userCheck" value="VALUE_ASCENDING">Value Aascending
-                    <input type="radio" name="userCheck" value="KEY_DESCENDING">Key Descending
-                    <input type="radio" name="userCheck" value="VALUE_DESCENDING">Value Descending
+                    <input type="radio" name="userChoice" value="KEY_ASCENDING" checked>Key Aascending
+                    <input type="radio" name="userChoice" value="VALUE_ASCENDING">Value Aascending
+                    <input type="radio" name="userChoice" value="KEY_DESCENDING">Key Descending
+                    <input type="radio" name="userChoice" value="VALUE_DESCENDING">Value Descending
 
                 </p>
                 <p>
@@ -139,7 +140,7 @@
                 <p>
                     <input type="radio" name="typeStatisticResult" value="CONSOLIDATED_RESULT" checked>Consolidated
                     result of count words in all urls
-                    <input type="radio" name="typeStatisticResult" value="EACH_URLS_RESULT">Get result of count words
+                    <input type="radio" name="typeStatisticResult" value="SEPARATED_RESULT">Get separated result of count words
                     each urls
                 </p>
 
