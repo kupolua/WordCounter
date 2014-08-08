@@ -39,7 +39,6 @@ public class TestWebFormSelenium {
 
     @Before
     public void setUp() throws Exception {
-        new EntryPoint().jettyStart();
         driver = new FirefoxDriver();
         baseUrl = "http://localhost:8021/inputForm/UserHtmlFormLoaderServlet";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -47,7 +46,7 @@ public class TestWebFormSelenium {
 
     @Test
     public void testEmptyUrlRequest() throws Exception {
-
+        new EntryPoint().jettyStart();
         driver.get(baseUrl);
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
@@ -57,6 +56,7 @@ public class TestWebFormSelenium {
 
     @Test
     public void testUrlContainHttps() throws Exception {
+        new EntryPoint().jettyStart();
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("https://easypay.ua/");
@@ -68,6 +68,7 @@ public class TestWebFormSelenium {
 
     @Test
     public void testIncorrectUrl() throws Exception {
+        new EntryPoint().jettyStart();
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://htmlbook.u/html/input");
@@ -79,6 +80,7 @@ public class TestWebFormSelenium {
 
     @Test
     public void testSortingKA() throws Exception {
+        new EntryPoint().jettyStart();
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/");
@@ -91,6 +93,7 @@ public class TestWebFormSelenium {
 
     @Test
     public void testSortingVA() throws Exception {
+        new EntryPoint().jettyStart();
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/");
@@ -104,6 +107,7 @@ public class TestWebFormSelenium {
 
     @Test
     public void testSortingKD() throws Exception {
+        new EntryPoint().jettyStart();
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/");
@@ -117,6 +121,7 @@ public class TestWebFormSelenium {
 
     @Test
     public void testSortingVD() throws Exception {
+        new EntryPoint().jettyStart();
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/");
@@ -130,6 +135,7 @@ public class TestWebFormSelenium {
 
     @Test
     public void testConsolidatedResult() throws Exception {
+        new EntryPoint().jettyStart();
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/, " +
