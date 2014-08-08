@@ -60,14 +60,13 @@ public class UserRequestHandlerServlet extends HttpServlet {
         }
         String userRequest = request.getParameter("userRequest");
         String sortingParamString = request.getParameter("userCheck");
-        WordsSorter sortingParam;
         try {
-            sortingParam = WordsSorter.valueOf(sortingParamString);
+            WordsSorter.valueOf(sortingParamString);
         } catch (IllegalArgumentException e) {
             // todo: Print message to user form
+            LOG.error("Invalid sorting parameter: " + sortingParamString, e);
             throw new RuntimeException("Invalid sorting parameter: " + sortingParamString);
-            // todo: Add message to log
-            // todo: Stop code execute
+            // todo: Stop method execute and get some html page to user
         }
         String typeStatisticResult = request.getParameter("typeStatisticResult");
 
