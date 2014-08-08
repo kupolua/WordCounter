@@ -1,6 +1,9 @@
-package com.qalight.javacourse.webTest;
+package com.qalight.javacourse.httpUnit;
 
-import com.meterware.httpunit.*;
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.httpunit.WebConversation;
+import com.meterware.httpunit.WebForm;
+import com.meterware.httpunit.WebResponse;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;

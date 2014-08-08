@@ -1,4 +1,4 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.jUnit;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Test;

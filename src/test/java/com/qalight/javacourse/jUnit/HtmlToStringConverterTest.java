@@ -1,5 +1,7 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.jUnit;
 
+import com.qalight.javacourse.HtmlToStringConverter;
+import com.qalight.javacourse.ToStringConverter;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;

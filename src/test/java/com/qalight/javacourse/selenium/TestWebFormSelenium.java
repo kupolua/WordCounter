@@ -1,17 +1,19 @@
-package com.qalight.javacourse.webTest;
+package com.qalight.javacourse.selenium;
+
+import com.qalight.javacourse.EntryPoint;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
-import com.qalight.javacourse.EntryPoint;
-import org.junit.*;
-
 import static java.lang.Thread.sleep;
-import static org.junit.Assert.*;
-
-import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Created by Vova on 08.08.2014.
