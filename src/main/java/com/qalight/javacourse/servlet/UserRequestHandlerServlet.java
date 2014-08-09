@@ -50,36 +50,7 @@ public class UserRequestHandlerServlet extends HttpServlet {
             // todo: throw exception here
         }
 
-//        String userRequest = request.getParameter("userRequest");
-//        String sortingParamString = request.getParameter("userCheck");
-//        try {
-//           WordsSorter.valueOf(sortingParamString);
-//
-//        } catch (IllegalArgumentException e) {
-//            todo: Print message to user form
-//            LOG.error("Invalid sorting parameter: " + sortingParamString, e);
-//            throw new RuntimeException("Invalid sorting parameter: " + sortingParamString);
-//            todo: Stop method execute and get some html page to user
-//        }
-//        String typeStatisticResult = request.getParameter("typeStatisticResult");
-
-
-//        UserRequestRouter userRequestRouter = UserRequestRouter.valueOf(typeStatisticResult);
-//        List<List<Map.Entry<String, Integer>>> countedWords = userRequestRouter.getCountedWords(userRequest, sortingParamString);
-
-//        Gson gson = new Gson();
-//        JsonElement countedWordsList = gson.toJsonTree(countedWords);
-
-//        StringUrlsParser stringUrlsParser = new StringUrlsParser();
-//        JsonElement listUsersUrls = gson.toJsonTree(stringUrlsParser.parseUrlList(userRequest));
-
-//        JsonObject myObj = new JsonObject();
-//        myObj.addProperty("success", true);
-//        myObj.add("response", countedWordsList);
-//        myObj.add("listUsersUrls", listUsersUrls);
-
         try {
-//            out.println(myObj.toString());
             UserRequestRouter userRequestRouter = new UserRequestRouter();
             System.out.println("userRequestRouter.getResponse(request).toString(): " + userRequestRouter.getResponse(request).toString());
             out.println(userRequestRouter.getResponse(request).toString());

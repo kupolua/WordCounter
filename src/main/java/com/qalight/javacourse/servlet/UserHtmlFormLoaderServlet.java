@@ -39,7 +39,7 @@ public class UserHtmlFormLoaderServlet extends HttpServlet {
             closeWriter(writer);
         }
     }
-
+    //todo: try throws ServletException, IOException -> try
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }

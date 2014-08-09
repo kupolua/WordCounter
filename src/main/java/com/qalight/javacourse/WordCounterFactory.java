@@ -5,17 +5,19 @@ package com.qalight.javacourse;
  */
 public class WordCounterFactory {
     //todo kupolua:  give meaningful name to getTypeRequest
-    public CountedWordsGetter getTypeRequest(String typeStatisticResult) {
+    public CountedWordsGetter getTypeRequest(String getTypeStatisticResult) {
         //todo kupolua:  do not use if-else use OOP. See the article on G+
-        if (typeStatisticResult == null) {
+        if (getTypeStatisticResult == null) {
             return null;
         }
-        if (typeStatisticResult.equalsIgnoreCase("CONSOLIDATED_RESULT")) {
+        if (getTypeStatisticResult.equalsIgnoreCase("CONSOLIDATED_RESULT")) {
             return new ConsolidatedResultGetter();
-        } else if (typeStatisticResult.equalsIgnoreCase("SEPARATED_RESULT")){
+        } else if (getTypeStatisticResult.equalsIgnoreCase("SEPARATED_RESULT")){
             return new SeparatedResultGetter();
         }
 
         return null;
     }
+
+
 }
