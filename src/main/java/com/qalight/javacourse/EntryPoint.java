@@ -13,15 +13,17 @@ import org.slf4j.LoggerFactory;
  */
 public class EntryPoint {
     private static final Logger LOG = LoggerFactory.getLogger(EntryPoint.class);
+    public static final int JETTY_PORT = 8021;
+
     public static void main(String[] args) {
-
         new EntryPoint().jettyStart();
-
     }
+
     public void jettyStart() {
         try {
             LOG.debug("Starting Jetty server!!!");
-            Server server = new Server(8021);
+
+            Server server = new Server(JETTY_PORT);
 
             ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
             context.setContextPath("/inputForm");
@@ -30,9 +32,10 @@ public class EntryPoint {
             context.addServlet(new ServletHolder(new UserRequestHandlerServlet()), "/UserRequestHandlerServlet");
 
             server.start();
-            LOG.info("Jetty server has started.");
-        } catch (Exception e) {
-            LOG.error("Can't start embedded Jetty server.", e);
+        } catch (Throwable e) {
+            LOG.error("Exception during starting server ", e);
+            throw new RuntimeException(e);
         }
+        LOG.info("Jetty server has started.");
     }
 }
