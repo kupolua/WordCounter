@@ -4,7 +4,6 @@ import com.qalight.javacourse.HtmlFormReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,14 +18,13 @@ import java.io.Writer;
 public class UserHtmlFormLoaderServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
+    private static final String INDEX_FILE = "index.html";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         String userHTMLForm;
-
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
-
-        userHTMLForm = loadUserHTMLForm("index.html");
+        userHTMLForm = loadUserHtmlForm(INDEX_FILE);
 
         PrintWriter writer = null;
         try {
@@ -34,17 +32,19 @@ public class UserHtmlFormLoaderServlet extends HttpServlet {
             writer = response.getWriter();
             writer.println(userHTMLForm);
         } catch (IOException e) {
-            LOG.error("userHTMLForm can't be printed.", e);
+            String msg = "userHTMLForm can't be printed.";
+            LOG.error(msg, e);
+            throw new IllegalStateException(msg, e);
         } finally {
             closeWriter(writer);
         }
     }
-    //todo: try throws ServletException, IOException -> try
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) {
         doGet(request, response);
     }
 
-    public String loadUserHTMLForm(String fileName) {
+    public String loadUserHtmlForm(String fileName) {
         HtmlFormReader htmlFormReader = new HtmlFormReader();
         return htmlFormReader.readHtmlSourceFile(fileName);
     }
