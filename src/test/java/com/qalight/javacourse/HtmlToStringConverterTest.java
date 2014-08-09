@@ -18,8 +18,6 @@ public class HtmlToStringConverterTest {
         InputStream in;
         in = this.getClass().getClassLoader().getResourceAsStream("expectedResultForHtmlToStringConverterTest.txt");
         final String expectedResult = IOUtils.toString(in, "UTF-8");
-//        final String expectedResult = new String(
-//                Files.readAllBytes(Paths.get("./src/test/resources/expectedResultForHtmlToStringConverterTest.txt")));
 
         // when
         ToStringConverter HTMLToTextConverter = new HtmlToStringConverter();
