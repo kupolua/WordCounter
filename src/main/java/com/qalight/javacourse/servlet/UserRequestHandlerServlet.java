@@ -1,10 +1,10 @@
 package com.qalight.javacourse.servlet;
 
-import com.qalight.javacourse.UserRequestRouter;
+import com.qalight.javacourse.service.WordCounterService;
+import com.qalight.javacourse.service.WordCounterServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,16 +17,34 @@ import java.io.PrintWriter;
 public class UserRequestHandlerServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
-    //todo: try throws ServletException, IOException -> try
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    private final WordCounterService wordCounterService;
+
+    public UserRequestHandlerServlet() {
+        wordCounterService = new WordCounterServiceImpl();
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         doPost(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         setResponseHeaders(response);
-        getResponseWriter(request, response);
+        response(request, response);
+    }
 
+    private void response (HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String userUrlsString = request.getParameter("userRequest");
+        String sortingParam = request.getParameter("userChoice");
+        String getTypeStatisticResult = request.getParameter("getTypeStatisticResult");
+
+        try (PrintWriter out = response.getWriter()) {
+
+            String result = wordCounterService.getWordCounterResult (
+                    userUrlsString, sortingParam, getTypeStatisticResult);
+
+            out.println(result);
+        }
     }
 
     private void setResponseHeaders(HttpServletResponse response) {
@@ -38,30 +56,5 @@ public class UserRequestHandlerServlet extends HttpServlet {
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Max-Age", "86400");
-    }
-
-    private void getResponseWriter(HttpServletRequest request, HttpServletResponse response) {
-
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-        } catch (IOException e) {
-            LOG.error("Can't get writer", e);
-            // todo: throw exception here
-        }
-
-        try {
-            UserRequestRouter userRequestRouter = new UserRequestRouter();
-            System.out.println("userRequestRouter.getResponse(request).toString(): " + userRequestRouter.getResponse(request).toString());
-            out.println(userRequestRouter.getResponse(request).toString());
-        } catch (NullPointerException npeUserRequestRouter) {
-            LOG.error("No data to show", npeUserRequestRouter);
-        } finally {
-            try {
-                out.close();
-            } catch (NullPointerException npeOutClose) {
-                LOG.error("Can't close connection", npeOutClose);
-            }
-        }
     }
 }

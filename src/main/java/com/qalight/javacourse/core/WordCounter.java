@@ -1,4 +1,4 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

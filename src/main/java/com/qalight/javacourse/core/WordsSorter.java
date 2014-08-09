@@ -1,4 +1,4 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.core;
 
 import java.util.*;
 

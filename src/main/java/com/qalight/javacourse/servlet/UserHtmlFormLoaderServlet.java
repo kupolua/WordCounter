@@ -26,17 +26,13 @@ public class UserHtmlFormLoaderServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         userHTMLForm = loadUserHtmlForm(INDEX_FILE);
 
-        PrintWriter writer = null;
-        try {
+        try (PrintWriter writer = response.getWriter()) {
             LOG.info("Printing user html form.");
-            writer = response.getWriter();
             writer.println(userHTMLForm);
         } catch (IOException e) {
             String msg = "userHTMLForm can't be printed.";
             LOG.error(msg, e);
             throw new IllegalStateException(msg, e);
-        } finally {
-            closeWriter(writer);
         }
     }
 
@@ -49,13 +45,4 @@ public class UserHtmlFormLoaderServlet extends HttpServlet {
         return htmlFormReader.readHtmlSourceFile(fileName);
     }
 
-    private void closeWriter(Writer writer){
-        if (writer != null){
-            try {
-                writer.close();
-            } catch (IOException e) {
-                LOG.error("cannot close writer" , e);
-            }
-        }
-    }
 }

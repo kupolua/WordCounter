@@ -3,7 +3,7 @@ package com.qalight.javacourse.jUnit;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Test;
 
-public class UserRequestRouterTest {
+public class WordCounterServiceImplTest {
 
     @Test
     @Ignore

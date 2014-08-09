@@ -1,6 +1,6 @@
 package com.qalight.javacourse.jUnit;
 
-import com.qalight.javacourse.WordCounter;
+import com.qalight.javacourse.core.WordCounter;
 import org.junit.Assert;
 import org.junit.Test;
 

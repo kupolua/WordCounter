@@ -1,6 +1,8 @@
 package com.qalight.javacourse;
 
 import com.google.gson.JsonObject;
+import com.qalight.javacourse.core.WordCounter;
+import com.qalight.javacourse.core.WordsSorter;
 
 import java.util.ArrayList;
 import java.util.List;
