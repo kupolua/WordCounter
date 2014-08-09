@@ -3,6 +3,9 @@ package com.qalight.javacourse;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class HtmlToStringConverterTest {
 
     @Test
@@ -11,15 +14,16 @@ public class HtmlToStringConverterTest {
     public void testGetPlainTextByUrl() throws Exception {
 
         //   given
-        final String testUrl = "http://english-e-books.net/books/advanced/Charlie_and_the_Chocolate_Factory-Dahl_Roald/Charlie_and_the_Chocolate_Factory-Dahl_Roald.txt";
-        final int expectedTextSize = 156832;
+        final String testUrl = "http://www.mono-project.com/Java";
+        final String expectedResult = new String(
+                Files.readAllBytes(Paths.get("src\\test\\resources\\expectedResultForHtmlToStringConverterTest.txt")));
 
         // when
         ToStringConverter HTMLToTextConverter = new HtmlToStringConverter();
-        String actualText = HTMLToTextConverter.convertToString(testUrl);
+        String actualResult = HTMLToTextConverter.convertToString(testUrl);
 
         // then
-        // todo stkotok: test actual text, not size
-        Assert.assertEquals(expectedTextSize, actualText.length());
+        Assert.assertEquals(expectedResult, actualResult);
+
     }
 }
