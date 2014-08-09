@@ -7,7 +7,7 @@ import java.util.*;
  */
 
 public enum WordsSorter {
-    // todo: if parameters are not correct throw exception and catch in servlet class: WordsSorter
+    // todo stkotok: if parameters are not correct throw exception and catch in servlet class: WordsSorter
 
     KEY_ASCENDING {
         @Override
@@ -66,7 +66,7 @@ public enum WordsSorter {
         public List<Map.Entry<String, Integer>> getSortedWords(Map<String, Integer> countedWords) {
             Set<Map.Entry<String, Integer>> set = countedWords.entrySet();
             List<Map.Entry<String, Integer>> sortedWords = new ArrayList<Map.Entry<String, Integer>>(set);
-            // todo use comparator classes instead of anonymous comparators
+            // todo stkotok: use comparator classes instead of anonymous comparators
             Collections.sort(sortedWords, new Comparator<Map.Entry<String, Integer>>() {
                 public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 

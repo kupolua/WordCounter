@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 /**
  * Created by kpl on 23.07.2014.
  */
-// todo : add unit test
+// todo stkotok: add unit test
 public class HtmlFormReader {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlFormReader.class);
     private static final String NO_HTML_SOURCE_FILE = "No Source File ";
