@@ -1,7 +1,5 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.core.WordCounter;
-import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.Refineder;
 
@@ -15,21 +13,24 @@ import java.util.Set;
  */
 
 public class WordCounterServiceImpl implements WordCounterService {
+    //todo: Is it posible to create new obj in interface?
+    //todo: Create TextTypeImpl
 
-    private String unrefinedPlainText;
-    private String refinedPlainText;
-    private String textLink;
-    private String documentType;
-    private String result;
+    private static Set<TextType> textTypes;
+    static{
+        textTypes = new HashSet<>();
+        textTypes.add(new HtmlTextTypeIml());
+        textTypes.add(new XmlTextTypeImpl());
+    }
+
+    private static Set<DocumentToStringConverter> documentToStringConverters;
+    static {
+        documentToStringConverters = new HashSet<>();
+        documentToStringConverters.add(new HtmlToStringConverter());
+        documentToStringConverters.add(new XmlToStringConverter());
+    }
+
     private TextType textType;
-    private DocumentToStringConverter documentConverter;
-    private Map<String, Integer> countedWords;
-    private Map<String, Integer> sortedWords;
-    private DataSourceSplitter sources = new DataSourceSplitter();
-    private WordCounter wordCounter = new WordCounter();
-    private WordResult wordResult = new WordResult();
-    private WordResultSorter wordResultSorter = new WordResultSorter();
-    private ResultPresentation resultPresentation = new ResultPresentation();
 
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam) {
@@ -39,33 +40,31 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         Iterator iterator = sources.getSource().iterator();
         while (iterator.hasNext()) {
-            textLink = iterator.next().toString();
+
+            String textLink = iterator.next().toString();
+
             assignTextType(textLink);
 
-            documentType = textType.get();
+            String documentType = textType.get();
 
-            documentConverter = getDocumentConverter(documentType);
-            unrefinedPlainText = documentConverter.convertToString(textLink);
+            DocumentToStringConverter documentConverter = getDocumentConverter(documentType);
 
-            refinedPlainText = Refineder.getRefineText(unrefinedPlainText);
-            countedWords = wordCounter.countWords(refinedPlainText);
+            String plainText = documentConverter.convertToString(textLink);
 
-            //todo: Should we use ENUM or Strategy pattern in wordResultSorter?
-            sortedWords = wordResultSorter.keyAscending(countedWords);
+            String refinedText = Refineder.getRefineText(plainText);
+            Map<String, Integer> countedWords = wordCounter.countWords(refinedText);
+
+            Map<String, Integer> sortedWords = wordResultSorter.keyAscending(countedWords);
 
             wordResult.setWordResult(textLink, sortedWords);
 
         }
-        result = resultPresentation.create(wordResult);
+        String result = resultPresentation.create(wordResult);
 
         return result;
     }
 
     private TextType assignTextType(String textLink) {
-        Set<TextType> textTypes = new HashSet<>();
-        textTypes.add(new HtmlTextTypeIml());
-        textTypes.add(new XmlTextTypeImpl());
-
         for (TextType sourceType : textTypes) {
             if (sourceType.isEligable(textLink)) {
                 textType = sourceType;
@@ -77,17 +76,13 @@ public class WordCounterServiceImpl implements WordCounterService {
 
 
     private DocumentToStringConverter getDocumentConverter(String sourceType) {
-        Set<DocumentToStringConverter> documentToStringConverters = new HashSet<>();
-        documentToStringConverters.add(new HtmlToStringConverter());
-        documentToStringConverters.add(new XmlToStringConverter());
-
+        DocumentToStringConverter documentConverter = null;
         for (DocumentToStringConverter documentToStringConverter : documentToStringConverters) {
             if (documentToStringConverter.isEligable(sourceType)) {
                 documentConverter = documentToStringConverter;
                 break;
             }
         }
-        //todo: throw Exception - documentConverterNotFound
         return documentConverter;
     }
 
