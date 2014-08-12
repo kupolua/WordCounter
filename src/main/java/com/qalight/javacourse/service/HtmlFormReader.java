@@ -16,6 +16,7 @@ public class HtmlFormReader {
     private static final String NO_HTML_SOURCE_FILE = "No Source File ";
     private static final String ERROR_WEB_PAGE = "Error.html";
 
+    //todo kupolua: create JUnit test
     public String readHtmlSourceFile(String fileName) {
         // todo diverfd: simplify logic and use single return statement
         String readHtml;

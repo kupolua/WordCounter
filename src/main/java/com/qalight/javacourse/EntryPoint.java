@@ -18,7 +18,8 @@ public class EntryPoint {
 
     public static void main(String[] args) {
         WordCounterServiceImpl wordCounterService = new WordCounterServiceImpl();
-        System.out.println("Return response to user(json type):" + wordCounterService.getWordCounterResult("Data Sorces", "Sorting Param"));
+        System.out.println("Return response to user(json type):"
+                + wordCounterService.getWordCounterResult("http://www.eslfast.com/supereasy/se/supereasy006.htm", "KEY_ASCENDING"));
 
     }
 

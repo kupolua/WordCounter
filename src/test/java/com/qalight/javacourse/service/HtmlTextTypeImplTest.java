@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class HtmlTextTypeImplTest {
-
+    //todo diverfd: separate to some tests. Each public method have its test
     @Test
     public void testIsEligible() {
         HtmlTextTypeImpl typeIml = new HtmlTextTypeImpl();

@@ -13,11 +13,13 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
         htmlToPlainText = new HtmlToPlainText();
     }
 
+    //todo diverfd: create JUnit test
     @Override
     public Boolean isEligable(String documentType) {
         return documentType.equalsIgnoreCase(DOCUMENT_TYPE);
     }
 
+    //todo diverfd: create JUnit test
     @Override
     public String convertToString(String userUrl) {
 

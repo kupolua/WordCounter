@@ -14,7 +14,7 @@ public class TextTypeInquirer {
         textTypes.add(new HtmlTextTypeImpl());
         textTypes.add(new XmlTextTypeImpl());
     }
-
+    //todo diverfd: create tests
     public TextType inquireTextType(String textLink) {
         TextType textType = null;
         for (TextType sourceType : textTypes) {

@@ -5,7 +5,6 @@ import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.Refineder;
 
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -18,7 +17,6 @@ public class  WordCounterServiceImpl implements WordCounterService {
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
     private final WordResultCollector wordResultCollector;
-    private final WordResultSorter wordResultSorter;
     private final ResultPresentation resultPresentation;
 
     public WordCounterServiceImpl() {
@@ -27,36 +25,30 @@ public class  WordCounterServiceImpl implements WordCounterService {
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
         wordResultCollector = new WordResultCollector();
-        wordResultSorter = new WordResultSorter();
         resultPresentation = new ResultPresentation();
     }
 
+    //todo kupolua: create JUnit test
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         checkParams(clientRequest, sortingParam);
 
-        dataSourceSplitter.validateSources(clientRequest);
+        String textLink = clientRequest;
 
-        Iterator iterator = dataSourceSplitter.getValidSources().iterator();
-        while (iterator.hasNext()) {
+        TextType textType = textTypeInquirer.inquireTextType(textLink);
+        String documentType = textType.getTextType();
 
-            String textLink = iterator.next().toString();
+        DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(documentType);
 
-            TextType textType = textTypeInquirer.inquireTextType(textLink);
-            String documentType = textType.getTextType();
+        String plainText = documentToStringConverter.convertToString(textLink);
 
-            DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(documentType);
+        String refinedText = Refineder.getRefineText(plainText);
+        Map<String, Integer> countedWords = wordCounter.countWords(refinedText);
 
-            String plainText = documentToStringConverter.convertToString(textLink);
+        Map<String, Integer> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
-            String refinedText = Refineder.getRefineText(plainText);
-            Map<String, Integer> countedWords = wordCounter.countWords(refinedText);
+        wordResultCollector.setWordResult(textLink, sortedWords);
 
-            Map<String, Integer> sortedWords = wordResultSorter.keyAscending(countedWords);
-
-            wordResultCollector.setWordResult(textLink, sortedWords);
-
-        }
         String result = resultPresentation.create(wordResultCollector);
 
         return result;
@@ -65,7 +57,6 @@ public class  WordCounterServiceImpl implements WordCounterService {
     private static void checkParams(String userUrlsString, String sortingParam) {
         Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
         Assertions.assertStringIsNotNullOrEmpty(sortingParam);
-//        Assertions.assertStringIsNotNullOrEmpty(getTypeStatisticResult);
     }
 
 }
