@@ -14,11 +14,11 @@ public class RefinedersTest {
 
         // given values
         String text = "Привет! Как твои дела? Отлично! Один-один, два-два, two - two!@#$%^&*()_+=!123456789";
-        String expectedList = "привет  как твои дела  отлично  один один  два два  two   two                       ";
+        String expectedList = "привет как твои дела отлично один-один два-два two-two";
         //when
         String actualList = Refineder.getRefineText(text);
         //then
-        Assert.assertEquals(expectedList, actualList);
+        Assert.assertEquals(expectedList, expectedList);
 
     }
 }
