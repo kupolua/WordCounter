@@ -1,6 +1,7 @@
 package com.qalight.javacourse.core;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -23,13 +24,13 @@ public class WordCounterTest {
         expected.put("дела", 1);
         expected.put("отлично", 2);
         expected.put("один-один", 2);
-        expected.put("two-two", 2);
+        expected.put("two-two", 1);
 
         //when
         WordCounter wordCounter = new WordCounter();
         Map<String, Integer> actual = wordCounter.countWords(refinedText);
 
         //then
-        Assert.assertEquals(expected, expected);
+        Assert.assertEquals(expected, actual);
     }
 }

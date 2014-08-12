@@ -16,14 +16,21 @@ public class WordCounter {
     public Map<String, Integer> countWords(String refinedPlainText) {
 
         Map<String, Integer> countedWords = new HashMap<String, Integer>();
-        countedWords.put("Hello", 10);
-        countedWords.put("World", 7);
-        countedWords.put("Word", 13);
-        countedWords.put("Counter", 5);
-        countedWords.put("Project", 24);
+        LOG.debug("Splitting plain text by all whitespace characters.");
+        String[] str = refinedPlainText.split("\\s+");
+        LOG.debug("Filtering and putting words to HashMap.");
+        for (String eachWord : str) {
+            Integer foundValue = countedWords.get(eachWord);
+            if (foundValue == null) {
+                countedWords.put(eachWord, 1);
+            } else {
+                Integer newCounter = ++foundValue;
+                countedWords.put(eachWord, newCounter);
+            }
+        }
+        LOG.debug("Removing all possible empty entries.");
+        countedWords.remove("");
 
         return countedWords;
     }
-
-
 }
