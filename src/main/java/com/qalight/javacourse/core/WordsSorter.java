@@ -2,7 +2,7 @@ package com.qalight.javacourse.core;
 
 import java.util.*;
 
-public enum WordsSorterENUM {
+public enum WordsSorter {
 
     KEY_ASCENDING {
         @Override

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class WordsSorterENUMTest {
+public class WordsSorterTest {
 
     @Test
     public void testEnumeration() {
@@ -23,7 +23,7 @@ public class WordsSorterENUMTest {
 
         //when
         Set<String> actualEnumValues = new TreeSet<String>();
-        for (WordsSorterENUM wordsSorter : WordsSorterENUM.values()) {
+        for (WordsSorter wordsSorter : WordsSorter.values()) {
             actualEnumValues.add(wordsSorter.toString());
         }
 
@@ -45,7 +45,7 @@ public class WordsSorterENUMTest {
         final String expectedResultByKA = "{one=1, three=3, two=2}";
 
         //when
-        Map<String, Integer> actualResultByKA = WordsSorterENUM.valueOf("KEY_ASCENDING").getSortedWords(givenHashMap);
+        Map<String, Integer> actualResultByKA = WordsSorter.valueOf("KEY_ASCENDING").getSortedWords(givenHashMap);
 
         //then
         Assert.assertEquals(expectedResultByKA, actualResultByKA.toString());
@@ -65,7 +65,7 @@ public class WordsSorterENUMTest {
         final String expectedResultByKD = "{two=2, three=3, one=1}";
 
         //when
-        Map<String, Integer> actualResultByKD = WordsSorterENUM.valueOf("KEY_DESCENDING").getSortedWords(givenHashMap);
+        Map<String, Integer> actualResultByKD = WordsSorter.valueOf("KEY_DESCENDING").getSortedWords(givenHashMap);
 
         //then
         Assert.assertEquals(expectedResultByKD, actualResultByKD.toString());
@@ -85,7 +85,7 @@ public class WordsSorterENUMTest {
         final String expectedResultByVA = "{one=1, two=2, three=3}";
 
         //when
-        Map<String, Integer> actualResultByVA = WordsSorterENUM.valueOf("VALUE_ASCENDING").getSortedWords(givenHashMap);
+        Map<String, Integer> actualResultByVA = WordsSorter.valueOf("VALUE_ASCENDING").getSortedWords(givenHashMap);
 
         //then
         Assert.assertEquals(expectedResultByVA, actualResultByVA.toString());
@@ -105,7 +105,7 @@ public class WordsSorterENUMTest {
         final String expectedResultByVD = "{three=3, two=2, one=1}";
 
         //when
-        Map<String, Integer> actualResultByVD = WordsSorterENUM.valueOf("VALUE_DESCENDING").getSortedWords(givenHashMap);
+        Map<String, Integer> actualResultByVD = WordsSorter.valueOf("VALUE_DESCENDING").getSortedWords(givenHashMap);
 
         //then
         Assert.assertEquals(expectedResultByVD, actualResultByVD.toString());
