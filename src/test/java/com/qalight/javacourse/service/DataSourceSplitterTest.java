@@ -14,7 +14,7 @@ public class DataSourceSplitterTest {
     public void testValidateSources() {
         DataSourceSplitter sourceSplitter = new DataSourceSplitter();
         //given
-        String notValidateSources = "http://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +
+        final String notValidateSources = "http://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +
                 "commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +
                 "https://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html , https://translate.google.com.ua";
         //when

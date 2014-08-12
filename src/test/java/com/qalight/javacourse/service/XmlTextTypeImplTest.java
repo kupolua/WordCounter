@@ -10,10 +10,10 @@ public class XmlTextTypeImplTest {
     public void testIsEligible() {
         XmlTextTypeImpl typeImpl = new XmlTextTypeImpl();
         //given
-        String sourceLink = "index.html";
-        String sourceLink1 = "index";
-        String sourceLink2 = "index.pdf";
-        String sourceLink3 = "index.xml";
+        final String sourceLink = "index.html";
+        final String sourceLink1 = "index";
+        final String sourceLink2 = "index.pdf";
+        final String sourceLink3 = "index.xml";
         //when
         boolean isEligible = typeImpl.isEligible(sourceLink);
         boolean isEligible1 = typeImpl.isEligible(sourceLink1);

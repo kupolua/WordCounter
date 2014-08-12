@@ -9,10 +9,10 @@ public class HtmlTextTypeImplTest {
     public void testIsEligible() {
         HtmlTextTypeImpl typeIml = new HtmlTextTypeImpl();
         //given
-        String sourceLink = "index.html";
-        String sourceLink1 = "index";
-        String sourceLink2 = "index.pdf";
-        String sourceLink3 = "index.xml";
+        final String sourceLink = "index.html";
+        final String sourceLink1 = "index";
+        final String sourceLink2 = "index.pdf";
+        final String sourceLink3 = "index.xml";
         //when
         boolean isEligible = typeIml.isEligible(sourceLink);
         boolean isEligible1 = typeIml.isEligible(sourceLink1);
