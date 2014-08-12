@@ -1,0 +1,115 @@
+package com.qalight.javacourse.core;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class WordsSorterENUMTest {
+
+    @Test
+    public void testEnumeration() {
+
+        // given
+        final Set<String> expectedEnumValues = new TreeSet<String>() {{
+            add("KEY_ASCENDING");
+            add("KEY_DESCENDING");
+            add("VALUE_ASCENDING");
+            add("VALUE_DESCENDING");
+        }};
+
+        //when
+        Set<String> actualEnumValues = new TreeSet<String>();
+        for (WordsSorterENUM wordsSorter : WordsSorterENUM.values()) {
+            actualEnumValues.add(wordsSorter.toString());
+        }
+
+        //then
+        Assert.assertEquals(expectedEnumValues, actualEnumValues);
+
+    }
+
+    @Test
+    public void testGetSortedWords_KeyAsc() {
+
+        //given
+        final Map<String, Integer> givenHashMap = new HashMap<String, Integer>() {{
+            put("three", 3);
+            put("one", 1);
+            put("two", 2);
+        }};
+
+        final String expectedResultByKA = "{one=1, three=3, two=2}";
+
+        //when
+        Map<String, Integer> actualResultByKA = WordsSorterENUM.valueOf("KEY_ASCENDING").getSortedWords(givenHashMap);
+
+        //then
+        Assert.assertEquals(expectedResultByKA, actualResultByKA.toString());
+
+    }
+
+    @Test
+    public void testGetSortedWords_KeYDesc() {
+
+        //given
+        final Map<String, Integer> givenHashMap = new HashMap<String, Integer>() {{
+            put("three", 3);
+            put("one", 1);
+            put("two", 2);
+        }};
+
+        final String expectedResultByKD = "{two=2, three=3, one=1}";
+
+        //when
+        Map<String, Integer> actualResultByKD = WordsSorterENUM.valueOf("KEY_DESCENDING").getSortedWords(givenHashMap);
+
+        //then
+        Assert.assertEquals(expectedResultByKD, actualResultByKD.toString());
+
+    }
+
+    @Test
+    public void testGetSortedWords_ValAsc() {
+
+        //given
+        final Map<String, Integer> givenHashMap = new HashMap<String, Integer>() {{
+            put("three", 3);
+            put("one", 1);
+            put("two", 2);
+        }};
+
+        final String expectedResultByVA = "{one=1, two=2, three=3}";
+
+        //when
+        Map<String, Integer> actualResultByVA = WordsSorterENUM.valueOf("VALUE_ASCENDING").getSortedWords(givenHashMap);
+
+        //then
+        Assert.assertEquals(expectedResultByVA, actualResultByVA.toString());
+
+    }
+
+    @Test
+    public void testGetSortedWords_ValDesc() throws Exception {
+
+        //given
+        final Map<String, Integer> givenHashMap = new HashMap<String, Integer>() {{
+            put("three", 3);
+            put("one", 1);
+            put("two", 2);
+        }};
+
+        final String expectedResultByVD = "{three=3, two=2, one=1}";
+
+        //when
+        Map<String, Integer> actualResultByVD = WordsSorterENUM.valueOf("VALUE_DESCENDING").getSortedWords(givenHashMap);
+
+        //then
+        Assert.assertEquals(expectedResultByVD, actualResultByVD.toString());
+
+    }
+
+}
