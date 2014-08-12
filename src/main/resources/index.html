@@ -24,10 +24,10 @@
             //checks for the button click event
             $("#myButton").click(function(e){
 
-                //get the form data and then serialize that
+                //getTextType the form data and then serialize that
                 dataString = $("#myAjaxRequestForm").serialize();
 
-                //get the form data using another method
+                //getTextType the form data using another method
                 var userRequest = $("textarea#userRequest").val();
                 var userChoice = $('input[name=userChoice]:checked').val();
                 var typeStatisticResult = $('input[name=typeStatisticResult]:checked').val();
@@ -78,7 +78,7 @@
                     beforeSend: function(jqXHR, settings){
                         //adding some Dummy data to the request
                         settings.data += "&dummyData=whatever";
-                        //disable the button until we get the response
+                        //disable the button until we getTextType the response
                         $('#myButton').attr("disabled", true);
                     },
 

@@ -6,5 +6,5 @@ package com.qalight.javacourse.service;
 public interface TextType {
     public Boolean isEligable(String dataSourceLink);
 
-    public String get();
+    public String getTextType();
 }

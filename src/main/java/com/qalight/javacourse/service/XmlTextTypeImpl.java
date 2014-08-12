@@ -12,7 +12,7 @@ public class XmlTextTypeImpl implements TextType {
     }
 
     @Override
-    public String get() {
+    public String getTextType() {
         return textType;
     }
 }

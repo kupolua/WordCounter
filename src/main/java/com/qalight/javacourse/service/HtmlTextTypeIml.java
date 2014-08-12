@@ -7,8 +7,6 @@ public class HtmlTextTypeIml implements TextType {
     //todo: validate textType by file extention
     private static final String textTypes = "htm";
     private static final String textType = "html";
-    Boolean ok;
-
 
     @Override
     public Boolean isEligable(String dataSourceLink) {
@@ -16,7 +14,7 @@ public class HtmlTextTypeIml implements TextType {
     }
 
     @Override
-    public String get() {
+    public String getTextType() {
         return textType;
     }
 }

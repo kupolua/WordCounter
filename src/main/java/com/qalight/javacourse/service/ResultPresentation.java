@@ -10,13 +10,13 @@ import com.google.gson.JsonObject;
 public class ResultPresentation {
 
     public String create(
-            WordResult wordResult
+            WordResultCollector wordResultCollector
     ) {
 
         Gson gson = new Gson();
         JsonObject countedWordsListObj = new JsonObject();
 
-        JsonElement wordResultResponse = gson.toJsonTree(wordResult);
+        JsonElement wordResultResponse = gson.toJsonTree(wordResultCollector);
 
         countedWordsListObj.addProperty("success", true);
         countedWordsListObj.add("response", wordResultResponse);

@@ -1,89 +1,65 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.core.WordCounter;
+import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.Refineder;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by kpl on 30.07.2014.
  */
 
 public class WordCounterServiceImpl implements WordCounterService {
-    //todo: Is it posible to create new obj in interface?
-    //todo: Create TextTypeImpl
+    private final DataSourceSplitter dataSourceSplitter;
+    private final TextTypeInquirer textTypeInquirer;
+    private final DocumentConverter documentConverter;
+    private final WordCounter wordCounter;
+    private final WordResultCollector wordResultCollector;
+    private final WordResultSorter wordResultSorter;
+    private final ResultPresentation resultPresentation;
 
-    private static Set<TextType> textTypes;
-    static{
-        textTypes = new HashSet<>();
-        textTypes.add(new HtmlTextTypeIml());
-        textTypes.add(new XmlTextTypeImpl());
+    public WordCounterServiceImpl() {
+        dataSourceSplitter = new DataSourceSplitter();
+        textTypeInquirer = new TextTypeInquirer();
+        documentConverter = new DocumentConverter();
+        wordCounter = new WordCounter();
+        wordResultCollector = new WordResultCollector();
+        wordResultSorter = new WordResultSorter();
+        resultPresentation = new ResultPresentation();
     }
-
-    private static Set<DocumentToStringConverter> documentToStringConverters;
-    static {
-        documentToStringConverters = new HashSet<>();
-        documentToStringConverters.add(new HtmlToStringConverter());
-        documentToStringConverters.add(new XmlToStringConverter());
-    }
-
-    private TextType textType;
 
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         checkParams(clientRequest, sortingParam);
 
-        sources.split(clientRequest);
+        dataSourceSplitter.split(clientRequest);
 
-        Iterator iterator = sources.getSource().iterator();
+        Iterator iterator = dataSourceSplitter.getSource().iterator();
         while (iterator.hasNext()) {
 
             String textLink = iterator.next().toString();
 
-            assignTextType(textLink);
+            TextType textType = textTypeInquirer.inquireTextType(textLink);
+            String documentType = textType.getTextType();
 
-            String documentType = textType.get();
+            DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(documentType);
 
-            DocumentToStringConverter documentConverter = getDocumentConverter(documentType);
-
-            String plainText = documentConverter.convertToString(textLink);
+            String plainText = documentToStringConverter.convertToString(textLink);
 
             String refinedText = Refineder.getRefineText(plainText);
             Map<String, Integer> countedWords = wordCounter.countWords(refinedText);
 
             Map<String, Integer> sortedWords = wordResultSorter.keyAscending(countedWords);
 
-            wordResult.setWordResult(textLink, sortedWords);
+            wordResultCollector.setWordResult(textLink, sortedWords);
 
         }
-        String result = resultPresentation.create(wordResult);
+        String result = resultPresentation.create(wordResultCollector);
 
         return result;
-    }
-
-    private TextType assignTextType(String textLink) {
-        for (TextType sourceType : textTypes) {
-            if (sourceType.isEligable(textLink)) {
-                textType = sourceType;
-                break;
-            }
-        }
-        return textType;
-    }
-
-
-    private DocumentToStringConverter getDocumentConverter(String sourceType) {
-        DocumentToStringConverter documentConverter = null;
-        for (DocumentToStringConverter documentToStringConverter : documentToStringConverters) {
-            if (documentToStringConverter.isEligable(sourceType)) {
-                documentConverter = documentToStringConverter;
-                break;
-            }
-        }
-        return documentConverter;
     }
 
     private static void checkParams(String userUrlsString, String sortingParam) {
