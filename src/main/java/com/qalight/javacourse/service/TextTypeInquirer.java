@@ -11,14 +11,14 @@ public class TextTypeInquirer {
     private static Set<TextType> textTypes;
     static{
         textTypes = new HashSet<>();
-        textTypes.add(new HtmlTextTypeIml());
+        textTypes.add(new HtmlTextTypeImpl());
         textTypes.add(new XmlTextTypeImpl());
     }
 
     public TextType inquireTextType(String textLink) {
         TextType textType = null;
         for (TextType sourceType : textTypes) {
-            if (sourceType.isEligable(textLink)) {
+            if (sourceType.isEligible(textLink)) {
                 textType = sourceType;
                 break;
             }

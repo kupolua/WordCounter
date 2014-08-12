@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by kpl on 30.07.2014.
  */
 
-public class WordCounterServiceImpl implements WordCounterService {
+public class  WordCounterServiceImpl implements WordCounterService {
     private final DataSourceSplitter dataSourceSplitter;
     private final TextTypeInquirer textTypeInquirer;
     private final DocumentConverter documentConverter;
@@ -35,9 +35,9 @@ public class WordCounterServiceImpl implements WordCounterService {
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         checkParams(clientRequest, sortingParam);
 
-        dataSourceSplitter.split(clientRequest);
+        dataSourceSplitter.validateSources(clientRequest);
 
-        Iterator iterator = dataSourceSplitter.getSource().iterator();
+        Iterator iterator = dataSourceSplitter.getValidSources().iterator();
         while (iterator.hasNext()) {
 
             String textLink = iterator.next().toString();
