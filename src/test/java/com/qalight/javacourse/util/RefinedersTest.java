@@ -1,6 +1,5 @@
-package javacourse.jUnit;
+package com.qalight.javacourse.util;
 
-import com.qalight.javacourse.util.Refineder;
 import org.junit.Assert;
 import org.junit.Test;
 
