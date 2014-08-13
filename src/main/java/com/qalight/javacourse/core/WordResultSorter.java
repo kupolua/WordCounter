@@ -5,6 +5,9 @@ import java.util.*;
 public enum WordResultSorter {
 
     //todo stkotok: refactor ENUM with Alex simple example
+
+    //stkotok  Лямбда-выражения -> http://habrahabr.ru/post/216431/
+
     KEY_ASCENDING {
         @Override
         public Map<String, Integer> getSortedWords(Map<String, Integer> countedWords) {
