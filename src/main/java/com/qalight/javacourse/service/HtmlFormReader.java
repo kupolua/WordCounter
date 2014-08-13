@@ -17,7 +17,6 @@ public class HtmlFormReader {
 
     //todo kupolua: create JUnit test
     public String readHtmlSourceFile(String fileName) {
-        // todo diverfd: simplify logic and use single return statement
         String readHtml;
         try {
             LOG.info("Reading source file " + fileName);
