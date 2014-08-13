@@ -26,7 +26,7 @@ public class HtmlFormReaderTest {
     }
 
     @Test
-    @Ignore // Test marked "ignored" because HtmlFormReader not valid
+    @Ignore // This test is needed?
     public void testReadErrorWebPage() throws Exception {
 
         // given
