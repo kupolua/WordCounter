@@ -1,7 +1,7 @@
 package com.qalight.javacourse.service;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,9 @@ import java.util.Map;
 /**
  * Created by kpl on 12.08.2014.
  */
-public class ResultPresentationTest extends TestCase {
+public class ResultPresentationTest  {
+
+    @Test
     public void testCreate() throws Exception {
         //given
         final String sourceLink = "http://www.eslfast.com/supereasy/se/supereasy006.htm";
