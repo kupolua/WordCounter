@@ -38,12 +38,3 @@ tasks.withType(Test) {
     scanForTestClasses = false
     include "**/*Test.class" // whatever Ant pattern matches your test class files
 }
-
-// temporary ignore war task
-//war {
-//    from 'src/rootContent' // adds a file-set to the root of the archive
-//    webInf { from 'src/additionalWebInf' } // adds a file-set to the WEB-INF dir.
-//    classpath fileTree('additionalLibs') // adds a file-set to the WEB-INF/lib dir.
-//    classpath configurations.moreLibs // adds a configuration to the WEB-INF/lib dir.
-//    webXml = file('src/web.xml') // copies a file to WEB-INF/web.xml
-//}
