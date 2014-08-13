@@ -17,7 +17,7 @@ public class DocumentConverter {
     public DocumentToStringConverter getDocumentConverter(String sourceType) {
         DocumentToStringConverter documentConverter = null;
         for (DocumentToStringConverter documentToStringConverter : documentToStringConverters) {
-            if (documentToStringConverter.isEligable(sourceType)) {
+            if (documentToStringConverter.isEligible(sourceType)) {
                 documentConverter = documentToStringConverter;
                 break;
             }

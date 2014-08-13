@@ -1,31 +1,49 @@
 package com.qalight.javacourse.service;
 
+import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
+import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
  * Created by kpl on 09.08.2014.
  */
 public class HtmlToStringConverter implements DocumentToStringConverter {
+    private static final Logger LOG = LoggerFactory.getLogger(HtmlToStringConverter.class);
     private final HtmlToPlainText htmlToPlainText;
-    private final String DOCUMENT_TYPE = "html";
 
     public HtmlToStringConverter(){
         htmlToPlainText = new HtmlToPlainText();
     }
 
-    //todo diverfd: create JUnit test
     @Override
-    public Boolean isEligable(String documentType) {
+    public Boolean isEligible(String documentType) {
+        final String DOCUMENT_TYPE = "html";
         return documentType.equalsIgnoreCase(DOCUMENT_TYPE);
     }
 
-    //todo diverfd: create JUnit test
+    //todo diverfd: create integration test
     @Override
     public String convertToString(String userUrl) {
+        LOG.debug("Getting plain text.");
 
-        //todo: implementation:
-//        Document document = Jsoup.parse(userUrl);
-//        return htmlToPlainText.getPlainText(document);
-        return userUrl;
+        Document html;
+
+        try {
+            html = Jsoup.connect(userUrl).get();
+        } catch (IOException e) {
+            LOG.error("Can't connect to " + userUrl, e);
+            throw new RuntimeException("Can't connect to: " + userUrl);
+        }
+
+        LOG.info("Connection to " + userUrl + " has been successfully established.");
+
+        String htmlText = String.valueOf(html);
+        Document document = Jsoup.parse(htmlText);
+
+        return htmlToPlainText.getPlainText(document);
     }
 }
