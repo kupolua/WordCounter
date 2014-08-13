@@ -5,24 +5,48 @@ import org.junit.Test;
 
 
 public class XmlTextTypeImplTest {
-    //todo diverfd: separate to some tests. Each public method have its test
+
     @Test
-    public void testIsEligible() {
-        XmlTextTypeImpl typeImpl = new XmlTextTypeImpl();
+    public void testIsEligible_woExtension() {
+        XmlTextTypeImpl typeIml = new XmlTextTypeImpl();
         //given
-        final String sourceLink = "index.html";
         final String sourceLink1 = "index";
+        //when
+        boolean isEligible1 = typeIml.isEligible(sourceLink1);
+        //then
+        Assert.assertFalse(isEligible1);
+    }
+
+    @Test
+    public void testIsEligible_pdfExtension() {
+        XmlTextTypeImpl typeIml = new XmlTextTypeImpl();
+        //given
         final String sourceLink2 = "index.pdf";
+        //when
+        boolean isEligible2 = typeIml.isEligible(sourceLink2);
+        //then
+        Assert.assertFalse(isEligible2);
+    }
+
+    @Test
+    public void testIsEligible_xmlExtension() {
+        XmlTextTypeImpl typeIml = new XmlTextTypeImpl();
+        //given
         final String sourceLink3 = "index.xml";
         //when
-        boolean isEligible = typeImpl.isEligible(sourceLink);
-        boolean isEligible1 = typeImpl.isEligible(sourceLink1);
-        boolean isEligible2 = typeImpl.isEligible(sourceLink2);
-        boolean isEligible3 = typeImpl.isEligible(sourceLink3);
+        boolean isEligible3 = typeIml.isEligible(sourceLink3);
+        //then
+        Assert.assertTrue(isEligible3);
+    }
+
+    @Test
+    public void testIsEligible_htmlExtension() {
+        XmlTextTypeImpl typeIml = new XmlTextTypeImpl();
+        //given
+        final String sourceLink = "index.html";
+        //when
+        boolean isEligible = typeIml.isEligible(sourceLink);
         //then
         Assert.assertFalse(isEligible);
-        Assert.assertFalse(isEligible1);
-        Assert.assertFalse(isEligible2);
-        Assert.assertTrue(isEligible3);
     }
 }
