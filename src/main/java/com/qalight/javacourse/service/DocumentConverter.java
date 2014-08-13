@@ -13,7 +13,6 @@ public class DocumentConverter {
         documentToStringConverters.add(new HtmlToStringConverter());
         documentToStringConverters.add(new XmlToStringConverter());
     }
-    //todo diverfd: create tests
     public DocumentToStringConverter getDocumentConverter(String sourceType) {
         DocumentToStringConverter documentConverter = null;
         for (DocumentToStringConverter documentToStringConverter : documentToStringConverters) {
