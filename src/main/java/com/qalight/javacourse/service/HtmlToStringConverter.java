@@ -25,7 +25,6 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
         return documentType.equalsIgnoreCase(DOCUMENT_TYPE);
     }
 
-    //todo diverfd: createResponse integration test
     @Override
     public String convertToString(String userUrl) {
         LOG.debug("Getting plain text.");
