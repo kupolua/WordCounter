@@ -21,15 +21,14 @@ public class ResultPresentationTest  {
             sortedWords.put("Word", 13);
             sortedWords.put("Counter", 5);
             sortedWords.put("Project", 24);
+        final Map<String, Map<String, Integer>> collectedWordResult = new HashMap<>();
+        collectedWordResult.put(sourceLink, sortedWords);
 
-        final String expectedResult = "{\"success\":true,\"response\":{\"wordsResult\":{\"http://www.eslfast.com/supereasy/se/supereasy006.htm\":{\"Project\":24,\"Word\":13,\"Counter\":5,\"Hello\":10,\"World\":7}}}}";
+        final String expectedResult = "{\"success\":true,\"response\":{\"http://www.eslfast.com/supereasy/se/supereasy006.htm\":{\"Project\":24,\"Word\":13,\"Counter\":5,\"Hello\":10,\"World\":7}}}";
 
         //when
-        WordResultCollector wordResultCollector = new WordResultCollector();
-        wordResultCollector.setWordResult(sourceLink, sortedWords);
-
         ResultPresentation resultPresentation = new ResultPresentation();
-        String actualResult = resultPresentation.create(wordResultCollector);
+        String actualResult = resultPresentation.createResponse(collectedWordResult);
 
         //then
         Assert.assertEquals(expectedResult, actualResult);

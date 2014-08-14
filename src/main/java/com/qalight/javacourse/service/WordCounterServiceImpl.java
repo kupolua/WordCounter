@@ -28,7 +28,7 @@ public class  WordCounterServiceImpl implements WordCounterService {
         resultPresentation = new ResultPresentation();
     }
 
-    //todo kupolua: create JUnit test
+    //todo kupolua: createResponse JUnit test
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         checkParams(clientRequest, sortingParam);
@@ -47,9 +47,9 @@ public class  WordCounterServiceImpl implements WordCounterService {
 
         Map<String, Integer> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
-        wordResultCollector.setWordResult(textLink, sortedWords);
+        Map<String, Map<String, Integer>> collectedWordResult = wordResultCollector.getWordsResult(textLink, sortedWords);
 
-        String result = resultPresentation.create(wordResultCollector);
+        String result = resultPresentation.createResponse(collectedWordResult);
 
         return result;
     }

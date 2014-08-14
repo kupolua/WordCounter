@@ -37,7 +37,7 @@ public class WordResultCollectorTest {
         Object exeption = null;
         try {
             WordResultCollector collector = new WordResultCollector();
-            collector.setWordResult(someLink, map);
+            collector.getWordsResult(someLink, map);
         } catch (Exception e) {
             exeption = e;
         }

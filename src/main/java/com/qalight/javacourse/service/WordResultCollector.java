@@ -9,7 +9,10 @@ import java.util.Map;
 public class WordResultCollector {
     private Map<String, Map<String, Integer>> wordsResult = new HashMap<>();
 
-    public void setWordResult(String sourceLink, Map<String, Integer> sortedWords) {
+    public Map<String, Map<String, Integer>> getWordsResult(String sourceLink, Map<String, Integer> sortedWords) {
         wordsResult.put(sourceLink, sortedWords);
+        return wordsResult;
     }
+
+
 }
