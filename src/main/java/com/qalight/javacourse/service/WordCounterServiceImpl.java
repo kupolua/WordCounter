@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 public class  WordCounterServiceImpl implements WordCounterService {
-    private final DataSourceSplitter dataSourceSplitter;
+    private final DataSourceSplitterTemporary temporarySplitter;
     private final TextTypeInquirer textTypeInquirer;
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
@@ -20,7 +20,7 @@ public class  WordCounterServiceImpl implements WordCounterService {
     private final ResultPresentation resultPresentation;
 
     public WordCounterServiceImpl() {
-        dataSourceSplitter = new DataSourceSplitter();
+        temporarySplitter = new DataSourceSplitterTemporary();
         textTypeInquirer = new TextTypeInquirer();
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
@@ -33,25 +33,23 @@ public class  WordCounterServiceImpl implements WordCounterService {
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         checkParams(clientRequest, sortingParam);
 
-        String textLink = clientRequest;
+        String validatedSource = temporarySplitter.validateSources(clientRequest);
 
-        TextType textType = textTypeInquirer.inquireTextType(textLink);
+        TextType textType = textTypeInquirer.inquireTextType(validatedSource);
         String documentType = textType.getTextType();
 
         DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(documentType);
 
-        String plainText = documentToStringConverter.convertToString(textLink);
+        String plainText = documentToStringConverter.convertToString(validatedSource);
 
         String refinedText = Refineder.getRefineText(plainText);
         Map<String, Integer> countedWords = wordCounter.countWords(refinedText);
 
         Map<String, Integer> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
-        Map<String, Map<String, Integer>> collectedWordResult = wordResultCollector.getWordsResult(textLink, sortedWords);
+        Map<String, Map<String, Integer>> collectedWordResult = wordResultCollector.getWordsResult(validatedSource, sortedWords);
 
-        String result = resultPresentation.createResponse(collectedWordResult);
-
-        return result;
+        return resultPresentation.createResponse(collectedWordResult);
     }
 
     private static void checkParams(String userUrlsString, String sortingParam) {

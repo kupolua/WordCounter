@@ -12,8 +12,8 @@ public class XmlToStringConverterIT {
         //given
         final String xmlUrl = "http://www.w3schools.com/xml/cd_catalog.xml";
         //when
-        String expectedResult = converter.convertToString(xmlUrl);
+        String actualResult = converter.convertToString(xmlUrl);
         //then
-        Assert.assertNotNull(expectedResult);
+        Assert.assertNotNull(actualResult);
     }
 }

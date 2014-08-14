@@ -12,8 +12,8 @@ public class HtmlToStringConverterIT {
         //given
         final String url = "http://bbc.com";
         //when
-        String expectedResult = converter.convertToString(url);
+        String actualResult = converter.convertToString(url);
         //then
-        Assert.assertNotNull(expectedResult);
+        Assert.assertNotNull(actualResult);
     }
 }
