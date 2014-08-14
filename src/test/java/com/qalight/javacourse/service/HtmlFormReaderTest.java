@@ -43,6 +43,7 @@ public class HtmlFormReaderTest {
     }
 
     @Test
+    @Ignore
     public void testReturnErrorPageWhenRequiredPageIsMissing() {
 
         // given
