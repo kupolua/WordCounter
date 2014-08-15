@@ -5,6 +5,7 @@ import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.Refineder;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,11 +46,11 @@ public class  WordCounterServiceImpl implements WordCounterService {
         String refinedText = Refineder.getRefineText(plainText);
         Map<String, Integer> countedWords = wordCounter.countWords(refinedText);
 
-        Map<String, Integer> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
+        List<Map.Entry<String, Integer>> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
-        Map<String, Map<String, Integer>> collectedWordResult = wordResultCollector.getWordsResult(validatedSource, sortedWords);
+        String result = resultPresentation.createResponse(validatedSource, sortedWords).toString();
 
-        return resultPresentation.createResponse(collectedWordResult);
+        return result;
     }
 
     private static void checkParams(String userUrlsString, String sortingParam) {

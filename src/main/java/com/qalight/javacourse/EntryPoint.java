@@ -1,6 +1,5 @@
 package com.qalight.javacourse;
 
-import com.qalight.javacourse.service.WordCounterServiceImpl;
 import com.qalight.javacourse.servlet.UserHtmlFormLoaderServlet;
 import com.qalight.javacourse.servlet.UserRequestHandlerServlet;
 import org.eclipse.jetty.server.Server;

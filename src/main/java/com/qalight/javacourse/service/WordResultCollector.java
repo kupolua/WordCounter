@@ -11,6 +11,7 @@ public class WordResultCollector {
 
     public Map<String, Map<String, Integer>> getWordsResult(String sourceLink, Map<String, Integer> sortedWords) {
         wordsResult.put(sourceLink, sortedWords);
+
         return wordsResult;
     }
 

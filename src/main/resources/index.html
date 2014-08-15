@@ -6,8 +6,7 @@
     <meta name="robots" content="noindex,nofollow"/>
     <title>Programmers sample guide, help is on the way</title>
     <link rel="stylesheet" href="/resources/themes/master.css" type="text/css"/>
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"
-          type="text/css"/>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
     <script src="/resources/scripts/mysamplecode.js" type="text/javascript"></script>
@@ -30,10 +29,7 @@
                 //getTextType the form data using another method
                 var userRequest = $("textarea#userRequest").val();
                 var userChoice = $('input[name=userChoice]:checked').val();
-                var typeStatisticResult = $('input[name=typeStatisticResult]:checked').val();
-                //alert(userCheck);
-                dataString = "userRequest=" + userRequest + "&userChoice=" + userChoice + "&typeStatisticResult=" + typeStatisticResult;
-
+                dataString = "userRequest=" + userRequest + "&userChoice=" + userChoice;
                 //make the AJAX request, dataType is set to json
                 //meaning we are expecting JSON data in response from the server
                 $.ajax({
@@ -47,7 +43,6 @@
                         //our country code was correct so we have some information to display
                         if(data.success){
                             jsonLength = data.response.length;
-                            //alert(jsonLength);
                             $("#ajaxResponse").html("");
 
                             for(i=0; i < jsonLength; ++i) {
@@ -94,8 +89,6 @@
 
         });
 
-
-
     </script>
 </head>
 
@@ -113,14 +106,12 @@
         <form id="myAjaxRequestForm">
 
             <fieldset>
-                <legend>Input url by comma delimiter http://htmlbook.ru/html/input,
-                    http://stackoverflow.com/questions/2349633/servlets-doget-and-dopost,
-                    http://www.gradle.org/docs/current/release-notes
-                </legend>
+                <legend> Input url </legend>
+                <p>For example: http://www.eslfast.com/supereasy/se/supereasy002.htm</p>
 
                 <p>
-                    <label for="userRequest">Input url's</label><br/>
-                    <textarea id="userRequest" name="userRequest1" cols="140" rows="13"></textarea></p>
+                    <label for="userRequest">Input url</label><br/>
+                    <textarea id="userRequest" name="userRequest" cols="70" rows="7"></textarea></p>
 
                 <p>
                     <label> Check type sorting</label>
@@ -132,16 +123,6 @@
                     <input type="radio" name="userChoice" value="KEY_DESCENDING">Key Descending
                     <input type="radio" name="userChoice" value="VALUE_DESCENDING">Value Descending
 
-                </p>
-                <p>
-                    <label> Check result of count words in all urls</label>
-                </p>
-
-                <p>
-                    <input type="radio" name="typeStatisticResult" value="CONSOLIDATED_RESULT" checked>Consolidated
-                    result of count words in all urls
-                    <input type="radio" name="typeStatisticResult" value="SEPARATED_RESULT">Get separated result of count words
-                    each urls
                 </p>
 
                 </p>
