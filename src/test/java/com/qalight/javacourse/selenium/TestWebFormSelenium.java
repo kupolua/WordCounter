@@ -8,8 +8,10 @@ import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
@@ -34,13 +36,13 @@ public class TestWebFormSelenium {
 
     @Before
     public void setUp() throws Exception {
-
         EntryPoint.jettyStart();
         driver = new FirefoxDriver();
         baseUrl = "http://localhost:8021/inputForm/UserHtmlFormLoaderServlet";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
+    @Ignore //ready
     @Test
     public void testEmptyUrlRequest() throws Exception {
 
@@ -49,9 +51,9 @@ public class TestWebFormSelenium {
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         assertEquals(expectedResultEmptyUrlRequest, actualResult);
-        EntryPoint.jettyStop();
     }
 
+    @Ignore //ready
     @Test
     public void testUrlContainHttps() throws Exception {
 
@@ -62,10 +64,9 @@ public class TestWebFormSelenium {
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         assertEquals(expectedResultUrlContainHttps, actualResult);
-        EntryPoint.jettyStop();
     }
 
-    @Ignore
+    @Ignore //ready
     @Test
     public void testIncorrectUrl() throws Exception {
 
@@ -76,10 +77,8 @@ public class TestWebFormSelenium {
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         assertEquals(expectedResultIncorrectUrl, actualResult);
-        EntryPoint.jettyStop();
     }
-
-    @Ignore
+    @Ignore //ready
     @Test
     public void testSortingKeyAscending() throws Exception {
 
@@ -92,45 +91,42 @@ public class TestWebFormSelenium {
         String expectedResult = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\SortingKeyAscending.txt")));
         assertEquals(expectedResult, actualResult);
     }
-
-    @Ignore
+    @Ignore //ready
     @Test
     public void testSortingValueAscending() throws Exception {
 
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/");
-        driver.findElement(By.xpath("(//input[@name='userCheck'])[2]")).click();
+        driver.findElement(By.xpath("(//input[@name='userChoice'])[2]")).click();
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         String expectedResult = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\SortingValueAscending.txt")));
         assertEquals(expectedResult, actualResult);
     }
-
-    @Ignore
+    @Ignore //ready
     @Test
     public void testSortingKeyDescending() throws Exception {
 
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/");
-        driver.findElement(By.xpath("(//input[@name='userCheck'])[3]")).click();
+        driver.findElement(By.xpath("(//input[@name='userChoice'])[3]")).click();
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         String expectedResult = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\SortingKeyDescending.txt")));
         assertEquals(expectedResult, actualResult);
     }
-
-    @Ignore
+    @Ignore //ready
     @Test
     public void testSortingValueDescending() throws Exception {
 
         driver.get(baseUrl);
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/");
-        driver.findElement(By.xpath("(//input[@name='userCheck'])[4]")).click();
+        driver.findElement(By.xpath("(//input[@name='userChoice'])[4]")).click();
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
@@ -156,6 +152,7 @@ public class TestWebFormSelenium {
 
     @After
     public void tearDown() throws Exception {
+        EntryPoint.jettyStop();
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
@@ -194,5 +191,11 @@ public class TestWebFormSelenium {
         } finally {
             acceptNextAlert = true;
         }
+    }
+
+    private String getTextFromFile(String fileName) {
+        InputStream in = this.getClass().getResourceAsStream("/" + fileName);
+        String text = new Scanner(in, "UTF-8").useDelimiter("\\A").next();
+        return text;
     }
 }
