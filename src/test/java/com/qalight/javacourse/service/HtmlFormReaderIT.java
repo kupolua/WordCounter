@@ -1,13 +1,12 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class HtmlFormReaderTest {
+public class HtmlFormReaderIT {
 
     @Test
     public void testReadHtmlSourceFile() throws Exception {
@@ -26,16 +25,15 @@ public class HtmlFormReaderTest {
     }
 
     @Test
-    @Ignore // This test is needed?
     public void testReadErrorWebPage() throws Exception {
 
         // given
-        final InputStream in = this.getClass().getResourceAsStream("/Error.html");
+        final InputStream in = this.getClass().getResourceAsStream("/error.html");
         final String expectedHtmlPageString = new Scanner(in, "UTF-8").useDelimiter("\\A").next();
 
         // when
         HtmlFormReader htmlFormReader = new HtmlFormReader();
-        String actualHtmlPageString = htmlFormReader.readHtmlSourceFile("Error.html");
+        String actualHtmlPageString = htmlFormReader.readHtmlSourceFile("error.html");
 
         // then
         Assert.assertEquals(expectedHtmlPageString, actualHtmlPageString);
@@ -43,11 +41,10 @@ public class HtmlFormReaderTest {
     }
 
     @Test
-    @Ignore
     public void testReturnErrorPageWhenRequiredPageIsMissing() {
 
         // given
-        final InputStream in = this.getClass().getResourceAsStream("/Error.html");
+        final InputStream in = this.getClass().getResourceAsStream("/error.html");
         final String expectedHtmlPageString = new Scanner(in, "UTF-8").useDelimiter("\\A").next();
 
         // when
