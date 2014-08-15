@@ -15,7 +15,7 @@ public class WordCounterTest {
     @Test
     public void testCountWords() {
         // given values
-        String refinedText = "привет привет как как как твои дела отлично отлично один-один один-один two-two";
+        String refinedText = "привет привет как как как твои дела отлично отлично";
 
         Map<String, Integer> expected = new HashMap<>();
         expected.put("привет", 2);
@@ -23,8 +23,6 @@ public class WordCounterTest {
         expected.put("твои", 1);
         expected.put("дела", 1);
         expected.put("отлично", 2);
-        expected.put("один-один", 2);
-        expected.put("two-two", 1);
 
         //when
         WordCounter wordCounter = new WordCounter();
