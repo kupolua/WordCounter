@@ -32,4 +32,19 @@ public class ResultPresentation {
 
         return countedWordsListObj;
     }
+
+    public void createErrorResponse(String errorMessageToUser) {
+
+        Gson gson = new Gson();
+        JsonObject errorMessageToUserObj = new JsonObject();
+
+        JsonElement errorMessageToUserJson = gson.toJsonTree(errorMessageToUser);
+
+        errorMessageToUserObj.addProperty("success", false);
+        errorMessageToUserObj.add("errorMessageToUser", errorMessageToUserJson);
+
+        String errorMessageToUserString = errorMessageToUserObj.toString();
+
+        WordCounterServiceImpl.errorMessageToUser = errorMessageToUserString;
+    }
 }

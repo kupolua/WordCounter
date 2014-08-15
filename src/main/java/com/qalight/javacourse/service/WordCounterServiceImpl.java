@@ -19,6 +19,7 @@ public class  WordCounterServiceImpl implements WordCounterService {
     private final WordCounter wordCounter;
     private final WordResultCollector wordResultCollector;
     private final ResultPresentation resultPresentation;
+    public static String errorMessageToUser = null;
 
     public WordCounterServiceImpl() {
         temporarySplitter = new DataSourceSplitterTemporary();
@@ -49,6 +50,10 @@ public class  WordCounterServiceImpl implements WordCounterService {
         List<Map.Entry<String, Integer>> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
         String result = resultPresentation.createResponse(validatedSource, sortedWords).toString();
+
+        if (errorMessageToUser != null) {
+            result = errorMessageToUser;
+        }
 
         return result;
     }
