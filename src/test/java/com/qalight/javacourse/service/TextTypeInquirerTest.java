@@ -1,13 +1,20 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TextTypeInquirerTest {
 
+    private TextTypeInquirer inquirer;
+
+    @Before
+    public void setup(){
+        inquirer = new TextTypeInquirer();
+    }
+
     @Test
     public void testInquireTextType_woExtension() {
-        TextTypeInquirer inquirer = new TextTypeInquirer();
         //given
         final String TEXT_LINK1 = "index";
         //when
@@ -18,7 +25,6 @@ public class TextTypeInquirerTest {
 
     @Test
     public void testInquireTextType_xmlExtension() {
-        TextTypeInquirer inquirer = new TextTypeInquirer();
         //given
         final String TEXT_LINK2 = "index.xml";
         //when
@@ -29,7 +35,6 @@ public class TextTypeInquirerTest {
 
     @Test
     public void testInquireTextType_htmlExtension() {
-        TextTypeInquirer inquirer = new TextTypeInquirer();
         //given
         final String TEXT_LINK = "index.html";
         //when

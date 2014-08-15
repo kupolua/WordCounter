@@ -1,12 +1,20 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class HtmlTextTypeImplTest {
+
+    private HtmlTextTypeImpl typeIml;
+
+    @Before
+    public void setup(){
+        typeIml = new HtmlTextTypeImpl();
+    }
+
     @Test
     public void testIsEligible_woExtension() {
-        HtmlTextTypeImpl typeIml = new HtmlTextTypeImpl();
         //given
         final String sourceLink1 = "index";
         //when
@@ -17,7 +25,6 @@ public class HtmlTextTypeImplTest {
 
     @Test
     public void testIsEligible_pdfExtension() {
-        HtmlTextTypeImpl typeIml = new HtmlTextTypeImpl();
         //given
         final String sourceLink2 = "index.pdf";
         //when
@@ -28,7 +35,6 @@ public class HtmlTextTypeImplTest {
 
     @Test
     public void testIsEligible_xmlExtension() {
-        HtmlTextTypeImpl typeIml = new HtmlTextTypeImpl();
         //given
         final String sourceLink3 = "index.xml";
         //when
@@ -39,7 +45,6 @@ public class HtmlTextTypeImplTest {
 
     @Test
     public void testIsEligible_htmlExtension() {
-        HtmlTextTypeImpl typeIml = new HtmlTextTypeImpl();
         //given
         final String sourceLink = "index.html";
         //when

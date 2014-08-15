@@ -1,6 +1,7 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,9 +10,15 @@ import java.util.List;
 
 public class DataSourceSplitterTest {
 
+    private DataSourceSplitter sourceSplitter;
+
+    @Before
+    public void setup(){
+        sourceSplitter = new DataSourceSplitter();
+    }
+
     @Test
     public void testValidateSources_validSources() {
-        DataSourceSplitter sourceSplitter = new DataSourceSplitter();
         //given
         final String unvalidatedSources = "http://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +
                 "commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +
@@ -28,7 +35,6 @@ public class DataSourceSplitterTest {
 
     @Test
     public void testValidateSources_invalidSources() {
-        DataSourceSplitter sourceSplitter = new DataSourceSplitter();
         //given
         final String unvalidatedSources = "http://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +
                 "commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +

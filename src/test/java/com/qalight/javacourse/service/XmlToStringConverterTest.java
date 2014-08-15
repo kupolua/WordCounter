@@ -1,14 +1,21 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 
 public class XmlToStringConverterTest {
 
+    private  XmlToStringConverter converter;
+
+    @Before
+    public void setup(){
+        converter = new XmlToStringConverter();
+    }
+
     @Test
     public void testIsEligible_xml() {
-        XmlToStringConverter converter = new XmlToStringConverter();
         //given
         final String DOCUMENT_TYPE = "xml";
         //when
@@ -19,7 +26,6 @@ public class XmlToStringConverterTest {
 
     @Test
     public void testIsEligible_html(){
-        XmlToStringConverter converter = new XmlToStringConverter();
         //given
         final String DOCUMENT_TYPE = "html";
         //when
