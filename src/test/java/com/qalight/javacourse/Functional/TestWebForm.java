@@ -39,7 +39,6 @@ public class TestWebForm {
         baseUrl = "http://localhost:8021/inputForm/UserHtmlFormLoaderServlet";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
-
     @Ignore //ready
     @Test
     public void testEmptyUrlRequest() throws Exception {
@@ -76,7 +75,7 @@ public class TestWebForm {
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         assertEquals(expectedResultIncorrectUrl, actualResult);
     }
-    @Ignore //ready
+
     @Test
     public void testSortingKeyAscending() throws Exception {
 
@@ -86,10 +85,11 @@ public class TestWebForm {
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
+        System.out.println(actualResult);
         String expectedResult = getTextFromFile("SortingKeyAscending.txt");
         assertEquals(expectedResult, actualResult);
     }
-    @Ignore //ready
+
     @Test
     public void testSortingValueAscending() throws Exception {
 
@@ -100,10 +100,10 @@ public class TestWebForm {
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
-        String expectedResult = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\SortingValueAscending.txt")));
+        String expectedResult = getTextFromFile("SortingValueAscending.txt");
         assertEquals(expectedResult, actualResult);
     }
-    @Ignore //ready
+
     @Test
     public void testSortingKeyDescending() throws Exception {
 
@@ -114,10 +114,10 @@ public class TestWebForm {
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
-        String expectedResult = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\SortingKeyDescending.txt")));
+        String expectedResult = getTextFromFile("SortingKeyDescending.txt");
         assertEquals(expectedResult, actualResult);
     }
-    @Ignore //ready
+
     @Test
     public void testSortingValueDescending() throws Exception {
 
@@ -128,7 +128,7 @@ public class TestWebForm {
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
-        String expectedResult = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\SortingValueDescending.txt")));
+        String expectedResult = getTextFromFile("SortingValueDescending.txt");
         assertEquals(expectedResult, actualResult);
     }
 
