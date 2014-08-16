@@ -9,7 +9,7 @@ public class TextRefiner {
 
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
 
-    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я]");
+    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Z]");
 
     public static String getRefineText(String unrefinedPlainText) {
 
