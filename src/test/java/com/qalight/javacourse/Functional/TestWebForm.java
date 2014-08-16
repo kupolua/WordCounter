@@ -62,7 +62,7 @@ public class TestWebForm {
         assertEquals(expectedResultUrlContainHttps, actualResult);
     }
 
-    @Ignore //ready
+    @Ignore
     @Test
     public void testIncorrectUrl() throws Exception {
 
@@ -75,7 +75,7 @@ public class TestWebForm {
         assertEquals(expectedResultIncorrectUrl, actualResult);
     }
 
-    @Ignore
+
     @Test
     public void testSortingKeyAscending() throws Exception {
 
@@ -90,7 +90,7 @@ public class TestWebForm {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Ignore
+
     @Test
     public void testSortingValueAscending() throws Exception {
 
@@ -105,7 +105,7 @@ public class TestWebForm {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Ignore
+
     @Test
     public void testSortingKeyDescending() throws Exception {
 
@@ -120,7 +120,7 @@ public class TestWebForm {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Ignore
+
     @Test
     public void testSortingValueDescending() throws Exception {
 
