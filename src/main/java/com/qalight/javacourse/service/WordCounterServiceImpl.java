@@ -18,7 +18,7 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
     private final WordResultCollector wordResultCollector;
-    private final ResultPresentation resultPresentation;
+    private static ResultPresentation resultPresentation;
     public static String errorMessageToUser = null;
     private static String validatedSource = null;
 
@@ -35,20 +35,13 @@ public class WordCounterServiceImpl implements WordCounterService {
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         LOG.debug("Checking that received parameters are not null or empty.");
 
-        try {
-            checkParams(clientRequest, sortingParam);
-        } catch (IllegalArgumentException e) {
-            LOG.error("IllegalArgumentException" + e);
-            resultPresentation.createErrorResponse("Your request is empty.");
-            String result = errorMessageToUser;
-            return result;
-        }
+        checkParams(clientRequest, sortingParam);
 
         try {
             validatedSource = validator.validateSources(clientRequest);
         } catch (IllegalArgumentException e) {
             LOG.error("IllegalArgumentException" + e);
-            resultPresentation.createErrorResponse("We can't read https.");
+            resultPresentation.createErrorResponse("Your request is empty.");
             String result = errorMessageToUser;
             return result;
         }
@@ -76,9 +69,18 @@ public class WordCounterServiceImpl implements WordCounterService {
         return result;
     }
 
-    private static void checkParams(String userUrlsString, String sortingParam) {
-        Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
-        Assertions.assertStringIsNotNullOrEmpty(sortingParam);
+    private static String checkParams(String userUrlsString, String sortingParam) {
+        try {
+            Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
+        } catch (IllegalArgumentException e) {
+            LOG.error("IllegalArgumentException" + e);
+            resultPresentation.createErrorResponse("Your request is empty.");
+            String result = errorMessageToUser;
+            return result;
+        }
+
+            Assertions.assertStringIsNotNullOrEmpty(sortingParam);
+            return "Check Params";
     }
 
 }
