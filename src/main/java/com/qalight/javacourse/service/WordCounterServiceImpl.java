@@ -76,11 +76,6 @@ public class WordCounterServiceImpl implements WordCounterService {
         LOG.debug("Creating JSON object.");
         String result = resultPresentation.createResponse(validatedSource, sortedWords).toString();
 
-        if (errorMessageToUser != null) {
-            String errorMessageToUserFromCode = errorMessageToUser;
-            result = errorMessageToUserFromCode;
-        }
-
         return result;
     }
 
