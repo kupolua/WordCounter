@@ -41,7 +41,7 @@ public class WordCounterServiceImpl implements WordCounterService {
             validatedSource = validator.validateSources(clientRequest);
         } catch (IllegalArgumentException e) {
             LOG.error("IllegalArgumentException" + e);
-            resultPresentation.createErrorResponse("Https not supported.");
+            resultPresentation.createErrorResponse("Your request is empty.");
             String result = errorMessageToUser;
             return result;
         }
