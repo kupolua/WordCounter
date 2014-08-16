@@ -8,11 +8,9 @@ import org.junit.Test;
 import java.io.InputStream;
 import java.util.Scanner;
 
-//todo stkotok: fix it. all tests failing with NPE
 public class HtmlFormReaderIT {
 
     @Test
-    @Ignore
     public void testReadHtmlSourceFile() throws Exception {
 
         // given
@@ -29,7 +27,6 @@ public class HtmlFormReaderIT {
     }
 
     @Test
-    @Ignore
     public void testReadErrorWebPage() throws Exception {
 
         // given
@@ -46,7 +43,6 @@ public class HtmlFormReaderIT {
     }
 
     @Test
-    @Ignore
     public void testReturnErrorPageWhenRequiredPageIsMissing() {
 
         // given

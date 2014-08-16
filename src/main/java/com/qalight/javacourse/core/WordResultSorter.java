@@ -49,7 +49,6 @@ public enum WordResultSorter {
         public List<Map.Entry<String, Integer>> getSortedWords(Map<String, Integer> countedWords) {
             Set<Map.Entry<String, Integer>> set = countedWords.entrySet();
             List<Map.Entry<String, Integer>> sortedWords = new ArrayList<Map.Entry<String, Integer>>(set);
-            // todo use comparator classes instead of anonymous comparators
             Collections.sort(sortedWords, (o1, o2) -> {
                 boolean isMapData01Empty = (o1.getValue() == null || o1.getValue().equals(""));
                 boolean isMapData02Empty = (o2.getValue() == null || o2.getValue().equals(""));
