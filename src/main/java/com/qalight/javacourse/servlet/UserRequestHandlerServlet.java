@@ -31,6 +31,7 @@ public class UserRequestHandlerServlet extends HttpServlet {
     }
 
     private void response (HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         String dataSources = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userChoice");
 

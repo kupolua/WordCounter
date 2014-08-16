@@ -33,8 +33,25 @@ public class WordCounterServiceImpl implements WordCounterService {
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         LOG.debug("Checking that received parameters are not null or empty.");
+
+        try {
+            checkParams(clientRequest, sortingParam);
+        } catch (IllegalArgumentException e) {
+            LOG.error("IllegalArgumentException" + e);
+            resultPresentation.createErrorResponse("Your request is empty.");
+            String result = errorMessageToUser;
+            return result;
+        }
         checkParams(clientRequest, sortingParam);
 
+        try {
+            checkParams(clientRequest, sortingParam);
+        } catch (IllegalArgumentException e) {
+            LOG.error("IllegalArgumentException" + e);
+            resultPresentation.createErrorResponse("Your request is empty.");
+            String result = errorMessageToUser;
+            return result;
+        }
         String validatedSource = validator.validateSources(clientRequest);
 
         LOG.debug("Recognizing a type of source.");
