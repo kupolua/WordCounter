@@ -3,7 +3,7 @@ package com.qalight.javacourse.service;
 import com.qalight.javacourse.core.WordCounter;
 import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
-import com.qalight.javacourse.util.Refineder;
+import com.qalight.javacourse.util.TextRefiner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +53,7 @@ public class WordCounterServiceImpl implements WordCounterService {
         String plainText = documentToStringConverter.convertToString(validatedSource);
 
         LOG.debug("Starting to refine a plain text.");
-        String refinedText = Refineder.getRefineText(plainText);
+        String refinedText = TextRefiner.getRefineText(plainText);
 
         LOG.debug("Putting refined text into MAP object.");
         Map<String, Integer> countedWords = wordCounter.countWords(refinedText);

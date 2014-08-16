@@ -22,9 +22,6 @@ import static org.junit.Assert.fail;
  * Created by Vova on 08.08.2014.
  */
 
-// todo: all tests should end with word *Test TestWebSelenium
-// todo kupol: When TeamCity is ready, move the "Test" word in the title to the end
-
 public class TestWebForm {
     private WebDriver driver;
     private String baseUrl;
@@ -89,7 +86,7 @@ public class TestWebForm {
         driver.findElement(By.id("myButton")).click();
         sleep(timeWait);
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
-        String expectedResult = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\SortingKeyAscending.txt")));
+        String expectedResult = getTextFromFile("SortingKeyAscending.txt");
         assertEquals(expectedResult, actualResult);
     }
     @Ignore //ready
