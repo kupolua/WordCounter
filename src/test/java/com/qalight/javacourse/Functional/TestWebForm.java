@@ -27,8 +27,8 @@ public class TestWebForm {
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-    private final String expectedResultEmptyUrlRequest = "";
-    private final String expectedResultUrlContainHttps = "";
+    private final String expectedResultEmptyUrlRequest = "Your request is empty.";
+    private final String expectedResultUrlContainHttps = "We can't read https.";
     private final String expectedResultIncorrectUrl = "";
     private int timeWait = 2000;
 
@@ -39,7 +39,7 @@ public class TestWebForm {
         baseUrl = "http://localhost:8021/inputForm/UserHtmlFormLoaderServlet";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
-    @Ignore //ready
+
     @Test
     public void testEmptyUrlRequest() throws Exception {
 
@@ -50,7 +50,6 @@ public class TestWebForm {
         assertEquals(expectedResultEmptyUrlRequest, actualResult);
     }
 
-    @Ignore //ready
     @Test
     public void testUrlContainHttps() throws Exception {
 
