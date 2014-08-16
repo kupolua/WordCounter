@@ -30,7 +30,7 @@ public class  WordCounterServiceImpl implements WordCounterService {
         resultPresentation = new ResultPresentation();
     }
 
-    //todo kupolua: createResponse JUnit test
+    //todo stkotok: createResponse IT test
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         checkParams(clientRequest, sortingParam);
@@ -52,7 +52,11 @@ public class  WordCounterServiceImpl implements WordCounterService {
 
         String result = resultPresentation.createResponse(validatedSource, sortedWords).toString();
 
-        // todo: where do you set error? make it obvious
+        /**
+         * Add two following strings in place, where you want throw the error message to user.
+         *   ResultPresentation resultPresentation = new ResultPresentation();
+         *   resultPresentation.createErrorResponse("Text of your error message to user.");
+         */
         if (errorMessageToUser != null) {
             result = errorMessageToUser;
         }
