@@ -52,7 +52,7 @@ public class EntryPoint {
         try {
             server.stop();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception during stopping server ", e);
         }
     }
 }
