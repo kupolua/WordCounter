@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by kpl on 30.07.2014.
  */
 
-public class  WordCounterServiceImpl implements WordCounterService {
+public class WordCounterServiceImpl implements WordCounterService {
     private static final Logger LOG = LoggerFactory.getLogger(WordCounterServiceImpl.class);
 
     private final SingleDataSourceValidator validator;
@@ -34,7 +34,6 @@ public class  WordCounterServiceImpl implements WordCounterService {
         resultPresentation = new ResultPresentation();
     }
 
-    //todo stkotok: createResponse IT test
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         LOG.debug("Checking that received parameters are not null or empty.");
