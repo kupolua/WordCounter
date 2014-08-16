@@ -5,12 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class DataSourceSplitterTemporaryTest {
-    private DataSourceSplitterTemporary temporarySplitter;
+public class SingleDataSourceValidatorTest {
+    private SingleDataSourceValidator temporarySplitter;
 
     @Before
     public void setup(){
-        temporarySplitter = new DataSourceSplitterTemporary();
+        temporarySplitter = new SingleDataSourceValidator();
     }
 
     @Test

@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by box on 14.08.2014.
  */
-public class DataSourceSplitterTemporary {
-    private static final Logger LOG = LoggerFactory.getLogger(DataSourceSplitterTemporary.class);
+public class SingleDataSourceValidator {
+    private static final Logger LOG = LoggerFactory.getLogger(SingleDataSourceValidator.class);
 
     public String validateSources(String dataSources) {
         String validSource;

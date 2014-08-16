@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class  WordCounterServiceImpl implements WordCounterService {
-    private final DataSourceSplitterTemporary temporarySplitter;
+    private final SingleDataSourceValidator validator;
     private final TextTypeInquirer textTypeInquirer;
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
@@ -22,7 +22,7 @@ public class  WordCounterServiceImpl implements WordCounterService {
     public static String errorMessageToUser = null;
 
     public WordCounterServiceImpl() {
-        temporarySplitter = new DataSourceSplitterTemporary();
+        validator = new SingleDataSourceValidator();
         textTypeInquirer = new TextTypeInquirer();
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
@@ -35,8 +35,7 @@ public class  WordCounterServiceImpl implements WordCounterService {
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         checkParams(clientRequest, sortingParam);
 
-        // todo: rename (no temporary names)
-        String validatedSource = temporarySplitter.validateSources(clientRequest);
+        String validatedSource = validator.validateSources(clientRequest);
 
         TextType textType = textTypeInquirer.inquireTextType(validatedSource);
         // todo : use document type as class or enum, but not as String
