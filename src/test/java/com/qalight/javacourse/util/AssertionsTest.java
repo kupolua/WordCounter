@@ -19,4 +19,6 @@ public class AssertionsTest {
         //when
         Assertions.assertStringIsNotNullOrEmpty(DATA);
     }
+
+    //todo: add test with without throwing exception
 }

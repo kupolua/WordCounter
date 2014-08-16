@@ -35,9 +35,11 @@ public class  WordCounterServiceImpl implements WordCounterService {
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         checkParams(clientRequest, sortingParam);
 
+        // todo: rename (no temporary names)
         String validatedSource = temporarySplitter.validateSources(clientRequest);
 
         TextType textType = textTypeInquirer.inquireTextType(validatedSource);
+        // todo : use document type as class or enum, but not as String
         String documentType = textType.getTextType();
 
         DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(documentType);
@@ -51,6 +53,7 @@ public class  WordCounterServiceImpl implements WordCounterService {
 
         String result = resultPresentation.createResponse(validatedSource, sortedWords).toString();
 
+        // todo: where do you set error? make it obvious
         if (errorMessageToUser != null) {
             result = errorMessageToUser;
         }

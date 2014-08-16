@@ -21,4 +21,7 @@ public class RefinedersTest {
         Assert.assertEquals(expected, actual);
 
     }
+
+    //todo: add test with empty parameter input
+    //todo: add test with null input
 }

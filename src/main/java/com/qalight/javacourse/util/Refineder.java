@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 /**
  * Created by stkotok on 30.07.2014
  */
+// todo: rename to TextRefiner (the is no word in English 'Refineder')
+// you can use dictionary to check correctness
 public class Refineder {
 
     private static final Logger LOG = LoggerFactory.getLogger(Refineder.class);
