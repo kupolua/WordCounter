@@ -1,5 +1,6 @@
-package com.qalight.javacourse.service;
+package com.qalight.javacourse.Integration.service;
 
+import com.qalight.javacourse.service.HtmlToStringConverter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,7 @@ public class HtmlToStringConverterIT {
     private HtmlToStringConverter converter;
 
     @Before
-    public void setup(){
+    public void setup() {
         converter = new HtmlToStringConverter();
     }
 

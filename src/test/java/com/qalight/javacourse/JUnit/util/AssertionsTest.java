@@ -1,5 +1,6 @@
-package com.qalight.javacourse.util;
+package com.qalight.javacourse.JUnit.util;
 
+import com.qalight.javacourse.util.Assertions;
 import org.junit.Test;
 
 public class AssertionsTest {

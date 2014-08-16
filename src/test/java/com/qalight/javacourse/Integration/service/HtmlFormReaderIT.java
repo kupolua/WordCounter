@@ -1,5 +1,6 @@
-package com.qalight.javacourse.service;
+package com.qalight.javacourse.Integration.service;
 
+import com.qalight.javacourse.service.HtmlFormReader;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -10,7 +11,8 @@ import java.util.Scanner;
 //todo stkotok: fix it. all tests failing with NPE
 public class HtmlFormReaderIT {
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void testReadHtmlSourceFile() throws Exception {
 
         // given
@@ -26,7 +28,8 @@ public class HtmlFormReaderIT {
 
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void testReadErrorWebPage() throws Exception {
 
         // given
@@ -42,7 +45,8 @@ public class HtmlFormReaderIT {
 
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void testReturnErrorPageWhenRequiredPageIsMissing() {
 
         // given

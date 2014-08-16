@@ -1,5 +1,6 @@
-package com.qalight.javacourse.service;
+package com.qalight.javacourse.JUnit.service;
 
+import com.qalight.javacourse.service.HtmlTextTypeImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,7 @@ public class HtmlTextTypeImplTest {
     private HtmlTextTypeImpl typeIml;
 
     @Before
-    public void setup(){
+    public void setup() {
         typeIml = new HtmlTextTypeImpl();
     }
 

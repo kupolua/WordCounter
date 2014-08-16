@@ -1,17 +1,18 @@
-package com.qalight.javacourse.service;
+package com.qalight.javacourse.JUnit.service;
 
+import com.qalight.javacourse.service.HtmlToStringConverter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class XmlToStringConverterTest {
+public class HtmlToStringConverterTest {
 
-    private  XmlToStringConverter converter;
+    private HtmlToStringConverter converter;
 
     @Before
-    public void setup(){
-        converter = new XmlToStringConverter();
+    public void setup() {
+        converter = new HtmlToStringConverter();
     }
 
     @Test
@@ -21,16 +22,16 @@ public class XmlToStringConverterTest {
         //when
         boolean actualResult = converter.isEligible(DOCUMENT_TYPE);
         //then
-        Assert.assertTrue(actualResult);
+        Assert.assertFalse(actualResult);
     }
 
     @Test
-    public void testIsEligible_html(){
+    public void testIsEligible_html() {
         //given
         final String DOCUMENT_TYPE = "html";
         //when
         boolean actualResult = converter.isEligible(DOCUMENT_TYPE);
         //then
-        Assert.assertFalse(actualResult);
+        Assert.assertTrue(actualResult);
     }
 }

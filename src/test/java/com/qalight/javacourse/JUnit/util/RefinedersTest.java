@@ -1,5 +1,6 @@
-package com.qalight.javacourse.util;
+package com.qalight.javacourse.JUnit.util;
 
+import com.qalight.javacourse.util.Refineder;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.junit.Test;
 public class RefinedersTest {
 
     @Test
+    @Ignore
     public void testGetRefineText() {
 
         // given values

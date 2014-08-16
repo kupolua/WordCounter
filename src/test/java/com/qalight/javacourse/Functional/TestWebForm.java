@@ -1,4 +1,4 @@
-package com.qalight.javacourse.selenium;
+package com.qalight.javacourse.Functional;
 
 import com.qalight.javacourse.EntryPoint;
 import org.junit.After;
@@ -23,8 +23,9 @@ import static org.junit.Assert.fail;
  */
 
 // todo: all tests should end with word *Test TestWebSelenium
+// todo kupol: When TeamCity is ready, move the "Test" word in the title to the end
 
-public class TestWebFormSelenium {
+public class TestWebForm {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;

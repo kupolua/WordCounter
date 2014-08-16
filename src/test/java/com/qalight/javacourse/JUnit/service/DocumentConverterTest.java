@@ -1,5 +1,9 @@
-package com.qalight.javacourse.service;
+package com.qalight.javacourse.JUnit.service;
 
+import com.qalight.javacourse.service.DocumentConverter;
+import com.qalight.javacourse.service.DocumentToStringConverter;
+import com.qalight.javacourse.service.HtmlToStringConverter;
+import com.qalight.javacourse.service.XmlToStringConverter;
 import org.junit.Assert;
 import org.junit.Test;
 

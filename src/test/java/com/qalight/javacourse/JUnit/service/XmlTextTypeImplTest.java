@@ -1,5 +1,6 @@
-package com.qalight.javacourse.service;
+package com.qalight.javacourse.JUnit.service;
 
+import com.qalight.javacourse.service.XmlTextTypeImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

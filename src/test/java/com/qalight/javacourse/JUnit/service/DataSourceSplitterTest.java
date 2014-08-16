@@ -1,5 +1,6 @@
-package com.qalight.javacourse.service;
+package com.qalight.javacourse.JUnit.service;
 
+import com.qalight.javacourse.service.DataSourceSplitter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +14,7 @@ public class DataSourceSplitterTest {
     private DataSourceSplitter sourceSplitter;
 
     @Before
-    public void setup(){
+    public void setup() {
         sourceSplitter = new DataSourceSplitter();
     }
 
