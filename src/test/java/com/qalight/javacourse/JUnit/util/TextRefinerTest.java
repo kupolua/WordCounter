@@ -5,9 +5,6 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/**
- * Created by Vova on 11.08.2014.
- */
 public class TextRefinerTest {
 
     @Test

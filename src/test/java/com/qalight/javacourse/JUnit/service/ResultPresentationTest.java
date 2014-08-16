@@ -2,9 +2,6 @@ package com.qalight.javacourse.JUnit.service;
 
 import org.junit.Test;
 
-/**
- * Created by kpl on 12.08.2014.
- */
 public class ResultPresentationTest {
 
     @Test

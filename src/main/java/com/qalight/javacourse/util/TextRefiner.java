@@ -5,10 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.regex.Pattern;
 
-/**
- * Created by stkotok on 30.07.2014
- */
-
 public class TextRefiner {
 
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);

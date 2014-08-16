@@ -1,8 +1,5 @@
 package com.qalight.javacourse.util;
 
-/**
- * Created by emix on 8/9/14.
- */
 public class Assertions {
 
     public static void assertStringIsNotNullOrEmpty (String str){

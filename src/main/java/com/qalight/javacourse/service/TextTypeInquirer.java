@@ -3,10 +3,8 @@ package com.qalight.javacourse.service;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class TextTypeInquirer {
 
-    // todo: use enum
     private static Set<TextType> textTypes;
     static{
         textTypes = new HashSet<>();
