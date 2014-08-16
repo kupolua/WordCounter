@@ -64,13 +64,9 @@ public class WordCounterServiceImpl implements WordCounterService {
         LOG.debug("Creating JSON object.");
         String result = resultPresentation.createResponse(validatedSource, sortedWords).toString();
 
-        /**
-         * Add two following strings in place, where you want throw the error message to user.
-         *   ResultPresentation resultPresentation = new ResultPresentation();
-         *   resultPresentation.createErrorResponse("Text of your error message to user.");
-         */
         if (errorMessageToUser != null) {
-            result = errorMessageToUser;
+            String errorMessageToUserFromCode = errorMessageToUser;
+            result = errorMessageToUserFromCode;
         }
 
         return result;
