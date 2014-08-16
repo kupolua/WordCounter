@@ -5,7 +5,7 @@ import org.junit.Test;
 public class AssertionsTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAssertStringIsNotNull() throws Exception {
+    public void testAssertStringIsNull() throws Exception {
         //given
         final String DATA = null;
         //when
@@ -13,12 +13,18 @@ public class AssertionsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAssertStringIsNotEmpty() throws Exception {
+    public void testAssertStringIsEmpty() throws Exception {
         //given
         final String DATA = " ";
         //when
         Assertions.assertStringIsNotNullOrEmpty(DATA);
     }
 
-    //todo: add test with without throwing exception
+    @Test
+    public void testAssertStringIsNotNullOrEmpty() throws Exception {
+        //given
+        final String DATA = "index.html";
+        //when
+        Assertions.assertStringIsNotNullOrEmpty(DATA);
+    }
 }
