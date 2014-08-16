@@ -20,6 +20,7 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final WordResultCollector wordResultCollector;
     private final ResultPresentation resultPresentation;
     public static String errorMessageToUser = null;
+    private static String validatedSource = null;
 
     public WordCounterServiceImpl() {
         validator = new SingleDataSourceValidator();
@@ -42,17 +43,15 @@ public class WordCounterServiceImpl implements WordCounterService {
             String result = errorMessageToUser;
             return result;
         }
-        checkParams(clientRequest, sortingParam);
 
         try {
-            checkParams(clientRequest, sortingParam);
+            validatedSource = validator.validateSources(clientRequest);
         } catch (IllegalArgumentException e) {
             LOG.error("IllegalArgumentException" + e);
-            resultPresentation.createErrorResponse("Your request is empty.");
+            resultPresentation.createErrorResponse("We can't read https.");
             String result = errorMessageToUser;
             return result;
         }
-        String validatedSource = validator.validateSources(clientRequest);
 
         LOG.debug("Recognizing a type of source.");
         TextType textType = textTypeInquirer.inquireTextType(validatedSource);
