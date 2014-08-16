@@ -37,6 +37,7 @@ public class UserRequestHandlerServlet extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
 
+            LOG.debug("wordCounterService.getWordCounterResult");
             String result = wordCounterService.getWordCounterResult (dataSources, sortingParam);
 
             out.println(result);
