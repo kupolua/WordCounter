@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by pavelkulakovsky on 10.08.14.
- */
-// todo: create different types of Presentation (JSon, plain text, HTML)
+
 public class ResultPresentation {
 
     public JsonObject createResponse(String textLink, List<Map.Entry<String, Integer>> collectedWordResult) {

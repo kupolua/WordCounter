@@ -1,8 +1,5 @@
 package com.qalight.javacourse.service;
 
-/**
- * Created by pavelkulakovsky on 11.08.14.
- */
 public class XmlTextTypeImpl implements TextType {
     private static final String textType = "xml";
 

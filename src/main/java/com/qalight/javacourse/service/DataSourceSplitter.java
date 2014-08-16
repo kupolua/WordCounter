@@ -5,9 +5,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by pavelkulakovsky on 10.08.14.
- */
+
 public class DataSourceSplitter {
     private List<String> validSources = new ArrayList<>();
     private List<String> invalidSources = new ArrayList<>();

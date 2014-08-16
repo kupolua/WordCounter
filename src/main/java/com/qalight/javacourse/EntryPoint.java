@@ -8,21 +8,10 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by kpl on 23.07.2014.
- */
 public class EntryPoint {
     private static final Logger LOG = LoggerFactory.getLogger(EntryPoint.class);
     public static final int JETTY_PORT = 8021;
     private static Server server;
-
-//    public static void main(String[] args) {
-//        WordCounterServiceImpl wordCounterService = new WordCounterServiceImpl();
-//        System.out.println("Return response to user(json type):"
-//                + wordCounterService.getWordCounterResult("http://www.eslfast.com/supereasy/se/supereasy006.htm", "KEY_ASCENDING"));
-//
-//    }
-
 
     public static void main(String[] args) {
         EntryPoint.jettyStart();

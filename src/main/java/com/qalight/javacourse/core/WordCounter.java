@@ -6,9 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by box on 07.06.2014
- */
+
 public class WordCounter {
 
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);

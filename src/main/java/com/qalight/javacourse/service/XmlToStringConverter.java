@@ -8,9 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-/**
- * Created by kpl on 09.08.2014.
- */
 public class XmlToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(XmlToStringConverter.class);
     private final HtmlToPlainText htmlToPlainText;

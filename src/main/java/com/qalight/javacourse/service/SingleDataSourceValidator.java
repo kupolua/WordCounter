@@ -4,9 +4,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by box on 14.08.2014.
- */
+
 public class SingleDataSourceValidator {
     private static final Logger LOG = LoggerFactory.getLogger(SingleDataSourceValidator.class);
 

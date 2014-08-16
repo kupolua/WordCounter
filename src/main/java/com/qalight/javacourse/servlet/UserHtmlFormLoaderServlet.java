@@ -10,10 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * Created by kpl on 23.07.2014.
- */
-
 public class UserHtmlFormLoaderServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;

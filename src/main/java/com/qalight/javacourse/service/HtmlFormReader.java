@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/**
- * Created by kpl on 23.07.2014.
- */
+
 public class HtmlFormReader {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlFormReader.class);
     private static final String NO_HTML_SOURCE_FILE = "No Source File ";

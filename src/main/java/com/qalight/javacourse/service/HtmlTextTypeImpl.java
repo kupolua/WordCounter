@@ -1,8 +1,6 @@
 package com.qalight.javacourse.service;
 
-/**
- * Created by pavelkulakovsky on 11.08.14.
- */
+
 public class HtmlTextTypeImpl implements TextType {
     private final String[] TYPES = {".xml",".pdf"};
     private static final String textType = "html";

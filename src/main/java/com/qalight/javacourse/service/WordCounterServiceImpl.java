@@ -10,10 +10,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by kpl on 30.07.2014.
- */
-
 public class WordCounterServiceImpl implements WordCounterService {
     private static final Logger LOG = LoggerFactory.getLogger(WordCounterServiceImpl.class);
 

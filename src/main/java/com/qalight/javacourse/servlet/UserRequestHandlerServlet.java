@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * Created by kpl on 23.07.2014.
- */
 public class UserRequestHandlerServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
@@ -36,7 +33,6 @@ public class UserRequestHandlerServlet extends HttpServlet {
     private void response (HttpServletRequest request, HttpServletResponse response) throws IOException {
         String dataSources = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userChoice");
-//        String getTypeStatisticResult = request.getParameter("getTypeStatisticResult");
 
         try (PrintWriter out = response.getWriter()) {
 

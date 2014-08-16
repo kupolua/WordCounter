@@ -3,9 +3,7 @@ package com.qalight.javacourse.service;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by kpl on 12.08.2014.
- */
+
 public class DocumentConverter {
     private static Set<DocumentToStringConverter> documentToStringConverters;
     static {
