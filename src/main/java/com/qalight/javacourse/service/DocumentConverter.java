@@ -11,7 +11,7 @@ public class DocumentConverter {
         documentToStringConverters.add(new HtmlToStringConverter());
         documentToStringConverters.add(new XmlToStringConverter());
     }
-    public DocumentToStringConverter getDocumentConverter(String sourceType) {
+    public DocumentToStringConverter getDocumentConverter(TextType sourceType) {
         DocumentToStringConverter documentConverter = null;
         for (DocumentToStringConverter documentToStringConverter : documentToStringConverters) {
             if (documentToStringConverter.isEligible(sourceType)) {

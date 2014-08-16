@@ -18,9 +18,12 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public Boolean isEligible(String documentType) {
-        final String DOCUMENT_TYPE = "html";
-        return documentType.equalsIgnoreCase(DOCUMENT_TYPE);
+    public Boolean isEligible(TextType documentType) {
+        boolean isEligible = false;
+        if(documentType instanceof HtmlTextTypeImpl){
+            isEligible = true;
+        }
+        return isEligible;
     }
 
     @Override

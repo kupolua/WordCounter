@@ -1,19 +1,22 @@
 package com.qalight.javacourse.JUnit.service;
 
-import com.qalight.javacourse.service.DocumentConverter;
-import com.qalight.javacourse.service.DocumentToStringConverter;
-import com.qalight.javacourse.service.HtmlToStringConverter;
-import com.qalight.javacourse.service.XmlToStringConverter;
+import com.qalight.javacourse.service.*;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DocumentConverterTest {
+    private DocumentConverter converter;
+
+    @Before
+    public void setup(){
+        converter = new DocumentConverter();
+    }
 
     @Test
     public void testGetDocumentConverter_xml() {
-        DocumentConverter converter = new DocumentConverter();
         //given
-        final String type = "xml";
+        final TextType type = new XmlTextTypeImpl();
         //when
         DocumentToStringConverter toStringConverter = converter.getDocumentConverter(type);
         //then
@@ -22,12 +25,11 @@ public class DocumentConverterTest {
 
     @Test
     public void testGetDocumentConverter_html() {
-        DocumentConverter converter = new DocumentConverter();
         //given
-        final String type1 = "html";
+        final TextType type = new HtmlTextTypeImpl();
         //when
-        DocumentToStringConverter toStringConverter1 = converter.getDocumentConverter(type1);
+        DocumentToStringConverter toStringConverter = converter.getDocumentConverter(type);
         //then
-        Assert.assertTrue(toStringConverter1 instanceof HtmlToStringConverter);
+        Assert.assertTrue(toStringConverter instanceof HtmlToStringConverter);
     }
 }

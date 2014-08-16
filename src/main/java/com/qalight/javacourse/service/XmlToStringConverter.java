@@ -17,9 +17,12 @@ public class XmlToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public Boolean isEligible(String documentType) {
-        final String DOCUMENT_TYPE = "xml";
-        return documentType.equalsIgnoreCase(DOCUMENT_TYPE);
+    public Boolean isEligible(TextType documentType) {
+        boolean isEligible = false;
+        if(documentType instanceof XmlTextTypeImpl){
+            isEligible = true;
+        }
+        return isEligible;
     }
     @Override
     public String convertToString(String userUrl) {
