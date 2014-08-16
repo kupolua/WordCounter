@@ -56,8 +56,6 @@ public class WordCounterServiceImpl implements WordCounterService {
         LOG.debug("Recognizing a type of source.");
         TextType textType = textTypeInquirer.inquireTextType(validatedSource);
 
-        LOG.debug("Getting a type of source.");
-
         LOG.debug("Selecting an appropriate converter.");
         DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(textType);
 
