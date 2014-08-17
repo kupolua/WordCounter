@@ -31,7 +31,7 @@ public class ResultPresentation {
         return countedWordsListObj;
     }
 
-    public void createErrorResponse(String errorMessageToUser) {
+    public String createErrorResponse(String errorMessageToUser) {
 
         Gson gson = new Gson();
         JsonObject errorMessageToUserObj = new JsonObject();
@@ -41,8 +41,6 @@ public class ResultPresentation {
         errorMessageToUserObj.addProperty("success", false);
         errorMessageToUserObj.add("errorMessageToUser", errorMessageToUserJson);
 
-        String errorMessageToUserString = errorMessageToUserObj.toString();
-
-        WordCounterServiceImpl.errorMessageToUser = errorMessageToUserString;
+        return errorMessageToUserObj.toString();
     }
 }

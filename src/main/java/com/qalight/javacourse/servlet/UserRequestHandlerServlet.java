@@ -1,5 +1,6 @@
 package com.qalight.javacourse.servlet;
 
+import com.qalight.javacourse.service.ResultPresentation;
 import com.qalight.javacourse.service.WordCounterService;
 import com.qalight.javacourse.service.WordCounterServiceImpl;
 import org.slf4j.Logger;
@@ -35,11 +36,11 @@ public class UserRequestHandlerServlet extends HttpServlet {
         String dataSources = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userChoice");
 
+        LOG.debug("Getting result and catch exceptions.");
+        String result = getResultAndCatchException(dataSources, sortingParam);
+
         try (PrintWriter out = response.getWriter()) {
-
-            LOG.debug("wordCounterService.getWordCounterResult");
-            String result = wordCounterService.getWordCounterResult (dataSources, sortingParam);
-
+            LOG.debug("Showing result.");
             out.println(result);
         }
     }
@@ -53,5 +54,17 @@ public class UserRequestHandlerServlet extends HttpServlet {
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Max-Age", "86400");
+    }
+
+    private String getResultAndCatchException(String dataSources,  String sortingParam){
+        String result;
+        try{
+            result = wordCounterService.getWordCounterResult (dataSources, sortingParam);
+        } catch (IllegalArgumentException e){
+            result = new ResultPresentation().createErrorResponse("Your request is empty.");
+        } catch (RuntimeException e1){
+            result = new ResultPresentation().createErrorResponse("Your URL is malformed or not responding.");
+        }
+        return result;
     }
 }

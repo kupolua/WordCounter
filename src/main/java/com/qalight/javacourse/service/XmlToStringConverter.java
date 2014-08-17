@@ -24,24 +24,34 @@ public class XmlToStringConverter implements DocumentToStringConverter {
         }
         return isEligible;
     }
+
     @Override
     public String convertToString(String userUrl) {
-        LOG.debug("Getting plain text.");
 
-        Document html;
+        String fixedUrl = fixUrl(userUrl);
+
+        LOG.debug("Getting plain text.");
+        Document xml;
 
         try {
-            html = Jsoup.connect(userUrl).get();
+            xml = Jsoup.connect(fixedUrl).get();
         } catch (IOException e) {
-            LOG.error("Can't connect to " + userUrl, e);
-            throw new RuntimeException("Can't connect to: " + userUrl);
+            LOG.error("Can't connect to " + fixedUrl, e);
+            throw new RuntimeException("Can't connect to: " + fixedUrl);
         }
 
-        LOG.info("Connection to " + userUrl + " has been successfully established.");
+        LOG.info("Connection to " + fixedUrl + " has been successfully established.");
 
-        String htmlText = String.valueOf(html);
-        Document document = Jsoup.parse(htmlText);
+        return htmlToPlainText.getPlainText(xml);
+    }
 
-        return htmlToPlainText.getPlainText(document);
+    private String fixUrl(String userUrl){
+        final String HTTP_PREFIX = "http://";
+        String sourcesWithoutWhitespaces = userUrl.replaceAll(" ", "");
+        if(!(userUrl.startsWith("https://") || userUrl.startsWith("http://"))){
+            LOG.info("Try to fix URL: " + sourcesWithoutWhitespaces);
+            sourcesWithoutWhitespaces = HTTP_PREFIX + sourcesWithoutWhitespaces;
+        }
+        return sourcesWithoutWhitespaces;
     }
 }
