@@ -13,17 +13,13 @@ import java.util.Map;
 public class WordCounterServiceImpl implements WordCounterService {
     private static final Logger LOG = LoggerFactory.getLogger(WordCounterServiceImpl.class);
 
-    private final SingleDataSourceValidator validator;
     private final TextTypeInquirer textTypeInquirer;
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
     private final WordResultCollector wordResultCollector;
     private static ResultPresentation resultPresentation;
-    public static String errorMessageToUser = null;
-    private static String validatedSource = null;
 
     public WordCounterServiceImpl() {
-        validator = new SingleDataSourceValidator();
         textTypeInquirer = new TextTypeInquirer();
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
@@ -34,25 +30,15 @@ public class WordCounterServiceImpl implements WordCounterService {
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam) {
         LOG.debug("Checking that received parameters are not null or empty.");
-
         checkParams(clientRequest, sortingParam);
 
-        try {
-            validatedSource = validator.validateSources(clientRequest);
-        } catch (IllegalArgumentException e) {
-            LOG.error("IllegalArgumentException" + e);
-            resultPresentation.createErrorResponse("Your request is empty.");
-            String result = errorMessageToUser;
-            return result;
-        }
-
         LOG.debug("Recognizing a type of source.");
-        TextType textType = textTypeInquirer.inquireTextType(validatedSource);
+        TextType textType = textTypeInquirer.inquireTextType(clientRequest);
 
         LOG.debug("Selecting an appropriate converter.");
         DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(textType);
 
-        String plainText = documentToStringConverter.convertToString(validatedSource);
+        String plainText = documentToStringConverter.convertToString(clientRequest);
 
         LOG.debug("Starting to refine a plain text.");
         String refinedText = TextRefiner.getRefineText(plainText);
@@ -64,23 +50,14 @@ public class WordCounterServiceImpl implements WordCounterService {
         List<Map.Entry<String, Integer>> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
         LOG.debug("Creating JSON object.");
-        String result = resultPresentation.createResponse(validatedSource, sortedWords).toString();
+        String result = resultPresentation.createResponse(clientRequest, sortedWords).toString();
 
         return result;
     }
 
-    private static String checkParams(String userUrlsString, String sortingParam) {
-        try {
+    private static void checkParams(String userUrlsString, String sortingParam) {
             Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
-        } catch (IllegalArgumentException e) {
-            LOG.error("IllegalArgumentException" + e);
-            resultPresentation.createErrorResponse("Your request is empty.");
-            String result = errorMessageToUser;
-            return result;
-        }
-
             Assertions.assertStringIsNotNullOrEmpty(sortingParam);
-            return "Check Params";
     }
 
 }

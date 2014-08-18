@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-
 public class HtmlToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlToStringConverter.class);
     private final HtmlToPlainText htmlToPlainText;
@@ -28,22 +27,31 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userUrl) {
-        LOG.debug("Getting plain text.");
 
+        String fixedUrl = fixUrl(userUrl);
+
+        LOG.debug("Getting plain text.");
         Document html;
 
         try {
-            html = Jsoup.connect(userUrl).get();
+            html = Jsoup.connect(fixedUrl).get();
         } catch (IOException e) {
-            LOG.error("Can't connect to " + userUrl, e);
-            throw new RuntimeException("Can't connect to: " + userUrl);
+            LOG.error("Can't connect to " + fixedUrl, e);
+            throw new RuntimeException("Can't connect to: " + fixedUrl);
         }
 
-        LOG.info("Connection to " + userUrl + " has been successfully established.");
+        LOG.info("Connection to " + fixedUrl + " has been successfully established.");
 
-        String htmlText = String.valueOf(html);
-        Document document = Jsoup.parse(htmlText);
+        return htmlToPlainText.getPlainText(html);
+    }
 
-        return htmlToPlainText.getPlainText(document);
+    private String fixUrl(String userUrl){
+        final String HTTP_PREFIX = "http://";
+        String sourcesWithoutWhitespaces = userUrl.replaceAll(" ", "");
+        if(!(userUrl.startsWith("https://") || userUrl.startsWith("http://"))){
+            LOG.info("Try to fix URL: " + sourcesWithoutWhitespaces);
+            sourcesWithoutWhitespaces = HTTP_PREFIX + sourcesWithoutWhitespaces;
+        }
+        return sourcesWithoutWhitespaces;
     }
 }

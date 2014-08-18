@@ -18,10 +18,6 @@ import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-/**
- * Created by Vova on 08.08.2014.
- */
-
 public class TestWebForm {
     private WebDriver driver;
     private String baseUrl;
@@ -29,7 +25,7 @@ public class TestWebForm {
     private StringBuffer verificationErrors = new StringBuffer();
     private final String expectedResultEmptyUrlRequest = "Your request is empty.";
     private final String expectedResultUrlContainHttps = "Your request is empty.";
-    private final String expectedResultIncorrectUrl = "";
+    private final String expectedResultIncorrectUrl = "Your request is empty.";
     private int timeWait = 2000;
 
     @Before
@@ -61,7 +57,7 @@ public class TestWebForm {
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         assertEquals(expectedResultUrlContainHttps, actualResult);
     }
-    @Ignore
+
     @Test
     public void testIncorrectUrl() throws Exception {
 
@@ -963,21 +959,6 @@ public class TestWebForm {
                 "methodology 1\n" +
                 "simply 1\n" +
                 "forms 1";
-        assertEquals(expectedResult, actualResult);
-    }
-    @Ignore
-    @Test
-    public void testConsolidatedResult() throws Exception {
-
-        driver.get(baseUrl);
-        driver.findElement(By.id("userRequest")).clear();
-        driver.findElement(By.id("userRequest")).sendKeys("http://www.httpunit.org/, " +
-                "http://www.httpunit.org/doc/developers.html");
-        driver.findElement(By.xpath("(//input[@name='typeStatisticResult'])[2]")).click();
-        driver.findElement(By.id("myButton")).click();
-        sleep(timeWait * 2);
-        String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
-        String expectedResult = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\ConsolidatedResult.txt")));
         assertEquals(expectedResult, actualResult);
     }
 
