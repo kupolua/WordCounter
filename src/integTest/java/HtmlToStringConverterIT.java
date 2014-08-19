@@ -1,5 +1,3 @@
-package com.qalight.javacourse.Integration.service;
-
 import com.qalight.javacourse.service.HtmlToStringConverter;
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,5 +1,3 @@
-package com.qalight.javacourse.Functional;
-
 import com.qalight.javacourse.EntryPoint;
 import org.junit.After;
 import org.junit.Before;

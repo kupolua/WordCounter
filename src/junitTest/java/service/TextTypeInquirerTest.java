@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.service;
+package service;
 
 import com.qalight.javacourse.service.HtmlTextTypeImpl;
 import com.qalight.javacourse.service.TextType;
@@ -13,7 +13,7 @@ public class TextTypeInquirerTest {
     private TextTypeInquirer inquirer;
 
     @Before
-    public void setup(){
+    public void setup() {
         inquirer = new TextTypeInquirer();
     }
 

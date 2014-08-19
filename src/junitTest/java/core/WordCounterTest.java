@@ -1,8 +1,7 @@
-package com.qalight.javacourse.JUnit.core;
+package core;
 
 import com.qalight.javacourse.core.WordCounter;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;

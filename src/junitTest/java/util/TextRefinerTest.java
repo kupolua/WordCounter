@@ -1,8 +1,7 @@
-package com.qalight.javacourse.JUnit.util;
+package util;
 
 import com.qalight.javacourse.util.TextRefiner;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TextRefinerTest {

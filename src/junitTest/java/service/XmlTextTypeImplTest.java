@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.service;
+package service;
 
 import com.qalight.javacourse.service.XmlTextTypeImpl;
 import org.junit.Assert;
@@ -10,7 +10,7 @@ public class XmlTextTypeImplTest {
     private XmlTextTypeImpl typeIml;
 
     @Before
-    public void setup(){
+    public void setup() {
         typeIml = new XmlTextTypeImpl();
     }
 

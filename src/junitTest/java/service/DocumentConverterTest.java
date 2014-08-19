@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.service;
+package service;
 
 import com.qalight.javacourse.service.*;
 import org.junit.Assert;
@@ -9,7 +9,7 @@ public class DocumentConverterTest {
     private DocumentConverter converter;
 
     @Before
-    public void setup(){
+    public void setup() {
         converter = new DocumentConverter();
     }
 

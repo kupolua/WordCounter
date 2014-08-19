@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.core;
+package core;
 
 import com.qalight.javacourse.core.WordResultSorter;
 import org.junit.Assert;

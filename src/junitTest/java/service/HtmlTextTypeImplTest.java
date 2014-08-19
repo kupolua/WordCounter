@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.service;
+package service;
 
 import com.qalight.javacourse.service.HtmlTextTypeImpl;
 import org.junit.Assert;

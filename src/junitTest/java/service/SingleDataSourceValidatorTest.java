@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.service;
+package service;
 
 import com.qalight.javacourse.service.SingleDataSourceValidator;
 import org.junit.Assert;

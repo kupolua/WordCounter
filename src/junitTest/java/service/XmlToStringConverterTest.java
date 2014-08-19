@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.service;
+package service;
 
 import com.qalight.javacourse.service.HtmlTextTypeImpl;
 import com.qalight.javacourse.service.TextType;
@@ -14,7 +14,7 @@ public class XmlToStringConverterTest {
     private XmlToStringConverter converter;
 
     @Before
-    public void setup(){
+    public void setup() {
         converter = new XmlToStringConverter();
     }
 
@@ -23,13 +23,13 @@ public class XmlToStringConverterTest {
         //given
         final TextType DOCUMENT_TYPE = new XmlTextTypeImpl();
         //when
-       boolean actualResult = converter.isEligible(DOCUMENT_TYPE);
+        boolean actualResult = converter.isEligible(DOCUMENT_TYPE);
         //then
-       Assert.assertTrue(actualResult);
+        Assert.assertTrue(actualResult);
     }
 
     @Test
-    public void testIsEligible_html(){
+    public void testIsEligible_html() {
         //given
         final TextType DOCUMENT_TYPE = new HtmlTextTypeImpl();
         //when

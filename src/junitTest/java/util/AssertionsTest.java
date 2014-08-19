@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.util;
+package util;
 
 import com.qalight.javacourse.util.Assertions;
 import org.junit.Test;

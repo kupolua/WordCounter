@@ -1,4 +1,4 @@
-package com.qalight.javacourse.JUnit.service;
+package service;
 
 import com.qalight.javacourse.service.HtmlTextTypeImpl;
 import com.qalight.javacourse.service.HtmlToStringConverter;
