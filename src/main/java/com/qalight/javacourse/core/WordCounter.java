@@ -15,6 +15,8 @@ public class WordCounter {
 
         Map<String, Integer> countedWords = new HashMap<String, Integer>();
         LOG.debug("Splitting plain text by all whitespace characters.");
+
+        // todo vkamenniy: give meaningful "str", like arrayWords: vkamenniy
         String[] str = refinedPlainText.split("\\s+");
         LOG.debug("Filtering and putting words to HashMap.");
         for (String eachWord : str) {

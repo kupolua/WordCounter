@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 public class ResultPresentation {
-
+    //todo stkotok: maybe rename createResponse method to getResponse: vkamenniy
     public JsonObject createResponse(String textLink, List<Map.Entry<String, Integer>> collectedWordResult) {
         List<List<Map.Entry<String, Integer>>> countedWordsList = new ArrayList<List<Map.Entry<String, Integer>>>();
         countedWordsList.add(collectedWordResult);

@@ -14,6 +14,7 @@ public class EntryPoint {
     private static Server server;
 
     public static void main(String[] args) {
+        //todo kupol: delete EntryPoint before jettyStart(): vkamenniy
         EntryPoint.jettyStart();
     }
 

@@ -9,8 +9,9 @@ public class TextRefiner {
 
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
 
-    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Z]");
+    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я]");
 
+    //todo vkamenniy: getRefineText change to getRefinedText: vkamenniy
     public static String getRefineText(String unrefinedPlainText) {
 
         return NON_WORD_LETTER_PATTERN.matcher(unrefinedPlainText).replaceAll(" ").toLowerCase();
