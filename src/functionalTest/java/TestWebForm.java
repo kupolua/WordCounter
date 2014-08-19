@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -29,13 +31,18 @@ public class TestWebForm {
     private final String expectedResultUrlContainHttps = "";
     private final String expectedResultIncorrectUrl = "";
     private int timeWait = 2000;
+    private EntryPoint entryPoint = new EntryPoint();
 
     @Before
     public void setUp() throws Exception {
-        EntryPoint.jettyStart();
-        driver = new FirefoxDriver();
-        baseUrl = "http://localhost:8021/inputForm/UserHtmlFormLoaderServlet";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        int jettyPort = EntryPoint.JETTY_PORT + 1;
+
+        if (availablePort(jettyPort)) {
+            entryPoint.jettyStart(jettyPort);
+            driver = new FirefoxDriver();
+            baseUrl = "http://localhost:" + jettyPort + "/inputForm/UserHtmlFormLoaderServlet";
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        }
     }
 
     @Test
@@ -152,7 +159,7 @@ public class TestWebForm {
 
     @After
     public void tearDown() throws Exception {
-        EntryPoint.jettyStop();
+        entryPoint.jettyStop();
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
@@ -197,5 +204,25 @@ public class TestWebForm {
         InputStream in = this.getClass().getResourceAsStream("/" + fileName);
         String text = new Scanner(in, "UTF-8").useDelimiter("\\A").next();
         return text;
+    }
+
+    private boolean availablePort(int port) {
+
+        Socket socket = null;
+        try {
+            socket = new Socket("localhost", port);
+            return false;
+
+        } catch (IOException e) {
+            return true;
+        } finally {
+            if (socket != null) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    throw new RuntimeException("You should handle this error.", e);
+                }
+            }
+        }
     }
 }

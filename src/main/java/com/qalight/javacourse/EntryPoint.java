@@ -11,18 +11,18 @@ import org.slf4j.LoggerFactory;
 public class EntryPoint {
     private static final Logger LOG = LoggerFactory.getLogger(EntryPoint.class);
     public static final int JETTY_PORT = 8021;
-    private static Server server;
+    private Server server;
 
     public static void main(String[] args) {
-        //todo kupol: delete EntryPoint before jettyStart(): vkamenniy
-        EntryPoint.jettyStart();
+
+        new EntryPoint().jettyStart(JETTY_PORT);
     }
 
-    public static void jettyStart() {
+    public void jettyStart(int port) {
         try {
             LOG.debug("Starting Jetty server!!!");
 
-            server = new Server(JETTY_PORT);
+            server = new Server(port);
 
             ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
             context.setContextPath("/inputForm");
@@ -38,7 +38,7 @@ public class EntryPoint {
         LOG.info("Jetty server has started.");
     }
 
-    public static void jettyStop() {
+    public void jettyStop() {
         try {
             server.stop();
         } catch (Exception e) {
