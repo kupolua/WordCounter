@@ -20,8 +20,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/integTest/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/integTest/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/junitTest/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/junitTest/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/seleniumTest/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/seleniumTest/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
