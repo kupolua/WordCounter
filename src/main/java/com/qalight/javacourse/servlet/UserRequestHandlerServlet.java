@@ -5,7 +5,6 @@ import com.qalight.javacourse.service.WordCounterService;
 import com.qalight.javacourse.service.WordCounterServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,7 @@ public class UserRequestHandlerServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UserHtmlFormLoaderServlet.class);
     private static final long serialVersionUID = 1L;
 
-    private final WordCounterService wordCounterService;
+    private final transient WordCounterService wordCounterService;
 
     public UserRequestHandlerServlet() {
         wordCounterService = new WordCounterServiceImpl();

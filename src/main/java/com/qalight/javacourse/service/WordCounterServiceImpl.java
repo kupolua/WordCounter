@@ -17,7 +17,7 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
     private final WordResultCollector wordResultCollector;
-    private static ResultPresentation resultPresentation;
+    private final ResultPresentation resultPresentation;
 
     public WordCounterServiceImpl() {
         textTypeInquirer = new TextTypeInquirer();

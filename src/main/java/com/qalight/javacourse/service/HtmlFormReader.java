@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -18,7 +19,7 @@ public class HtmlFormReader {
         try {
             LOG.info("Reading source file " + fileName);
             byte[] htmlSources = Files.readAllBytes(Paths.get("./src/main/resources/" + fileName));
-            readHtml = new String(htmlSources);
+            readHtml = new String(htmlSources, Charset.forName("UTF-8"));
         } catch (IOException e) {
             LOG.error("Source file <" + fileName + "> cannot be read.", e);
             readHtml = readErrorWebPage();
@@ -30,7 +31,7 @@ public class HtmlFormReader {
         String readErrorHtml;
         try {
             byte[] errorHtmlSources = Files.readAllBytes(Paths.get("./src/main/resources/" + ERROR_WEB_PAGE));
-            readErrorHtml = new String(errorHtmlSources);
+            readErrorHtml = new String(errorHtmlSources, Charset.forName("UTF-8"));
         } catch (IOException e) {
             LOG.error("Error page source file <" + ERROR_WEB_PAGE + "> cannot be read.", e);
             readErrorHtml = NO_HTML_SOURCE_FILE;
