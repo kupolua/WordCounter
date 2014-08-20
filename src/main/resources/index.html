@@ -29,7 +29,8 @@
                 //getTextType the form data using another method
                 var userRequest = $("textarea#userRequest").val();
                 var userChoice = $('input[name=userChoice]:checked').val();
-                dataString = "userRequest=" + userRequest + "&userChoice=" + userChoice;
+                var dataTypeResponse = $('input[name=dataTypeResponse]').val();
+                dataString = "userRequest=" + userRequest + "&userChoice=" + userChoice + "&dataTypeResponse=" + dataTypeResponse;
                 //make the AJAX request, dataType is set to json
                 //meaning we are expecting JSON data in response from the server
                 $.ajax({
@@ -121,6 +122,7 @@
                     <input type="radio" name="userChoice" value="VALUE_ASCENDING">By amount, Ascending.
                     <input type="radio" name="userChoice" value="KEY_DESCENDING">By words, Descending.
                     <input type="radio" name="userChoice" value="VALUE_DESCENDING">By amount, Descending.
+                    <input type="hidden" name="dataTypeResponse" value="JSON">
 
                 </p>
 

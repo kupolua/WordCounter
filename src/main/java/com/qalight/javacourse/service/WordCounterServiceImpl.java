@@ -17,18 +17,16 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
     private final WordResultCollector wordResultCollector;
-    private final ResultPresentation resultPresentation;
 
     public WordCounterServiceImpl() {
         textTypeInquirer = new TextTypeInquirer();
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
         wordResultCollector = new WordResultCollector();
-        resultPresentation = new ResultPresentation();
     }
 
     @Override
-    public String getWordCounterResult(String clientRequest, String sortingParam) {
+    public String getWordCounterResult(String clientRequest, String sortingParam, String  dataTypeResponse) {
         LOG.debug("Checking that received parameters are not null or empty.");
         checkParams(clientRequest, sortingParam);
 
@@ -50,7 +48,7 @@ public class WordCounterServiceImpl implements WordCounterService {
         List<Map.Entry<String, Integer>> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
         LOG.debug("Creating JSON object.");
-        String result = resultPresentation.createResponse(clientRequest, sortedWords).toString();
+        String result = ResultPresentation.valueOf(dataTypeResponse).createResponse(clientRequest, sortedWords, dataTypeResponse);
 
         return result;
     }

@@ -34,9 +34,10 @@ public class UserRequestHandlerServlet extends HttpServlet {
 
         String dataSources = request.getParameter("userRequest");
         String sortingParam = request.getParameter("userChoice");
+        String dataTypeResponse = request.getParameter("dataTypeResponse");
 
         LOG.debug("Getting result and catch exceptions.");
-        String result = getResultAndCatchException(dataSources, sortingParam);
+        String result = getResultAndCatchException(dataSources, sortingParam, dataTypeResponse);
 
         try (PrintWriter out = response.getWriter()) {
             LOG.debug("Showing result.");
@@ -55,14 +56,14 @@ public class UserRequestHandlerServlet extends HttpServlet {
         response.setHeader("Access-Control-Max-Age", "86400");
     }
 
-    private String getResultAndCatchException(String dataSources,  String sortingParam){
+    private String getResultAndCatchException(String dataSources,  String sortingParam, String dataTypeResponse){
         String result;
         try{
-            result = wordCounterService.getWordCounterResult (dataSources, sortingParam);
+            result = wordCounterService.getWordCounterResult(dataSources, sortingParam, dataTypeResponse);
         } catch (IllegalArgumentException e){
-            result = new ResultPresentation().createErrorResponse("Your request is empty.");
+            result = ResultPresentation.valueOf(dataTypeResponse).createErrorResponse("Your request is empty.");
         } catch (RuntimeException e1){
-            result = new ResultPresentation().createErrorResponse("Your URL is malformed or not responding.");
+            result = ResultPresentation.valueOf(dataTypeResponse).createErrorResponse("Your URL is malformed or not responding.");
         }
         return result;
     }

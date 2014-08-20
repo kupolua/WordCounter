@@ -1,46 +1,27 @@
 package com.qalight.javacourse.service;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+public enum ResultPresentation {
 
-public class ResultPresentation {
-    //todo stkotok: maybe rename createResponse method to getResponse: vkamenniy
-    public JsonObject createResponse(String textLink, List<Map.Entry<String, Integer>> collectedWordResult) {
-        List<List<Map.Entry<String, Integer>>> countedWordsList = new ArrayList<List<Map.Entry<String, Integer>>>();
-        countedWordsList.add(collectedWordResult);
+    JSON {
+        @Override
+        public String createResponse(String textLink, List<Map.Entry<String, Integer>> collectedWordResult, String dataTypeResponse) {
+            result = jsonResultPresentation.createResponse(textLink, collectedWordResult, dataTypeResponse);
+            return result;
+        }
 
-        List<String> urlsList = new ArrayList<>();
-        urlsList.add(textLink);
+        @Override
+        public String createErrorResponse(String errorMessageToUser) {
+            result = jsonResultPresentation.createErrorResponse(errorMessageToUser);
+            return result;
+        }
+    };
 
-        Gson gson = new Gson();
-        JsonObject countedWordsListObj = new JsonObject();
+    public abstract String createResponse(String textLink, List<Map.Entry<String, Integer>> collectedWordResult, String dataTypeResponse);
+    public abstract String createErrorResponse(String errorMessageToUser);
+    JsonResultPresentation jsonResultPresentation = new JsonResultPresentation();
+    public String result;
 
-        JsonElement wordResultResponse = gson.toJsonTree(countedWordsList);
-        JsonElement listUsersUrls = gson.toJsonTree(urlsList);
-
-        countedWordsListObj.addProperty("success", true);
-        countedWordsListObj.add("response", wordResultResponse);
-        countedWordsListObj.add("listUsersUrls", listUsersUrls);
-
-        return countedWordsListObj;
-    }
-
-    public String createErrorResponse(String errorMessageToUser) {
-
-        Gson gson = new Gson();
-        JsonObject errorMessageToUserObj = new JsonObject();
-
-        JsonElement errorMessageToUserJson = gson.toJsonTree(errorMessageToUser);
-
-        errorMessageToUserObj.addProperty("success", false);
-        errorMessageToUserObj.add("errorMessageToUser", errorMessageToUserJson);
-
-        return errorMessageToUserObj.toString();
-    }
 }
