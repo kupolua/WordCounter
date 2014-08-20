@@ -39,10 +39,10 @@ public class WordCounterServiceImpl implements WordCounterService {
         String plainText = documentToStringConverter.convertToString(clientRequest);
 
         LOG.debug("Starting to refine a plain text.");
-        String refinedText = TextRefiner.getRefineText(plainText);
+        List<String> refinedWords = TextRefiner.getRefineText(plainText);
 
         LOG.debug("Putting refined text into MAP object.");
-        Map<String, Integer> countedWords = wordCounter.countWords(refinedText);
+        Map<String, Integer> countedWords = wordCounter.countWords(refinedWords);
 
         LOG.debug("Sorting words.");
         List<Map.Entry<String, Integer>> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);

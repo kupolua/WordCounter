@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -11,15 +12,13 @@ public class WordCounter {
 
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);
 
-    public Map<String, Integer> countWords(String refinedPlainText) {
+    public Map<String, Integer> countWords(List<String> refinedWords) {
 
-        Map<String, Integer> countedWords = new HashMap<String, Integer>();
-        LOG.debug("Splitting plain text by all whitespace characters.");
+        Map<String, Integer> countedWords = new HashMap<>();
 
         // todo vkamenniy: give meaningful "str", like arrayWords: vkamenniy
-        String[] str = refinedPlainText.split("\\s+");
         LOG.debug("Filtering and putting words to HashMap.");
-        for (String eachWord : str) {
+        for (String eachWord : refinedWords) {
             Integer foundValue = countedWords.get(eachWord);
             if (foundValue == null) {
                 countedWords.put(eachWord, 1);

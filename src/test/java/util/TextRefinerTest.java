@@ -4,17 +4,20 @@ import com.qalight.javacourse.util.TextRefiner;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class TextRefinerTest {
 
     @Test
     public void testGetRefineText() {
 
-        // given values
-        String text = "One, one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789";
-        String expected = "one  one one one  two  two  two                       ";
+        //given
+        String text = "One, one ONE-oNE  Two  two, two!";
         //when
-        String actual = TextRefiner.getRefineText(text);
+        List<String> actual = TextRefiner.getRefineText(text);
         //then
+        List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two");
         Assert.assertEquals(expected, actual);
 
     }
