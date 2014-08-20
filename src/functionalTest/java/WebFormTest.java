@@ -19,10 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
- * Created by Vova on 08.08.2014.
+ * Created by Vova on 08.08.2014
  */
 
-public class TestWebForm {
+public class WebFormTest {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
