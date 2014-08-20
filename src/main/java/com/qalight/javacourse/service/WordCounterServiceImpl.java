@@ -26,7 +26,7 @@ public class WordCounterServiceImpl implements WordCounterService {
     }
 
     @Override
-    public String getWordCounterResult(String clientRequest, String sortingParam, String  dataTypeResponse) {
+    public String getWordCounterResult(String clientRequest, String sortingParam, String dataTypeResponse) {
         LOG.debug("Checking that received parameters are not null or empty.");
         checkParams(clientRequest, sortingParam);
 
@@ -39,7 +39,7 @@ public class WordCounterServiceImpl implements WordCounterService {
         String plainText = documentToStringConverter.convertToString(clientRequest);
 
         LOG.debug("Starting to refine a plain text.");
-        List<String> refinedWords = TextRefiner.getRefineText(plainText);
+        List<String> refinedWords = TextRefiner.getRefinedText(plainText);
 
         LOG.debug("Putting refined text into MAP object.");
         Map<String, Integer> countedWords = wordCounter.countWords(refinedWords);
@@ -54,8 +54,8 @@ public class WordCounterServiceImpl implements WordCounterService {
     }
 
     private static void checkParams(String userUrlsString, String sortingParam) {
-            Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
-            Assertions.assertStringIsNotNullOrEmpty(sortingParam);
+        Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
+        Assertions.assertStringIsNotNullOrEmpty(sortingParam);
     }
 
 }

@@ -16,7 +16,6 @@ public class WordCounter {
 
         Map<String, Integer> countedWords = new HashMap<>();
 
-        // todo vkamenniy: give meaningful "str", like arrayWords: vkamenniy
         LOG.debug("Filtering and putting words to HashMap.");
         for (String eachWord : refinedWords) {
             Integer foundValue = countedWords.get(eachWord);

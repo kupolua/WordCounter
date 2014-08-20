@@ -13,11 +13,12 @@ public class TextRefiner {
 
     private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я—-]");
 
-    //todo vkamenniy: getRefineText change to getRefinedText: vkamenniy
-    public static List<String> getRefineText(String unrefinedPlainText) {
+    public static List<String> getRefinedText(String unrefinedPlainText) {
 
+        if (unrefinedPlainText == null) {
+            throw new IllegalArgumentException("UnrefinedPlainText is null");
+        }
         LOG.debug("Splitting plain text by all whitespace characters.");
-
         String[] splitWords = unrefinedPlainText.split("\\s+");
         List<String> refinedWords = new ArrayList<>();
         for(String dirtyWord : splitWords){
