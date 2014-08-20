@@ -91,7 +91,7 @@ public class WordResultSorterTest {
     }
 
     @Test
-    public void testGetSortedWords_ValDesc() throws Exception {
+    public void testGetSortedWords_ValDesc() {
 
         //given
         final Map<String, Integer> givenHashMap = new HashMap<String, Integer>() {{
