@@ -7,9 +7,6 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Vova on 12.08.2014.
- */
 public class WordCounterTest {
 
     @Test
