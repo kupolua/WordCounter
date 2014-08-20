@@ -13,6 +13,20 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    integTest {
+        java.srcDir file('src/integTest/java')
+        resources.srcDir file('src/integTest/resources')
+    }
+}
+
+task integTest(type: Test) {
+    testClassesDir = sourceSets.integTest.output.classesDir
+    classpath = sourceSets.integTest.runtimeClasspath
+}
+
+check.dependsOn integTest
+
 dependencies {
     compile 'org.jsoup:jsoup:1.7.2'
     compile 'commons-validator:commons-validator:1.4.0'
@@ -31,6 +45,10 @@ dependencies {
     testCompile 'org.seleniumhq.selenium:selenium-api:2.41.0'
     testCompile 'org.seleniumhq.selenium:selenium-support:2.35.0'
     testCompile 'com.github.detro.ghostdriver:phantomjsdriver:1.1.0'
+    integTestCompile sourceSets.main.output
+    integTestCompile configurations.testCompile
+    integTestCompile sourceSets.test.output
+    integTestRuntime configurations.testRuntime
 }
 
 // fixing http://issues.gradle.org/browse/GRADLE-1682
