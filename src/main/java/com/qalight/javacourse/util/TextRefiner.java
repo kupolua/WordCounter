@@ -11,9 +11,9 @@ public class TextRefiner {
 
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
 
-    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Z—-]");
+    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Z-]");
 
-    public static List<String> getRefinedText(String unrefinedPlainText) {
+    public List<String> getRefinedText(String unrefinedPlainText) {
 
         if (unrefinedPlainText == null) {
             throw new IllegalArgumentException("UnrefinedPlainText is null");
@@ -22,10 +22,22 @@ public class TextRefiner {
         String[] splitWords = unrefinedPlainText.split("\\s+");
         List<String> refinedWords = new ArrayList<>();
         for(String dirtyWord : splitWords){
-            String clearWord = NON_WORD_LETTER_PATTERN.matcher(dirtyWord).replaceAll("").toLowerCase();
-            refinedWords.add(clearWord);
+            if(dirtyWord.contains("—")){
+                String[] splitByDash = dirtyWord.split("—");
+                for(String undashedWord : splitByDash){
+                    String clearWord = refineWord(undashedWord);
+                    refinedWords.add(clearWord);
+                }
+            } else {
+                String clearWord = refineWord(dirtyWord);
+                refinedWords.add(clearWord);
+            }
         }
         return refinedWords;
+    }
+
+    private String refineWord(String dirtyWord){
+        return NON_WORD_LETTER_PATTERN.matcher(dirtyWord).replaceAll("").toLowerCase();
     }
 
 }

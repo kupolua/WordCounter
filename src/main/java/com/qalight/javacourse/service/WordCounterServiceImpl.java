@@ -17,12 +17,14 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
     private final WordResultCollector wordResultCollector;
+    private final TextRefiner refiner;
 
     public WordCounterServiceImpl() {
         textTypeInquirer = new TextTypeInquirer();
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
         wordResultCollector = new WordResultCollector();
+        refiner = new TextRefiner();
     }
 
     @Override
@@ -39,7 +41,7 @@ public class WordCounterServiceImpl implements WordCounterService {
         String plainText = documentToStringConverter.convertToString(clientRequest);
 
         LOG.debug("Starting to refine a plain text.");
-        List<String> refinedWords = TextRefiner.getRefinedText(plainText);
+        List<String> refinedWords = refiner.getRefinedText(plainText);
 
         LOG.debug("Putting refined text into MAP object.");
         Map<String, Integer> countedWords = wordCounter.countWords(refinedWords);
