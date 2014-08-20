@@ -18,14 +18,23 @@ sourceSets {
         java.srcDir file('src/integTest/java')
         resources.srcDir file('src/integTest/resources')
     }
+    functionalTest {
+        java.srcDir file('src/functionalTest/java')
+        resources.srcDir file('src/functionalTest/resources')
+    }
 }
 
 task integTest(type: Test) {
     testClassesDir = sourceSets.integTest.output.classesDir
     classpath = sourceSets.integTest.runtimeClasspath
 }
-
 check.dependsOn integTest
+
+task functionalTest(type: Test) {
+    testClassesDir = sourceSets.functionalTest.output.classesDir
+    classpath = sourceSets.functionalTest.runtimeClasspath
+}
+check.dependsOn functionalTest
 
 dependencies {
     compile 'org.jsoup:jsoup:1.7.2'
@@ -49,6 +58,10 @@ dependencies {
     integTestCompile configurations.testCompile
     integTestCompile sourceSets.test.output
     integTestRuntime configurations.testRuntime
+    functionalTestCompile sourceSets.main.output
+    functionalTestCompile configurations.testCompile
+    functionalTestCompile sourceSets.test.output
+    functionalTestCompile configurations.testRuntime
 }
 
 // fixing http://issues.gradle.org/browse/GRADLE-1682
