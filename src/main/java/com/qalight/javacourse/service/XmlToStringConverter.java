@@ -48,7 +48,7 @@ public class XmlToStringConverter implements DocumentToStringConverter {
     private String fixUrl(String userUrl){
         final String HTTP_PREFIX = "http://";
         String sourcesWithoutWhitespaces = userUrl.replaceAll(" ", "");
-        if(!(userUrl.startsWith("https://") || userUrl.startsWith("http://"))){
+        if(!(sourcesWithoutWhitespaces.startsWith("https://") || sourcesWithoutWhitespaces.startsWith("http://"))){
             LOG.info("Try to fix URL: " + sourcesWithoutWhitespaces);
             sourcesWithoutWhitespaces = HTTP_PREFIX + sourcesWithoutWhitespaces;
         }
