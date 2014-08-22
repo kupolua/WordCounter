@@ -36,9 +36,6 @@ task functionalTest(type: Test) {
 }
 check.dependsOn functionalTest
 
-tasks.withType(Compile) {
-    options.encoding = 'UTF-8'
-}
 
 dependencies {
     compile 'org.jsoup:jsoup:1.7.2'
