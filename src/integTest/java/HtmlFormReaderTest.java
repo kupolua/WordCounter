@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class HtmlFormReaderIT {
+public class HtmlFormReaderTest {
 
     @Test
     public void testReadHtmlSourceFile() throws Exception {

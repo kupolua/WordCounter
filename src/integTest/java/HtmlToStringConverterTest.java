@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class HtmlToStringConverterIT {
+public class HtmlToStringConverterTest {
 
     private HtmlToStringConverter converter;
 

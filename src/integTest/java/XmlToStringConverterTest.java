@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class XmlToStringConverterIT {
+public class XmlToStringConverterTest {
 
     private XmlToStringConverter converter;
 
