@@ -128,6 +128,7 @@ public class WebFormTest {
 
     @After
     public void tearDown() throws Exception {
+
         entryPoint.jettyStop();
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
