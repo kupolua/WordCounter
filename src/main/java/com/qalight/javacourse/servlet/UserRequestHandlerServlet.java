@@ -26,7 +26,7 @@ public class UserRequestHandlerServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        setResponseHeaders(response);
+        HttpHelper.setResponseHeaders(response);
         response(request, response);
     }
 
@@ -43,18 +43,6 @@ public class UserRequestHandlerServlet extends HttpServlet {
             LOG.debug("Showing result.");
             out.println(result);
         }
-    }
-
-    private void setResponseHeaders(HttpServletResponse response) {
-        response.setContentType("text/html");
-        response.setHeader("Cache-control", "no-cache, no-store");
-        response.setHeader("Pragma", "no-cache");
-        response.setHeader("Expires", "-1");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Access-Control-Max-Age", "86400");
-        response.setCharacterEncoding("UTF-8");
     }
 
     private String getResultAndCatchException(String dataSources,  String sortingParam, String dataTypeResponse){

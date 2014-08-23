@@ -18,6 +18,7 @@ public class UserHtmlFormLoaderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         String userHTMLForm;
         response.setContentType("text/html");
+        HttpHelper.setResponseHeaders(response);
         response.setStatus(HttpServletResponse.SC_OK);
         userHTMLForm = loadUserHtmlForm(INDEX_FILE);
 
