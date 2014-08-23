@@ -8,6 +8,7 @@ import java.util.*;
 
 public class JsonResultPresentationTest {
     JsonResultPresentation jsonResultPresentation = new JsonResultPresentation();
+    // todo: use interface for all presentation types and remove enum
 
     @Test
     public void testCreateResponse() throws Exception {
@@ -29,7 +30,6 @@ public class JsonResultPresentationTest {
 
         //then
         Assert.assertEquals(expectedJsonResponse, actualJsonResponse);
-
     }
 
     @Test

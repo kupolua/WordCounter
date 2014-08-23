@@ -7,19 +7,21 @@ import org.junit.Test;
 
 public class HtmlTextTypeImplTest {
 
-    private HtmlTextTypeImpl typeIml;
+    private HtmlTextTypeImpl typeImpl;
 
     @Before
     public void setup() {
-        typeIml = new HtmlTextTypeImpl();
+        typeImpl = new HtmlTextTypeImpl();
     }
 
     @Test
     public void testIsEligible_woExtension() {
         //given
         final String sourceLink1 = "index";
+
         //when
-        boolean isEligible1 = typeIml.isEligible(sourceLink1);
+        boolean isEligible1 = typeImpl.isEligible(sourceLink1);
+
         //then
         Assert.assertTrue(isEligible1);
     }
@@ -28,8 +30,10 @@ public class HtmlTextTypeImplTest {
     public void testIsEligible_pdfExtension() {
         //given
         final String sourceLink2 = "index.pdf";
+
         //when
-        boolean isEligible2 = typeIml.isEligible(sourceLink2);
+        boolean isEligible2 = typeImpl.isEligible(sourceLink2);
+
         //then
         Assert.assertFalse(isEligible2);
     }
@@ -38,8 +42,10 @@ public class HtmlTextTypeImplTest {
     public void testIsEligible_xmlExtension() {
         //given
         final String sourceLink3 = "index.xml";
+
         //when
-        boolean isEligible3 = typeIml.isEligible(sourceLink3);
+        boolean isEligible3 = typeImpl.isEligible(sourceLink3);
+
         //then
         Assert.assertFalse(isEligible3);
     }
@@ -48,8 +54,10 @@ public class HtmlTextTypeImplTest {
     public void testIsEligible_htmlExtension() {
         //given
         final String sourceLink = "index.html";
+
         //when
-        boolean isEligible = typeIml.isEligible(sourceLink);
+        boolean isEligible = typeImpl.isEligible(sourceLink);
+
         //then
         Assert.assertTrue(isEligible);
     }

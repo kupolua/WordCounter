@@ -13,6 +13,7 @@ public class WordCounter {
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);
 
     public Map<String, Integer> countWords(List<String> refinedWords) {
+        // todo: check for null
 
         Map<String, Integer> countedWords = new HashMap<>();
 

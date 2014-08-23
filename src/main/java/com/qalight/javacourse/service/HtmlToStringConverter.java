@@ -17,7 +17,7 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public Boolean isEligible(TextType documentType) {
+    public boolean isEligible(TextType documentType) {
         boolean isEligible = false;
         if(documentType instanceof HtmlTextTypeImpl){
             isEligible = true;

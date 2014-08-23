@@ -7,29 +7,30 @@ import org.slf4j.LoggerFactory;
 
 public class SingleDataSourceValidator {
     private static final Logger LOG = LoggerFactory.getLogger(SingleDataSourceValidator.class);
+    private static final String HTTP_PREFIX = "http://";
+    private static final String[] SCHEMES = {"http"};  // todo: add https.
+    private static final UrlValidator validator = new UrlValidator(SCHEMES);
 
-    public String validateSources(String dataSources) {
+    public static String validateSources(String dataSources) {
         String validSource;
-        final String HTTP_PREFIX = "http://";
-        String[] schemes = {"http"};
-        UrlValidator validator = new UrlValidator(schemes);
-
         String sourcesWithoutWhitespaces = deleteWhitespaces(dataSources);
+
         LOG.debug("Starting source validation.");
-            if(validator.isValid(sourcesWithoutWhitespaces)){
-                validSource = sourcesWithoutWhitespaces;
+
+        if(validator.isValid(sourcesWithoutWhitespaces)){
+            validSource = sourcesWithoutWhitespaces;
+        } else {
+            if(validator.isValid(HTTP_PREFIX + sourcesWithoutWhitespaces)){
+                validSource = HTTP_PREFIX + sourcesWithoutWhitespaces;
             } else {
-                if(validator.isValid(HTTP_PREFIX + sourcesWithoutWhitespaces)){
-                    validSource = HTTP_PREFIX + sourcesWithoutWhitespaces;
-                } else {
-                    LOG.error("Source <"+ sourcesWithoutWhitespaces +"> is not valid.");
-                    throw new IllegalArgumentException("No valid source found.");
-                }
+                LOG.error("Source <"+ sourcesWithoutWhitespaces +"> is not valid.");
+                throw new IllegalArgumentException("No valid source found.");
             }
+        }
         return validSource;
     }
 
-    private String deleteWhitespaces(String dataSources){
+    private static String deleteWhitespaces(String dataSources){
         return dataSources.replaceAll(" ", "");
     }
 }

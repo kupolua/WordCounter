@@ -17,7 +17,7 @@ public class XmlToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public Boolean isEligible(TextType documentType) {
+    public boolean isEligible(TextType documentType) {
         boolean isEligible = false;
         if(documentType instanceof XmlTextTypeImpl){
             isEligible = true;
@@ -48,7 +48,7 @@ public class XmlToStringConverter implements DocumentToStringConverter {
     private String fixUrl(String userUrl){
         final String HTTP_PREFIX = "http://";
         String sourcesWithoutWhitespaces = userUrl.replaceAll(" ", "");
-        if(!(sourcesWithoutWhitespaces.startsWith("https://") || sourcesWithoutWhitespaces.startsWith("http://"))){
+        if(!(sourcesWithoutWhitespaces.startsWith("https://") || sourcesWithoutWhitespaces.startsWith("http://"))){ //todo: use constants
             LOG.info("Try to fix URL: " + sourcesWithoutWhitespaces);
             sourcesWithoutWhitespaces = HTTP_PREFIX + sourcesWithoutWhitespaces;
         }

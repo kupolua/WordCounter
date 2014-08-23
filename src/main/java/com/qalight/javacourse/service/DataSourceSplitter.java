@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class DataSourceSplitter {
-    private List<String> validSources = new ArrayList<>();
+    private List<String> validSources = new ArrayList<>(); // todo: move initialization to constructor
     private List<String> invalidSources = new ArrayList<>();
 
     public void validateSources(String dataSources) {
@@ -16,7 +16,7 @@ public class DataSourceSplitter {
         UrlValidator validator = new UrlValidator(schemes);
 
         String sourcesWithoutWhitespaces = deleteWhitespaces(dataSources);
-        String[] splitSources = sourcesWithoutWhitespaces.split(",");
+        String[] splitSources = sourcesWithoutWhitespaces.split(","); // todo: use constant for comma
         for(String source : splitSources){
             if(validator.isValid(source)){
                 validSources.add(source);

@@ -17,9 +17,12 @@ public class XmlTextTypeImplTest {
     @Test
     public void testIsEligible_woExtension() {
         //given
+
         final String sourceLink1 = "index";
+
         //when
         boolean isEligible1 = typeIml.isEligible(sourceLink1);
+
         //then
         Assert.assertFalse(isEligible1);
     }
@@ -28,8 +31,10 @@ public class XmlTextTypeImplTest {
     public void testIsEligible_pdfExtension() {
         //given
         final String sourceLink2 = "index.pdf";
+
         //when
         boolean isEligible2 = typeIml.isEligible(sourceLink2);
+
         //then
         Assert.assertFalse(isEligible2);
     }
@@ -38,8 +43,10 @@ public class XmlTextTypeImplTest {
     public void testIsEligible_xmlExtension() {
         //given
         final String sourceLink3 = "index.xml";
+
         //when
         boolean isEligible3 = typeIml.isEligible(sourceLink3);
+
         //then
         Assert.assertTrue(isEligible3);
     }
@@ -48,9 +55,13 @@ public class XmlTextTypeImplTest {
     public void testIsEligible_htmlExtension() {
         //given
         final String sourceLink = "index.html";
+
         //when
         boolean isEligible = typeIml.isEligible(sourceLink);
+
         //then
         Assert.assertFalse(isEligible);
     }
+
+    // todo: add any other non-existing type, for example pdf
 }

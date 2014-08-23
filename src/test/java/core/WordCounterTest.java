@@ -34,4 +34,6 @@ public class WordCounterTest {
         //then
         Assert.assertEquals(expected, actual);
     }
+
+    // todo: test for null and test for empty
 }

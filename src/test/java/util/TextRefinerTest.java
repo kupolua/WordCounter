@@ -20,11 +20,12 @@ public class TextRefinerTest {
 
     @Test
     public void testGetRefinedText() {
-
         //given
         String text = "One, one ONE-oNE  Two  two, two!, three, three, усіх";
+
         //when
         List<String> actual = refiner.getRefinedText(text);
+
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
         Assert.assertEquals(expected, actual);
@@ -35,8 +36,10 @@ public class TextRefinerTest {
     public void testEmptyParameter() {
         //given
         String text = "";
+
         //when
         List<String> actual = refiner.getRefinedText(text);
+
         //then
         List<String> expected = Arrays.asList("");
         Assert.assertEquals(expected, actual);

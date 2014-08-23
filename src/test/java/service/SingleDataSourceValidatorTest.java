@@ -6,19 +6,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SingleDataSourceValidatorTest {
-    private SingleDataSourceValidator temporarySplitter;
-
-    @Before
-    public void setup() {
-        temporarySplitter = new SingleDataSourceValidator();
-    }
+    private SingleDataSourceValidator validator;
 
     @Test
     public void testValidateSources_withoutWWW() throws Exception {
         //given
         final String SOURCE = "http://bbc.com";
+
         //when
-        String actualResult = temporarySplitter.validateSources(SOURCE);
+        String actualResult = validator.validateSources(SOURCE);
+
         //then
         String expectedResult = "http://bbc.com";
 
@@ -29,11 +26,12 @@ public class SingleDataSourceValidatorTest {
     public void testValidateSources_withoutHttpAndWWW() throws Exception {
         //given
         final String SOURCE = "bbc.com";
+
         //when
-        String actualResult = temporarySplitter.validateSources(SOURCE);
+        String actualResult = validator.validateSources(SOURCE);
+
         //then
         String expectedResult = "http://bbc.com";
-
         Assert.assertEquals(expectedResult, actualResult);
     }
 
@@ -41,8 +39,10 @@ public class SingleDataSourceValidatorTest {
     public void testValidateSources_withoutHttp() throws Exception {
         //given
         final String SOURCE = "www.bbc.com";
+
         //when
-        String actualResult = temporarySplitter.validateSources(SOURCE);
+        String actualResult = validator.validateSources(SOURCE);
+
         //then
         String expectedResult = "http://www.bbc.com";
 
@@ -53,7 +53,8 @@ public class SingleDataSourceValidatorTest {
     public void testValidateSources_withHttps() throws Exception {
         //given
         final String SOURCE = "https://bbc.com";
+
         //when
-        temporarySplitter.validateSources(SOURCE);
+        validator.validateSources(SOURCE);
     }
 }

@@ -21,8 +21,10 @@ public class HtmlToStringConverterTest {
     public void testIsEligible_xml() {
         //given
         final TextType DOCUMENT_TYPE = new XmlTextTypeImpl();
+
         //when
         boolean actualResult = converter.isEligible(DOCUMENT_TYPE);
+
         //then
         Assert.assertFalse(actualResult);
     }

@@ -17,8 +17,10 @@ public class DocumentConverterTest {
     public void testGetDocumentConverter_xml() {
         //given
         final TextType type = new XmlTextTypeImpl();
+
         //when
         DocumentToStringConverter toStringConverter = converter.getDocumentConverter(type);
+
         //then
         Assert.assertTrue(toStringConverter instanceof XmlToStringConverter);
     }
@@ -27,9 +29,13 @@ public class DocumentConverterTest {
     public void testGetDocumentConverter_html() {
         //given
         final TextType type = new HtmlTextTypeImpl();
+
         //when
         DocumentToStringConverter toStringConverter = converter.getDocumentConverter(type);
+
         //then
         Assert.assertTrue(toStringConverter instanceof HtmlToStringConverter);
     }
+
+    // todo: add test for unexisting type, for example, PdfType
 }

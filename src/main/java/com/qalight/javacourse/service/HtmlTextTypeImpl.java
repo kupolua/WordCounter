@@ -2,8 +2,8 @@ package com.qalight.javacourse.service;
 
 
 public class HtmlTextTypeImpl implements TextType {
-    private final String[] TYPES = {".xml",".pdf"};
-    private static final String textType = "html";
+    private static final String[] TYPES = {".xml",".pdf"};
+    private static final String TEXT_TYPE = "html";
 
     @Override
     public Boolean isEligible(String dataSourceLink) {
@@ -19,6 +19,6 @@ public class HtmlTextTypeImpl implements TextType {
 
     @Override
     public String getTextType() {
-        return textType;
+        return TEXT_TYPE;
     }
 }

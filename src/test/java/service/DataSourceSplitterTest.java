@@ -12,6 +12,8 @@ import java.util.List;
 public class DataSourceSplitterTest {
 
     private DataSourceSplitter sourceSplitter;
+    // todo: use constant
+
 
     @Before
     public void setup() {
@@ -24,8 +26,10 @@ public class DataSourceSplitterTest {
         final String unvalidatedSources = "http://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +
                 "commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html ," +
                 "https://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html , https://translate.google.com.ua";
+
         //when
         sourceSplitter.validateSources(unvalidatedSources);
+
         //then
         List<String> expectedValidSources = new ArrayList<>();
         expectedValidSources.add("http://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html");
@@ -42,6 +46,7 @@ public class DataSourceSplitterTest {
                 "https://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html , https://translate.google.com.ua";
         //when
         sourceSplitter.validateSources(unvalidatedSources);
+
         //then
         List<String> expectedInvalidSources = new ArrayList<>();
         expectedInvalidSources.add("https://commons.apache.org/proper/commons-validator/apidocs/org/apache/commons/validator/UrlValidator.html");
@@ -49,4 +54,6 @@ public class DataSourceSplitterTest {
 
         Assert.assertEquals(expectedInvalidSources, sourceSplitter.getInvalidSources());
     }
+
+    // todo: add other test varial cases for all if/else cases.
 }

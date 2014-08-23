@@ -49,6 +49,7 @@ public class UserRequestHandlerServlet extends HttpServlet {
         String result;
         try{
             result = wordCounterService.getWordCounterResult(dataSources, sortingParam, dataTypeResponse);
+        // todo: use proper exception handling
         } catch (IllegalArgumentException e){
             result = ResultPresentation.valueOf(dataTypeResponse).createErrorResponse("Your request is empty.");
         } catch (RuntimeException e1){
