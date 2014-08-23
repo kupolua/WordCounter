@@ -18,17 +18,65 @@ public class WebFormTest {
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-    private final String HTML_TEST_PAGE = "http://95.158.60.148:8008/kpl/pageForSeleniumTest.html";
+    private final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
     private final String expectedResultEmptyUrlRequest = "Your request is empty.";
     private final String expectedResultIncorrectUrl = "Your URL is malformed or not responding.";
-    private final String expectedSortingKeyAscending = "http://95.158.60.148:8008/kpl/pageForSeleniumTest.html\n" +
-            "Word:\n" + "Count :\n" + "one 4\n" + "two 3";
-    private final String expectedSortingValueAscending = "http://95.158.60.148:8008/kpl/pageForSeleniumTest.html\n" +
-            "Word:\n" + "Count :\n" + "two 3\n" + "one 4";
-    private final String expectedSortingKeyDescending = "http://95.158.60.148:8008/kpl/pageForSeleniumTest.html\n" +
-            "Word:\n" + "Count :\n" + "two 3\n" + "one 4";
-    private final String expectedSortingValueDescending = "http://95.158.60.148:8008/kpl/pageForSeleniumTest.html\n" +
-            "Word:\n" + "Count :\n" + "one 4\n" + "two 3";
+    private final String expectedSortingKeyAscending = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
+            "Word:\n" +
+            "Count :\n" +
+            "one 4\n" +
+            "r 1\n" +
+            "two 3\n" +
+            "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
+            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
+            "білка 3\n" +
+            "объем 3\n" +
+            "объём 1\n" +
+            "ёлка 3\n" +
+            "єнот 1\n" +
+            "їжак 2";
+    private final String expectedSortingValueAscending = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
+            "Word:\n" +
+            "Count :\n" +
+            "объём 1\n" +
+            "r 1\n" +
+            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
+            "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
+            "єнот 1\n" +
+            "їжак 2\n" +
+            "білка 3\n" +
+            "ёлка 3\n" +
+            "two 3\n" +
+            "объем 3\n" +
+            "one 4";
+    private final String expectedSortingKeyDescending = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
+            "Word:\n" +
+            "Count :\n" +
+            "їжак 2\n" +
+            "єнот 1\n" +
+            "ёлка 3\n" +
+            "объём 1\n" +
+            "объем 3\n" +
+            "білка 3\n" +
+            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
+            "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
+            "two 3\n" +
+            "r 1\n" +
+            "one 4";
+    private final String expectedSortingValueDescending = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
+            "Word:\n" +
+            "Count :\n" +
+            "one 4\n" +
+            "білка 3\n" +
+            "ёлка 3\n" +
+            "two 3\n" +
+            "объем 3\n" +
+            "їжак 2\n" +
+            "объём 1\n" +
+            "r 1\n" +
+            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
+            "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
+            "єнот 1";
     private int timeWait = 2000;
     private EntryPoint entryPoint = new EntryPoint();
     private int countPort = 0;
