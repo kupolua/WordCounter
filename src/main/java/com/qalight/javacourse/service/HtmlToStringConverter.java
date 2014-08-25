@@ -17,7 +17,7 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public boolean isEligible(TextType documentType) {
+    public Boolean isEligible(TextType documentType) {
         boolean isEligible = false;
         if(documentType instanceof HtmlTextTypeImpl){
             isEligible = true;
@@ -47,8 +47,9 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
 
     private String fixUrl(String userUrl){
         final String HTTP_PREFIX = "http://";
+        final String HTTPS_PREFIX = "https://";
         String sourcesWithoutWhitespaces = userUrl.replaceAll(" ", "");
-        if(!(sourcesWithoutWhitespaces.startsWith("https://") || sourcesWithoutWhitespaces.startsWith("http://"))){
+        if(!(sourcesWithoutWhitespaces.startsWith(HTTPS_PREFIX) || sourcesWithoutWhitespaces.startsWith(HTTP_PREFIX))){
             LOG.info("Try to fix URL: " + sourcesWithoutWhitespaces);
             sourcesWithoutWhitespaces = HTTP_PREFIX + sourcesWithoutWhitespaces;
         }

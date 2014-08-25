@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,11 +23,11 @@ public class TextRefinerTest {
         String text = "One, one ONE-oNE  Two  two, two!, three, three, усіх";
 
         //when
-        List<String> actual = refiner.getRefinedText(text);
+        refiner.refineText(text);
 
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, refiner.getRefinedWords());
 
     }
 
@@ -38,16 +37,16 @@ public class TextRefinerTest {
         String text = "";
 
         //when
-        List<String> actual = refiner.getRefinedText(text);
+        refiner.refineText(text);
 
         //then
         List<String> expected = Arrays.asList("");
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, refiner.getRefinedWords());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullParameter() {
         String text = null;
-        refiner.getRefinedText(text);
+        refiner.refineText(text);
     }
 }
