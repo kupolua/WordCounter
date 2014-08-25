@@ -20,7 +20,7 @@ public class EntryPoint {
 
     public void jettyStart(int port) {
         try {
-            LOG.debug("Starting Jetty server!!!");
+            LOG.debug("Starting Jetty server!");
 
             server = new Server(port);
 
