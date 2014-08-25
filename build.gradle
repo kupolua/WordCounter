@@ -14,25 +14,28 @@ repositories {
 }
 
 sourceSets {
-    integTest {
-        java.srcDir file('src/integTest/java')
-        resources.srcDir file('src/integTest/resources')
+    integrationTest {
+        java.srcDir file('src/integrationTest/java')
+        resources.srcDir file('src/integrationTest/resources')
     }
     functionalTest {
         java.srcDir file('src/functionalTest/java')
         resources.srcDir file('src/functionalTest/resources')
     }
 }
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-task integTest(type: Test) {
-    testClassesDir = sourceSets.integTest.output.classesDir
-    classpath = sourceSets.integTest.runtimeClasspath
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
 }
-check.dependsOn integTest
+check.dependsOn integrationTest
 
 task functionalTest(type: Test) {
     testClassesDir = sourceSets.functionalTest.output.classesDir
@@ -60,10 +63,10 @@ dependencies {
     testCompile 'org.seleniumhq.selenium:selenium-api:2.41.0'
     testCompile 'org.seleniumhq.selenium:selenium-support:2.35.0'
     testCompile 'com.github.detro.ghostdriver:phantomjsdriver:1.1.0'
-    integTestCompile sourceSets.main.output
-    integTestCompile configurations.testCompile
-    integTestCompile sourceSets.test.output
-    integTestRuntime configurations.testRuntime
+    integrationTestCompile sourceSets.main.output
+    integrationTestCompile configurations.testCompile
+    integrationTestCompile sourceSets.test.output
+    integrationTestCompile configurations.testRuntime
     functionalTestCompile sourceSets.main.output
     functionalTestCompile configurations.testCompile
     functionalTestCompile sourceSets.test.output

@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 public class HtmlFormReader {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlFormReader.class);
-    private static final String NO_HTML_SOURCE_FILE = "No Source File ";
+    private static final String NO_HTML_SOURCE_FILE = "No Source File";
     private static final String ERROR_WEB_PAGE = "error.html";
 
     public String readHtmlSourceFile(String fileName) {
