@@ -7,16 +7,22 @@ import java.util.List;
 
 
 public class DataSourceSplitter {
-    private List<String> validSources = new ArrayList<>(); // todo: move initialization to constructor
-    private List<String> invalidSources = new ArrayList<>();
+    private List<String> validSources;
+    private List<String> invalidSources;
+
+    public DataSourceSplitter(){
+        validSources = new ArrayList<>();
+        invalidSources = new ArrayList<>();
+    }
 
     public void validateSources(String dataSources) {
         final String HTTP_PREFIX = "http://";
+        final String COMMA = ",";
         String[] schemes = {"http"};
         UrlValidator validator = new UrlValidator(schemes);
 
         String sourcesWithoutWhitespaces = deleteWhitespaces(dataSources);
-        String[] splitSources = sourcesWithoutWhitespaces.split(","); // todo: use constant for comma
+        String[] splitSources = sourcesWithoutWhitespaces.split(COMMA);
         for(String source : splitSources){
             if(validator.isValid(source)){
                 validSources.add(source);
