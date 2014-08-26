@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class XmlToStringConverter implements DocumentToStringConverter {
+    private static final String HTTP_PREFIX = "http://";
+    private static final String HTTPS_PREFIX = "https://";
     private static final Logger LOG = LoggerFactory.getLogger(XmlToStringConverter.class);
     private final HtmlToPlainText htmlToPlainText;
 
@@ -46,8 +48,6 @@ public class XmlToStringConverter implements DocumentToStringConverter {
     }
 
     private String fixUrl(String userUrl){
-        final String HTTP_PREFIX = "http://";
-        final String HTTPS_PREFIX = "https://";
         String sourcesWithoutWhitespaces = userUrl.replaceAll(" ", "");
         if(!(sourcesWithoutWhitespaces.startsWith(HTTPS_PREFIX) || sourcesWithoutWhitespaces.startsWith(HTTP_PREFIX))){
             LOG.info("Try to fix URL: " + sourcesWithoutWhitespaces);
