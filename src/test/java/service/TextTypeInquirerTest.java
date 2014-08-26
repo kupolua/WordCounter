@@ -44,7 +44,7 @@ public class TextTypeInquirerTest {
     @Test
     public void testInquireTextType_htmlExtension() {
         //given
-        final String TEXT_LINK = "index.html";
+        final String TEXT_LINK = "src/main/webapp/index.html";
 
         //when
         TextType actualTextType = inquirer.inquireTextType(TEXT_LINK);

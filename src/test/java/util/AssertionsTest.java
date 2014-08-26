@@ -26,7 +26,7 @@ public class AssertionsTest {
     @Test
     public void testAssertStringIsNotNullOrEmpty() {
         //given
-        final String DATA = "index.html";
+        final String DATA = "src/main/webapp/index.html";
 
         //when
         Assertions.assertStringIsNotNullOrEmpty(DATA);

@@ -7,8 +7,8 @@ import java.util.List;
 
 
 public class DataSourceSplitter {
-    private List<String> validSources;
-    private List<String> invalidSources;
+    private final List<String> validSources;
+    private final List<String> invalidSources;
 
     public DataSourceSplitter(){
         validSources = new ArrayList<>();

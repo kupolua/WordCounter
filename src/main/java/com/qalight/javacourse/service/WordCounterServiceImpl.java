@@ -16,41 +16,32 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final TextTypeInquirer textTypeInquirer;
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
-    private final WordResultCollector wordResultCollector;
-    private final TextRefiner refiner;
 
     public WordCounterServiceImpl() {
         textTypeInquirer = new TextTypeInquirer();
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
-        wordResultCollector = new WordResultCollector();
-        refiner = new TextRefiner();
     }
 
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam, String dataTypeResponse) {
-        LOG.debug("Checking that received parameters are not null or empty.");
         checkParams(clientRequest, sortingParam);
 
-        LOG.debug("Recognizing a type of source.");
         TextType textType = textTypeInquirer.inquireTextType(clientRequest);
 
-        LOG.debug("Selecting an appropriate converter.");
         DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(textType);
 
         String plainText = documentToStringConverter.convertToString(clientRequest);
 
-        LOG.debug("Starting to refine a plain text.");
+        TextRefiner refiner = new TextRefiner();
         refiner.refineText(plainText);
+
         List<String> refinedWords = refiner.getRefinedWords();
 
-        LOG.debug("Putting refined text into MAP object.");
         Map<String, Integer> countedWords = wordCounter.countWords(refinedWords);
 
-        LOG.debug("Sorting words.");
         List<Map.Entry<String, Integer>> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
-        LOG.debug("Creating JSON object.");
         String result = ResultPresentation.valueOf(dataTypeResponse).createResponse(clientRequest, sortedWords, dataTypeResponse);
 
         return result;

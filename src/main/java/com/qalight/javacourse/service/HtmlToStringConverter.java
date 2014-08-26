@@ -27,19 +27,15 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userUrl) {
-
         String fixedUrl = fixUrl(userUrl);
 
-        LOG.debug("Getting plain text.");
         Document html;
-
         try {
             html = Jsoup.connect(fixedUrl).get();
         } catch (IOException e) {
             LOG.error("Can't connect to " + fixedUrl, e);
             throw new RuntimeException("Can't connect to: " + fixedUrl);
         }
-
         LOG.info("Connection to " + fixedUrl + " has been successfully established.");
 
         return htmlToPlainText.getPlainText(html);

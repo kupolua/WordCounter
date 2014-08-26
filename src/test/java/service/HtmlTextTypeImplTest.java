@@ -53,7 +53,7 @@ public class HtmlTextTypeImplTest {
     @Test
     public void testIsEligible_htmlExtension() {
         //given
-        final String sourceLink = "index.html";
+        final String sourceLink = "src/main/webapp/index.html";
 
         //when
         boolean isEligible = typeImpl.isEligible(sourceLink);
