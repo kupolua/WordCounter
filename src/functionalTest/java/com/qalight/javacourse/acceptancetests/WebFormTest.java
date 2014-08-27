@@ -2,7 +2,6 @@ package com.qalight.javacourse.acceptancetests;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -143,16 +142,16 @@ public class WebFormTest {
             "Word:\n" +
             "Count :\n" +
             "one 4\n" +
-            "r 1\n" +
-            "two 3\n" +
-            "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
-            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
             "білка 3\n" +
-            "объем 3\n" +
-            "объём 1\n" +
             "ёлка 3\n" +
-            "єнот 1\n" +
-            "їжак 2";
+            "two 3\n" +
+            "объем 3\n" +
+            "їжак 2\n" +
+            "объём 1\n" +
+            "r 1\n" +
+            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
+            "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
+            "єнот 1";
 
     private static final String EXPECTED_SORTING_VALUE_ASCENDING = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
             "Word:\n" +
