@@ -3,7 +3,6 @@ package service;
 import com.qalight.javacourse.service.HtmlTextTypeImpl;
 import com.qalight.javacourse.service.TextType;
 import com.qalight.javacourse.service.TextTypeInquirer;
-import com.qalight.javacourse.service.XmlTextTypeImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +37,7 @@ public class TextTypeInquirerTest {
         TextType actualTextType2 = inquirer.inquireTextType(TEXT_LINK2);
 
         //then
-        Assert.assertTrue(actualTextType2 instanceof XmlTextTypeImpl);
+        Assert.assertTrue(actualTextType2 instanceof HtmlTextTypeImpl);
     }
 
     @Test

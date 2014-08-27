@@ -49,6 +49,7 @@ task functionalTest(type: Test) {
 check.dependsOn functionalTest
 
 dependencies {
+    compile 'com.lowagie:itext:4.2.1'
     compile 'org.jsoup:jsoup:1.7.2'
     compile 'commons-validator:commons-validator:1.4.0'
     compile 'org.slf4j:slf4j-api:1.7.5'

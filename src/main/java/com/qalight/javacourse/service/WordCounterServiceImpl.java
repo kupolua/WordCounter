@@ -4,6 +4,7 @@ import com.qalight.javacourse.core.WordCounter;
 import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.TextRefiner;
+import com.qalight.javacourse.util.UrlFixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,22 +17,26 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final TextTypeInquirer textTypeInquirer;
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
+    private final UrlFixer fixer;
 
     public WordCounterServiceImpl() {
         textTypeInquirer = new TextTypeInquirer();
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
+        fixer = new UrlFixer();
     }
 
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam, String dataTypeResponse) {
         checkParams(clientRequest, sortingParam);
 
-        TextType textType = textTypeInquirer.inquireTextType(clientRequest);
+        String fixedUrl = fixer.fixUrl(clientRequest);
+
+        TextType textType = textTypeInquirer.inquireTextType(fixedUrl);
 
         DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(textType);
 
-        String plainText = documentToStringConverter.convertToString(clientRequest);
+        String plainText = documentToStringConverter.convertToString(fixedUrl);
 
         TextRefiner refiner = new TextRefiner();
         refiner.refineText(plainText);

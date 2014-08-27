@@ -9,7 +9,7 @@ public class TextTypeInquirer {
     static{
         textTypes = new HashSet<>();
         textTypes.add(new HtmlTextTypeImpl());
-        textTypes.add(new XmlTextTypeImpl());
+        textTypes.add(new PdfTextTypeImpl());
     }
     public TextType inquireTextType(String textLink) {
         TextType textType = null;
@@ -18,6 +18,9 @@ public class TextTypeInquirer {
                 textType = sourceType;
                 break;
             }
+        }
+        if(textType == null){
+            throw new IllegalArgumentException("Unknown text type.(" + textLink + ")");
         }
         return textType;
     }

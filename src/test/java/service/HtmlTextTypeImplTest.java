@@ -47,7 +47,7 @@ public class HtmlTextTypeImplTest {
         boolean isEligible3 = typeImpl.isEligible(sourceLink3);
 
         //then
-        Assert.assertFalse(isEligible3);
+        Assert.assertTrue(isEligible3);
     }
 
     @Test

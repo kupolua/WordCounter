@@ -27,7 +27,7 @@ public class WordCounterServiceImplTest {
         final String clientRequestEmptyUrl = "";
         final String sortingParam = "KEY_ASCENDING";
         final String dataTypeResponse = "JSON";
-        final Exception expectedException = new IllegalArgumentException("str is null or empty");
+        final Exception expectedException = new IllegalArgumentException("Request is null or empty");
 
         // when
         WordCounterServiceImpl wordCounterService = new WordCounterServiceImpl();

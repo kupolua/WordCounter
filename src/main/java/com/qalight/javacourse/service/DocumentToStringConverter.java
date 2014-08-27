@@ -3,7 +3,7 @@ package com.qalight.javacourse.service;
 
 public interface DocumentToStringConverter {
 
-    public Boolean isEligible(TextType documentType);
+    public boolean isEligible(TextType documentType);
 
     String convertToString(String userSourcesList);
 }

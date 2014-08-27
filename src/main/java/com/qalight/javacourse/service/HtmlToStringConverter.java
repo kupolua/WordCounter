@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class HtmlToStringConverter implements DocumentToStringConverter {
-    private static final String HTTP_PREFIX = "http://";
-    private static final String HTTPS_PREFIX = "https://";
     private static final Logger LOG = LoggerFactory.getLogger(HtmlToStringConverter.class);
     private final HtmlToPlainText htmlToPlainText;
 
@@ -19,7 +17,7 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public Boolean isEligible(TextType documentType) {
+    public boolean isEligible(TextType documentType) {
         boolean isEligible = false;
         if(documentType instanceof HtmlTextTypeImpl){
             isEligible = true;
@@ -29,26 +27,16 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userUrl) {
-        String fixedUrl = fixUrl(userUrl);
 
         Document html;
         try {
-            html = Jsoup.connect(fixedUrl).get();
+            html = Jsoup.connect(userUrl).get();
         } catch (IOException e) {
-            LOG.error("Can't connect to " + fixedUrl, e);
-            throw new RuntimeException("Can't connect to: " + fixedUrl);
+            LOG.error("Can't connect to " + userUrl, e);
+            throw new RuntimeException("Can't connect to: " + userUrl);
         }
-        LOG.info("Connection to " + fixedUrl + " has been successfully established.");
+        LOG.info("Connection to " + userUrl + " has been successfully established.");
 
         return htmlToPlainText.getPlainText(html);
-    }
-
-    private String fixUrl(String userUrl){
-        String sourcesWithoutWhitespaces = userUrl.replaceAll(" ", "");
-        if(!(sourcesWithoutWhitespaces.startsWith(HTTPS_PREFIX) || sourcesWithoutWhitespaces.startsWith(HTTP_PREFIX))){
-            LOG.info("Try to fix URL: " + sourcesWithoutWhitespaces);
-            sourcesWithoutWhitespaces = HTTP_PREFIX + sourcesWithoutWhitespaces;
-        }
-        return sourcesWithoutWhitespaces;
     }
 }

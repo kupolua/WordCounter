@@ -9,7 +9,7 @@ public class DocumentConverter {
     static {
         documentToStringConverters = new HashSet<>();
         documentToStringConverters.add(new HtmlToStringConverter());
-        documentToStringConverters.add(new XmlToStringConverter());
+        documentToStringConverters.add(new PdfToStringConverter());
     }
     public DocumentToStringConverter getDocumentConverter(TextType sourceType) {
         DocumentToStringConverter documentConverter = null;
@@ -18,6 +18,9 @@ public class DocumentConverter {
                 documentConverter = documentToStringConverter;
                 break;
             }
+        }
+        if(documentConverter == null){
+            throw new RuntimeException("Cannot recognize a class (" + sourceType.getClass() + ") in order to select appropriate converter.");
         }
         return documentConverter;
     }

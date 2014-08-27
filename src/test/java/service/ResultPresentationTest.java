@@ -34,7 +34,7 @@ public class ResultPresentationTest {
         String expectedJsonResponse = "{\"success\":false,\"errorMessageToUser\":";
 
         //when
-        Boolean isExpectedJsonResponse = jsonResultPresentation.createErrorResponse("Your request is empty.").startsWith(expectedJsonResponse);
+        boolean isExpectedJsonResponse = jsonResultPresentation.createErrorResponse("Your request is empty.").startsWith(expectedJsonResponse);
 
         //then
         Assert.assertTrue(isExpectedJsonResponse);

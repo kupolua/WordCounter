@@ -16,13 +16,13 @@ public class DocumentConverterTest {
     @Test
     public void testGetDocumentConverter_xml() {
         //given
-        final TextType type = new XmlTextTypeImpl();
+        final TextType type = new PdfTextTypeImpl();
 
         //when
         DocumentToStringConverter toStringConverter = converter.getDocumentConverter(type);
 
         //then
-        Assert.assertTrue(toStringConverter instanceof XmlToStringConverter);
+        Assert.assertTrue(toStringConverter instanceof PdfToStringConverter);
     }
 
     @Test
