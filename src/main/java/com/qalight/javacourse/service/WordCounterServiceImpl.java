@@ -17,12 +17,14 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final TextTypeInquirer textTypeInquirer;
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
+    private final ResultPresentationImpl resultPresentationImpl;
     private final UrlFixer fixer;
 
     public WordCounterServiceImpl() {
         textTypeInquirer = new TextTypeInquirer();
         documentConverter = new DocumentConverter();
         wordCounter = new WordCounter();
+        resultPresentationImpl = new ResultPresentationImpl();
         fixer = new UrlFixer();
     }
 
@@ -47,7 +49,9 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         List<Map.Entry<String, Integer>> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
 
-        String result = ResultPresentation.valueOf(dataTypeResponse).createResponse(clientRequest, sortedWords, dataTypeResponse);
+        ResultPresentation resultPresentation = resultPresentationImpl.getResultPresentation(dataTypeResponse);
+
+        String result = resultPresentation.createResponse(clientRequest, sortedWords, dataTypeResponse);
 
         return result;
     }

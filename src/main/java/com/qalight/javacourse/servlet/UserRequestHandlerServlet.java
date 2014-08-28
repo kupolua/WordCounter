@@ -1,6 +1,7 @@
 package com.qalight.javacourse.servlet;
 
 import com.qalight.javacourse.service.ResultPresentation;
+import com.qalight.javacourse.service.ResultPresentationImpl;
 import com.qalight.javacourse.service.WordCounterService;
 import com.qalight.javacourse.service.WordCounterServiceImpl;
 import org.slf4j.Logger;
@@ -49,7 +50,10 @@ public class UserRequestHandlerServlet extends HttpServlet {
             result = wordCounterService.getWordCounterResult(dataSources, sortingParam, dataTypeResponse);
         } catch (Throwable e){
             LOG.error("error while processing request: " + e.getMessage(), e);
-            result = ResultPresentation.valueOf(dataTypeResponse).createErrorResponse(e.getMessage());
+            ResultPresentationImpl resultPresentationImpl = new ResultPresentationImpl();
+            ResultPresentation resultPresentation = resultPresentationImpl.getResultPresentation(dataTypeResponse);
+
+            result = resultPresentation.createErrorResponse(e.getMessage());
         }
         return result;
     }
