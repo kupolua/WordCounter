@@ -1,8 +1,10 @@
 package com.qalight.javacourse.core;
 
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +15,14 @@ public class WordCounter {
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);
 
     public Map<String, Integer> countWords(List<String> refinedWords) {
-        // todo: check for null
+
+        try {
+            if (refinedWords == null) {
+                throw new IllegalArgumentException("In WordCounter.countWords() refinedWords received parameter is NULL.");
+            }
+        } catch (IllegalArgumentException e) {
+            LOG.error(e.getMessage(), e);
+        }
 
         Map<String, Integer> countedWords = new HashMap<>();
 
