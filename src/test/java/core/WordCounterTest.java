@@ -5,10 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WordCounterTest {
 
@@ -21,7 +18,7 @@ public class WordCounterTest {
 
     @Test
     public void testCountWords() {
-        // given values
+        // given
         List<String> words = Arrays.asList("one", "one", "one", "one", "two", "two", "two");
 
         Map<String, Integer> expected = new HashMap<>();
@@ -35,5 +32,36 @@ public class WordCounterTest {
         Assert.assertEquals(expected, actual);
     }
 
-    // todo: test for null and test for empty
+    @Test
+    public void testCountWords_empty() {
+        // given
+        List<String> words = Arrays.asList("");
+
+        Map<String, Integer> expected = new HashMap<>();
+
+        //when
+        Map<String, Integer> actual = counter.countWords(words);
+
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testCountWords_null() {
+        // given
+        final List<String> words = null;
+        final String expectedException = "java.lang.NullPointerException: " +
+                "In WordCounter.countWords(List<String> refinedWords) received parameter is NULL.";
+
+        //when
+        NullPointerException actualException = null;
+        try {
+            counter.countWords(words);
+        } catch (NullPointerException e) {
+            actualException = e;
+        }
+
+        //then
+        Assert.assertEquals(expectedException, actualException.toString());
+    }
 }

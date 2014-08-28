@@ -1,10 +1,8 @@
 package com.qalight.javacourse.core;
 
-import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +14,11 @@ public class WordCounter {
 
     public Map<String, Integer> countWords(List<String> refinedWords) {
 
-        try {
-            if (refinedWords == null) {
-                throw new IllegalArgumentException("In WordCounter.countWords() refinedWords received parameter is NULL.");
-            }
-        } catch (IllegalArgumentException e) {
-            LOG.error(e.getMessage(), e);
+        if (refinedWords == null) {
+            LOG.error("In WordCounter.countWords(List<String> refinedWords) received parameter is NULL.");
+            throw new NullPointerException(
+                    "In WordCounter.countWords(List<String> refinedWords) received parameter is NULL."
+            );
         }
 
         Map<String, Integer> countedWords = new HashMap<>();
