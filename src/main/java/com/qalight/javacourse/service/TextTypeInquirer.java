@@ -29,7 +29,7 @@ public class TextTypeInquirer {
             }
         }
         if(textType == null){
-            throw new IllegalArgumentException("Unknown text type.(" + textLink + ")");
+            throw new IllegalArgumentException("Unknown text type. (" + textLink + ")");
         }
         return textType;
     }

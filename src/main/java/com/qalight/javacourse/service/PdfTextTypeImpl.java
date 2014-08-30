@@ -1,13 +1,33 @@
 package com.qalight.javacourse.service;
 
-/**
- * Created by box on 27.08.2014.
- */
+import com.qalight.javacourse.util.ResponseHeaderGetter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PdfTextTypeImpl implements TextType {
     private static final String TEXT_TYPE = "pdf";
+    private static final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
+    private static final Logger LOG = LoggerFactory.getLogger(ResponseHeaderGetter.class);
 
     @Override
     public boolean isEligible(String dataSourceLink) {
-        return dataSourceLink.endsWith(TEXT_TYPE);
+        checkForNullOrEmpty(dataSourceLink);
+        String textType = RESPONSE_HEADER_GETTER.getTextTypeByHttpHeader(dataSourceLink).toLowerCase();
+        return textType.contains(TEXT_TYPE);
+    }
+
+    private void checkForNullOrEmpty(String dataSourceLink) {
+        if (dataSourceLink == null) {
+            LOG.error("\"dataSourceLink\" received parameter is NULL");
+            throw new NullPointerException(
+                    "It is impossible to determine the type of the document because the link is null."
+            );
+        }
+
+        if (dataSourceLink.equals("")) {
+            throw new IllegalArgumentException(
+                    "It is impossible to determine the type of the document because the link is empty."
+            );
+        }
     }
 }
