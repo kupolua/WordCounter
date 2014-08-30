@@ -29,7 +29,7 @@ public class WebFormTest {
         baseUrl = "http://localhost:" + PORT + CONTEXT;
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
-    //todo: add test for search word and Show entries and Previous Next page
+
     @Test
     public void testEmptyUrlRequest() throws Exception {
         // given
@@ -41,7 +41,8 @@ public class WebFormTest {
 
         // then
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
-        String expectedResult = "Request is null or empty";;
+        String expectedResult = "Request is null or empty";
+        ;
         assertEquals(expectedResult, actualResult);
     }
 

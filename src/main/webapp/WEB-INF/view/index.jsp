@@ -52,29 +52,10 @@
                     success: function( data, textStatus, jqXHR) {
                         //our country code was correct so we have some information to display
                         if(data.success){
-//                            alert(data.dataAjax);
-//                            jsonLength = data.response.length;
-//                            $("#ajaxResponse").html("");
-
-//                            for(i=0; i < jsonLength; ++i) {
-//                                $("#ajaxResponse").append("<p><h1>" + data.listUsersUrls[i] + "</h1></p>");
-//                                $("#ajaxResponse").append("<table>");
-//                                $("#ajaxResponse").append("<tr><td><b>Word: </p></b></td><td><b> Count : </p></b></td></tr>");
-//                                countLines = (data.response[i]).length;
-//                                    for(j=0; j < countLines; j++) {
-//                                        $("#ajaxResponse").append("<tr><td>" + data.response[i][j].key + "</td><td>" + data.response[i][j].value + "</td></tr>");
-//                                    }
-//                                $("#ajaxResponse").append("</table>");
-//
-//                            }
-
                             $('#ajaxResponse').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
-
                             var parsed = data.dataAjax;
-
                             var arr1 = [];
                             var parsedLength = parsed.length;
-//                                alert(parsedLength);
 
                             for(i = 0; i < parsedLength; i++){
                                 arr1[i] = [];

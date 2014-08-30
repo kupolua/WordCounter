@@ -37,5 +37,4 @@ public class DocumentConverterTest {
         Assert.assertTrue(toStringConverter instanceof HtmlToStringConverter);
     }
 
-    // todo: add test for unexisting type, for example, PdfType
 }

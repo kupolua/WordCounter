@@ -23,21 +23,19 @@ public class CountWordsController {
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String getResult (
+    public String getResult(
             @RequestParam String userRequest, @RequestParam String dataTypeResponse) {
-
-        // todo: rename parameters
 
         final String result = getResultAndCatchException(userRequest, dataTypeResponse);
 
         return result;
     }
 
-    private String getResultAndCatchException(String dataSources,  String dataTypeResponse){
+    private String getResultAndCatchException(String dataSources, String dataTypeResponse) {
         String result;
-        try{
+        try {
             result = wordCounterService.getWordCounterResult(dataSources, dataTypeResponse);
-        } catch (Throwable e){
+        } catch (Throwable e) {
             LOG.error("error while processing request: " + e.getMessage(), e);
             ResultPresentationImpl resultPresentationImpl = new ResultPresentationImpl();
             ResultPresentation resultPresentation = resultPresentationImpl.getResultPresentation(dataTypeResponse);

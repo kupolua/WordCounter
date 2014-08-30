@@ -54,5 +54,4 @@ public class TextTypeInquirerTest {
         Assert.assertTrue(actualTextType instanceof HtmlTextTypeImpl);
     }
 
-    // todo: test index.any or any non-existing type
 }

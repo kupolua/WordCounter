@@ -5,11 +5,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @Ignore
-// todo: why do we need it?
 public class AssertionsTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAssertStringIsNull()  {
+    public void testAssertStringIsNull() {
         //given
         final String DATA = null;
 
@@ -18,7 +17,7 @@ public class AssertionsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAssertStringIsEmpty()  {
+    public void testAssertStringIsEmpty() {
         //given
         final String DATA = " ";
 

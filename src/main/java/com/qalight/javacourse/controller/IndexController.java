@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-    // todo: use configuration instead of hardcoded version
     public static String VERSION = "0.2";
 
     @RequestMapping(method = RequestMethod.GET)
