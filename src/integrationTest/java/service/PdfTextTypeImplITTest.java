@@ -16,7 +16,7 @@ public class PdfTextTypeImplITTest {
 
     @Test
     public void testIsEligible_okUrl() {
-        //given
+        // given
         final String dataSourceLink = "http://defas.com.ua/java/Policy_of_.UA.pdf";
         final boolean expectedResult = true;
 
