@@ -14,7 +14,7 @@ public class DocumentConverterTest {
     }
 
     @Test
-    public void testGetDocumentConverter_xml() {
+    public void testGetDocumentConverter_pdf() {
         //given
         final TextType type = new PdfTextTypeImpl();
 
