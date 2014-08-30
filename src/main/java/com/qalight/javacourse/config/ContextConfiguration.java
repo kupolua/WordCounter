@@ -1,4 +1,4 @@
-package com.qalight.javacourse.core;
+package com.qalight.javacourse.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

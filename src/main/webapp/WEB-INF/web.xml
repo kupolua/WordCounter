@@ -16,7 +16,7 @@
         </init-param>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>com.qalight.javacourse.core</param-value>
+            <param-value>com.qalight.javacourse.config</param-value>
         </init-param>
     </servlet>
 
