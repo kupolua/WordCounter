@@ -1,7 +1,6 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.core.WordCounter;
-import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.TextRefiner;
 import com.qalight.javacourse.util.UrlFixer;
@@ -10,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +23,8 @@ public class WordCounterServiceImpl implements WordCounterService {
     @Autowired private UrlFixer urlFixer;
 
     @Override
-    public String getWordCounterResult(String clientRequest, String sortingParam, String dataTypeResponse) {
-        checkParams(clientRequest, sortingParam);
+    public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
+        checkParams(clientRequest, dataTypeResponse);
 
         String fixedUrl = urlFixer.fixUrl(clientRequest);
 
@@ -43,18 +41,16 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         Map<String, Integer> countedWords = wordCounter.countWords(refinedWords);
 
-        List<Map.Entry<String, Integer>> sortedWords = WordResultSorter.valueOf(sortingParam).getSortedWords(countedWords);
-
         ResultPresentation resultPresentation = resultPresentationImpl.getResultPresentation(dataTypeResponse);
 
-        String result = resultPresentation.createResponse(clientRequest, sortedWords, dataTypeResponse);
+        String result = resultPresentation.createResponse(clientRequest, countedWords, dataTypeResponse);
 
         return result;
     }
 
-    private static void checkParams(String userUrlsString, String sortingParam) {
+    private static void checkParams(String userUrlsString, String dataTypeResponse) {
         Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
-        Assertions.assertStringIsNotNullOrEmpty(sortingParam);
+        Assertions.assertStringIsNotNullOrEmpty(dataTypeResponse);
     }
 
 }

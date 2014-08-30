@@ -29,7 +29,7 @@ public class WebFormTest {
         baseUrl = "http://localhost:" + PORT + CONTEXT;
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
-
+    //todo: add test for search word and Show entries and Previous Next page
     @Test
     public void testEmptyUrlRequest() throws Exception {
         // given
@@ -71,6 +71,7 @@ public class WebFormTest {
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.className("sorting")).click();
         sleep(TIME_WAIT);
 
         //then
@@ -86,8 +87,8 @@ public class WebFormTest {
         // when
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.xpath("(//input[@name='userChoice'])[2]")).click();
         driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.className("sorting_desc")).click();
         sleep(TIME_WAIT);
 
         // then
@@ -103,8 +104,9 @@ public class WebFormTest {
         // when
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.xpath("(//input[@name='userChoice'])[3]")).click();
         driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.className("sorting")).click();
+        driver.findElement(By.className("sorting")).click();
         sleep(TIME_WAIT);
 
         // then
@@ -120,7 +122,6 @@ public class WebFormTest {
         // when
         driver.findElement(By.id("userRequest")).clear();
         driver.findElement(By.id("userRequest")).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.xpath("(//input[@name='userChoice'])[4]")).click();
         driver.findElement(By.id("myButton")).click();
         sleep(TIME_WAIT);
 
@@ -138,24 +139,38 @@ public class WebFormTest {
         }
     }
 
-    private static final String EXPECTED_SORTING_KEY_ASCENDING = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
-            "Word:\n" +
-            "Count :\n" +
+    private static final String EXPECTED_SORTING_KEY_ASCENDING = "Show\n" +
+            "10\n" +
+            "25\n" +
+            "50\n" +
+            "100\n" +
+            "entries\n" +
+            "Search:\n" +
+            "Word Count\n" +
             "one 4\n" +
-            "білка 3\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
             "r 1\n" +
-            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
+            "two 3\n" +
             "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
-            "єнот 1";
+            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
+            "білка 3\n" +
+            "объем 3\n" +
+            "объём 1\n" +
+            "ёлка 3\n" +
+            "єнот 1\n" +
+            "Showing 1 to 10 of 11 entries\n" +
+            "Previous\n" +
+            "1\n" +
+            "2\n" +
+            "Next";
 
-    private static final String EXPECTED_SORTING_VALUE_ASCENDING = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
-            "Word:\n" +
-            "Count :\n" +
+    private static final String EXPECTED_SORTING_VALUE_ASCENDING = "Show\n" +
+            "10\n" +
+            "25\n" +
+            "50\n" +
+            "100\n" +
+            "entries\n" +
+            "Search:\n" +
+            "Word Count\n" +
             "объём 1\n" +
             "r 1\n" +
             "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
@@ -166,26 +181,44 @@ public class WebFormTest {
             "ёлка 3\n" +
             "two 3\n" +
             "объем 3\n" +
-            "one 4";
+            "Showing 1 to 10 of 11 entries\n" +
+            "Previous\n" +
+            "1\n" +
+            "2\n" +
+            "Next";
 
-    private static final String EXPECTED_SORTING_KEY_DESCENDING = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
-            "Word:\n" +
-            "Count :\n" +
-            "їжак 2\n" +
-            "єнот 1\n" +
-            "ёлка 3\n" +
-            "объём 1\n" +
-            "объем 3\n" +
-            "білка 3\n" +
-            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
-            "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
-            "two 3\n" +
+    private static final String EXPECTED_SORTING_KEY_DESCENDING = "Show\n" +
+            "10\n" +
+            "25\n" +
+            "50\n" +
+            "100\n" +
+            "entries\n" +
+            "Search:\n" +
+            "Word Count\n" +
             "r 1\n" +
-            "one 4";
+            "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
+            "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
+            "объём 1\n" +
+            "єнот 1\n" +
+            "їжак 2\n" +
+            "two 3\n" +
+            "білка 3\n" +
+            "объем 3\n" +
+            "ёлка 3\n" +
+            "Showing 1 to 10 of 11 entries\n" +
+            "Previous\n" +
+            "1\n" +
+            "2\n" +
+            "Next";
 
-    private static final String EXPECTED_SORTING_VALUE_DESCENDING = "http://defas.com.ua/java/pageForSeleniumTest.html\n" +
-            "Word:\n" +
-            "Count :\n" +
+    private static final String EXPECTED_SORTING_VALUE_DESCENDING = "Show\n" +
+            "10\n" +
+            "25\n" +
+            "50\n" +
+            "100\n" +
+            "entries\n" +
+            "Search:\n" +
+            "Word Count\n" +
             "one 4\n" +
             "білка 3\n" +
             "ёлка 3\n" +
@@ -196,5 +229,9 @@ public class WebFormTest {
             "r 1\n" +
             "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
             "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
-            "єнот 1";
+            "Showing 1 to 10 of 11 entries\n" +
+            "Previous\n" +
+            "1\n" +
+            "2\n" +
+            "Next";
 }

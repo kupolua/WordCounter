@@ -24,24 +24,23 @@ public class JsonResultPresentation implements ResultPresentation{
     }
 
     @Override
-    public String createResponse(String textLink, List<Map.Entry<String, Integer>> collectedWordResult, String dataTypeResponse) {
-        List<List<Map.Entry<String, Integer>>> countedWordsList = new ArrayList<List<Map.Entry<String, Integer>>>();
-        countedWordsList.add(collectedWordResult);
+    public String createResponse(String textLink, Map<String, Integer> countedWords, String dataTypeResponse) {
+        List<List<String>> countWordsResultResponse = new ArrayList<>();
 
-        List<String> urlsList = new ArrayList<>();
-        urlsList.add(textLink);
+        for (Map.Entry<String, Integer> entry : countedWords.entrySet()) {
+            List<String> countWordResultResponse = new ArrayList<>();
+            countWordResultResponse.add(entry.getKey());
+            countWordResultResponse.add(entry.getValue().toString());
+            countWordsResultResponse.add(countWordResultResponse);
+        }
 
         Gson gson = new Gson();
         JsonObject countedWordsListObj = new JsonObject();
 
-        JsonElement wordResultResponse = gson.toJsonTree(countedWordsList);
-        JsonElement listUsersUrls = gson.toJsonTree(urlsList);
-        JsonElement dataType = gson.toJsonTree(dataTypeResponse);
+        JsonElement listUsersUrls = gson.toJsonTree(countWordsResultResponse);
 
         countedWordsListObj.addProperty("success", true);
-        countedWordsListObj.add("response", wordResultResponse);
-        countedWordsListObj.add("listUsersUrls", listUsersUrls);
-        countedWordsListObj.add("dataTypeResponse", dataType);
+        countedWordsListObj.add("dataAjax", listUsersUrls);
 
         return countedWordsListObj.toString();
     }
