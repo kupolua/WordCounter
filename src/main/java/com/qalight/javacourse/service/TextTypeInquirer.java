@@ -1,8 +1,11 @@
 package com.qalight.javacourse.service;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class TextTypeInquirer {
 
     private static Set<TextType> textTypes;

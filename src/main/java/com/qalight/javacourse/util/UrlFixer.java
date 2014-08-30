@@ -2,10 +2,12 @@ package com.qalight.javacourse.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by box on 27.08.2014.
  */
+@Component
 public class UrlFixer {
     private static final Logger LOG = LoggerFactory.getLogger(UrlFixer.class);
     private static final String HTTP_PREFIX = "http://";

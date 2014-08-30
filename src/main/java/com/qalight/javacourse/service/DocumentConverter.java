@@ -1,9 +1,11 @@
 package com.qalight.javacourse.service;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Component
 public class DocumentConverter {
     private static Set<DocumentToStringConverter> documentToStringConverters;
     static {

@@ -7,32 +7,28 @@ import com.qalight.javacourse.util.TextRefiner;
 import com.qalight.javacourse.util.UrlFixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class WordCounterServiceImpl implements WordCounterService {
-    private static final Logger LOG = LoggerFactory.getLogger(WordCounterServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final TextTypeInquirer textTypeInquirer;
-    private final DocumentConverter documentConverter;
-    private final WordCounter wordCounter;
-    private final ResultPresentationImpl resultPresentationImpl;
-    private final UrlFixer fixer;
-
-    public WordCounterServiceImpl() {
-        textTypeInquirer = new TextTypeInquirer();
-        documentConverter = new DocumentConverter();
-        wordCounter = new WordCounter();
-        resultPresentationImpl = new ResultPresentationImpl();
-        fixer = new UrlFixer();
-    }
+    @Autowired private TextTypeInquirer textTypeInquirer;
+    @Autowired private DocumentConverter documentConverter;
+    @Autowired private WordCounter wordCounter;
+    @Autowired private ResultPresentationImpl resultPresentationImpl;
+    @Autowired private UrlFixer urlFixer;
 
     @Override
     public String getWordCounterResult(String clientRequest, String sortingParam, String dataTypeResponse) {
         checkParams(clientRequest, sortingParam);
 
-        String fixedUrl = fixer.fixUrl(clientRequest);
+        String fixedUrl = urlFixer.fixUrl(clientRequest);
 
         TextType textType = textTypeInquirer.inquireTextType(fixedUrl);
 

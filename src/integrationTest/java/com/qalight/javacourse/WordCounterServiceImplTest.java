@@ -1,12 +1,22 @@
+package com.qalight.javacourse;
+
 import com.qalight.javacourse.service.WordCounterServiceImpl;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = com.qalight.javacourse.core.ContextConfiguration.class)
+@WebAppConfiguration
+@Ignore
 public class WordCounterServiceImplTest {
 
     private final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
     private final static String DATA_TYPE_RESPONSE = "json";
-
 
     @Test
     public void testGetWordCounterResult_okUrl_KeyAscSort_JsonResp() {

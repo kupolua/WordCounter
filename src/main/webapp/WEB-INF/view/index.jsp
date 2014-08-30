@@ -36,7 +36,7 @@
                 //meaning we are expecting JSON data in response from the server
                 $.ajax({
                     type: "POST",
-                    url: "./UserRequestHandlerServlet",
+                    url: "./countWords",
                     data: dataString,
                     dataType: "json",
 
@@ -103,7 +103,7 @@
         </div>
 
         <h2>
-            Word Counter v.0.2
+            Word Counter ${version}
         </h2>
     </div>
     <div id="myExample">

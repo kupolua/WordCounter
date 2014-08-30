@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+//todo: refactor. very vulnerable to concurrent work
 public class TextRefiner {
-
     private static final String DASH = "—";
     private static final String WHITESPACES_MATCHER = "\\s+";
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
     private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
-    private List<String> refinedWords;
+    private final List<String> refinedWords;
 
     public TextRefiner(){
         refinedWords = new ArrayList<>();

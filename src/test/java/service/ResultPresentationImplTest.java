@@ -8,31 +8,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ResultPresentationImplTest {
-    private JsonResultPresentation jsonResultPresentation;
     private ResultPresentationImpl resultPresentationImpl;
 
     @Before
     public void setup() {
-        jsonResultPresentation = new JsonResultPresentation();
         resultPresentationImpl = new ResultPresentationImpl();
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testIsNullResultPresentation() {
         //given
         final String dataTypeResponse = null;
-        final String expectedNullPointerException = "java.lang.NullPointerException: com.qalight.javacourse.service.ResultPresentationImpl Method: getResultPresentation, Argument: dataTypeResponse is Null";
 
         //when
-        NullPointerException actualNullPointerException = null;
-        try {
-            resultPresentationImpl.getResultPresentation(dataTypeResponse);
-        } catch (NullPointerException e) {
-            actualNullPointerException = e;
-        }
-
-        //then
-        Assert.assertEquals(expectedNullPointerException, actualNullPointerException.toString());
+        resultPresentationImpl.getResultPresentation(dataTypeResponse);
     }
 
     @Test

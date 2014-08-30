@@ -1,14 +1,20 @@
-package com.qalight.javacourse.servlet;
+package com.qalight.javacourse.controller;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by emix on 8/23/14.
- */
-public class HttpHelper {
+@Component
+public class HeadersInterceptor extends HandlerInterceptorAdapter {
 
-    public static void setResponseHeaders(HttpServletResponse response) {
-        response.setContentType("text/html");
+    @Override
+    public void postHandle(
+            HttpServletRequest request, HttpServletResponse response, Object handler,
+            ModelAndView modelAndView) throws Exception {
+
         response.setHeader("Cache-control", "no-cache, no-store");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "-1");
@@ -18,4 +24,5 @@ public class HttpHelper {
         response.setHeader("Access-Control-Max-Age", "86400");
         response.setCharacterEncoding("UTF-8");
     }
+
 }
