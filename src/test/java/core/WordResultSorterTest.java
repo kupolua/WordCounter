@@ -18,7 +18,7 @@ public class WordResultSorterTest {
 
         // given
         final Set<String> expectedEnumValues = new TreeSet<String>() {{
-            add(KEY_ASCENDING);  // todo use constant
+            add(KEY_ASCENDING);
             add(KEY_DESCENDING);
             add(VALUE_ASCENDING);
             add(VALUE_DESCENDING);
