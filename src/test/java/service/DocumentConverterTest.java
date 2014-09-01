@@ -37,4 +37,22 @@ public class DocumentConverterTest {
         Assert.assertTrue(toStringConverter instanceof HtmlToStringConverter);
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testNonExistingType(){
+        // given
+        final TextType nonExistingType = new TextType() {
+            @Override
+            public boolean isEligible(String dataSourceLink) {
+                return true;
+            }
+        };
+        // the same with Java 8 lambda: final TextType nonExistingType = dataSourceLink -> true;
+
+        //when
+        converter.getDocumentConverter(nonExistingType);
+
+        //then
+        //expected = RuntimeException (see above with @Test annotation)
+    }
+
 }
