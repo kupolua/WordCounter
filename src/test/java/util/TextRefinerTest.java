@@ -31,20 +31,13 @@ public class TextRefinerTest {
 
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testEmptyParameter() {
-        //given
         String text = "";
-
-        //when
         refiner.refineText(text);
-
-        //then
-        List<String> expected = Arrays.asList("");
-        Assert.assertEquals(expected, refiner.getRefinedWords());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNullParameter() {
         String text = null;
         refiner.refineText(text);

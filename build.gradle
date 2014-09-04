@@ -49,6 +49,8 @@ task functionalTest(type: Test) {
 check.dependsOn functionalTest
 
 dependencies {
+    compile 'org.apache.tika:tika-core:1.5'
+    compile 'org.apache.tika:tika-parsers:1.5'
     compile 'com.lowagie:itext:4.2.1'
     compile 'org.jsoup:jsoup:1.7.2'
     compile 'commons-validator:commons-validator:1.4.0'

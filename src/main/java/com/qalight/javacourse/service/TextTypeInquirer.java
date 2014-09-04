@@ -17,6 +17,7 @@ public class TextTypeInquirer {
         textTypes = new HashSet<>();
         textTypes.add(new HtmlTextTypeImpl());
         textTypes.add(new PdfTextTypeImpl());
+        textTypes.add(new DocTextTypeImpl());
     }
 
     public TextType inquireTextType(String textLink) {

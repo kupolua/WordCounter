@@ -42,7 +42,7 @@ public class WebFormTest {
         // then
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         String expectedResult = "Request is null or empty";
-        ;
+
         assertEquals(expectedResult, actualResult);
     }
 

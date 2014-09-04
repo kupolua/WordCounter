@@ -12,6 +12,7 @@ public class DocumentConverter {
         documentToStringConverters = new HashSet<>();
         documentToStringConverters.add(new HtmlToStringConverter());
         documentToStringConverters.add(new PdfToStringConverter());
+        documentToStringConverters.add(new DocToStringConverter());
     }
     public DocumentToStringConverter getDocumentConverter(TextType sourceType) {
         DocumentToStringConverter documentConverter = null;

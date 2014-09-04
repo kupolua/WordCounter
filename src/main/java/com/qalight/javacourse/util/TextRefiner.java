@@ -20,7 +20,7 @@ public class TextRefiner {
 
     public void refineText(String unrefinedPlainText) {
 
-        checkIfPlainTextIsNull(unrefinedPlainText);
+        checkIfPlainTextIsNullOrEmpty(unrefinedPlainText);
 
         LOG.debug("Splitting plain text by all whitespace characters.");
 
@@ -40,9 +40,14 @@ public class TextRefiner {
         return NON_WORD_LETTER_PATTERN.matcher(dirtyWord).replaceAll("").toLowerCase();
     }
 
-    private void checkIfPlainTextIsNull(String unrefinedPlainText) {
+    private void checkIfPlainTextIsNullOrEmpty(String unrefinedPlainText) {
         if (unrefinedPlainText == null) {
-            throw new IllegalArgumentException("UnrefinedPlainText is null");
+            LOG.warn("\"Text\" is null.");
+            throw new NullPointerException("Text is null.");
+        }
+        if (unrefinedPlainText.equals("")) {
+            LOG.warn("\"Text\" is empty.");
+            throw new IllegalArgumentException("Text is empty." );
         }
     }
 
