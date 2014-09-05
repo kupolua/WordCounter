@@ -1,4 +1,4 @@
-package com.qalight.javacourse;
+package service;
 
 import com.qalight.javacourse.service.HtmlToStringConverter;
 import org.junit.Assert;
@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class HtmlToStringConverterTest {
+public class HtmlToStringConverterITTest {
 
     private HtmlToStringConverter converter;
 

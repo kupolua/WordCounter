@@ -1,4 +1,4 @@
-package com.qalight.javacourse;
+package service;
 
 import com.qalight.javacourse.core.WordCounter;
 import com.qalight.javacourse.service.*;

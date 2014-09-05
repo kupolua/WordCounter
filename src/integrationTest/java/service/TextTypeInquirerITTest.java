@@ -1,4 +1,4 @@
-package core;
+package service;
 
 import com.qalight.javacourse.service.TextType;
 import com.qalight.javacourse.service.TextTypeInquirer;
