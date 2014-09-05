@@ -35,9 +35,8 @@ public class WordCounterServiceImpl implements WordCounterService {
         String plainText = documentToStringConverter.convertToString(fixedUrl);
 
         TextRefiner refiner = new TextRefiner();
-        refiner.refineText(plainText);
 
-        List<String> refinedWords = refiner.getRefinedWords();
+        List<String> refinedWords = refiner.refineText(plainText);
 
         Map<String, Integer> countedWords = wordCounter.countWords(refinedWords);
 

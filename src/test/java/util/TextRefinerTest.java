@@ -23,11 +23,11 @@ public class TextRefinerTest {
         String text = "One, one ONE-oNE  Two  two, two!, three, three, усіх";
 
         //when
-        refiner.refineText(text);
+        List<String> actual = refiner.refineText(text);
 
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
-        Assert.assertEquals(expected, refiner.getRefinedWords());
+        Assert.assertEquals(expected, actual);
 
     }
 

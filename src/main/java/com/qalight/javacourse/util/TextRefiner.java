@@ -12,13 +12,8 @@ public class TextRefiner {
     private static final String WHITESPACES_MATCHER = "\\s+";
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
     private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
-    private final List<String> refinedWords;
 
-    public TextRefiner() {
-        refinedWords = new ArrayList<>();
-    }
-
-    public void refineText(String unrefinedPlainText) {
+    public List<String> refineText(String unrefinedPlainText) {
 
         checkIfPlainTextIsNullOrEmpty(unrefinedPlainText);
 
@@ -26,14 +21,19 @@ public class TextRefiner {
 
         String[] splitWords = unrefinedPlainText.split(WHITESPACES_MATCHER);
 
+        List<String> refinedWords = new ArrayList<>();
+
+        String clearWord;
         for (String dirtyWord : splitWords) {
             if (dirtyWord.contains(DASH)) {
-                splitByDash(dirtyWord);
+                clearWord = splitByDash(dirtyWord);
+                refinedWords.add(clearWord);
             } else {
-                String clearWord = refineWord(dirtyWord);
+                clearWord = refineWord(dirtyWord);
                 refinedWords.add(clearWord);
             }
         }
+        return refinedWords;
     }
 
     private String refineWord(String dirtyWord) {
@@ -51,15 +51,12 @@ public class TextRefiner {
         }
     }
 
-    private void splitByDash(String wordWithDash) {
+    private String splitByDash(String wordWithDash) {
         String[] separatedWords = wordWithDash.split(DASH);
+        String clearWord = null;
         for (String undashedWord : separatedWords) {
-            String clearWord = refineWord(undashedWord);
-            refinedWords.add(clearWord);
+            clearWord = refineWord(undashedWord);
         }
-    }
-
-    public List<String> getRefinedWords() {
-        return refinedWords;
+        return clearWord;
     }
 }
