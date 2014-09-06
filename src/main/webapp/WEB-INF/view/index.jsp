@@ -148,5 +148,6 @@
     <div id="ajaxResp"></div>
 
 </div>
+<img src="img/ok.jpg"> </img>
 </body>
 </html>
