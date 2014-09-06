@@ -1,6 +1,5 @@
 package com.qalight.javacourse.core;
 
-import com.qalight.javacourse.core.WordCounter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +7,6 @@ import org.junit.Test;
 import java.util.*;
 
 public class WordCounterTest {
-
     private WordCounter counter;
 
     @Before
@@ -46,22 +44,15 @@ public class WordCounterTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testCountWords_null() {
         // given
         final List<String> words = null;
-        final String expectedException = "java.lang.NullPointerException: " +
-                "In WordCounter.countWords(List<String> refinedWords) received parameter is NULL.";
 
         //when
-        NullPointerException actualException = null;
-        try {
-            counter.countWords(words);
-        } catch (NullPointerException e) {
-            actualException = e;
-        }
+        counter.countWords(words);
 
         //then
-        Assert.assertEquals(expectedException, actualException.toString());
+        //expected exception
     }
 }

@@ -55,7 +55,7 @@ public class DocTextTypeImplIntegrationTest {
         return result;
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullLink(){
         //given
         final String NULL_LINK = null;

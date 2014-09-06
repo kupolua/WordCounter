@@ -24,19 +24,21 @@ public class PdfToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userUrl) {
-        PdfReader reader;
+        PdfReader reader = null;
 
         try {
             reader = new PdfReader(userUrl);
         } catch (IOException e) {
-            LOG.error("Can't connect to " + userUrl, e);
-            throw new RuntimeException("Can't connect to: " + userUrl);
+            String msg = "Can't connect to ";
+            LOG.error(msg + userUrl, e);
+            throw new RuntimeException(msg + userUrl, e);
+        } finally {
+            if (reader != null) reader.close();
         }
         LOG.info("Connection to " + userUrl + " has been successfully established.");
 
         String text = getTextFromAllPages(reader);
 
-        reader.close();
         return text;
     }
 
@@ -48,8 +50,9 @@ public class PdfToStringConverter implements DocumentToStringConverter {
             try {
                 text = new PdfTextExtractor(reader).getTextFromPage(i);
             } catch (IOException e) {
-                LOG.error("Can't read text from page " + i, e);
-                throw new RuntimeException("Can't read text from page " + i);
+                String msg = "Can't read text from page ";
+                LOG.error(msg + i, e);
+                throw new RuntimeException(msg + i, e);
             }
             joiner.add(text);
         }

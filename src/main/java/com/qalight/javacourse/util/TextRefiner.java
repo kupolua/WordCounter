@@ -14,10 +14,7 @@ public class TextRefiner {
     private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 
     public List<String> refineText(String unrefinedPlainText) {
-
         checkIfPlainTextIsNullOrEmpty(unrefinedPlainText);
-
-        LOG.debug("Splitting plain text by all whitespace characters.");
 
         String[] splitWords = unrefinedPlainText.split(WHITESPACES_MATCHER);
 

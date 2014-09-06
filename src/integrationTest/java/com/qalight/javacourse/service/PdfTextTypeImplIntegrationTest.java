@@ -5,8 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PdfTextTypeImplIntegrationTest {
-
-    PdfTextTypeImpl pdfTextType;
+    private PdfTextTypeImpl pdfTextType;
 
     @Before
     public void setup() {
@@ -39,42 +38,28 @@ public class PdfTextTypeImplIntegrationTest {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyUrl() {
         //given
         final String dataSourceLink = "";
-        final String expectedExceptoin = "java.lang.IllegalArgumentException: " +
-                "It is impossible to determine the type of the document because the link is empty.";
 
         //when
-        Exception actualException = null;
-        try {
-            pdfTextType.isEligible(dataSourceLink);
-        } catch (IllegalArgumentException e) {
-            actualException = e;
-        }
+        pdfTextType.isEligible(dataSourceLink);
 
         //then
-        Assert.assertEquals(expectedExceptoin, actualException.toString());
+        //expected exception
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullUrl() {
         //given
         final String dataSourceLink = null;
-        final String expectedExceptoin = "java.lang.NullPointerException: " +
-                "It is impossible to determine the type of the document because the link is null.";
 
-        //when
-        Exception actualException = null;
-        try {
-            pdfTextType.isEligible(dataSourceLink);
-        } catch (NullPointerException e) {
-            actualException = e;
-        }
+        // when
+        pdfTextType.isEligible(dataSourceLink);
 
         //then
-        Assert.assertEquals(expectedExceptoin, actualException.toString());
+        //expected exception
     }
 
 }

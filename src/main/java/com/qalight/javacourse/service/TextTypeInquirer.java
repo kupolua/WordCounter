@@ -9,7 +9,6 @@ import java.util.Set;
 
 @Component
 public class TextTypeInquirer {
-
     private static final Logger LOG = LoggerFactory.getLogger(TextTypeInquirer.class);
 
     private static Set<TextType> textTypes;
@@ -39,13 +38,11 @@ public class TextTypeInquirer {
         if (textLink == null) {
             LOG.error("\"textLink\" received parameter is NULL");
             throw new IllegalArgumentException(
-                    "It is impossible to determine the type of the document because the link is null."
-            );
+                    "It is impossible to determine the type of the document because the link is null.");
         }
         if (textLink.trim().equals("")) {
             throw new IllegalArgumentException(
-                    "It is impossible to determine the type of the document because the link is empty."
-            );
+                    "It is impossible to determine the type of the document because the link is empty.");
         }
     }
 }

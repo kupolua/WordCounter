@@ -29,7 +29,7 @@ public class DocTextTypeImpl implements TextType {
     private void checkForNullOrEmpty(String dataSourceLink) {
         if (dataSourceLink == null) {
             LOG.warn("\"dataSourceLink\" parameter is NULL.");
-            throw new NullPointerException("Cannot recognize a document type. The link is null.");
+            throw new IllegalArgumentException("Cannot recognize a document type. The link is null.");
         }
 
         if (dataSourceLink.equals("")) {

@@ -3,6 +3,7 @@ package com.qalight.javacourse.core;
 import java.util.*;
 
 public enum WordResultSorter {
+    // todo: use Java 8 approach
 
     KEY_ASCENDING {
         @Override

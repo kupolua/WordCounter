@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class HtmlTextTypeImpl implements TextType {
     private static final String[] TEXT_TYPES = {"html", "xml"};
     private static final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
-    private static final Logger LOG = LoggerFactory.getLogger(ResponseHeaderGetter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HtmlTextTypeImpl.class);
 
     @Override
     public boolean isEligible(String dataSourceLink) {
