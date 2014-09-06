@@ -1,4 +1,4 @@
-package util;
+package com.qalight.javacourse.util;
 
 import com.qalight.javacourse.util.Assertions;
 import org.junit.Ignore;
@@ -14,6 +14,9 @@ public class AssertionsTest {
 
         //when
         Assertions.assertStringIsNotNullOrEmpty(DATA);
+
+        //then
+        //expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -23,6 +26,9 @@ public class AssertionsTest {
 
         //when
         Assertions.assertStringIsNotNullOrEmpty(DATA);
+
+        //then
+        //expected exception
     }
 
     @Test

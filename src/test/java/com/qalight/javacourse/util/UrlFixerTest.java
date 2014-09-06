@@ -1,4 +1,4 @@
-package util;
+package com.qalight.javacourse.util;
 
 import com.qalight.javacourse.util.UrlFixer;
 import org.junit.Assert;

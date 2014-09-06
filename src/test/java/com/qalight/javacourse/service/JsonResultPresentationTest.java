@@ -1,4 +1,4 @@
-package service;
+package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.service.JsonResultPresentation;
 import org.junit.Assert;

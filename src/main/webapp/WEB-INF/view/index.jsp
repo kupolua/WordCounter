@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 
 <head>
@@ -134,7 +134,7 @@
                     <input type="hidden" name="dataTypeResponse" value="json">
                 </p>
                 <p>
-                    <input id="myButton" type="button" value="Count Words"/>
+                    <input id="myButton" type="button" value="Count words"/>
                 </p>
             </fieldset>
         </form>
@@ -148,5 +148,6 @@
     <div id="ajaxResp"></div>
 
 </div>
+<img src="img/ok.jpg"> </img>
 </body>
 </html>

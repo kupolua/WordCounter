@@ -33,7 +33,7 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
             html = Jsoup.connect(userUrl).get();
         } catch (IOException e) {
             LOG.error("Can't connect to " + userUrl, e);
-            throw new RuntimeException("Can't connect to: " + userUrl);
+            throw new RuntimeException("Can't connect to: " + userUrl, e);
         }
         LOG.info("Connection to " + userUrl + " has been successfully established.");
 

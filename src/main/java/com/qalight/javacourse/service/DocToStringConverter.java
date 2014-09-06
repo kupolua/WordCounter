@@ -11,7 +11,6 @@ import java.net.URL;
  * Created by box on 03.09.2014.
  */
 public class DocToStringConverter implements DocumentToStringConverter {
-
     private static final Logger LOG = LoggerFactory.getLogger(DocToStringConverter.class);
     private final Tika tika;
 
@@ -36,10 +35,10 @@ public class DocToStringConverter implements DocumentToStringConverter {
             text = tika.parseToString(url);
         } catch (IOException e) {
             LOG.error("I/O operation has been failed or interrupted while processing <" + userSourcesList + ">.", e);
-            throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ");
+            throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ", e);
         } catch (TikaException e) {
             LOG.error("Can't extract text from <" + userSourcesList + ">.", e);
-            throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ");
+            throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ", e);
         }
 
         return text;
@@ -50,8 +49,8 @@ public class DocToStringConverter implements DocumentToStringConverter {
         try {
             url = new URL(userSourcesList);
         } catch (MalformedURLException e) {
-            LOG.error("Cannot create URL object <" + userSourcesList + ">. "+ e);
-            throw new RuntimeException("<" + userSourcesList + "> cannot be processed.");
+            LOG.error("Cannot create URL object <" + userSourcesList + ">. ", e);
+            throw new RuntimeException("<" + userSourcesList + "> cannot be processed.", e);
         }
 
         return url;

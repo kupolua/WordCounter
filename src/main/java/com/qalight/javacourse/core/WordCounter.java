@@ -15,14 +15,13 @@ public class WordCounter {
     public Map<String, Integer> countWords(List<String> refinedWords) {
 
         if (refinedWords == null) {
-            LOG.error("In WordCounter.countWords(List<String> refinedWords) received parameter is NULL.");
-            throw new NullPointerException
-                    ("In WordCounter.countWords(List<String> refinedWords) received parameter is NULL.");
+            String msg = "refinedWords is NULL.";
+            LOG.error(msg);
+            throw new IllegalArgumentException(msg);
         }
 
         Map<String, Integer> countedWords = new HashMap<>();
 
-        LOG.debug("Filtering and putting words to HashMap.");
         for (String eachWord : refinedWords) {
             Integer foundValue = countedWords.get(eachWord);
             if (foundValue == null) {
@@ -32,7 +31,6 @@ public class WordCounter {
                 countedWords.put(eachWord, newCounter);
             }
         }
-        LOG.debug("Removing all possible empty entries.");
         countedWords.remove("");
 
         return countedWords;

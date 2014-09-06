@@ -1,12 +1,10 @@
-package core;
+package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.service.TextType;
-import com.qalight.javacourse.service.TextTypeInquirer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TextTypeInquirerITTest {
+public class TextTypeInquirerIntegrationTest {
 
     private TextTypeInquirer textTypeInquirer;
 
@@ -26,6 +24,18 @@ public class TextTypeInquirerITTest {
 
         //then
         Assert.assertTrue(actualResult.toString().startsWith(expectedResult));
+    }
+
+    @Test
+    public void testInquireTextType_doc() {
+        //given
+        final String dataSourceLink = "http://www.snee.com/xml/xslt/sample.doc";
+
+        //when
+        final TextType actualResult = textTypeInquirer.inquireTextType(dataSourceLink);
+
+        //then
+        Assert.assertTrue(actualResult instanceof DocTextTypeImpl);
     }
 
     @Test
@@ -59,42 +69,27 @@ public class TextTypeInquirerITTest {
         Assert.assertEquals(expectedResult, actualException.toString());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testInquireTextType_emptyUrl() {
         //given
         final String dataSourceLink = "";
-        final String expectedExceptoin = "java.lang.IllegalArgumentException: " +
-                "It is impossible to determine the type of the document because the link is empty.";
 
         //when
-        Exception actualException = null;
-        try {
-            textTypeInquirer.inquireTextType(dataSourceLink);
-        } catch (IllegalArgumentException e) {
-            actualException = e;
-        }
+        textTypeInquirer.inquireTextType(dataSourceLink);
 
         //then
-        Assert.assertEquals(expectedExceptoin, actualException.toString());
+        //expected exception
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testInquireTextType_NullUrl() {
         //given
         final String dataSourceLink = null;
-        final String expectedExceptoin = "java.lang.NullPointerException: " +
-                "It is impossible to determine the type of the document because the link is null.";
 
-        //when
-        Exception actualException = null;
-        try {
-            textTypeInquirer.inquireTextType(dataSourceLink);
-        } catch (NullPointerException e) {
-            actualException = e;
-        }
+        textTypeInquirer.inquireTextType(dataSourceLink);
 
         //then
-        Assert.assertEquals(expectedExceptoin, actualException.toString());
+        //expected exception
     }
 
 }

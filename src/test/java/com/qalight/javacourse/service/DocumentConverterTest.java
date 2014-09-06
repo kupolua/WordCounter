@@ -1,6 +1,5 @@
-package service;
+package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.service.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +25,18 @@ public class DocumentConverterTest {
     }
 
     @Test
+    public void testGetDocumentConverter_doc() {
+        //given
+        final TextType type = new DocTextTypeImpl();
+
+        //when
+        DocumentToStringConverter toStringConverter = converter.getDocumentConverter(type);
+
+        //then
+        Assert.assertTrue(toStringConverter instanceof DocToStringConverter);
+    }
+
+    @Test
     public void testGetDocumentConverter_html() {
         //given
         final TextType type = new HtmlTextTypeImpl();
@@ -40,19 +51,13 @@ public class DocumentConverterTest {
     @Test(expected = RuntimeException.class)
     public void testNonExistingType(){
         // given
-        final TextType nonExistingType = new TextType() {
-            @Override
-            public boolean isEligible(String dataSourceLink) {
-                return true;
-            }
-        };
-        // the same with Java 8 lambda: final TextType nonExistingType = dataSourceLink -> true;
+        final TextType NON_EXISTING_TYPE = dataSourceLink -> true;
 
         //when
-        converter.getDocumentConverter(nonExistingType);
+        converter.getDocumentConverter(NON_EXISTING_TYPE);
 
         //then
-        //expected = RuntimeException (see above with @Test annotation)
+        //expected exception
     }
 
 }

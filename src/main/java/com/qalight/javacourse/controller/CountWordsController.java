@@ -16,15 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/countWords")
 public class CountWordsController {
     private static final Logger LOG = LoggerFactory.getLogger(CountWordsController.class);
-    private static final long serialVersionUID = 1L;
 
     @Autowired
     private WordCounterService wordCounterService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String getResult(
-            @RequestParam String userRequest, @RequestParam String dataTypeResponse) {
+    public String getResult (@RequestParam String userRequest, @RequestParam String dataTypeResponse) {
 
         final String result = getResultAndCatchException(userRequest, dataTypeResponse);
 

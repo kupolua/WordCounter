@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class PdfTextTypeImpl implements TextType {
     private static final String TEXT_TYPE = "pdf";
     private static final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
-    private static final Logger LOG = LoggerFactory.getLogger(ResponseHeaderGetter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PdfTextTypeImpl.class);
 
     @Override
     public boolean isEligible(String dataSourceLink) {
@@ -19,15 +19,13 @@ public class PdfTextTypeImpl implements TextType {
     private void checkForNullOrEmpty(String dataSourceLink) {
         if (dataSourceLink == null) {
             LOG.error("\"dataSourceLink\" received parameter is NULL");
-            throw new NullPointerException(
-                    "It is impossible to determine the type of the document because the link is null."
-            );
+            throw new IllegalArgumentException(
+                    "It is impossible to determine the type of the document because the link is null.");
         }
 
         if (dataSourceLink.equals("")) {
             throw new IllegalArgumentException(
-                    "It is impossible to determine the type of the document because the link is empty."
-            );
+                    "It is impossible to determine the type of the document because the link is empty.");
         }
     }
 }

@@ -1,5 +1,3 @@
-package com.qalight.javacourse.acceptancetests;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

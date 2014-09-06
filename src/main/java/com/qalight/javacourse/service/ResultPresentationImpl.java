@@ -20,9 +20,8 @@ public class ResultPresentationImpl {
         resultPresentations.add(new JsonResultPresentation());
     }
     public ResultPresentation getResultPresentation(String dataTypeResponse) {
-        if (dataTypeResponse == null) {
-            throw new IllegalArgumentException("dataTypeResponse is Null");
-        }
+
+       checkForNullOrEmpty(dataTypeResponse);
 
         ResultPresentation resultPresentation = null;
         for (ResultPresentation currentResultPresentation : resultPresentations) {
@@ -31,7 +30,22 @@ public class ResultPresentationImpl {
                 break;
             }
         }
+        if(resultPresentation == null){
+            LOG.warn("Cannot recognize a response type (" + dataTypeResponse + ")");
+            throw new RuntimeException("Cannot recognize a response type (" + dataTypeResponse + ") in order to select appropriate result type.");
+        }
         return resultPresentation;
     }
 
+    private void checkForNullOrEmpty(String dataTypeResponse) {
+        if (dataTypeResponse == null) {
+            LOG.warn("\"dataTypeResponse\" parameter is NULL.");
+            throw new IllegalArgumentException("Cannot recognize a response type. The link is null.");
+        }
+
+        if (dataTypeResponse.equals("")) {
+            LOG.warn("\"dataTypeResponse\" parameter is empty.");
+            throw new IllegalArgumentException("Cannot recognize a response type. The link is empty." );
+        }
+    }
 }

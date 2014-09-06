@@ -1,4 +1,4 @@
-package util;
+package com.qalight.javacourse.util;
 
 import com.qalight.javacourse.util.TextRefiner;
 import org.junit.Assert;
@@ -23,11 +23,11 @@ public class TextRefinerTest {
         String text = "One, one ONE-oNE  Two  two, two!, three, three, усіх";
 
         //when
-        refiner.refineText(text);
+        List<String> actual = refiner.refineText(text);
 
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
-        Assert.assertEquals(expected, refiner.getRefinedWords());
+        Assert.assertEquals(expected, actual);
 
     }
 
@@ -37,7 +37,7 @@ public class TextRefinerTest {
         refiner.refineText(text);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNullParameter() {
         String text = null;
         refiner.refineText(text);

@@ -1,7 +1,6 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.core.WordCounter;
-import com.qalight.javacourse.service.*;
 import com.qalight.javacourse.util.UrlFixer;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -17,7 +16,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @Ignore
-public class WordCounterServiceImplTest {
+public class WordCounterServiceImplIntegrationTest {
     private final static String DATA_TYPE_RESPONSE = "json";
     private final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
 
