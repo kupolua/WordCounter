@@ -16,11 +16,25 @@ public class HtmlToStringConverterITTest {
     }
 
     @Test
-    public void testConvertToString() {
+    public void testConvertToString_html() {
         //given
-        final String url = "http://bbc.com";
+        final String URL = "http://bbc.com";
+
         //when
-        String actualResult = converter.convertToString(url);
+        String actualResult = converter.convertToString(URL);
+
+        //then
+        Assert.assertNotNull(actualResult);
+    }
+
+    @Test
+    public void testConvertToString_xml() {
+        //given
+        final String URL = "http://www.xmlfiles.com/examples/cd_catalog.xml";
+
+        //when
+        String actualResult = converter.convertToString(URL);
+
         //then
         Assert.assertNotNull(actualResult);
     }

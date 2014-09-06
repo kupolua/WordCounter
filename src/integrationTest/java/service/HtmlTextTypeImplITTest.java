@@ -15,16 +15,27 @@ public class HtmlTextTypeImplITTest {
     }
 
     @Test
-    public void testIsEligible_okUrl() {
+    public void testIsEligible_html() {
         //given
-        final String dataSourceLink = "http://defas.com.ua/java/testingPage.html";
-        final boolean expectedResult = true;
+        final String DATA_SOURCE_LINK = "http://defas.com.ua/java/testingPage.html";
 
         //when
-        final boolean actualResult = htmlTextType.isEligible(dataSourceLink);
+        final boolean actualResult = htmlTextType.isEligible(DATA_SOURCE_LINK);
 
         //then
-        Assert.assertEquals(expectedResult, actualResult);
+        Assert.assertTrue(actualResult);
+    }
+
+    @Test
+    public void testIsEligible_xml() {
+        //given
+        final String DATA_SOURCE_LINK = "http://www.xmlfiles.com/examples/cd_catalog.xml";
+
+        //when
+        final boolean actualResult = htmlTextType.isEligible(DATA_SOURCE_LINK);
+
+        //then
+        Assert.assertTrue(actualResult);
     }
 
     @Test

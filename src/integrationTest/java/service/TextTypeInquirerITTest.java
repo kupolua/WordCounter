@@ -1,5 +1,6 @@
 package service;
 
+import com.qalight.javacourse.service.DocTextTypeImpl;
 import com.qalight.javacourse.service.TextType;
 import com.qalight.javacourse.service.TextTypeInquirer;
 import org.junit.Assert;
@@ -26,6 +27,18 @@ public class TextTypeInquirerITTest {
 
         //then
         Assert.assertTrue(actualResult.toString().startsWith(expectedResult));
+    }
+
+    @Test
+    public void testInquireTextType_doc() {
+        //given
+        final String dataSourceLink = "http://www.snee.com/xml/xslt/sample.doc";
+
+        //when
+        final TextType actualResult = textTypeInquirer.inquireTextType(dataSourceLink);
+
+        //then
+        Assert.assertTrue(actualResult instanceof DocTextTypeImpl);
     }
 
     @Test
