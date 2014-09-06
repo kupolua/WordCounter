@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +29,34 @@ public class TextRefinerTest {
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
         Assert.assertEquals(expected, actual);
+    }
 
+    @Test
+    public void testGetRefinedTextTEST() {
+        //given
+        String text = "[One—one&#160; ONE-oNE  Two  two, two!, three, three—усіх]";
+
+        //when
+        List<String> actual = refiner.refineTextTEST(text);
+
+        //then
+        List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
+//        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testArrayList() {
+        List<String> list = new ArrayList<>();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+
+        System.out.println(list);
+        for (String string : list) {
+            list.remove(0);
+        }
+
+        System.out.println(list);
     }
 
     @Test(expected = IllegalArgumentException.class)
