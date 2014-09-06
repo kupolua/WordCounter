@@ -4,79 +4,56 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class TextRefiner {
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
     private static final String WHITESPACES_MATCHER = "\\s+";
+    //    private static final String NON_BREAKING_HYPHEN = "[999]";
+    private static final String NON_BREAKING_HYPHEN = "[&#8]";
     private static final String DASH = "—";
     private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 //    private static final Pattern WHITESPACES_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 
-    public List<String> refineTextTEST(String unrefinedPlainText) {
-        System.out.println("Unrefined text: " + unrefinedPlainText);
+    public List<String> refineText(String unrefinedPlainText) {
 
         checkIfPlainTextIsNullOrEmpty(unrefinedPlainText);
 
-//        List<String> words = Arrays.asList(unrefinedPlainText.split(WHITESPACES_MATCHER));
         String[] splitWords = unrefinedPlainText.split(WHITESPACES_MATCHER);
         List<String> words = new ArrayList<>();
-        for (String s : splitWords) {
-            words.add(s);
-        }
+        Collections.addAll(words, splitWords);
 
-        List<String> wordsWithoutDash = splitByDashTEST(words);
+        List<String> wordsWithoutDash = splitByDash(words);
 
-        System.out.println("  Refined text: " + wordsWithoutDash.toString());
-        return wordsWithoutDash;
+        List<String> wordsWithNormalHyphen = replaceSpecSymbols(wordsWithoutDash);
+
+        return wordsWithNormalHyphen;
     }
 
-    private List<String> splitByDashTEST(List<String> words) {
-        List<Integer> indexesToCleanWords = new ArrayList<>();
-        List<String> allSeparatedWords = new ArrayList<>();
-        for (int i = 0; i < words.size(); i++) {
-            String potentialDashedWord = words.get(i);
+    private List<String> splitByDash(List<String> words) {
+        List<String> allDashedWordsToClean = new ArrayList<>();
+        List<String> allSeparatedWordsToAdd = new ArrayList<>();
+        for (String potentialDashedWord : words) {
             if (potentialDashedWord.contains(DASH)) {
                 String[] separatedWords = potentialDashedWord.split(DASH);
-                indexesToCleanWords.add(i);
-                for (String separatedWord : separatedWords) {
-                    allSeparatedWords.add(separatedWord);
-                }
+                allDashedWordsToClean.add(potentialDashedWord);
+                Collections.addAll(allSeparatedWordsToAdd, separatedWords);
             }
         }
-//        words.removeAll(indexesToCleanWords);
-        int indLastInd = indexesToCleanWords.size() - 1;
-        for (int i = indLastInd; i == 0; i--) {
-            words.remove(i);
-        }
-        for (String word : allSeparatedWords) {
-            words.add(word);
-        }
+        words.removeAll(allDashedWordsToClean);
+        words.addAll(allSeparatedWordsToAdd);
         return words;
     }
 
-    public List<String> refineText(String unrefinedPlainText) {
-        checkIfPlainTextIsNullOrEmpty(unrefinedPlainText);
+    private List<String> replaceSpecSymbols(List<String> words) {
+        for (String word : words) {
+            word = word.replaceAll(NON_BREAKING_HYPHEN, "-");
 
-        String[] splitWords = unrefinedPlainText.split(WHITESPACES_MATCHER);
-
-        List<String> refinedWords = new ArrayList<>();
-
-        String clearWord;
-        for (String dirtyWord : splitWords) {
-            if (dirtyWord.contains(DASH)) {
-                clearWord = splitByDash(dirtyWord);
-                refinedWords.add(clearWord);
-            } else {
-                clearWord = refineWord(dirtyWord);
-                refinedWords.add(clearWord);
-            }
         }
-        return refinedWords;
-    }
+        return words;
+        }
 
     private String refineWord(String dirtyWord) {
         return NON_WORD_LETTER_PATTERN.matcher(dirtyWord).replaceAll("").toLowerCase();
@@ -93,12 +70,4 @@ public class TextRefiner {
         }
     }
 
-    private String splitByDash(String wordWithDash) {
-        String[] separatedWords = wordWithDash.split(DASH);
-        String clearWord = null;
-        for (String undashedWord : separatedWords) {
-            clearWord = refineWord(undashedWord);
-        }
-        return clearWord;
-    }
 }

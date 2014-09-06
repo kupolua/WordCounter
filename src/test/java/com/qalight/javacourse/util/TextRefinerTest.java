@@ -34,10 +34,12 @@ public class TextRefinerTest {
     @Test
     public void testGetRefinedTextTEST() {
         //given
-        String text = "[One—one&#160; ONE-oNE  Two  two, two!, three, three—усіх]";
+        final String givenText = "[One—one&#160; ONE-oNE  Two&#8two, two!, three, three—усіх]";
+        System.out.println("Unrefined text: " + givenText);
 
         //when
-        List<String> actual = refiner.refineTextTEST(text);
+        List<String> actual = refiner.refineText(givenText);
+        System.out.println("  Refined text: " + actual.toString());
 
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
