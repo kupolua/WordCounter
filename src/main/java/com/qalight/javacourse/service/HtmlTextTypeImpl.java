@@ -26,7 +26,7 @@ public class HtmlTextTypeImpl implements TextType {
     private void checkForNullOrEmpty(String dataSourceLink) {
         if (dataSourceLink == null) {
             LOG.error("\"dataSourceLink\" received parameter is NULL");
-            throw new NullPointerException(
+            throw new IllegalArgumentException(
                     "It is impossible to determine the type of the document because the link is null."
             );
         }

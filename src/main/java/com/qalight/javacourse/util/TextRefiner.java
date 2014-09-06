@@ -43,7 +43,7 @@ public class TextRefiner {
     private void checkIfPlainTextIsNullOrEmpty(String unrefinedPlainText) {
         if (unrefinedPlainText == null) {
             LOG.warn("\"Text\" is null.");
-            throw new NullPointerException("Text is null.");
+            throw new IllegalArgumentException("Text is null.");
         }
         if (unrefinedPlainText.equals("")) {
             LOG.warn("\"Text\" is empty.");
