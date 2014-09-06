@@ -1,13 +1,42 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.service.JsonResultPresentation;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
 
 public class JsonResultPresentationTest {
-    JsonResultPresentation jsonResultPresentation = new JsonResultPresentation();
+    private JsonResultPresentation jsonResultPresentation;
+
+    @Before
+    public void setUp(){
+        jsonResultPresentation = new JsonResultPresentation();
+    }
+
+    @Test
+    public void isEligible_json(){
+        //given
+        final String TYPE = "json";
+
+        //when
+        boolean actualResult = jsonResultPresentation.isEligible(TYPE);
+
+        //then
+        Assert.assertTrue(actualResult);
+    }
+
+    @Test
+    public void isEligible_gif(){
+        //given
+        final String TYPE = "gif";
+
+        //when
+        boolean actualResult = jsonResultPresentation.isEligible(TYPE);
+
+        //then
+        Assert.assertFalse(actualResult);
+    }
 
     @Test
     public void testCreateResponse() throws Exception {

@@ -5,13 +5,17 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextRefiner {
-    private static final String DASH = "—";
+    private static final String LONG_DASH = "—";
     private static final String WHITESPACES_MATCHER = "\\s+";
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
-    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
+    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-ЯіІїЇєЄёЁґҐ]");
+    private static final Pattern WORD_DASH_WORD = Pattern.compile("^[a-zA-Zа-яА-ЯіІїЇєЄёЁґҐ]+\\-[a-zA-Zа-яА-ЯіІїЇєЄёЁґҐ]+$");
+
+
 
     public List<String> refineText(String unrefinedPlainText) {
         checkIfPlainTextIsNullOrEmpty(unrefinedPlainText);
@@ -22,7 +26,10 @@ public class TextRefiner {
 
         String clearWord;
         for (String dirtyWord : splitWords) {
-            if (dirtyWord.contains(DASH)) {
+            Matcher matcher = WORD_DASH_WORD.matcher(dirtyWord);
+            if(matcher.matches()){
+                refinedWords.add(dirtyWord.toLowerCase());
+            } else if (dirtyWord.contains(LONG_DASH)) {
                 clearWord = splitByDash(dirtyWord);
                 refinedWords.add(clearWord);
             } else {
@@ -49,7 +56,7 @@ public class TextRefiner {
     }
 
     private String splitByDash(String wordWithDash) {
-        String[] separatedWords = wordWithDash.split(DASH);
+        String[] separatedWords = wordWithDash.split(LONG_DASH);
         String clearWord = null;
         for (String undashedWord : separatedWords) {
             clearWord = refineWord(undashedWord);

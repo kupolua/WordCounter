@@ -15,7 +15,7 @@ public class JsonResultPresentation implements ResultPresentation{
     private static final String DATA_TYPES = "json";
 
     @Override
-    public Boolean isEligible(String dataTypeResponse) {
+    public boolean isEligible(String dataTypeResponse) {
         boolean isEligible = false;
         if(dataTypeResponse.equals(DATA_TYPES)){
             isEligible = true;
