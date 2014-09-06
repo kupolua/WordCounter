@@ -1,6 +1,5 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.service.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +55,9 @@ public class DocumentConverterTest {
 
         //when
         converter.getDocumentConverter(NON_EXISTING_TYPE);
+
+        //then
+        //expected exception
     }
 
 }

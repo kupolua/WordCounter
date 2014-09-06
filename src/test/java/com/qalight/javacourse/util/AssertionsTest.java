@@ -14,6 +14,9 @@ public class AssertionsTest {
 
         //when
         Assertions.assertStringIsNotNullOrEmpty(DATA);
+
+        //then
+        //expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -23,6 +26,9 @@ public class AssertionsTest {
 
         //when
         Assertions.assertStringIsNotNullOrEmpty(DATA);
+
+        //then
+        //expected exception
     }
 
     @Test

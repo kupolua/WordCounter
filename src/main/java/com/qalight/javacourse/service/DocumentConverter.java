@@ -1,5 +1,7 @@
 package com.qalight.javacourse.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -7,6 +9,9 @@ import java.util.Set;
 
 @Component
 public class DocumentConverter {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DocumentConverter.class);
+
     private static Set<DocumentToStringConverter> documentToStringConverters;
     static {
         documentToStringConverters = new HashSet<>();
@@ -23,6 +28,7 @@ public class DocumentConverter {
             }
         }
         if(documentConverter == null){
+            LOG.warn("Cannot recognize a class (" + sourceType.getClass() + ")");
             throw new RuntimeException("Cannot recognize a class (" + sourceType.getClass() + ") in order to select appropriate converter.");
         }
         return documentConverter;

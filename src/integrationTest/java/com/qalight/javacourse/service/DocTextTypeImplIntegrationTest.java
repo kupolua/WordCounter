@@ -59,15 +59,23 @@ public class DocTextTypeImplIntegrationTest {
     public void testIsEligible_nullLink(){
         //given
         final String NULL_LINK = null;
+
         //when
         docTextType.isEligible(NULL_LINK);
+
+        //then
+        //expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyLink(){
         //given
         final String EMPTY_LINK = "";
+
         //when
         docTextType.isEligible(EMPTY_LINK);
+
+        //then
+        //expected exception
     }
 }

@@ -1,6 +1,5 @@
 package com.qalight.javacourse.core;
 
-import com.qalight.javacourse.core.WordResultSorter;
 import org.junit.Assert;
 import org.junit.Test;
 
