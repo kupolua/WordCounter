@@ -16,7 +16,6 @@ public class WordFilterTest {
 
     @Before
     public void setup() {
-
         wordFilter = new WordFilter();
         refiner = new TextRefiner();
     }
@@ -24,7 +23,7 @@ public class WordFilterTest {
     @Test
     public void testRemoveUnimportantWords() {
         //given
-        String text = "One, the one ONE-oNE  the Two  two to, a two!, three, an three, a усіх и в to";
+        String text = "One, the one ONE-oNE  the Two  two to, a two!, three, an three, a усіх и в to і та але";
         List<String> refineText = refiner.refineText(text);
 
         //when
@@ -33,6 +32,5 @@ public class WordFilterTest {
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
         Assert.assertEquals(expected, actual);
-
     }
 }

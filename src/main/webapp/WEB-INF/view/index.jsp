@@ -134,7 +134,7 @@
                     <input type="hidden" name="dataTypeResponse" value="json">
                 </p>
                 <p>
-                    <input id="myButton" type="button" value="Count Me!"/>
+                    <input id="myButton" type="button" value="Count words"/>
                 </p>
             </fieldset>
         </form>
