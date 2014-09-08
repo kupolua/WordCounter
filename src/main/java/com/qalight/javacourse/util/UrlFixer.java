@@ -15,7 +15,7 @@ public class UrlFixer {
     private static final Logger LOG = LoggerFactory.getLogger(UrlFixer.class);
     private static final String HTTP_PREFIX = "http://";
     private static final String HTTPS_PREFIX = "https://";
-    private static final Pattern URL = Pattern.compile("^(https?://)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([/\\w \\.-/%]*)*/?$");
+    private static final Pattern URL = Pattern.compile("^(https?://)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([/\\w\\-./%]*)*/?$");
 
     public String fixRequest(String userRequest){
         String request;
