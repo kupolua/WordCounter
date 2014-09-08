@@ -48,7 +48,7 @@ public class TextRefinerTest {
 
     @Test
     public void testEmail() {
-        //given
+        // given
         final String givenText = "stkotok@gmail.com ";
         System.out.println("Unrefined text: " + givenText);
 
