@@ -4,6 +4,7 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.StringJoiner;
 
@@ -16,7 +17,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
     @Override
     public boolean isEligible(TextType documentType) {
         boolean isEligible = false;
-        if(documentType instanceof PdfTextTypeImpl){
+        if (documentType instanceof PdfTextTypeImpl) {
             isEligible = true;
         }
         return isEligible;
@@ -42,7 +43,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         return text;
     }
 
-    private String getTextFromAllPages(PdfReader reader){
+    private String getTextFromAllPages(PdfReader reader) {
         StringJoiner joiner = new StringJoiner(" ");
 
         for (int i = 1; i <= reader.getNumberOfPages(); ++i) {

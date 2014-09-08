@@ -13,7 +13,7 @@ public class TextRefinerTest {
     private TextRefiner refiner;
 
     @Before
-    public void setup(){
+    public void setup() {
         refiner = new TextRefiner();
     }
 

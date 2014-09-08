@@ -26,14 +26,14 @@ public class DocTextTypeImplIntegrationTest {
     public void testIsEligible_validTypes() {
         //given
         final String[] SOURCE_LIST = {
-        "http://www.snee.com/xml/xslt/sample.doc",
-        "http://www.ojk.ee/sites/default/files/respondus-docx-sample-file_0.docx",
-        "http://thewalter.net/stef/software/rtfx/sample.rtf",
-        "http://www.openoffice.org/documentation/whitepapers/Creating_large_documents_with_OOo.odt",
-        "http://www.econ.yale.edu/~shiller/data/ie_data.xls",
-        "http://file-sample.com/wp-content/uploads/2013/07/Sample-Excel-Workbook-Document.xlsx",
-        "http://www.unm.edu/~unmvclib/powerpoint/pptexamples.ppt",
-        "https://sctcc.ims.mnscu.edu/shared/CheckYourComputer/SamplePPTX.pptx"
+                "http://www.snee.com/xml/xslt/sample.doc",
+                "http://www.ojk.ee/sites/default/files/respondus-docx-sample-file_0.docx",
+                "http://thewalter.net/stef/software/rtfx/sample.rtf",
+                "http://www.openoffice.org/documentation/whitepapers/Creating_large_documents_with_OOo.odt",
+                "http://www.econ.yale.edu/~shiller/data/ie_data.xls",
+                "http://file-sample.com/wp-content/uploads/2013/07/Sample-Excel-Workbook-Document.xlsx",
+                "http://www.unm.edu/~unmvclib/powerpoint/pptexamples.ppt",
+                "https://sctcc.ims.mnscu.edu/shared/CheckYourComputer/SamplePPTX.pptx"
         };
 
         //when
@@ -44,10 +44,10 @@ public class DocTextTypeImplIntegrationTest {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
-    private boolean checkIfSourceIsEligible(String[] list){
+    private boolean checkIfSourceIsEligible(String[] list) {
         boolean result = true;
-        for(String link : list){
-            if(!docTextType.isEligible(link)){
+        for (String link : list) {
+            if (!docTextType.isEligible(link)) {
                 result = false;
                 break;
             }
@@ -56,7 +56,7 @@ public class DocTextTypeImplIntegrationTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_nullLink(){
+    public void testIsEligible_nullLink() {
         //given
         final String NULL_LINK = null;
 
@@ -68,7 +68,7 @@ public class DocTextTypeImplIntegrationTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_emptyLink(){
+    public void testIsEligible_emptyLink() {
         //given
         final String EMPTY_LINK = "";
 

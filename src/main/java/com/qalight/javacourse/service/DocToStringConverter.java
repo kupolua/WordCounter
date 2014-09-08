@@ -1,8 +1,10 @@
 package com.qalight.javacourse.service;
+
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,7 +23,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
     @Override
     public boolean isEligible(TextType documentType) {
         boolean isEligible = false;
-        if(documentType instanceof DocTextTypeImpl){
+        if (documentType instanceof DocTextTypeImpl) {
             isEligible = true;
         }
         return isEligible;
@@ -44,7 +46,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
         return text;
     }
 
-    private URL createUrlObject(String userSourcesList){
+    private URL createUrlObject(String userSourcesList) {
         URL url;
         try {
             url = new URL(userSourcesList);

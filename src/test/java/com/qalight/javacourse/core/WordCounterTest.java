@@ -10,7 +10,7 @@ public class WordCounterTest {
     private WordCounter counter;
 
     @Before
-    public void setup(){
+    public void setup() {
         counter = new WordCounter();
     }
 

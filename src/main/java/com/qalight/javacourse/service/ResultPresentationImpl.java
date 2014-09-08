@@ -7,21 +7,20 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by pavelkulakovsky on 27.08.14.
- */
 @Component
 public class ResultPresentationImpl {
     private static final Logger LOG = LoggerFactory.getLogger(ResultPresentationImpl.class);
 
     private static Set<ResultPresentation> resultPresentations;
+
     static {
         resultPresentations = new HashSet<>();
         resultPresentations.add(new JsonResultPresentation());
     }
+
     public ResultPresentation getResultPresentation(String dataTypeResponse) {
 
-       checkForNullOrEmpty(dataTypeResponse);
+        checkForNullOrEmpty(dataTypeResponse);
 
         ResultPresentation resultPresentation = null;
         for (ResultPresentation currentResultPresentation : resultPresentations) {
@@ -30,7 +29,7 @@ public class ResultPresentationImpl {
                 break;
             }
         }
-        if(resultPresentation == null){
+        if (resultPresentation == null) {
             LOG.warn("Cannot recognize a response type (" + dataTypeResponse + ")");
             throw new RuntimeException("Cannot recognize a response type (" + dataTypeResponse + ") in order to select appropriate result type.");
         }
@@ -45,7 +44,7 @@ public class ResultPresentationImpl {
 
         if (dataTypeResponse.equals("")) {
             LOG.warn("\"dataTypeResponse\" parameter is empty.");
-            throw new IllegalArgumentException("Cannot recognize a response type. The link is empty." );
+            throw new IllegalArgumentException("Cannot recognize a response type. The link is empty.");
         }
     }
 }

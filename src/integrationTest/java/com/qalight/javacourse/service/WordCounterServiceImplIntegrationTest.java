@@ -172,22 +172,29 @@ public class WordCounterServiceImplIntegrationTest {
         public WordCounterService service() {
             return new WordCounterServiceImpl();
         }
+
         @Bean
         public TextTypeInquirer i() {
             return new TextTypeInquirer();
         }
+
         @Bean
         public DocumentConverter converter() {
             return new DocumentConverter();
         }
+
         @Bean
         public WordCounter counter() {
             return new WordCounter();
         }
-        @Bean ResultPresentationImpl presentation() {
+
+        @Bean
+        ResultPresentationImpl presentation() {
             return new ResultPresentationImpl();
         }
-        @Bean UrlFixer fixer() {
+
+        @Bean
+        UrlFixer fixer() {
             return new UrlFixer();
         }
     }

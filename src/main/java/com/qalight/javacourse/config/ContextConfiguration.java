@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="com.qalight.javacourse")
+@ComponentScan(basePackages = "com.qalight.javacourse")
 @PropertySource("classpath:/wordcounter.properties")
 public class ContextConfiguration extends WebMvcConfigurationSupport {
 
