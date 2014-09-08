@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by kpl on 20.08.2014.
- */
 public class JsonResultPresentation implements ResultPresentation {
     private static final String DATA_TYPES = "json";
 
