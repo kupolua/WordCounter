@@ -4,12 +4,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ResultPresentationImplTest {
-    private ResultPresentationImpl resultPresentationImpl;
+public class ResultPresentationServiceTest {
+    private ResultPresentationService resultPresentationService;
 
     @Before
     public void setup() {
-        resultPresentationImpl = new ResultPresentationImpl();
+        resultPresentationService = new ResultPresentationService();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -18,7 +18,7 @@ public class ResultPresentationImplTest {
         final String dataTypeResponse = null;
 
         //when
-        resultPresentationImpl.getResultPresentation(dataTypeResponse);
+        resultPresentationService.getResultPresentation(dataTypeResponse);
 
         //then
         //expected exception
@@ -30,7 +30,7 @@ public class ResultPresentationImplTest {
         final String dataTypeResponse = "";
 
         //when
-        resultPresentationImpl.getResultPresentation(dataTypeResponse);
+        resultPresentationService.getResultPresentation(dataTypeResponse);
 
         //then
         //expected exception
@@ -42,7 +42,7 @@ public class ResultPresentationImplTest {
         final String DATA_TYPE = "json";
 
         //when
-        ResultPresentation resultPresentation = resultPresentationImpl.getResultPresentation(DATA_TYPE);
+        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(DATA_TYPE);
 
         //then
         Assert.assertTrue(resultPresentation instanceof JsonResultPresentation);
@@ -54,7 +54,7 @@ public class ResultPresentationImplTest {
         final String NON_EXISTING_TYPE = "gif";
 
         //when
-        resultPresentationImpl.getResultPresentation(NON_EXISTING_TYPE);
+        resultPresentationService.getResultPresentation(NON_EXISTING_TYPE);
 
         //then
         //expected exception

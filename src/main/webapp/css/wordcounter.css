@@ -1,3 +1,13 @@
 #allContent {
     padding: 0px 50px;
 }
+#myHeader {
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 50px;
+    color: #2ba6cb;
+
+    padding-top: 25px;
+    padding-right: 50px;
+    padding-bottom: 25px;
+    padding-left: 50px;
+}

@@ -1,7 +1,7 @@
 package com.qalight.javacourse.controller;
 
 import com.qalight.javacourse.service.ResultPresentation;
-import com.qalight.javacourse.service.ResultPresentationImpl;
+import com.qalight.javacourse.service.ResultPresentationService;
 import com.qalight.javacourse.service.WordCounterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +22,9 @@ public class CountWordsController {
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String getResult(@RequestParam String userRequest, @RequestParam String dataTypeResponse) {
+    public String getResult(@RequestParam String userUrlsList, @RequestParam String dataTypeResponse) {
 
-        final String result = getResultAndCatchException(userRequest, dataTypeResponse);
+        final String result = getResultAndCatchException(userUrlsList, dataTypeResponse);
 
         return result;
     }
@@ -35,8 +35,8 @@ public class CountWordsController {
             result = wordCounterService.getWordCounterResult(dataSources, dataTypeResponse);
         } catch (Throwable e) {
             LOG.error("error while processing request: " + e.getMessage(), e);
-            ResultPresentationImpl resultPresentationImpl = new ResultPresentationImpl();
-            ResultPresentation resultPresentation = resultPresentationImpl.getResultPresentation(dataTypeResponse);
+            ResultPresentationService resultPresentationService = new ResultPresentationService();
+            ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
 
             result = resultPresentation.createErrorResponse(e.getMessage());
         }

@@ -189,8 +189,8 @@ public class WordCounterServiceImplIntegrationTest {
         }
 
         @Bean
-        ResultPresentationImpl presentation() {
-            return new ResultPresentationImpl();
+        ResultPresentationService presentation() {
+            return new ResultPresentationService();
         }
 
         @Bean

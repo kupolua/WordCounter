@@ -12,9 +12,9 @@ $(document).ready(function() {
         dataString = $("#myAjaxRequestForm").serialize();
 
         //getTextType the form data using another method
-        var userRequest = $("textarea#userRequest").val();
+        var userUrlsList = $("textarea#userUrlsList").val();
         var dataTypeResponse = $('input[name=dataTypeResponse]').val();
-        dataString = "userRequest=" + userRequest + "&dataTypeResponse=" + dataTypeResponse;
+        dataString = "userUrlsList=" + userUrlsList + "&dataTypeResponse=" + dataTypeResponse;
         //make the AJAX request, dataType is set to json
         //meaning we are expecting JSON data in response from the server
         $.ajax({

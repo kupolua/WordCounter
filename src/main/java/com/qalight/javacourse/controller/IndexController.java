@@ -23,5 +23,10 @@ public class IndexController {
         model.addAttribute("version", environment.getProperty(APP_VERSION));
         return "index";
     }
+    @RequestMapping(value = "about", method = RequestMethod.GET)
+    public ModelMap about(ModelMap model) {
+        model.addAttribute("version", environment.getProperty(APP_VERSION));
+        return model;
+    }
 
 }

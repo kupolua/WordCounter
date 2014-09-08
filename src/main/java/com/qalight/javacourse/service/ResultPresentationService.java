@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class ResultPresentationImpl {
-    private static final Logger LOG = LoggerFactory.getLogger(ResultPresentationImpl.class);
+public class ResultPresentationService {
+    private static final Logger LOG = LoggerFactory.getLogger(ResultPresentationService.class);
 
     private static Set<ResultPresentation> resultPresentations;
 

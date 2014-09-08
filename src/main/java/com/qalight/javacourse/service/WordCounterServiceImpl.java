@@ -23,7 +23,7 @@ public class WordCounterServiceImpl implements WordCounterService {
     @Autowired
     private WordCounter wordCounter;
     @Autowired
-    private ResultPresentationImpl resultPresentationImpl;
+    private ResultPresentationService resultPresentationService;
     @Autowired
     private UrlFixer urlFixer;
 
@@ -48,7 +48,7 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         Map<String, Integer> countedWords = wordCounter.countWords(refinedWordsWithFilter);
 
-        ResultPresentation resultPresentation = resultPresentationImpl.getResultPresentation(dataTypeResponse);
+        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
 
         String result = resultPresentation.createResponse(clientRequest, countedWords, dataTypeResponse);
 
