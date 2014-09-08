@@ -6,8 +6,10 @@ import org.slf4j.LoggerFactory;
 
 public class PdfTextTypeImpl implements TextType {
     private static final String TEXT_TYPE = "pdf";
-    private static final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
+    private final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
     private static final Logger LOG = LoggerFactory.getLogger(PdfTextTypeImpl.class);
+
+
 
     @Override
     public boolean isEligible(String dataSourceLink) {

@@ -31,7 +31,7 @@ public class WordCounterServiceImpl implements WordCounterService {
     public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
         checkParams(clientRequest, dataTypeResponse);
 
-        String fixedUrl = urlFixer.fixUrl(clientRequest);
+        String fixedUrl = urlFixer.fixRequest(clientRequest);
 
         TextType textType = textTypeInquirer.inquireTextType(fixedUrl);
 

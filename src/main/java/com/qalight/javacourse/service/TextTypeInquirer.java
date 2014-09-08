@@ -17,30 +17,31 @@ public class TextTypeInquirer {
         textTypes.add(new HtmlTextTypeImpl());
         textTypes.add(new PdfTextTypeImpl());
         textTypes.add(new DocTextTypeImpl());
+        textTypes.add(new PlainTextTypeImpl());
     }
 
-    public TextType inquireTextType(String textLink) {
-        checkForNullOrEmpty(textLink);
+    public TextType inquireTextType(String clientRequest) {
+        checkForNullOrEmpty(clientRequest);
         TextType textType = null;
         for (TextType sourceType : textTypes) {
-            if (sourceType.isEligible(textLink)) {
+            if (sourceType.isEligible(clientRequest)) {
                 textType = sourceType;
                 break;
             }
         }
         if(textType == null){
-            throw new IllegalArgumentException("Unknown text type. (" + textLink + ")");
+            throw new IllegalArgumentException("Unknown text type. (" + clientRequest + ")");
         }
         return textType;
     }
 
-    private void checkForNullOrEmpty(String textLink) {
-        if (textLink == null) {
-            LOG.error("\"textLink\" received parameter is NULL");
+    private void checkForNullOrEmpty(String clientRequest) {
+        if (clientRequest == null) {
+            LOG.error("\"clientRequest\" received parameter is NULL");
             throw new IllegalArgumentException(
                     "It is impossible to determine the type of the document because the link is null.");
         }
-        if (textLink.trim().equals("")) {
+        if (clientRequest.trim().equals("")) {
             throw new IllegalArgumentException(
                     "It is impossible to determine the type of the document because the link is empty.");
         }

@@ -27,12 +27,6 @@ public class DocTextTypeImplIntegrationTest {
         //given
         final String[] SOURCE_LIST = {
                 "http://www.snee.com/xml/xslt/sample.doc",
-                "http://www.ojk.ee/sites/default/files/respondus-docx-sample-file_0.docx",
-                "http://thewalter.net/stef/software/rtfx/sample.rtf",
-                "http://www.openoffice.org/documentation/whitepapers/Creating_large_documents_with_OOo.odt",
-                "http://www.econ.yale.edu/~shiller/data/ie_data.xls",
-                "http://file-sample.com/wp-content/uploads/2013/07/Sample-Excel-Workbook-Document.xlsx",
-                "http://www.unm.edu/~unmvclib/powerpoint/pptexamples.ppt",
                 "https://sctcc.ims.mnscu.edu/shared/CheckYourComputer/SamplePPTX.pptx"
         };
 

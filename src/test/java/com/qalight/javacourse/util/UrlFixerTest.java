@@ -1,6 +1,5 @@
 package com.qalight.javacourse.util;
 
-import com.qalight.javacourse.util.UrlFixer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +18,7 @@ public class UrlFixerTest {
         final String url = "google.com";
 
         //when
-        String actualResult = fixer.fixUrl(url);
+        String actualResult = fixer.fixRequest(url);
 
         //then
         final String expectedResult = "http://google.com";
@@ -33,7 +32,7 @@ public class UrlFixerTest {
         final String url = "http://google.com";
 
         //when
-        String actualResult = fixer.fixUrl(url);
+        String actualResult = fixer.fixRequest(url);
 
         //then
         final String expectedResult = "http://google.com";
