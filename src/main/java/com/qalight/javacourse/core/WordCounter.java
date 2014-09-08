@@ -32,7 +32,6 @@ public class WordCounter {
             }
         }
         countedWords.remove("");
-        System.out.println(countedWords);
         return countedWords;
     }
 }
