@@ -49,7 +49,7 @@ public class DocumentConverterTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void testNonExistingType(){
+    public void testNonExistingType() {
         // given
         final TextType NON_EXISTING_TYPE = dataSourceLink -> true;
 

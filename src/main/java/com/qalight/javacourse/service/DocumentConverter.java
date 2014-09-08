@@ -13,12 +13,14 @@ public class DocumentConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentConverter.class);
 
     private static Set<DocumentToStringConverter> documentToStringConverters;
+
     static {
         documentToStringConverters = new HashSet<>();
         documentToStringConverters.add(new HtmlToStringConverter());
         documentToStringConverters.add(new PdfToStringConverter());
         documentToStringConverters.add(new DocToStringConverter());
     }
+
     public DocumentToStringConverter getDocumentConverter(TextType sourceType) {
         DocumentToStringConverter documentConverter = null;
         for (DocumentToStringConverter documentToStringConverter : documentToStringConverters) {
@@ -27,7 +29,7 @@ public class DocumentConverter {
                 break;
             }
         }
-        if(documentConverter == null){
+        if (documentConverter == null) {
             LOG.warn("Cannot recognize a class (" + sourceType.getClass() + ")");
             throw new RuntimeException("Cannot recognize a class (" + sourceType.getClass() + ") in order to select appropriate converter.");
         }

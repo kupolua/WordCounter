@@ -36,7 +36,7 @@ public class TextTypeInquirer {
 
     private void checkForNullOrEmpty(String textLink) {
         if (textLink == null) {
-            LOG.error("\"textLink\"  received parameter is NULL");
+            LOG.error("\"textLink\" received parameter is NULL");
             throw new IllegalArgumentException(
                     "It is impossible to determine the type of the document because the link is null.");
         }

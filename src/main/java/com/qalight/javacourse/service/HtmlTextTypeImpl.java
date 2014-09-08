@@ -14,8 +14,8 @@ public class HtmlTextTypeImpl implements TextType {
         checkForNullOrEmpty(dataSourceLink);
         String textType = RESPONSE_HEADER_GETTER.getTextTypeByHttpHeader(dataSourceLink).toLowerCase();
         boolean isEligible = false;
-        for(String type : TEXT_TYPES){
-            if(textType.contains(type)){
+        for (String type : TEXT_TYPES) {
+            if (textType.contains(type)) {
                 isEligible = true;
                 break;
             }

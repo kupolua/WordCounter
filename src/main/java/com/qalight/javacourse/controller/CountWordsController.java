@@ -22,7 +22,7 @@ public class CountWordsController {
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String getResult (@RequestParam String userRequest, @RequestParam String dataTypeResponse) {
+    public String getResult(@RequestParam String userRequest, @RequestParam String dataTypeResponse) {
 
         final String result = getResultAndCatchException(userRequest, dataTypeResponse);
 

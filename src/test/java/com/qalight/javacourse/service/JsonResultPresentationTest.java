@@ -10,12 +10,12 @@ public class JsonResultPresentationTest {
     private JsonResultPresentation jsonResultPresentation;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         jsonResultPresentation = new JsonResultPresentation();
     }
 
     @Test
-    public void isEligible_json(){
+    public void isEligible_json() {
         //given
         final String TYPE = "json";
 
@@ -27,7 +27,7 @@ public class JsonResultPresentationTest {
     }
 
     @Test
-    public void isEligible_gif(){
+    public void isEligible_gif() {
         //given
         final String TYPE = "gif";
 
@@ -44,11 +44,11 @@ public class JsonResultPresentationTest {
         final String expectedJsonResponse = "{\"success\":true,\"dataAjax\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]]}";
         final String sourceLink = "http://www.eslfast.com/supereasy/se/supereasy006.htm";
         final Map<String, Integer> countedWords = new HashMap<String, Integer>();
-                countedWords.put("Hello", 10);
-                countedWords.put("World", 7);
-                countedWords.put("Word", 13);
-                countedWords.put("Counter", 5);
-                countedWords.put("Project", 24);
+        countedWords.put("Hello", 10);
+        countedWords.put("World", 7);
+        countedWords.put("Word", 13);
+        countedWords.put("Counter", 5);
+        countedWords.put("Project", 24);
         final String dataTypeResponse = "json";
 
         //when

@@ -49,7 +49,7 @@ public class ResultPresentationImplTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void testNonExistingType(){
+    public void testNonExistingType() {
         // given
         final String NON_EXISTING_TYPE = "gif";
 

@@ -11,13 +11,13 @@ import java.util.Map;
 /**
  * Created by kpl on 20.08.2014.
  */
-public class JsonResultPresentation implements ResultPresentation{
+public class JsonResultPresentation implements ResultPresentation {
     private static final String DATA_TYPES = "json";
 
     @Override
     public boolean isEligible(String dataTypeResponse) {
         boolean isEligible = false;
-        if(dataTypeResponse.equals(DATA_TYPES)){
+        if (dataTypeResponse.equals(DATA_TYPES)) {
             isEligible = true;
         }
         return isEligible;

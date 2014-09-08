@@ -16,11 +16,16 @@ import java.util.Map;
 public class WordCounterServiceImpl implements WordCounterService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired private TextTypeInquirer textTypeInquirer;
-    @Autowired private DocumentConverter documentConverter;
-    @Autowired private WordCounter wordCounter;
-    @Autowired private ResultPresentationImpl resultPresentationImpl;
-    @Autowired private UrlFixer urlFixer;
+    @Autowired
+    private TextTypeInquirer textTypeInquirer;
+    @Autowired
+    private DocumentConverter documentConverter;
+    @Autowired
+    private WordCounter wordCounter;
+    @Autowired
+    private ResultPresentationImpl resultPresentationImpl;
+    @Autowired
+    private UrlFixer urlFixer;
 
     @Override
     public String getWordCounterResult(String clientRequest, String dataTypeResponse) {

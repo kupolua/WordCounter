@@ -18,7 +18,7 @@ public class PdfToStringConverterTest {
     }
 
     @Test
-     public void testIsEligible()  {
+    public void testIsEligible() {
         //given
         final TextType DOCUMENT_TYPE = new PdfTextTypeImpl();
 
@@ -30,7 +30,7 @@ public class PdfToStringConverterTest {
     }
 
     @Test
-    public void testIsNotEligible()  {
+    public void testIsNotEligible() {
         //given
         final TextType DOCUMENT_TYPE = new DocTextTypeImpl();
 

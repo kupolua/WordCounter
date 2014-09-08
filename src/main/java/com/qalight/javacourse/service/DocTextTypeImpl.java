@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  * Created by box on 03.09.2014.
  */
 public class DocTextTypeImpl implements TextType {
-    private static final String[] TEXT_TYPES = {"rtf", "opendocument", "openxmlformats", "msword", "ms-excel", "ms-powerpoint" };
+    private static final String[] TEXT_TYPES = {"rtf", "opendocument", "openxmlformats", "msword", "ms-excel", "ms-powerpoint"};
     private static final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
     private static final Logger LOG = LoggerFactory.getLogger(DocTextTypeImpl.class);
 
@@ -17,8 +17,8 @@ public class DocTextTypeImpl implements TextType {
         checkForNullOrEmpty(dataSourceLink);
         String textType = RESPONSE_HEADER_GETTER.getTextTypeByHttpHeader(dataSourceLink).toLowerCase();
         boolean isEligible = false;
-        for(String type : TEXT_TYPES){
-            if(textType.contains(type)){
+        for (String type : TEXT_TYPES) {
+            if (textType.contains(type)) {
                 isEligible = true;
                 break;
             }
@@ -34,7 +34,7 @@ public class DocTextTypeImpl implements TextType {
 
         if (dataSourceLink.equals("")) {
             LOG.warn("\"dataSourceLink\" parameter is empty.");
-            throw new IllegalArgumentException("Cannot recognize a document type. The link is empty." );
+            throw new IllegalArgumentException("Cannot recognize a document type. The link is empty.");
         }
     }
 }

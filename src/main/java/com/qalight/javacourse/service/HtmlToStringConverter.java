@@ -12,14 +12,14 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlToStringConverter.class);
     private final HtmlToPlainText htmlToPlainText;
 
-    public HtmlToStringConverter(){
+    public HtmlToStringConverter() {
         htmlToPlainText = new HtmlToPlainText();
     }
 
     @Override
     public boolean isEligible(TextType documentType) {
         boolean isEligible = false;
-        if(documentType instanceof HtmlTextTypeImpl){
+        if (documentType instanceof HtmlTextTypeImpl) {
             isEligible = true;
         }
         return isEligible;
