@@ -7,9 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by pavelkulakovsky on 27.08.14.
- */
 @Component
 public class ResultPresentationImpl {
     private static final Logger LOG = LoggerFactory.getLogger(ResultPresentationImpl.class);
