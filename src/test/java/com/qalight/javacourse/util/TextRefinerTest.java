@@ -14,7 +14,7 @@ public class TextRefinerTest {
     private TextRefiner refiner;
 
     @Before
-    public void setup(){
+    public void setup() {
         refiner = new TextRefiner();
     }
 
@@ -44,21 +44,6 @@ public class TextRefinerTest {
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
 //        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testArrayList() {
-        List<String> list = new ArrayList<>();
-        list.add("A");
-        list.add("B");
-        list.add("C");
-
-        System.out.println(list);
-        for (String string : list) {
-            list.remove(0);
-        }
-
-        System.out.println(list);
     }
 
     @Test(expected = IllegalArgumentException.class)

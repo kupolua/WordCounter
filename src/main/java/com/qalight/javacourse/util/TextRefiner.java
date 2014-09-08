@@ -12,7 +12,7 @@ public class TextRefiner {
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
     private static final String WHITESPACES_MATCHER = "\\s+";
     //    private static final String NON_BREAKING_HYPHEN = "[999]";
-    private static final String NON_BREAKING_HYPHEN = "[&#8]";
+    private static final String NON_BREAKING_HYPHEN = "&#8";
     private static final String DASH = "—";
     private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 //    private static final Pattern WHITESPACES_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
@@ -47,13 +47,18 @@ public class TextRefiner {
         return words;
     }
 
-    private List<String> replaceSpecSymbols(List<String> words) {
-        for (String word : words) {
-            word = word.replaceAll(NON_BREAKING_HYPHEN, "-");
-
+    public List<String> replaceSpecSymbols(List<String> words) {
+        for (int i = 0; i < words.size(); i++) {
+            String word = words.get(i);
+            if (word.contains(NON_BREAKING_HYPHEN)) {
+                System.out.println("\tunhandled word = " + word);
+                word = word.replaceAll(NON_BREAKING_HYPHEN, "-");
+                System.out.println("\t  handled word = " + word);
+                words.set(i, word);
+            }
         }
         return words;
-        }
+    }
 
     private String refineWord(String dirtyWord) {
         return NON_WORD_LETTER_PATTERN.matcher(dirtyWord).replaceAll("").toLowerCase();
@@ -66,7 +71,7 @@ public class TextRefiner {
         }
         if (unrefinedPlainText.equals("")) {
             LOG.warn("\"Text\" is empty.");
-            throw new IllegalArgumentException("Text is empty." );
+            throw new IllegalArgumentException("Text is empty.");
         }
     }
 
