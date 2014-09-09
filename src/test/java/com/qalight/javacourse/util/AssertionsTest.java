@@ -1,10 +1,7 @@
 package com.qalight.javacourse.util;
 
-import com.qalight.javacourse.util.Assertions;
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class AssertionsTest {
 
     @Test(expected = IllegalArgumentException.class)

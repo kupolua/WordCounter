@@ -26,6 +26,10 @@ public class WordCounterServiceImpl implements WordCounterService {
     private ResultPresentationService resultPresentationService;
     @Autowired
     private UrlFixer urlFixer;
+    @Autowired
+    private TextRefiner refiner;
+    @Autowired
+    private WordFilter wordFilter;
 
     @Override
     public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
@@ -39,11 +43,9 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         String plainText = documentToStringConverter.convertToString(fixedUrl);
 
-        TextRefiner refiner = new TextRefiner();
 
         List<String> refinedWords = refiner.refineText(plainText);
 
-        WordFilter wordFilter = new WordFilter();
         List<String> refinedWordsWithFilter = wordFilter.removeUnimportantWords(refinedWords);
 
         Map<String, Integer> countedWords = wordCounter.countWords(refinedWordsWithFilter);

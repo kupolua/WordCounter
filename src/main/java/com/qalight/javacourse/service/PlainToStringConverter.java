@@ -15,7 +15,7 @@ public class PlainToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public String convertToString(String userSourcesList) {
-        return userSourcesList;
+    public String convertToString(String userRequest) {
+        return userRequest;
     }
 }

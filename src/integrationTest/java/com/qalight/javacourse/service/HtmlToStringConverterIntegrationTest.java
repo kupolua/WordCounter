@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class HtmlToStringConverterIntegrationTest {
 
     private HtmlToStringConverter converter;
@@ -36,5 +35,17 @@ public class HtmlToStringConverterIntegrationTest {
 
         //then
         Assert.assertNotNull(actualResult);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testConvertToString_badUrl() {
+        //given
+        final String URL = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
+
+        //when
+        converter.convertToString(URL);
+
+        //then
+        //expected exception
     }
 }

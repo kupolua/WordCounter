@@ -25,6 +25,19 @@ public class ResponseHeaderGetterIntegrationTest {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    public void testGetTextTypeByHttpHeader_plainText() {
+        //given
+        final String dataSourceLink = "Путин Ху*ло ла, ла, ла!!!";
+        final String expectedResult = "plain_text_type";
+
+        //when
+        final String actualResult = responseHeaderGetter.getTextTypeByHttpHeader(dataSourceLink);
+
+        //then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testGetTextTypeByHttpHeader_emptyUrl() {
         //given
@@ -49,4 +62,15 @@ public class ResponseHeaderGetterIntegrationTest {
         //expected exception
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetTextTypeByHttpHeader_exeType() {
+        //given
+        final String URL = "www.xmlfiles.com/examples/cd_ca22123talog";
+
+        //when
+        responseHeaderGetter.getTextTypeByHttpHeader(URL);
+
+        //then
+        //expected exception
+    }
 }

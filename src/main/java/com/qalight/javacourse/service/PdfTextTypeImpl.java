@@ -9,8 +9,6 @@ public class PdfTextTypeImpl implements TextType {
     private final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
     private static final Logger LOG = LoggerFactory.getLogger(PdfTextTypeImpl.class);
 
-
-
     @Override
     public boolean isEligible(String dataSourceLink) {
         checkForNullOrEmpty(dataSourceLink);

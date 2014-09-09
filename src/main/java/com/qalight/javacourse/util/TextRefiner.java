@@ -2,11 +2,13 @@ package com.qalight.javacourse.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class TextRefiner {
     private static final String LONG_DASH = "—";
     private static final String WHITESPACES_MATCHER = "\\s+";

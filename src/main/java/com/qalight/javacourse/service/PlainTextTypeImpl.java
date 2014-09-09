@@ -14,20 +14,20 @@ public class PlainTextTypeImpl implements TextType {
     private static final Logger LOG = LoggerFactory.getLogger(PlainTextTypeImpl.class);
 
     @Override
-    public boolean isEligible(String dataSourceLink) {
-        checkForNullOrEmpty(dataSourceLink);
-        String textType = RESPONSE_HEADER_GETTER.getTextTypeByHttpHeader(dataSourceLink).toLowerCase();
+    public boolean isEligible(String userRequest) {
+        checkForNullOrEmpty(userRequest);
+        String textType = RESPONSE_HEADER_GETTER.getTextTypeByHttpHeader(userRequest).toLowerCase();
         return textType.contains(TEXT_TYPE);
     }
 
-    private void checkForNullOrEmpty(String dataSourceLink) {
-        if (dataSourceLink == null) {
-            LOG.warn("\"dataSourceLink\" parameter is NULL.");
+    private void checkForNullOrEmpty(String userRequest) {
+        if (userRequest == null) {
+            LOG.warn("\"userRequest\" parameter is NULL.");
             throw new IllegalArgumentException("Cannot recognize a document type. The link is null.");
         }
 
-        if (dataSourceLink.equals("")) {
-            LOG.warn("\"dataSourceLink\" parameter is empty.");
+        if (userRequest.equals("")) {
+            LOG.warn("\"userRequest\" parameter is empty.");
             throw new IllegalArgumentException("Cannot recognize a document type. The link is empty.");
         }
     }

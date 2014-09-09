@@ -24,4 +24,16 @@ public class PdfToStringConverterIntegrationTest {
         //then
         Assert.assertNotNull(actualResult);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void testConvertToString_badUrl() {
+        //given
+        final String URL = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
+
+        //when
+        pdfToStringConverter.convertToString(URL);
+
+        //then
+        //expected exception
+    }
 }

@@ -39,4 +39,18 @@ public class UrlFixerTest {
 
         Assert.assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void testFixUrl_plainText() throws Exception {
+        //given
+        final String url = "Путин Ху*ло ла, ла, ла!!!";
+
+        //when
+        String actualResult = fixer.fixRequest(url);
+
+        //then
+        final String expectedResult = "Путин Ху*ло ла, ла, ла!!!";
+
+        Assert.assertEquals(expectedResult, actualResult);
+    }
 }

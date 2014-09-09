@@ -25,4 +25,28 @@ public class DocToStringConverterIntegrationTest {
         //then
         assertNotNull(actualResult);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void testConvertToString_badUrl() {
+        //given
+        final String URL = "http://www.xmlfiles.com/examples/cd_ca22123talog";
+
+        //when
+        docToStringConverter.convertToString(URL);
+
+        //then
+        //expected exception
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testConvertToString_woProtocol() {
+        //given
+        final String URL = "www.xmlfiles.com/examples/cd_ca22123talog";
+
+        //when
+        docToStringConverter.convertToString(URL);
+
+        //then
+        //expected exception
+    }
 }
