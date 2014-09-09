@@ -1,3 +1,5 @@
+package com.qalight.javacourse;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +16,7 @@ import static org.junit.Assert.fail;
 public class WebFormTest {
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
     private static final String CONTEXT = "/WordCounter/";
-    private static final int TIME_WAIT = 2000;
+    private static final int TIME_WAIT = 3500;
     private static final int PORT = 8080;
 
     private WebDriver driver;
