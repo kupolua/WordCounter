@@ -36,7 +36,7 @@ public class WebFormTest {
         driver.get(baseUrl);
 
         // when
-        driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.id("button")).click();
         sleep(TIME_WAIT);
 
         // then
@@ -54,7 +54,7 @@ public class WebFormTest {
         // when
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE + "a");
-        driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.id("button")).click();
         sleep(TIME_WAIT);
 
         // then
@@ -71,7 +71,7 @@ public class WebFormTest {
         // when
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.id("button")).click();
         driver.findElement(By.className("sorting")).click();
         sleep(TIME_WAIT);
 
@@ -88,7 +88,7 @@ public class WebFormTest {
         // when
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.id("button")).click();
         driver.findElement(By.className("sorting_desc")).click();
         sleep(TIME_WAIT);
 
@@ -105,7 +105,7 @@ public class WebFormTest {
         // when
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.id("button")).click();
         driver.findElement(By.className("sorting")).click();
         driver.findElement(By.className("sorting")).click();
         sleep(TIME_WAIT);
@@ -123,7 +123,7 @@ public class WebFormTest {
         // when
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id("myButton")).click();
+        driver.findElement(By.id("button")).click();
         sleep(TIME_WAIT);
 
         // then

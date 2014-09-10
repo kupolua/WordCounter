@@ -17,16 +17,14 @@ public class IndexController {
 
     @Autowired
     private Environment environment;
-
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
         model.addAttribute("version", environment.getProperty(APP_VERSION));
         return "index";
     }
-    @RequestMapping(value = "about", method = RequestMethod.GET)
-    public ModelMap about(ModelMap model) {
+    @RequestMapping("/About")
+    public String about(ModelMap model) {
         model.addAttribute("version", environment.getProperty(APP_VERSION));
-        return model;
+        return "about";
     }
-
 }
