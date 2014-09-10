@@ -43,7 +43,6 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         String plainText = documentToStringConverter.convertToString(fixedUrl);
 
-
         List<String> refinedWords = refiner.refineText(plainText);
 
         List<String> refinedWordsWithFilter = wordFilter.removeUnimportantWords(refinedWords);

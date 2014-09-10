@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class ResponseHeaderGetter {
     private static final String PLAIN_TEXT_TYPE = "plain_text_type";
     private static final Logger LOG = LoggerFactory.getLogger(ResponseHeaderGetter.class);
-    private static final Pattern URL = Pattern.compile("^(https?://)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([/\\w\\-./%]*)*/?$");
+    private static final Pattern URL = Pattern.compile("^(https?://)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([/\\w\\-. /%\\n]*)*/?$");
 
 
     public String getTextTypeByHttpHeader(String userRequest) {

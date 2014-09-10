@@ -1,6 +1,5 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.service.WordFilter;
 import com.qalight.javacourse.util.TextRefiner;
 import org.junit.Assert;
 import org.junit.Before;

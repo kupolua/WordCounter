@@ -1,6 +1,5 @@
 package com.qalight.javacourse.util;
 
-import com.qalight.javacourse.util.TextRefiner;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,9 +1,5 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.service.DocTextTypeImpl;
-import com.qalight.javacourse.service.PdfTextTypeImpl;
-import com.qalight.javacourse.service.PdfToStringConverter;
-import com.qalight.javacourse.service.TextType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
