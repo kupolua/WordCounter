@@ -13,7 +13,7 @@
         <div id="myHeader">
             <a href="/WordCounter">Word Counter ${version}</a>
         </div>
-        <div id="aboutUsHeaderLine">About Us</div>
+        <div id="aboutUsHeaderLine">About us</div>
         <div id="aboutUsText">Any text about us</div>
     </div>
 </body>
