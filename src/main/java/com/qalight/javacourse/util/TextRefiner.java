@@ -4,44 +4,46 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
 public class TextRefiner {
-    private static final String LONG_DASH = "—";
-    private static final String WHITESPACES_MATCHER = "\\s+";
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
-    private static final Pattern NON_WORD_LETTER_PATTERN = Pattern.compile("[^a-zA-Zа-яА-ЯіІїЇєЄёЁґҐ]");
-    private static final Pattern WORD_DASH_WORD = Pattern.compile("^[a-zA-Zа-яА-ЯіІїЇєЄёЁґҐ]+\\-[a-zA-Zа-яА-ЯіІїЇєЄёЁґҐ]+$");
-
+    private static final Pattern WHITESPACES_PATTERN = Pattern.compile(
+            "(\\s+)|(&nbsp;)|(&#160;)|(&ensp;)|(&#8194;)|(&emsp;)|(&#8195;)|(&thinsp;)|(&#8201;)|(&zwnj;)|(&#8204;)|—");
+    private static final String NON_BREAKING_HYPHEN = "&#8";
+    private static final Pattern CLEAN_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 
     public List<String> refineText(String unrefinedPlainText) {
+
         checkIfPlainTextIsNullOrEmpty(unrefinedPlainText);
 
-        String[] splitWords = unrefinedPlainText.split(WHITESPACES_MATCHER);
+        List<String> words = new ArrayList<>(Arrays.asList(WHITESPACES_PATTERN.split(unrefinedPlainText)));
 
-        List<String> refinedWords = new ArrayList<>();
+        words = cleanWords(words);
 
-        String clearWord;
-        for (String dirtyWord : splitWords) {
-            Matcher matcher = WORD_DASH_WORD.matcher(dirtyWord);
-            if (matcher.matches()) {
-                refinedWords.add(dirtyWord.toLowerCase());
-            } else if (dirtyWord.contains(LONG_DASH)) {
-                clearWord = splitByDash(dirtyWord);
-                refinedWords.add(clearWord);
-            } else {
-                clearWord = refineWord(dirtyWord);
-                refinedWords.add(clearWord);
-            }
-        }
-        return refinedWords;
+        return words;
     }
 
-    private String refineWord(String dirtyWord) {
-        return NON_WORD_LETTER_PATTERN.matcher(dirtyWord).replaceAll("").toLowerCase();
+    private List<String> cleanWords(List<String> words) {
+        int i = 0;
+        while (i < words.size()) {
+            String word = words.get(i);
+            if (word.contains(NON_BREAKING_HYPHEN)) {
+                word = word.replaceAll(NON_BREAKING_HYPHEN, "-");
+                words.set(i, word);
+            }
+            word = CLEAN_PATTERN.matcher(word).replaceAll("").toLowerCase();
+            if (word.trim().isEmpty()) {
+                words.remove(i);
+            } else {
+                words.set(i, word);
+                i++;
+            }
+        }
+        return words;
     }
 
     private void checkIfPlainTextIsNullOrEmpty(String unrefinedPlainText) {
@@ -53,14 +55,5 @@ public class TextRefiner {
             LOG.warn("\"Text\" is empty.");
             throw new IllegalArgumentException("Text is empty.");
         }
-    }
-
-    private String splitByDash(String wordWithDash) {
-        String[] separatedWords = wordWithDash.split(LONG_DASH);
-        String clearWord = null;
-        for (String undashedWord : separatedWords) {
-            clearWord = refineWord(undashedWord);
-        }
-        return clearWord;
     }
 }

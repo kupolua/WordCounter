@@ -17,15 +17,16 @@ public class TextRefinerTest {
     }
 
     @Test
-    public void testGetRefinedText() {
+    public void testRefineText() {
         //given
-        String text = "One, one ONE-oNE  Two  two, two!, three, three, усіх";
+        String givenText = "One—one&#160; ONE-oNE someMail@gmail.com  Two&#8two, two!, thre/e, three—усіх";
 
         //when
-        List<String> actual = refiner.refineText(text);
+        List<String> actual = refiner.refineText(givenText);
 
+        System.out.println(givenText + "\n" + actual);
         //then
-        List<String> expected = Arrays.asList("one", "one", "one-one", "two", "two", "two", "three", "three", "усіх");
+        List<String> expected = Arrays.asList("one", "one", "one-one", "somemailgmailcom", "two-two", "two", "three", "three", "усіх");
         Assert.assertEquals(expected, actual);
 
     }
