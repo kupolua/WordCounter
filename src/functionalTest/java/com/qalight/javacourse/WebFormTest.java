@@ -149,7 +149,6 @@ public class WebFormTest {
             "Search:\n" +
             "Word Count\n" +
             "one 4\n" +
-            "r 1\n" +
             "two 3\n" +
             "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
             "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
@@ -158,10 +157,10 @@ public class WebFormTest {
             "объём 1\n" +
             "ёлка 3\n" +
             "єнот 1\n" +
-            "Showing 1 to 10 of 11 entries\n" +
+            "їжак 2\n" +
+            "Showing 1 to 10 of 10 entries\n" +
             "Previous\n" +
             "1\n" +
-            "2\n" +
             "Next";
 
     private static final String EXPECTED_SORTING_VALUE_ASCENDING = "Show\n" +
@@ -173,7 +172,6 @@ public class WebFormTest {
             "Search:\n" +
             "Word Count\n" +
             "объём 1\n" +
-            "r 1\n" +
             "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
             "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
             "єнот 1\n" +
@@ -182,10 +180,10 @@ public class WebFormTest {
             "ёлка 3\n" +
             "two 3\n" +
             "объем 3\n" +
-            "Showing 1 to 10 of 11 entries\n" +
+            "one 4\n" +
+            "Showing 1 to 10 of 10 entries\n" +
             "Previous\n" +
             "1\n" +
-            "2\n" +
             "Next";
 
     private static final String EXPECTED_SORTING_KEY_DESCENDING = "Show\n" +
@@ -196,7 +194,6 @@ public class WebFormTest {
             "entries\n" +
             "Search:\n" +
             "Word Count\n" +
-            "r 1\n" +
             "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
             "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
             "объём 1\n" +
@@ -206,10 +203,10 @@ public class WebFormTest {
             "білка 3\n" +
             "объем 3\n" +
             "ёлка 3\n" +
-            "Showing 1 to 10 of 11 entries\n" +
+            "one 4\n" +
+            "Showing 1 to 10 of 10 entries\n" +
             "Previous\n" +
             "1\n" +
-            "2\n" +
             "Next";
 
     private static final String EXPECTED_SORTING_VALUE_DESCENDING = "Show\n" +
@@ -227,12 +224,11 @@ public class WebFormTest {
             "объем 3\n" +
             "їжак 2\n" +
             "объём 1\n" +
-            "r 1\n" +
             "ааббввггґґддееєєжжззииііїїййккллммннооппррссттууффххццччшшщщььююяя 1\n" +
             "ааббввггддееёёжжззииййккллммннооппррссттууффххццччшшщщъъыыььээююяя 1\n" +
-            "Showing 1 to 10 of 11 entries\n" +
+            "єнот 1\n" +
+            "Showing 1 to 10 of 10 entries\n" +
             "Previous\n" +
             "1\n" +
-            "2\n" +
             "Next";
 }
