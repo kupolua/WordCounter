@@ -24,7 +24,6 @@ public class TextRefinerTest {
         //when
         List<String> actual = refiner.refineText(givenText);
 
-        System.out.println(givenText + "\n" + actual);
         //then
         List<String> expected = Arrays.asList("one", "one", "one-one", "somemailgmailcom", "two-two", "two", "three", "three", "усіх");
         Assert.assertEquals(expected, actual);
