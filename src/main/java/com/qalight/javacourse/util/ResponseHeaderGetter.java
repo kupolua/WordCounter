@@ -6,23 +6,17 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ResponseHeaderGetter {
     private static final String PLAIN_TEXT_TYPE = "plain_text_type";
     private static final Logger LOG = LoggerFactory.getLogger(ResponseHeaderGetter.class);
-    private static final Pattern URL = Pattern.compile("^(https?://)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([/\\w\\-. /%\\n]*)*/?$");
-
 
     public String getTextTypeByHttpHeader(String userRequest) {
         checkForNullOrEmpty(userRequest);
 
-        Matcher matcher = URL.matcher(userRequest);
-
         String contentType;
 
-        if(matcher.matches()) {
+        if(userRequest.startsWith("http")) {
             contentType = getType(userRequest);
         } else {
             contentType = PLAIN_TEXT_TYPE;

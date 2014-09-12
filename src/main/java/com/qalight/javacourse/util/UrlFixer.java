@@ -3,9 +3,8 @@ package com.qalight.javacourse.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by box on 27.08.2014.
@@ -13,20 +12,21 @@ import java.util.regex.Pattern;
 @Component
 public class UrlFixer {
     private static final Logger LOG = LoggerFactory.getLogger(UrlFixer.class);
+    private static final int TIMEOUT = 1000;
     private static final String HTTP_PREFIX = "http://";
     private static final String HTTPS_PREFIX = "https://";
-    private static final Pattern URL = Pattern.compile("^(https?://)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([/\\w\\-. /%\\n]*)*/?$");
 
     public String fixRequest(String userRequest){
         String request;
-        Matcher matcher = URL.matcher(userRequest);
-        if(!matcher.matches()){
-            request = userRequest;
+        String fixedUrl = fixUrl(userRequest);
+        if(checkUrl(fixedUrl, TIMEOUT)){
+            request = fixedUrl;
         } else {
-            request = fixUrl(userRequest);
+            request = userRequest;
         }
         return request;
     }
+
     private String fixUrl(String userUrl) {
         String sourcesWithoutWhitespaces = userUrl.trim();
         if (!(sourcesWithoutWhitespaces.startsWith(HTTPS_PREFIX) || sourcesWithoutWhitespaces.startsWith(HTTP_PREFIX))) {
@@ -34,5 +34,20 @@ public class UrlFixer {
             sourcesWithoutWhitespaces = HTTP_PREFIX + sourcesWithoutWhitespaces;
         }
         return sourcesWithoutWhitespaces;
+    }
+
+    private boolean checkUrl(String url, int timeout) {
+        url = url.replaceFirst("https", "http");
+
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setConnectTimeout(timeout);
+            connection.setReadTimeout(timeout);
+            connection.setRequestMethod("HEAD");
+            int responseCode = connection.getResponseCode();
+            return (200 <= responseCode && responseCode <= 399);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

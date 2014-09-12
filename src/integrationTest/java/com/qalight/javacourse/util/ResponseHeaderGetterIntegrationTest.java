@@ -61,16 +61,4 @@ public class ResponseHeaderGetterIntegrationTest {
         //then
         //expected exception
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetTextTypeByHttpHeader_exeType() {
-        //given
-        final String URL = "www.xmlfiles.com/examples/cd_ca22123talog";
-
-        //when
-        responseHeaderGetter.getTextTypeByHttpHeader(URL);
-
-        //then
-        //expected exception
-    }
 }
