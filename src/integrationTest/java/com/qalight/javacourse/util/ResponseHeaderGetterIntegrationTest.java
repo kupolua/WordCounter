@@ -15,14 +15,14 @@ public class ResponseHeaderGetterIntegrationTest {
     @Test
     public void testGetTextTypeByHttpHeader_html() {
         //given
-        final String dataSourceLink = "http://defas.com.ua/java/testingPage.html";
-        final String expectedResult = "[text/html]";
+        final String dataSourceLink = "http://defas.com.ua/java/%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%BA%D0%B0%20%D1%80%D1%83%D1%81.html";
+        final String expectedResult = "text/html";
 
         //when
         final String actualResult = responseHeaderGetter.getTextTypeByHttpHeader(dataSourceLink);
 
         //then
-        Assert.assertEquals(expectedResult, actualResult);
+        Assert.assertTrue(actualResult.contains(expectedResult));
     }
 
     @Test
