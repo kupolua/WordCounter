@@ -24,7 +24,7 @@ public class TextRefiner {
 
         List<String> words = new ArrayList<>(Arrays.asList(WHITESPACES_PATTERN.split(unrefinedPlainText)));
 
-        List<String> urlsList = new ArrayList<>();
+        List<String> urlsList = new ArrayList<String>();
         for (String word : words) {
             Matcher matcher = URL_PATTERN.matcher(word.toLowerCase());
             if (matcher.matches()) {
@@ -45,7 +45,6 @@ public class TextRefiner {
     private List<String> cleanUrls(List<String> urlsList) {
         for (int i = 0; i < urlsList.size(); i++) {
             String url = urlsList.get(i);
-//            url = url.replaceAll("[<>]", "");
             url = url.replaceAll(JSOUP_TAGS, "");
             urlsList.set(i, url);
         }
