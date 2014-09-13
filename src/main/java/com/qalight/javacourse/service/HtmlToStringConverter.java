@@ -27,7 +27,6 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userUrl) {
-
         Document html;
         try {
             html = Jsoup.connect(userUrl).get();

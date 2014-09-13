@@ -3,7 +3,6 @@ package com.qalight.javacourse.util;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,13 +32,25 @@ public class TextRefinerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyParameter() {
-        String text = "";
-        refiner.refineText(text);
+        //given
+        final String TEXT = "";
+
+        //when
+        refiner.refineText(TEXT);
+
+        //then
+        //expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullParameter() {
-        String text = null;
-        refiner.refineText(text);
+        //given
+        final String TEXT = null;
+
+        //when
+        refiner.refineText(TEXT);
+
+        //then
+        //expected exception
     }
 }

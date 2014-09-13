@@ -27,7 +27,6 @@ public class HtmlToStringConverterTest {
 
     @Test
     public void testIsNotEligible() {
-
         //given
         final TextType DOCUMENT_TYPE = new PdfTextTypeImpl();
 

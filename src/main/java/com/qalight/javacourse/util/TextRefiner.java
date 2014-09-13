@@ -3,7 +3,6 @@ package com.qalight.javacourse.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,15 +11,13 @@ import java.util.regex.Pattern;
 public class TextRefiner {
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
     private static final String NON_BREAKING_HYPHEN = "&#8";
-    private static final Pattern WHITESPACES_PATTERN = Pattern.compile(
-            "(\\s+)|(&nbsp;)|(&#160;)|(&ensp;)|(&#8194;)|(&emsp;)|(&#8195;)|(&thinsp;)|(&#8201;)|(&zwnj;)|(&#8204;)|—");
-    private static final Pattern HYPHEN_PATTERN = Pattern.compile(
-            "(.+-)|(-.+)");
+    private static final Pattern WHITESPACES_PATTERN =
+            Pattern.compile("(\\s+)|(&nbsp;)|(&#160;)|(&ensp;)|(&#8194;)|(&emsp;)|(&#8195;)|(&thinsp;)|(&#8201;)|(&zwnj;)|(&#8204;)|—");
+    private static final Pattern HYPHEN_PATTERN = Pattern.compile("(.+-)|(-.+)");
     private static final Pattern URL_PATTERN = Pattern.compile("(http://.*)|(https://.*)|(ftp://.*)|(www\\..*)");
     private static final Pattern CLEAN_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 
     public List<String> refineText(String unrefinedPlainText) {
-
         checkIfPlainTextIsNullOrEmpty(unrefinedPlainText);
 
         List<String> words = new ArrayList<>(Arrays.asList(WHITESPACES_PATTERN.split(unrefinedPlainText)));

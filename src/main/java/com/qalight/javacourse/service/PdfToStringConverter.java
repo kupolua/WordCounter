@@ -4,7 +4,6 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.StringJoiner;
 
@@ -38,9 +37,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         }
         LOG.info("Connection to " + userUrl + " has been successfully established.");
 
-        String text = getTextFromAllPages(reader);
-
-        return text;
+        return getTextFromAllPages(reader);
     }
 
     private String getTextFromAllPages(PdfReader reader) {

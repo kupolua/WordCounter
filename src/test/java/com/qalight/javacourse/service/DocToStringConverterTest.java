@@ -1,6 +1,5 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.service.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +27,6 @@ public class DocToStringConverterTest {
 
     @Test
     public void testIsNotEligible() {
-
         //given
         final TextType DOCUMENT_TYPE = new PdfTextTypeImpl();
 

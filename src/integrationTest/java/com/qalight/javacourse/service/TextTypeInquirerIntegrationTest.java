@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TextTypeInquirerIntegrationTest {
-
     private TextTypeInquirer textTypeInquirer;
 
     @Before
@@ -51,22 +50,16 @@ public class TextTypeInquirerIntegrationTest {
         Assert.assertTrue(actualResult.toString().startsWith(expectedResult));
     }
 
-    @Test
-    public void testInquireTextType_usupportedFormat() {
+    @Test(expected = IllegalArgumentException.class)
+    public void testInquireTextType_unsupportedFormat() {
         //given
         final String dataSourceLink = "http://defas.com.ua/java/fdbasecd.iso";
-        final String expectedResult = "java.lang.IllegalArgumentException: Unknown text type. (" + dataSourceLink + ")";
 
         //when
-        Exception actualException = null;
-        try {
-            textTypeInquirer.inquireTextType(dataSourceLink);
-        } catch (IllegalArgumentException e) {
-            actualException = e;
-        }
+        textTypeInquirer.inquireTextType(dataSourceLink);
 
         //then
-        Assert.assertEquals(expectedResult, actualException.toString());
+        //expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)

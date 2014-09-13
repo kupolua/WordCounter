@@ -3,7 +3,6 @@ package com.qalight.javacourse.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.*;
 
 public class JsonResultPresentationTest {
@@ -43,7 +42,7 @@ public class JsonResultPresentationTest {
         //given
         final String expectedJsonResponse = "{\"success\":true,\"dataAjax\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]]}";
         final String sourceLink = "http://www.eslfast.com/supereasy/se/supereasy006.htm";
-        final Map<String, Integer> countedWords = new HashMap<String, Integer>();
+        final Map<String, Integer> countedWords = new HashMap<>();
         countedWords.put("Hello", 10);
         countedWords.put("World", 7);
         countedWords.put("Word", 13);

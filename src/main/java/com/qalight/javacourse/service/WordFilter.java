@@ -2,7 +2,6 @@ package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.util.TextRefiner;
 import org.springframework.stereotype.Component;
-
 import java.io.*;
 import java.util.List;
 import java.util.Properties;
@@ -14,7 +13,6 @@ public class WordFilter {
     private String keyWordsForFilterUA = "wordsUA";
 
     public List<String> removeUnimportantWords(List<String> refinedWords) {
-
         String wordsForFilter = getPropertiesValue(keyWordsForFilterEN) + " " + getPropertiesValue(keyWordsForFilterRU)
                 + " " + getPropertiesValue(keyWordsForFilterUA);
         TextRefiner textRefiner = new TextRefiner();
@@ -24,7 +22,6 @@ public class WordFilter {
     }
 
     public String getPropertiesValue(String key) {
-
         String propFileName = "wordcounter.properties";
         Properties properties = new Properties();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);

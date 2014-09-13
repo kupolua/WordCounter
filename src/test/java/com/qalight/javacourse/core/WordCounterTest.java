@@ -3,7 +3,6 @@ package com.qalight.javacourse.core;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.*;
 
 public class WordCounterTest {
