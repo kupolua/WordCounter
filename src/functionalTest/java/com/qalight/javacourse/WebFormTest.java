@@ -280,12 +280,12 @@ public class WebFormTest {
             "vkamenniygmailcom 1\n" +
             "другнарод 1\n" +
             "человек 1\n" +
-            "httphabrahabrrupoststopweekly 1\n" +
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "ученики 1\n" +
             "іёлка 1\n" +
             "завет 1\n" +
             "имя 1\n" +
-            "httpswwwgooglecomuasearchqjavapatterncompilesplitoqdbeddbcdpatterncompiledbdbdbddbaqschromeijljjsourceidchromeessmieutf- 1\n" +
             "слово 1\n" +
             "сказал 1\n" +
             "Showing 1 to 22 of 22 entries\n" +
@@ -330,12 +330,12 @@ public class WebFormTest {
             "vkamenniygmailcom 1\n" +
             "другнарод 1\n" +
             "человек 1\n" +
-            "httphabrahabrrupoststopweekly 1\n" +
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "ученики 1\n" +
             "іёлка 1\n" +
             "завет 1\n" +
             "имя 1\n" +
-            "httpswwwgooglecomuasearchqjavapatterncompilesplitoqdbeddbcdpatterncompiledbdbdbddbaqschromeijljjsourceidchromeessmieutf- 1\n" +
             "Showing 11 to 20 of 22 entries\n" +
             "Previous\n" +
             "1\n" +
@@ -365,8 +365,8 @@ public class WebFormTest {
             "entries\n" +
             "Search:\n" +
             "Word Count\n" +
-            "httphabrahabrrupoststopweekly 1\n" +
-            "httpswwwgooglecomuasearchqjavapatterncompilesplitoqdbeddbcdpatterncompiledbdbdbddbaqschromeijljjsourceidchromeessmieutf- 1\n" +
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "one 4\n" +
             "two 3\n" +
             "vkamenniygmailcom 1\n" +
@@ -398,8 +398,8 @@ public class WebFormTest {
             "vkamenniygmailcom 1\n" +
             "другнарод 1\n" +
             "человек 1\n" +
-            "httphabrahabrrupoststopweekly 1\n" +
-            "ученики 1\n" +
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "Showing 1 to 10 of 22 entries\n" +
             "Previous\n" +
             "1\n" +
@@ -415,8 +415,8 @@ public class WebFormTest {
             "entries\n" +
             "Search:\n" +
             "Word Count\n" +
-            "httphabrahabrrupoststopweekly 1\n" +
-            "httpswwwgooglecomuasearchqjavapatterncompilesplitoqdbeddbcdpatterncompiledbdbdbddbaqschromeijljjsourceidchromeessmieutf- 1\n" +
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "vkamenniygmailcom 1\n" +
             "время 1\n" +
             "дом 1\n" +

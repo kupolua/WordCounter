@@ -16,6 +16,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+@Ignore
 public class WordCounterServiceImplIntegrationTest {
     private final static String DATA_TYPE_RESPONSE = "json";
     private final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";

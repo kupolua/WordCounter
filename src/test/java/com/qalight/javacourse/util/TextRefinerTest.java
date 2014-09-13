@@ -19,13 +19,15 @@ public class TextRefinerTest {
     @Test
     public void testRefineText() {
         //given
-        String givenText = "One—one&#160; ONE-oNE someMail@gmail.com  Two&#8two, two!, thre/e, three—усіх";
+        String givenText = "eEe - two-two усіх—oNe&#160;:, thre/E!: three- -wwww,  " +
+                "http://www.i.ua  https://www.i.ua  ftp://i.ua  www.i.ua";
+        List<String> expected = Arrays.asList("eee", "two-two", "усіх", "one", "three", "three", "wwww",
+                "http://www.i.ua", "https://www.i.ua", "ftp://i.ua", "www.i.ua");
 
         //when
         List<String> actual = refiner.refineText(givenText);
 
         //then
-        List<String> expected = Arrays.asList("one", "one", "one-one", "somemailgmailcom", "two-two", "two", "three", "three", "усіх");
         Assert.assertEquals(expected, actual);
     }
 

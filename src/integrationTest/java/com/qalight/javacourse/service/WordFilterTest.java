@@ -3,6 +3,7 @@ package com.qalight.javacourse.service;
 import com.qalight.javacourse.util.TextRefiner;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -20,6 +21,7 @@ public class WordFilterTest {
     }
 
     @Test
+    @Ignore
     public void testRemoveUnimportantWords() {
         //given
         String text = "One, the one ONE-oNE  the Two  two to, a two!, three, an three, a усіх и в to і та але";
