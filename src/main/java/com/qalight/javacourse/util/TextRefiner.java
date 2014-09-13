@@ -11,10 +11,12 @@ import java.util.regex.Pattern;
 public class TextRefiner {
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
     private static final String NON_BREAKING_HYPHEN = "&#8";
+    private static final String JSOUP_TAGS = "[<>]";
     private static final Pattern WHITESPACES_PATTERN =
             Pattern.compile("(\\s+)|(&nbsp;)|(&#160;)|(&ensp;)|(&#8194;)|(&emsp;)|(&#8195;)|(&thinsp;)|(&#8201;)|(&zwnj;)|(&#8204;)|—");
     private static final Pattern HYPHEN_PATTERN = Pattern.compile("(.+-)|(-.+)");
-    private static final Pattern URL_PATTERN = Pattern.compile("(http://.*)|(https://.*)|(ftp://.*)|(www\\..*)");
+    private static final Pattern URL_PATTERN = Pattern.compile(
+            "(<http://.*)|(<https://.*)|(<ftp://.*)|(<www\\..*)|(http://.*)|(https://.*)|(ftp://.*)|(www\\..*)");
     private static final Pattern CLEAN_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 
     public List<String> refineText(String unrefinedPlainText) {
@@ -31,11 +33,23 @@ public class TextRefiner {
         }
         words.removeAll(urlsList);
 
+        urlsList = cleanUrls(urlsList);
+
         words = cleanWords(words);
 
         words.addAll(urlsList);
 
         return words;
+    }
+
+    private List<String> cleanUrls(List<String> urlsList) {
+        for (int i = 0; i < urlsList.size(); i++) {
+            String url = urlsList.get(i);
+//            url = url.replaceAll("[<>]", "");
+            url = url.replaceAll(JSOUP_TAGS, "");
+            urlsList.set(i, url);
+        }
+        return urlsList;
     }
 
     private List<String> cleanWords(List<String> words) {

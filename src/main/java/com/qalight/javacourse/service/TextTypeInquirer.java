@@ -1,5 +1,6 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.util.ResponseHeaderGetter;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Component
 public class TextTypeInquirer {
+    private static final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
     private static final Logger LOG = LoggerFactory.getLogger(TextTypeInquirer.class);
 
     private static Set<TextType> textTypes;
@@ -19,17 +21,19 @@ public class TextTypeInquirer {
         textTypes.add(new PlainTextTypeImpl());
     }
 
-    public TextType inquireTextType(String clientRequest) {
-        checkForNullOrEmpty(clientRequest);
+    public TextType inquireTextType(String dataSourceLink) {
+        checkForNullOrEmpty(dataSourceLink);
+        String textTypeHeader = RESPONSE_HEADER_GETTER.getTextTypeByHttpHeader(dataSourceLink).toLowerCase();
+        System.out.println("textTypeHeader = " + textTypeHeader);
         TextType textType = null;
         for (TextType sourceType : textTypes) {
-            if (sourceType.isEligible(clientRequest)) {
+            if (sourceType.isEligible(textTypeHeader)) {
                 textType = sourceType;
                 break;
             }
         }
         if(textType == null){
-            throw new IllegalArgumentException("Unknown text type. (" + clientRequest + ")");
+            throw new IllegalArgumentException("Unknown text type. (" + dataSourceLink + ")");
         }
         return textType;
     }

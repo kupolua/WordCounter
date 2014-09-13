@@ -19,8 +19,10 @@ public class TextRefinerTest {
     public void testRefineText() {
         //given
         String givenText = "eEe - two-two усіх—oNe&#160;:, thre/E!: three- -wwww,  " +
-                "http://www.i.ua  https://www.i.ua  ftp://i.ua  www.i.ua";
+                "http://www.i.ua  https://www.i.ua  ftp://i.ua  www.i.ua " +
+                "<http://www.i.ua>  <https://www.i.ua>  <ftp://i.ua>  <www.i.ua> ";
         List<String> expected = Arrays.asList("eee", "two-two", "усіх", "one", "three", "three", "wwww",
+                "http://www.i.ua", "https://www.i.ua", "ftp://i.ua", "www.i.ua",
                 "http://www.i.ua", "https://www.i.ua", "ftp://i.ua", "www.i.ua");
 
         //when
