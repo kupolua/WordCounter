@@ -41,9 +41,11 @@ public class PlainToStringConverterTest {
     public void testConvertToString() throws Exception {
         //given
         final String PLAIN_TEXT = "В мире есть много интересных занятий.";
+
         //when
         String actualResult = plainToStringConverter.convertToString(PLAIN_TEXT);
+
         //then
-        Assert.assertNotNull(actualResult);
+        Assert.assertEquals("string should be equal", PLAIN_TEXT, actualResult);
     }
 }

@@ -17,6 +17,7 @@ public class IndexController {
 
     @Autowired
     private Environment environment;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
         model.addAttribute("version", environment.getProperty(APP_VERSION));
