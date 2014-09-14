@@ -48,6 +48,10 @@ task functionalTest(type: Test) {
 }
 check.dependsOn functionalTest
 
+task nonFunctionalTest(dependsOn: ['test', 'integrationTest'])
+
+task testAll (dependsOn: ['nonFunctionalTest', 'functionalTest'])
+
 dependencies {
     compile 'org.apache.tika:tika-core:1.5'
     compile 'org.apache.tika:tika-parsers:1.5'
