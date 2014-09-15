@@ -4,31 +4,21 @@ import com.qalight.javacourse.core.WordCounter;
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.TextRefiner;
 import com.qalight.javacourse.util.UrlFixer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class WordCounterServiceImpl implements WordCounterService {
-    private final Logger log = LoggerFactory.getLogger(getClass());
-
-    @Autowired
-    private TextTypeInquirer textTypeInquirer;
-    @Autowired
-    private DocumentConverter documentConverter;
-    @Autowired
-    private WordCounter wordCounter;
-    @Autowired
-    private ResultPresentationService resultPresentationService;
-    @Autowired
-    private UrlFixer urlFixer;
-    @Autowired
-    private TextRefiner refiner;
-    @Autowired
-    private WordFilter wordFilter;
+    @Autowired private TextTypeInquirer textTypeInquirer;
+    @Autowired private DocumentConverter documentConverter;
+    @Autowired private WordCounter wordCounter;
+    @Autowired private ResultPresentationService resultPresentationService;
+    @Autowired private UrlFixer urlFixer;
+    @Autowired private TextRefiner refiner;
+    @Autowired private WordFilter wordFilter;
 
     @Override
     public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
