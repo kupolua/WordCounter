@@ -2,7 +2,6 @@ package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.core.WordCounter;
 import com.qalight.javacourse.util.TextRefiner;
-import com.qalight.javacourse.util.UrlFixer;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -141,11 +140,6 @@ public class WordCounterServiceImplIntegrationTest {
         @Bean
         ResultPresentationService presentation() {
             return new ResultPresentationService();
-        }
-
-        @Bean
-        UrlFixer fixer() {
-            return new UrlFixer();
         }
 
         @Bean
