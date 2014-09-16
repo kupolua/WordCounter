@@ -3,7 +3,6 @@ package com.qalight.javacourse.service;
 import com.qalight.javacourse.core.WordCounter;
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.TextRefiner;
-import com.qalight.javacourse.util.UrlFixer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,6 @@ public class WordCounterServiceImpl implements WordCounterService {
     @Autowired private DocumentConverter documentConverter;
     @Autowired private WordCounter wordCounter;
     @Autowired private ResultPresentationService resultPresentationService;
-    @Autowired private UrlFixer urlFixer;
     @Autowired private TextRefiner refiner;
     @Autowired private WordFilter wordFilter;
 
@@ -24,13 +22,11 @@ public class WordCounterServiceImpl implements WordCounterService {
     public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
         checkParams(clientRequest, dataTypeResponse);
 
-        String fixedUrl = urlFixer.fixRequest(clientRequest);
-
-        TextType textType = textTypeInquirer.inquireTextType(fixedUrl);
+        TextType textType = textTypeInquirer.inquireTextType(clientRequest);
 
         DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(textType);
 
-        String plainText = documentToStringConverter.convertToString(fixedUrl);
+        String plainText = documentToStringConverter.convertToString(clientRequest);
 
         List<String> refinedWords = refiner.refineText(plainText);
 
