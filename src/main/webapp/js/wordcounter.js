@@ -35,7 +35,7 @@ $(document).ready(function() {
         //getTextType the form data using another method
         var userUrlsList = $("textarea#userUrlsList").val();
         var dataTypeResponse = $('input[name=dataTypeResponse]').val();
-        dataString = "userUrlsList=" + userUrlsList + "&dataTypeResponse=" + dataTypeResponse;
+        dataString = "userUrlsList=" + encodeURIComponent(userUrlsList) + "&dataTypeResponse=" + dataTypeResponse;
         //make the AJAX request, dataType is set to json
         //meaning we are expecting JSON data in response from the server
         $.ajax({
