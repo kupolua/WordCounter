@@ -20,8 +20,9 @@ public class JsonResultPresentation implements ResultPresentation {
     }
 
     @Override
-    public String createResponse(String textLink, Map<String, Integer> countedWords, String dataTypeResponse) {
+    public String createResponse(String textLink, Map<String, Integer> countedWords, Map<String, Integer> unFilteredWords, String dataTypeResponse) {
         List<List<String>> countWordsResultResponse = new ArrayList<>();
+        List<List<String>> countUnFilteredWordsResultResponse = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entry : countedWords.entrySet()) {
             List<String> countWordResultResponse = new ArrayList<>();
@@ -29,14 +30,22 @@ public class JsonResultPresentation implements ResultPresentation {
             countWordResultResponse.add(entry.getValue().toString());
             countWordsResultResponse.add(countWordResultResponse);
         }
+        for (Map.Entry<String, Integer> entryUnFilteredWords : unFilteredWords.entrySet()) {
+            List<String> countUnFilteredWordsWordResultResponse = new ArrayList<>();
+            countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getKey());
+            countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getValue().toString());
+            countUnFilteredWordsResultResponse.add(countUnFilteredWordsWordResultResponse);
+        }
 
         Gson gson = new Gson();
         JsonObject countedWordsListObj = new JsonObject();
 
-        JsonElement listUsersUrls = gson.toJsonTree(countWordsResultResponse);
+        JsonElement filteredWords = gson.toJsonTree(countWordsResultResponse);
+        JsonElement listUnFilteredWords = gson.toJsonTree(countUnFilteredWordsResultResponse);
 
         countedWordsListObj.addProperty("success", true);
-        countedWordsListObj.add("dataAjax", listUsersUrls);
+        countedWordsListObj.add("filteredWords", filteredWords);
+        countedWordsListObj.add("dataAjax", listUnFilteredWords);
 
         return countedWordsListObj.toString();
     }

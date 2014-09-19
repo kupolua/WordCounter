@@ -1,3 +1,40 @@
+var filteredWords;
+var unFilteredWords;
+
+function getFilteredWords(isFilter) {
+    if (isFilter == 1){
+        $('#getFilterWords').html( '<div id="filterWords" onclick="getFilteredWords(0)">Filter words</div>');
+        writeTable(unFilteredWords);
+    } else {
+        $('#getFilterWords').html( '<div id="filterWords" onclick="getFilteredWords(1)">Unfilter words</div>');
+        writeTable(filteredWords);
+    }
+}
+
+function writeTable(parsed, filter) {
+    $('#ajaxResponse').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
+    $('#showFilter').html( '<a href="filter" target="_blank">Show filter</a>');
+    var arr1 = [];
+    var parsedLength = parsed.length;
+
+    for(i = 0; i < parsedLength; i++){
+        arr1[i] = [];
+        var parsedLength2 = parsed[i].length;
+        for(j = 0; j < parsedLength2; j++) {
+            arr1[i][j] = parsed[i][j];
+        }
+    }
+
+    $('#example').dataTable( {
+        "data": arr1,
+        "order": [ 1, 'desc' ],
+        "columns": [
+            { "title": "Word" },
+            { "title": "Count" }
+        ]
+    });
+}
+
 $(document).ready(function() {
 
     var opts = {
@@ -48,27 +85,9 @@ $(document).ready(function() {
             success: function( data, textStatus, jqXHR) {
                 //our country code was correct so we have some information to display
                 if(data.success){
-                    $('#ajaxResponse').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
-                    var parsed = data.dataAjax;
-                    var arr1 = [];
-                    var parsedLength = parsed.length;
-
-                    for(i = 0; i < parsedLength; i++){
-                        arr1[i] = [];
-                        var parsedLength2 = parsed[i].length;
-                        for(j = 0; j < parsedLength2; j++) {
-                            arr1[i][j] = parsed[i][j];
-                        }
-                    }
-
-                    $('#example').dataTable( {
-                        "data": arr1,
-                        "order": [ 1, 'desc' ],
-                        "columns": [
-                            { "title": "Word" },
-                            { "title": "Count" }
-                        ]
-                    });
+                    unFilteredWords = data.dataAjax;
+                    filteredWords = data.filteredWords;
+                    getFilteredWords(1);
                 }
                 //display error message
                 else {

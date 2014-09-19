@@ -30,13 +30,15 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         List<String> refinedWords = refiner.refineText(plainText);
 
+        Map<String, Integer> unFilteredWords = wordCounter.countWords(refinedWords);
+
         List<String> refinedWordsWithFilter = wordFilter.removeUnimportantWords(refinedWords);
 
         Map<String, Integer> countedWords = wordCounter.countWords(refinedWordsWithFilter);
 
         ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
 
-        String result = resultPresentation.createResponse(clientRequest, countedWords, dataTypeResponse);
+        String result = resultPresentation.createResponse(clientRequest, countedWords, unFilteredWords, dataTypeResponse);
 
         return result;
     }
