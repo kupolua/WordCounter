@@ -14,6 +14,7 @@ import static org.junit.Assert.fail;
 
 public class WebFormTest {
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
+    private static final String PDF_TEST_PAGE = "http://defas.com.ua/java/textForSeleniumTest.pdf";
     private static final String CONTEXT = "/WordCounter/";
     private static final int TIME_WAIT = 3600;
     private static final int PORT = 8080;
@@ -217,6 +218,23 @@ public class WebFormTest {
         assertEquals(EXPECTED_INPUT_TEXT, actualInputText);
     }
 
+    @Test
+    public void testReadingPDF() throws Exception {
+        // given
+        driver.get(baseUrl);
+
+        // when
+        driver.findElement(By.id("userUrlsList")).clear();
+        driver.findElement(By.id("userUrlsList")).sendKeys(PDF_TEST_PAGE);
+        driver.findElement(By.id("button")).click();
+        driver.findElement(By.className("sorting")).click();
+        sleep(TIME_WAIT);
+
+        //then
+        String actualReadingPDF = driver.findElement(By.id("ajaxResponse")).getText();
+        assertEquals(EXPECTED_READING_PDF, actualReadingPDF);
+    }
+
     @After
     public void tearDown() throws Exception {
         driver.quit();
@@ -225,6 +243,31 @@ public class WebFormTest {
             fail(verificationErrorString);
         }
     }
+
+    private static final String EXPECTED_READING_PDF = "Show\n" +
+            "10\n" +
+            "25\n" +
+            "50\n" +
+            "100\n" +
+            "entries\n" +
+            "Search:\n" +
+            "Word Count\n" +
+            "dbdbddbaqschromeijljjsourc 1\n" +
+            "ddbcdpatterncompiledb 1\n" +
+            "eidchromeessmieutf 1\n" +
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE 1\n" +
+            "one 4\n" +
+            "two 3\n" +
+            "vkamenniygmailcom 1\n" +
+            "білка 3\n" +
+            "время 1\n" +
+            "Showing 1 to 10 of 24 entries\n" +
+            "Previous\n" +
+            "1\n" +
+            "2\n" +
+            "3\n" +
+            "Next";
 
     private static final String EXPECTED_INPUT_TEXT = "Show\n" +
             "10\n" +
