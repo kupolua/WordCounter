@@ -13,8 +13,10 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 // todo: check only json response, not whole div with id 'ajaxResponse'
+// todo: get rid of sleep() method - wait for response
 public class WebFormTest {
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
     private static final String PDF_TEST_PAGE = "http://defas.com.ua/java/textForSeleniumTest.pdf";
@@ -95,7 +97,7 @@ public class WebFormTest {
 
         //then
         String actualSortingKeyAscending = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SORTING_KEY_ASCENDING, actualSortingKeyAscending);
+        assertTrue(actualSortingKeyAscending.contains(EXPECTED_SORTING_KEY_ASCENDING));
     }
 
     @Test
@@ -112,7 +114,7 @@ public class WebFormTest {
 
         // then
         String actualSortingValueAscending = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SORTING_VALUE_ASCENDING, actualSortingValueAscending);
+        assertTrue(actualSortingValueAscending.contains(EXPECTED_SORTING_VALUE_ASCENDING));
     }
 
     @Test
@@ -130,7 +132,7 @@ public class WebFormTest {
 
         // then
         String actualSortingKeyDescending = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SORTING_KEY_DESCENDING, actualSortingKeyDescending);
+        assertTrue(actualSortingKeyDescending.contains(EXPECTED_SORTING_KEY_DESCENDING));
     }
 
     @Test
@@ -146,7 +148,7 @@ public class WebFormTest {
 
         // then
         String actualSortingValueDescending = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SORTING_VALUE_DESCENDING, actualSortingValueDescending);
+        assertTrue(actualSortingValueDescending.contains(EXPECTED_SORTING_VALUE_DESCENDING));
     }
 
     @Test
@@ -164,7 +166,7 @@ public class WebFormTest {
 
         // then
         String actualSearchWord = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SEARCH_WORD, actualSearchWord);
+        assertTrue(actualSearchWord.contains(EXPECTED_SEARCH_WORD));
     }
 
     @Test
@@ -181,7 +183,7 @@ public class WebFormTest {
 
         // then
         String actualNextResponse = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_NEXT_RESPONSE, actualNextResponse);
+        assertTrue(actualNextResponse.contains(EXPECTED_NEXT_RESPONSE));
     }
 
     @Test
@@ -200,7 +202,7 @@ public class WebFormTest {
 
         // then
         String actualPreviousResponse = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_PREVIOUS_RESPONSE, actualPreviousResponse);
+        assertTrue(actualPreviousResponse.contains(EXPECTED_PREVIOUS_RESPONSE));
     }
 
     @Test
@@ -217,7 +219,7 @@ public class WebFormTest {
 
         // then
         String actualShowEntries = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SHOW_ENTRIES, actualShowEntries);
+        assertTrue(actualShowEntries.contains(EXPECTED_SHOW_ENTRIES));
     }
 
     @Test
@@ -233,7 +235,7 @@ public class WebFormTest {
 
         // then
         String actualInputText = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_INPUT_TEXT, actualInputText);
+        assertTrue(actualInputText.contains(EXPECTED_INPUT_TEXT));
     }
 
     @Test
@@ -250,12 +252,10 @@ public class WebFormTest {
 
         //then
         String actualReadingPDF = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_READING_PDF, actualReadingPDF);
+        assertTrue(actualReadingPDF.contains(EXPECTED_READING_PDF));
     }
 
-    private static final String RESULT_HEADER = "Show 102550100 entries\nSearch:\nWord Count\n";
-
-    private static final String EXPECTED_READING_PDF = RESULT_HEADER +
+    private static final String EXPECTED_READING_PDF =
             "dbdbddbaqschromeijljjsourc 1\n" +
             "ddbcdpatterncompiledb 1\n" +
             "eidchromeessmieutf 1\n" +
@@ -273,7 +273,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_INPUT_TEXT = RESULT_HEADER +
+    private static final String EXPECTED_INPUT_TEXT =
             "one 4\n" +
             "ёлка 3\n" +
             "two 3\n" +
@@ -296,7 +296,7 @@ public class WebFormTest {
             "\n" +
             "Їжак їжак єнот білка БІЛКА БіЛкА ";
 
-    private static final String EXPECTED_SHOW_ENTRIES = RESULT_HEADER +
+    private static final String EXPECTED_SHOW_ENTRIES =
             "one 4\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -324,7 +324,7 @@ public class WebFormTest {
             "1\n" +
             "Next";
 
-    private static final String EXPECTED_PREVIOUS_RESPONSE = RESULT_HEADER +
+    private static final String EXPECTED_PREVIOUS_RESPONSE =
             "one 4\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -342,7 +342,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_NEXT_RESPONSE = RESULT_HEADER +
+    private static final String EXPECTED_NEXT_RESPONSE =
             "время 1\n" +
             "vkamenniygmailcom 1\n" +
             "другнарод 1\n" +
@@ -360,14 +360,14 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_SEARCH_WORD = RESULT_HEADER +
+    private static final String EXPECTED_SEARCH_WORD =
             "білка 3\n" +
             "Showing 1 to 1 of 1 entries (filtered from 22 total entries)\n" +
             "Previous\n" +
             "1\n" +
             "Next";
 
-    private static final String EXPECTED_SORTING_KEY_ASCENDING = RESULT_HEADER +
+    private static final String EXPECTED_SORTING_KEY_ASCENDING =
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
             "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "one 4\n" +
@@ -385,7 +385,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_SORTING_VALUE_ASCENDING = RESULT_HEADER +
+    private static final String EXPECTED_SORTING_VALUE_ASCENDING =
             "объём 1\n" +
             "дом 1\n" +
             "нообъем 1\n" +
@@ -403,7 +403,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_SORTING_KEY_DESCENDING = RESULT_HEADER +
+    private static final String EXPECTED_SORTING_KEY_DESCENDING =
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
             "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "vkamenniygmailcom 1\n" +
@@ -421,7 +421,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_SORTING_VALUE_DESCENDING = RESULT_HEADER +
+    private static final String EXPECTED_SORTING_VALUE_DESCENDING =
             "one 4\n" +
             "two 3\n" +
             "білка 3\n" +
