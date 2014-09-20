@@ -95,7 +95,7 @@ public class WebFormTest {
 
         //then
         String actualSortingKeyAscending = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SORTING_KEY_ASCENDING, actualSortingKeyAscending);
+        assertEquals(ignoreNewLine(EXPECTED_SORTING_KEY_ASCENDING), ignoreNewLine(actualSortingKeyAscending));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class WebFormTest {
 
         // then
         String actualSortingValueAscending = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SORTING_VALUE_ASCENDING, actualSortingValueAscending);
+        assertEquals(ignoreNewLine(EXPECTED_SORTING_VALUE_ASCENDING), ignoreNewLine(actualSortingValueAscending));
     }
 
     @Test
@@ -130,7 +130,7 @@ public class WebFormTest {
 
         // then
         String actualSortingKeyDescending = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SORTING_KEY_DESCENDING, actualSortingKeyDescending);
+        assertEquals(ignoreNewLine(EXPECTED_SORTING_KEY_DESCENDING), ignoreNewLine(actualSortingKeyDescending));
     }
 
     @Test
@@ -146,7 +146,7 @@ public class WebFormTest {
 
         // then
         String actualSortingValueDescending = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SORTING_VALUE_DESCENDING, actualSortingValueDescending);
+        assertEquals(ignoreNewLine(EXPECTED_SORTING_VALUE_DESCENDING), ignoreNewLine(actualSortingValueDescending));
     }
 
     @Test
@@ -164,7 +164,7 @@ public class WebFormTest {
 
         // then
         String actualSearchWord = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SEARCH_WORD, actualSearchWord);
+        assertEquals(ignoreNewLine(EXPECTED_SEARCH_WORD), ignoreNewLine(actualSearchWord));
     }
 
     @Test
@@ -181,7 +181,7 @@ public class WebFormTest {
 
         // then
         String actualNextResponse = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_NEXT_RESPONSE, actualNextResponse);
+        assertEquals(ignoreNewLine(EXPECTED_NEXT_RESPONSE), ignoreNewLine(actualNextResponse));
     }
 
     @Test
@@ -200,7 +200,7 @@ public class WebFormTest {
 
         // then
         String actualPreviousResponse = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_PREVIOUS_RESPONSE, actualPreviousResponse);
+        assertEquals(ignoreNewLine(EXPECTED_PREVIOUS_RESPONSE), ignoreNewLine(actualPreviousResponse));
     }
 
     @Test
@@ -217,7 +217,7 @@ public class WebFormTest {
 
         // then
         String actualShowEntries = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_SHOW_ENTRIES, actualShowEntries);
+        assertEquals(ignoreNewLine(EXPECTED_SHOW_ENTRIES), ignoreNewLine(actualShowEntries));
     }
 
     @Test
@@ -233,7 +233,7 @@ public class WebFormTest {
 
         // then
         String actualInputText = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_INPUT_TEXT, actualInputText);
+        assertEquals(ignoreNewLine(EXPECTED_INPUT_TEXT), ignoreNewLine(actualInputText));
     }
 
     @Test
@@ -250,7 +250,11 @@ public class WebFormTest {
 
         //then
         String actualReadingPDF = driver.findElement(By.id("ajaxResponse")).getText();
-        assertEquals(EXPECTED_READING_PDF, actualReadingPDF);
+        assertEquals(ignoreNewLine(EXPECTED_READING_PDF), ignoreNewLine(actualReadingPDF));
+    }
+
+    private static String ignoreNewLine(String str) {
+        return str.replace("\n", "");
     }
 
     private static final String RESULT_HEADER = "Show 102550100 entries\nSearch:\nWord Count\n";
