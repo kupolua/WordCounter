@@ -6,34 +6,52 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.Select;
+
 import java.util.concurrent.TimeUnit;
+
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
+// todo: check only json response, not whole div with id 'ajaxResponse'
 public class WebFormTest {
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
     private static final String PDF_TEST_PAGE = "http://defas.com.ua/java/textForSeleniumTest.pdf";
     private static final String CONTEXT = "/WordCounter/";
     private static final int TIME_WAIT = 3600;
     private static final int PORT = 8080;
+    private static final String BASE_URL = "http://localhost:" + PORT + CONTEXT;;
 
     private WebDriver driver;
-    private String baseUrl;
-    private StringBuffer verificationErrors = new StringBuffer();
 
     @Before
     public void setUp() throws Exception {
-        driver = new FirefoxDriver();
-        baseUrl = "http://localhost:" + PORT + CONTEXT;
+        if (isMacOs()){
+            driver = new SafariDriver();
+        } else {
+            driver = new FirefoxDriver();
+        }
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+
+    private boolean isMacOs() {
+        boolean result = false;
+        if (System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0) {
+            result = true;
+        }
+        return result;
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        driver.quit();
     }
 
     @Test
     public void testEmptyUrlRequest() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("button")).click();
@@ -49,7 +67,7 @@ public class WebFormTest {
     @Test
     public void testIncorrectUrl() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -66,7 +84,7 @@ public class WebFormTest {
     @Test
     public void testSortingKeyAscending() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -83,7 +101,7 @@ public class WebFormTest {
     @Test
     public void testSortingValueAscending() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -100,7 +118,7 @@ public class WebFormTest {
     @Test
     public void testSortingKeyDescending() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -118,7 +136,7 @@ public class WebFormTest {
     @Test
     public void testSortingValueDescending() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -134,7 +152,7 @@ public class WebFormTest {
     @Test
     public void testSearchWord() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -152,7 +170,7 @@ public class WebFormTest {
     @Test
     public void testNextResponse() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -169,7 +187,7 @@ public class WebFormTest {
     @Test
     public void testPreviousResponse() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -188,7 +206,7 @@ public class WebFormTest {
     @Test
     public void testShowEntries() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -205,7 +223,7 @@ public class WebFormTest {
     @Test
     public void testInputText() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -221,7 +239,7 @@ public class WebFormTest {
     @Test
     public void testReadingPDF() throws Exception {
         // given
-        driver.get(baseUrl);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id("userUrlsList")).clear();
@@ -235,23 +253,9 @@ public class WebFormTest {
         assertEquals(EXPECTED_READING_PDF, actualReadingPDF);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
-        }
-    }
+    private static final String RESULT_HEADER = "Show 102550100 entries\nSearch:\nWord Count\n";
 
-    private static final String EXPECTED_READING_PDF = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_READING_PDF = RESULT_HEADER +
             "dbdbddbaqschromeijljjsourc 1\n" +
             "ddbcdpatterncompiledb 1\n" +
             "eidchromeessmieutf 1\n" +
@@ -269,14 +273,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_INPUT_TEXT = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_INPUT_TEXT = RESULT_HEADER +
             "one 4\n" +
             "ёлка 3\n" +
             "two 3\n" +
@@ -299,14 +296,7 @@ public class WebFormTest {
             "\n" +
             "Їжак їжак єнот білка БІЛКА БіЛкА ";
 
-    private static final String EXPECTED_SHOW_ENTRIES = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_SHOW_ENTRIES = RESULT_HEADER +
             "one 4\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -334,14 +324,7 @@ public class WebFormTest {
             "1\n" +
             "Next";
 
-    private static final String EXPECTED_PREVIOUS_RESPONSE = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_PREVIOUS_RESPONSE = RESULT_HEADER +
             "one 4\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -359,14 +342,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_NEXT_RESPONSE = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_NEXT_RESPONSE = RESULT_HEADER +
             "время 1\n" +
             "vkamenniygmailcom 1\n" +
             "другнарод 1\n" +
@@ -384,28 +360,14 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_SEARCH_WORD = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_SEARCH_WORD = RESULT_HEADER +
             "білка 3\n" +
             "Showing 1 to 1 of 1 entries (filtered from 22 total entries)\n" +
             "Previous\n" +
             "1\n" +
             "Next";
 
-    private static final String EXPECTED_SORTING_KEY_ASCENDING = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_SORTING_KEY_ASCENDING = RESULT_HEADER +
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
             "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "one 4\n" +
@@ -423,14 +385,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_SORTING_VALUE_ASCENDING = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_SORTING_VALUE_ASCENDING = RESULT_HEADER +
             "объём 1\n" +
             "дом 1\n" +
             "нообъем 1\n" +
@@ -448,14 +403,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_SORTING_KEY_DESCENDING = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_SORTING_KEY_DESCENDING = RESULT_HEADER +
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
             "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "vkamenniygmailcom 1\n" +
@@ -473,14 +421,7 @@ public class WebFormTest {
             "3\n" +
             "Next";
 
-    private static final String EXPECTED_SORTING_VALUE_DESCENDING = "Show\n" +
-            "10\n" +
-            "25\n" +
-            "50\n" +
-            "100\n" +
-            "entries\n" +
-            "Search:\n" +
-            "Word Count\n" +
+    private static final String EXPECTED_SORTING_VALUE_DESCENDING = RESULT_HEADER +
             "one 4\n" +
             "two 3\n" +
             "білка 3\n" +
