@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -17,7 +19,7 @@
             <a href="/WordCounter">Home</a>
         </div>
         <div id="aboutUsHeaderLine">about us</div>
-        <div id="aboutUsText">Any text about us</div>
+        <spring:message code="about.springmvc" text="default text" />
     </div>
 </body>
 </html>
