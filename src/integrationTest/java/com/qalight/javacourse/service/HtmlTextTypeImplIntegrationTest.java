@@ -15,10 +15,10 @@ public class HtmlTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible_html() {
         //given
-        final String DATA_SOURCE_LINK = "http://defas.com.ua/java/testingPage.html";
+        final String textHttpHeader = "[text/html; charset=windows-1251]";
 
         //when
-        final boolean actualResult = htmlTextType.isEligible(DATA_SOURCE_LINK);
+        final boolean actualResult = htmlTextType.isEligible(textHttpHeader);
 
         //then
         Assert.assertTrue(actualResult);
@@ -27,23 +27,23 @@ public class HtmlTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible_xml() {
         //given
-        final String DATA_SOURCE_LINK = "http://www.xmlfiles.com/examples/cd_catalog.xml";
+        final String textHttpHeader = "[text/xml]";
 
         //when
-        final boolean actualResult = htmlTextType.isEligible(DATA_SOURCE_LINK);
+        final boolean actualResult = htmlTextType.isEligible(textHttpHeader);
 
         //then
         Assert.assertTrue(actualResult);
     }
 
     @Test
-    public void testIsEligible_improperUrl() {
+    public void testIsEligible_improperType() {
         //given
-        final String dataSourceLink = "http://defas.com.ua/java/Policy_of_.UA.pdf";
+        final String textHttpHeader = "[application/pdf]";
         final boolean expectedResult = false;
 
         //when
-        final boolean actualResult = htmlTextType.isEligible(dataSourceLink);
+        final boolean actualResult = htmlTextType.isEligible(textHttpHeader);
 
         //then
         Assert.assertEquals(expectedResult, actualResult);
@@ -52,10 +52,10 @@ public class HtmlTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyUrl() {
         //given
-        final String dataSourceLink = "";
+        final String textHttpHeader = "";
 
         //when
-        htmlTextType.isEligible(dataSourceLink);
+        htmlTextType.isEligible(textHttpHeader);
 
         //then
         //expected exception
@@ -64,10 +64,10 @@ public class HtmlTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullUrl() {
         //given
-        final String dataSourceLink = null;
+        final String textHttpHeader = null;
 
         //when
-        htmlTextType.isEligible(dataSourceLink);
+        htmlTextType.isEligible(textHttpHeader);
 
         //then expected exception
     }

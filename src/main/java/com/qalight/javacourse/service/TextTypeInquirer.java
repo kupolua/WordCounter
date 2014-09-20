@@ -1,5 +1,6 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.ResponseHeaderGetter;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
@@ -9,8 +10,12 @@ import java.util.Set;
 
 @Component
 public class TextTypeInquirer {
-    private static final ResponseHeaderGetter RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
+    private final ResponseHeaderGetter RESPONSE_HEADER_GETTER;
     private static final Logger LOG = LoggerFactory.getLogger(TextTypeInquirer.class);
+
+    public TextTypeInquirer() {
+        RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
+    }
 
     private static Set<TextType> textTypes;
     static{
@@ -22,31 +27,19 @@ public class TextTypeInquirer {
     }
 
     public TextType inquireTextType(String dataSourceLink) {
-        checkForNullOrEmpty(dataSourceLink);
-        String textTypeHeader = RESPONSE_HEADER_GETTER.getTextTypeByHttpHeader(dataSourceLink).toLowerCase();
-        System.out.println("textTypeHeader = " + textTypeHeader);
+        Assertions.assertStringIsNotNullOrEmpty(dataSourceLink, TextTypeInquirer.class);
+        String textHttpHeader = RESPONSE_HEADER_GETTER.getHttpHeader(dataSourceLink).toLowerCase();
         TextType textType = null;
         for (TextType sourceType : textTypes) {
-            if (sourceType.isEligible(textTypeHeader)) {
+            if (sourceType.isEligible(textHttpHeader)) {
                 textType = sourceType;
                 break;
             }
         }
         if(textType == null){
-            throw new IllegalArgumentException("Unknown text type. (" + dataSourceLink + ")");
+            throw new IllegalArgumentException("Unknown text type at " + dataSourceLink + ": " + textHttpHeader + ".");
         }
+        LOG.debug("Document type of " + dataSourceLink + " identified successfully as " + textType + ".");
         return textType;
-    }
-
-    private void checkForNullOrEmpty(String clientRequest) {
-        if (clientRequest == null) {
-            LOG.error("\"clientRequest\" received parameter is NULL");
-            throw new IllegalArgumentException(
-                    "It is impossible to determine the type of the document because the link is null.");
-        }
-        if (clientRequest.trim().equals("")) {
-            throw new IllegalArgumentException(
-                    "It is impossible to determine the type of the document because the link is empty.");
-        }
     }
 }

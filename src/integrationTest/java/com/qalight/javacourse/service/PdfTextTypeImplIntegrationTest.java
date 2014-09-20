@@ -13,50 +13,50 @@ public class PdfTextTypeImplIntegrationTest {
     }
 
     @Test
-    public void testIsEligible_okUrl() {
+    public void testIsEligible_okTypeHeader() {
         // given
-        final String dataSourceLink = "http://defas.com.ua/java/Policy_of_.UA.pdf";
+        final String textHttpHeader = "[application/pdf]";
         final boolean expectedResult = true;
 
         //when
-        final boolean actualResult = pdfTextType.isEligible(dataSourceLink);
+        final boolean actualResult = pdfTextType.isEligible(textHttpHeader);
 
         //then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void testIsEligible_improperUrl() {
+    public void testIsEligible_improperTypeHeader() {
         //given
-        final String dataSourceLink = "http://defas.com.ua/java/testingPage.html";
+        final String textHttpHeader = "[text/html; charset=windows-1251]";
         final boolean expectedResult = false;
 
         //when
-        final boolean actualResult = pdfTextType.isEligible(dataSourceLink);
+        final boolean actualResult = pdfTextType.isEligible(textHttpHeader);
 
         //then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_emptyUrl() {
+    public void testIsEligible_emptyHeader() {
         //given
-        final String dataSourceLink = "";
+        final String textHttpHeader = "";
 
         //when
-        pdfTextType.isEligible(dataSourceLink);
+        pdfTextType.isEligible(textHttpHeader);
 
         //then
         //expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_nullUrl() {
+    public void testIsEligible_nullHeader() {
         //given
-        final String dataSourceLink = null;
+        final String textHttpHeader = null;
 
         // when
-        pdfTextType.isEligible(dataSourceLink);
+        pdfTextType.isEligible(textHttpHeader);
 
         //then
         //expected exception
