@@ -1,0 +1,26 @@
+package com.qalight.javacourse.core;
+
+import com.qalight.javacourse.util.Assertions;
+
+public enum SupportedHttpProtocol {
+    Http("http://"),
+    Https("https://"),
+    Ftp("ftp://");
+
+    private final String text;
+    private SupportedHttpProtocol(String text) {
+        this.text = text;
+    }
+
+    public static boolean isWebProtocol(String str) {
+        Assertions.assertStringIsNotNullOrEmpty(str);
+        boolean result = false;
+        for (SupportedHttpProtocol protocol : SupportedHttpProtocol.values()){
+            if (str.trim().startsWith(protocol.text)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+}

@@ -81,7 +81,7 @@ public class WebFormTest {
         // then
         String actualResult = driver.findElement(By.id("ajaxResponse")).getText();
         final String expectedResult = "Can't connect to: http://defas.com.ua/java/pageForSeleniumTest.htmla";
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult.contains(expectedResult));
     }
 
     @Test

@@ -1,50 +1,39 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.core.WordCounter;
+import com.qalight.javacourse.core.ConcurrentExecutor;
 import com.qalight.javacourse.util.Assertions;
-import com.qalight.javacourse.util.TextRefiner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 @Service("wordCounterService")
 public class WordCounterServiceImpl implements WordCounterService {
-    private final TextTypeInquirer textTypeInquirer;
-    private final DocumentConverter documentConverter;
-    private final WordCounter wordCounter;
+    private final RequestSplitter splitter;
+    private final ConcurrentExecutor concurrentExecutor;
+    private final CountersIntegrator integrator;
     private final ResultPresentationService resultPresentationService;
-    private final TextRefiner refiner;
-    private final WordFilter wordFilter;
 
     @Autowired
-    public WordCounterServiceImpl(TextTypeInquirer textTypeInquirer, DocumentConverter documentConverter,
-                                  WordCounter wordCounter, ResultPresentationService resultPresentationService,
-                                  TextRefiner refiner, WordFilter wordFilter) {
-        this.textTypeInquirer = textTypeInquirer;
-        this.documentConverter = documentConverter;
-        this.wordCounter = wordCounter;
+    public WordCounterServiceImpl(ResultPresentationService resultPresentationService, RequestSplitter splitter,
+                                  ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator) {
+        this.concurrentExecutor = concurrentExecutor;
+        this.splitter = splitter;
+        this.integrator = integrator;
         this.resultPresentationService = resultPresentationService;
-        this.refiner = refiner;
-        this.wordFilter = wordFilter;
     }
 
     @Override
     public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
         checkParams(clientRequest, dataTypeResponse);
 
-        TextType textType = textTypeInquirer.inquireTextType(clientRequest);
+        Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest);
 
-        DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(textType);
+        List<Map<String, Integer>> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests);
 
-        String plainText = documentToStringConverter.convertToString(clientRequest);
-
-        List<String> refinedWords = refiner.refineText(plainText);
-
-        List<String> refinedWordsWithFilter = wordFilter.removeUnimportantWords(refinedWords);
-
-        Map<String, Integer> countedWords = wordCounter.countWords(refinedWordsWithFilter);
+        Map<String, Integer> countedWords = integrator.integrateResults(wordCountResults);
 
         ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
 
