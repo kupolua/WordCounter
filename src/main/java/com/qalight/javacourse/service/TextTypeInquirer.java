@@ -2,21 +2,16 @@ package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.util.Assertions;
 import com.qalight.javacourse.util.ResponseHeaderGetter;
-import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
 public class TextTypeInquirer {
-    private final ResponseHeaderGetter RESPONSE_HEADER_GETTER;
     private static final Logger LOG = LoggerFactory.getLogger(TextTypeInquirer.class);
-
-    public TextTypeInquirer() {
-        RESPONSE_HEADER_GETTER = new ResponseHeaderGetter();
-    }
-
     private static Set<TextType> textTypes;
     static{
         textTypes = new HashSet<>();
@@ -25,10 +20,17 @@ public class TextTypeInquirer {
         textTypes.add(new DocTextTypeImpl());
         textTypes.add(new PlainTextTypeImpl());
     }
+    // todo 1: use spring injection instead of manual object creation
+    // todo 2: do not use separate connection to check request header
+    private final ResponseHeaderGetter responseHeaderGetter;
+
+    public TextTypeInquirer() {
+        responseHeaderGetter = new ResponseHeaderGetter();
+    }
 
     public TextType inquireTextType(String dataSourceLink) {
         Assertions.assertStringIsNotNullOrEmpty(dataSourceLink, TextTypeInquirer.class);
-        String textHttpHeader = RESPONSE_HEADER_GETTER.getHttpHeader(dataSourceLink).toLowerCase();
+        String textHttpHeader = responseHeaderGetter.getHttpHeader(dataSourceLink).toLowerCase();
         TextType textType = null;
         for (TextType sourceType : textTypes) {
             if (sourceType.isEligible(textHttpHeader)) {

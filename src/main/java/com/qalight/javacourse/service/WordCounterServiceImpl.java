@@ -9,14 +9,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("wordCounterService")
 public class WordCounterServiceImpl implements WordCounterService {
-    @Autowired private TextTypeInquirer textTypeInquirer;
-    @Autowired private DocumentConverter documentConverter;
-    @Autowired private WordCounter wordCounter;
-    @Autowired private ResultPresentationService resultPresentationService;
-    @Autowired private TextRefiner refiner;
-    @Autowired private WordFilter wordFilter;
+    private final TextTypeInquirer textTypeInquirer;
+    private final DocumentConverter documentConverter;
+    private final WordCounter wordCounter;
+    private final ResultPresentationService resultPresentationService;
+    private final TextRefiner refiner;
+    private final WordFilter wordFilter;
+
+    @Autowired
+    public WordCounterServiceImpl(TextTypeInquirer textTypeInquirer, DocumentConverter documentConverter,
+                                  WordCounter wordCounter, ResultPresentationService resultPresentationService,
+                                  TextRefiner refiner, WordFilter wordFilter) {
+        this.textTypeInquirer = textTypeInquirer;
+        this.documentConverter = documentConverter;
+        this.wordCounter = wordCounter;
+        this.resultPresentationService = resultPresentationService;
+        this.refiner = refiner;
+        this.wordFilter = wordFilter;
+    }
 
     @Override
     public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
