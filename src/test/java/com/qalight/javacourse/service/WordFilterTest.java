@@ -69,8 +69,8 @@ public class WordFilterTest {
     public void removeUnimportantWords_removeVarietyWordsInDifferentLanguages() {
         // given
         final WordFilter filter = new WordFilter("the your they with", "и что его на", "і він їх лише");
-        final List<String> refinedWords = new ArrayList<>(Arrays.asList
-                ("світ", "і", "любов", "мир", "и", "любовь", "world", "the", "love", "він", "їх", "лише", "что", "его", "на", "your", "they", "with"));
+        final List<String> refinedWords = new ArrayList<>(
+                Arrays.asList("світ", "і", "любов", "мир", "и", "любовь", "world", "the", "love", "він", "їх", "лише", "что", "его", "на", "your", "they", "with"));
 
         // when
         final List<String> actualResult = filter.removeUnimportantWords(refinedWords);
