@@ -65,7 +65,7 @@ public class TextRefiner {
             String emailOrUrl = emailsUrlsList.get(i);
             String cleanUrl = emailOrUrl;
 
-            if (emailOrUrl.contains("<") | emailOrUrl.contains(">")) {
+            if (emailOrUrl.contains("<") || emailOrUrl.contains(">")) {
                 cleanUrl = emailOrUrl.replaceAll(JSOUP_TAGS, "");
             }
 
