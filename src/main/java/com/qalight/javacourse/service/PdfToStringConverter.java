@@ -4,6 +4,7 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.StringJoiner;
 
@@ -44,13 +45,13 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         StringJoiner joiner = new StringJoiner(" ");
 
         for (int i = 1; i <= reader.getNumberOfPages(); ++i) {
-            String text;
+            String text = "";
             try {
-                text = new PdfTextExtractor(reader).getTextFromPage(i);
-            } catch (IOException e) {
+                final PdfTextExtractor pdfTextExtractor = new PdfTextExtractor(reader);
+                text = pdfTextExtractor.getTextFromPage(i);
+            } catch (Exception e) { // hard fix for StringIndexOutOfBoundsException in Pdf extract library
                 String msg = "Can't read text from page ";
-                LOG.error(msg + i, e);
-                throw new RuntimeException(msg + i, e);
+                LOG.warn(msg + i, e);
             }
             joiner.add(text);
         }
