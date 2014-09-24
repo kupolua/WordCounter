@@ -27,7 +27,6 @@ public class CountWordsProcessorImplIntegrationTest {
         Map<String, Integer> actual = processor.process(input);
 
         // then
-        System.out.println(actual.toString());
         Map<String, Integer> expected = new HashMap<>();
         expected.put("one", 1);
         expected.put("two", 2);
