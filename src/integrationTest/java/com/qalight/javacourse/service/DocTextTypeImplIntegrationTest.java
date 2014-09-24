@@ -15,9 +15,9 @@ public class DocTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible_invalidPdfType() {
         //given
-        final String DATA_SOURCE_LINK = "http://defas.com.ua/java/Policy_of_.UA.pdf";
+        final String textHttpHeader = "[application/pdf]";
         //when
-        boolean actualResult = docTextType.isEligible(DATA_SOURCE_LINK);
+        boolean actualResult = docTextType.isEligible(textHttpHeader);
         //then
         Assert.assertFalse(actualResult);
     }
@@ -25,13 +25,13 @@ public class DocTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible_validTypes() {
         //given
-        final String[] SOURCE_LIST = {
-                "http://www.snee.com/xml/xslt/sample.doc",
-                "https://sctcc.ims.mnscu.edu/shared/CheckYourComputer/SamplePPTX.pptx"
+        final String[] textHttpHeaders = {
+                "[application/msword]",
+                "[application/vnd.openxmlformats-officedocument.presentationml.presentation]"
         };
 
         //when
-        boolean actualResult = checkIfSourceIsEligible(SOURCE_LIST);
+        boolean actualResult = checkIfSourceIsEligible(textHttpHeaders);
 
         //then
         final boolean expectedResult = true;
@@ -52,10 +52,10 @@ public class DocTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullLink() {
         //given
-        final String NULL_LINK = null;
+        final String textHttpHeader = null;
 
         //when
-        docTextType.isEligible(NULL_LINK);
+        docTextType.isEligible(textHttpHeader);
 
         //then
         //expected exception
@@ -64,10 +64,10 @@ public class DocTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyLink() {
         //given
-        final String EMPTY_LINK = "";
+        final String textHttpHeader = "";
 
         //when
-        docTextType.isEligible(EMPTY_LINK);
+        docTextType.isEligible(textHttpHeader);
 
         //then
         //expected exception

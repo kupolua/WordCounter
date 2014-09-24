@@ -1,44 +1,43 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.core.WordCounter;
+import com.qalight.javacourse.core.ConcurrentExecutor;
 import com.qalight.javacourse.util.Assertions;
-import com.qalight.javacourse.util.TextRefiner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("wordCounterService")
 public class WordCounterServiceImpl implements WordCounterService {
-    @Autowired private TextTypeInquirer textTypeInquirer;
-    @Autowired private DocumentConverter documentConverter;
-    @Autowired private WordCounter wordCounter;
-    @Autowired private ResultPresentationService resultPresentationService;
-    @Autowired private TextRefiner refiner;
-    @Autowired private WordFilter wordFilter;
+    private final RequestSplitter splitter;
+    private final ConcurrentExecutor concurrentExecutor;
+    private final CountersIntegrator integrator;
+    private final ResultPresentationService resultPresentationService;
+
+    @Autowired
+    public WordCounterServiceImpl(ResultPresentationService resultPresentationService, RequestSplitter splitter,
+                                  ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator) {
+        this.concurrentExecutor = concurrentExecutor;
+        this.splitter = splitter;
+        this.integrator = integrator;
+        this.resultPresentationService = resultPresentationService;
+    }
 
     @Override
     public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
         checkParams(clientRequest, dataTypeResponse);
 
-        TextType textType = textTypeInquirer.inquireTextType(clientRequest);
+        Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest);
 
-        DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(textType);
+        List<Map<String, Integer>> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests);
 
-        String plainText = documentToStringConverter.convertToString(clientRequest);
-
-        List<String> refinedWords = refiner.refineText(plainText);
-
-        Map<String, Integer> unFilteredWords = wordCounter.countWords(refinedWords);
-
-        List<String> refinedWordsWithFilter = wordFilter.removeUnimportantWords(refinedWords);
-
-        Map<String, Integer> countedWords = wordCounter.countWords(refinedWordsWithFilter);
+        Map<String, Integer> countedWords = integrator.integrateResults(wordCountResults);
 
         ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
 
-        String result = resultPresentation.createResponse(clientRequest, countedWords, unFilteredWords, dataTypeResponse);
+        String result = resultPresentation.createResponse(clientRequest, countedWords, dataTypeResponse);
 
         return result;
     }

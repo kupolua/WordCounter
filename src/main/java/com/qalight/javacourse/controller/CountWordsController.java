@@ -6,6 +6,7 @@ import com.qalight.javacourse.service.WordCounterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,16 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/countWords")
 public class CountWordsController {
     private static final Logger LOG = LoggerFactory.getLogger(CountWordsController.class);
+    private final WordCounterService wordCounterService;
 
     @Autowired
-    private WordCounterService wordCounterService;
+    public CountWordsController(@Qualifier("wordCounterService") WordCounterService wordCounterService) {
+        this.wordCounterService = wordCounterService;
+    }
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     @ResponseBody
     public String getResult(@RequestParam String userUrlsList, @RequestParam String dataTypeResponse) {
-
         final String result = getResultAndCatchException(userUrlsList, dataTypeResponse);
-
         return result;
     }
 
@@ -35,11 +37,15 @@ public class CountWordsController {
             result = wordCounterService.getWordCounterResult(dataSources, dataTypeResponse);
         } catch (Throwable e) {
             LOG.error("error while processing request: " + e.getMessage(), e);
-            ResultPresentationService resultPresentationService = new ResultPresentationService();
-            ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
-
-            result = resultPresentation.createErrorResponse(e.getMessage());
+            result = logAndCreateErrorResponse(dataTypeResponse, e);
         }
+        return result;
+    }
+
+    private String logAndCreateErrorResponse(String dataTypeResponse, Throwable e) {
+        String result;ResultPresentationService resultPresentationService = new ResultPresentationService();
+        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
+        result = resultPresentation.createErrorResponse(e.getMessage());
         return result;
     }
 }

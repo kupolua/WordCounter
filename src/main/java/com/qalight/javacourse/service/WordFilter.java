@@ -1,50 +1,36 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.util.TextRefiner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import java.io.*;
+
+import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 @Component
 public class WordFilter {
-    private String keyWordsForFilterEN = "wordsEN";
-    private String keyWordsForFilterRU = "wordsRU";
-    private String keyWordsForFilterUA = "wordsUA";
+    private final String wordsForFilter;
+
+    @Autowired
+    public WordFilter(
+            @Value("${wordsEN}") String wordsEn,
+            @Value("${wordsRU}") String wordsRU,
+            @Value("${wordsUA}") String wordsUA) {
+        wordsForFilter = getWordsForFilter(wordsEn, wordsRU, wordsUA);
+    }
 
     public List<String> removeUnimportantWords(List<String> refinedWords) {
-        String wordsForFilter = getPropertiesValue(keyWordsForFilterEN) + " " + getPropertiesValue(keyWordsForFilterRU)
-                + " " + getPropertiesValue(keyWordsForFilterUA);
-        TextRefiner textRefiner = new TextRefiner();
-        List<String> filter = textRefiner.refineText(wordsForFilter);
+        List<String> filter = Arrays.asList(wordsForFilter.split(" "));
         refinedWords.removeAll(filter);
         return refinedWords;
     }
 
-    public String getPropertiesValue(String key) {
-        String propFileName = "wordcounter.properties";
-        Properties properties = new Properties();
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-        try {
-            Reader reader = new InputStreamReader(inputStream, "UTF-8");
-            try {
-                properties.load(reader);
-            } finally {
-                reader.close();
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private final String getWordsForFilter(String... languages) {
+        StringBuilder wordsForFilter = new StringBuilder();
+        for (String language : languages){
+            wordsForFilter.append(language);
+            wordsForFilter.append(" ");
         }
-        String value = properties.getProperty(key);
-        return value;
+        return wordsForFilter.toString();
     }
 }

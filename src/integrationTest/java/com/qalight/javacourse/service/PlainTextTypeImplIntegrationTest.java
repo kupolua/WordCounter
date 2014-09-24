@@ -13,12 +13,12 @@ public class PlainTextTypeImplIntegrationTest {
     }
 
     @Test
-    public void testIsEligible() throws Exception {
+    public void testIsEligible() {
         //given
-        final String PLAIN_TEXT = "В мире есть много интересных занятий.";
+        final String textHttpHeader = "plain_text_type";
 
         //when
-        boolean actualResult = plainTextType.isEligible(PLAIN_TEXT);
+        boolean actualResult = plainTextType.isEligible(textHttpHeader);
 
         //then
         Assert.assertTrue(actualResult);
@@ -27,10 +27,10 @@ public class PlainTextTypeImplIntegrationTest {
     @Test
     public void testIsNotEligible() throws Exception {
         //given
-        final String DATA_SOURCE_LINK = "http://defas.com.ua/java/Policy_of_.UA.pdf";
+        final String textHttpHeader = "[text/html]";
 
         //when
-        boolean actualResult = plainTextType.isEligible(DATA_SOURCE_LINK);
+        boolean actualResult = plainTextType.isEligible(textHttpHeader);
 
         //then
         Assert.assertFalse(actualResult);
@@ -39,10 +39,10 @@ public class PlainTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullLink() {
         //given
-        final String NULL_LINK = null;
+        final String textHttpHeader = null;
 
         //when
-        plainTextType.isEligible(NULL_LINK);
+        plainTextType.isEligible(textHttpHeader);
 
         //then
         //expected exception
@@ -51,10 +51,10 @@ public class PlainTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyLink() {
         //given
-        final String EMPTY_LINK = "";
+        final String textHttpHeader = "";
 
         //when
-        plainTextType.isEligible(EMPTY_LINK);
+        plainTextType.isEligible(textHttpHeader);
 
         //then
         //expected exception

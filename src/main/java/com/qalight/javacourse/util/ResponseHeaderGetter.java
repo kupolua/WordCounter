@@ -2,6 +2,7 @@ package com.qalight.javacourse.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -11,42 +12,43 @@ public class ResponseHeaderGetter {
     private static final String PLAIN_TEXT_TYPE = "plain_text_type";
     private static final Logger LOG = LoggerFactory.getLogger(ResponseHeaderGetter.class);
 
-    public String getTextTypeByHttpHeader(String userRequest) {
-        checkForNullOrEmpty(userRequest);
+    public String getHttpHeader(String userRequestUrl) {
+        checkForNullOrEmpty(userRequestUrl);
 
-        String contentType;
+        String textHttpHeader;
 
-        if(userRequest.startsWith("http")) {
-            contentType = getType(userRequest);
+        if (userRequestUrl.trim().startsWith("http")) {
+            textHttpHeader = getHeader(userRequestUrl);
         } else {
-            contentType = PLAIN_TEXT_TYPE;
+            textHttpHeader = PLAIN_TEXT_TYPE;
         }
-        return contentType;
+        return textHttpHeader;
     }
 
-    private String getType(String url){
-        String contentType;
+    private String getHeader(String userRequestUrl) {
+        String httpHeader;
         try {
-            URL obj = new URL(url);
+            URL obj = new URL(userRequestUrl);
             URLConnection conn = obj.openConnection();
             Map<String, List<String>> map = conn.getHeaderFields();
-            contentType = String.valueOf(map.get("Content-Type"));
+            httpHeader = String.valueOf(map.get("Content-Type"));
         } catch (Exception e) {
-            String msg = " Text type is not defined.";
-            LOG.error(url + msg, e);
-            throw new IllegalArgumentException(url + msg, e);
+            String msg = " Http header is not received from " + userRequestUrl + " url.";
+            LOG.error(userRequestUrl + msg, e);
+            throw new IllegalArgumentException(userRequestUrl + msg, e);
         }
-        return contentType;
+        return httpHeader;
     }
-    private void checkForNullOrEmpty(String userRequest) {
-        if (userRequest == null) {
-            LOG.error("\"userRequest\"  parameter is NULL");
+
+    private void checkForNullOrEmpty(String userRequestUrl) {
+        if (userRequestUrl == null) {
+            LOG.error("\"userRequestUrl\"  parameter is NULL");
             throw new IllegalArgumentException(
                     "Text type is not defined because the link is null.");
         }
 
-        if (userRequest.equals("")) {
-            LOG.error("\"userRequest\"  parameter is empty.");
+        if (userRequestUrl.equals("")) {
+            LOG.error("\"userRequestUrl\"  parameter is empty.");
             throw new IllegalArgumentException(
                     "Text type is not defined because the link is empty.");
         }
