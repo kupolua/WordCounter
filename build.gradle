@@ -77,6 +77,7 @@ dependencies {
     testCompile 'org.seleniumhq.selenium:selenium-support:2.35.0'
     testCompile 'com.github.detro.ghostdriver:phantomjsdriver:1.1.0'
     testCompile 'org.springframework:spring-test:4.0.6.RELEASE'
+    testCompile "org.mockito:mockito-all:1.9.5"
     integrationTestCompile sourceSets.main.output
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.test.output
