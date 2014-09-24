@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
@@ -31,5 +32,18 @@ public class CountWordsProcessorImplIntegrationTest {
         expected.put("one", 1);
         expected.put("two", 2);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testProcess_bigPdf() {
+        // given
+        String input = "http://d23a3s5l1qjyz.cloudfront.net/wp-content/uploads/2012/09/King-James-Bible-KJV-Bible-PDF.pdf";
+
+        // when
+        Map<String, Integer> actual = processor.process(input);
+
+
+        // then
+        assertTrue(actual.size() > 100);
     }
 }
