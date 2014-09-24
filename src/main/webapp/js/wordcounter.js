@@ -3,10 +3,10 @@ var unFilteredWords;
 
 function getFilteredWords(isFilter) {
     if (isFilter == 1){
-        $('#getFilterWords').html( '<div id="filterWords" onclick="getFilteredWords(0)">Filter words</div>');
+        $('#getFilterWords').html( '<blockquote id="filterWords" onclick="getFilteredWords(0)">Filter words</blockquote>');
         writeTable(unFilteredWords);
     } else {
-        $('#getFilterWords').html( '<div id="filterWords" onclick="getFilteredWords(1)">Unfilter words</div>');
+        $('#getFilterWords').html( '<blockquote id="filterWords" onclick="getFilteredWords(1)">Unfilter words</blockquote>');
         writeTable(filteredWords);
     }
 }
