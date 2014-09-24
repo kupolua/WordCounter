@@ -37,7 +37,7 @@ public class CountWordsProcessorImplTest {
         when(wordCounter.countWords(any(List.class))).thenReturn(expectedResult);
 
         CountWordsProcessor processor = new CountWordsProcessorImpl(
-                textTypeInquirer, documentConverter, wordCounter, textRefiner, wordFilter);
+                textTypeInquirer, documentConverter, wordCounter, textRefiner);
 
         // when
         final Map<String, Integer> actual = processor.process(inputText);
@@ -47,7 +47,6 @@ public class CountWordsProcessorImplTest {
         verify(documentConverter, times(1)).getDocumentConverter(any(TextType.class));
         verify(wordCounter, times(1)).countWords(any(List.class));
         verify(textRefiner, times(1)).refineText(any(String.class));
-        verify(wordFilter, times(1)).removeUnimportantWords(any(List.class));
 
         assertEquals(expectedResult, actual);
     }

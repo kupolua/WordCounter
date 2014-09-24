@@ -1,6 +1,7 @@
 package com.qalight.javacourse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class FilterController {
-    private static final String APP_VERSION = "app.version";
-    private static final String FILTER_EN = "wordsEN";
-    private static final String FILTER_UA = "wordsUA";
-    private static final String FILTER_RU = "wordsRU";
+    @Value("${app.version}")    private String version;
+    @Value("${wordsEN}")        private String filterEN;
+    @Value("${wordsUA}")        private String filterUA;
+    @Value("${wordsRU}")        private String filterRU;
+
     @Autowired
     private Environment environment;
     @RequestMapping("/filter")
     public String filter(ModelMap model) {
-        model.addAttribute("version", environment.getProperty(APP_VERSION));
-        model.addAttribute("wordsEN", environment.getProperty(FILTER_EN));
-        model.addAttribute("wordsUA", environment.getProperty(FILTER_UA));
-        model.addAttribute("wordsRU", environment.getProperty(FILTER_RU));
+        model.addAttribute("version", version);
+        model.addAttribute("wordsEN", filterEN);
+        model.addAttribute("wordsUA", filterUA);
+        model.addAttribute("wordsRU", filterRU);
         return "filter";
     }
 }
