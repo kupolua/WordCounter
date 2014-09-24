@@ -10,6 +10,10 @@ import java.util.Map;
 public class CountersIntegratorImpl implements CountersIntegrator {
     @Override
     public Map<String, Integer> integrateResults(List<Map<String, Integer>> results) {
+        if (results == null) {
+            throw new IllegalArgumentException("results collection should not be null");
+        }
+
         Map<String, Integer> result = new HashMap<>(results.size());
         for (Map<String, Integer> eachResultMap : results){
             for (Map.Entry<String, Integer> eachEntry : eachResultMap.entrySet()) {
