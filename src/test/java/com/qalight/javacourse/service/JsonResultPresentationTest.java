@@ -40,25 +40,24 @@ public class JsonResultPresentationTest {
     @Test
     public void testCreateResponse() throws Exception {
         //given
-        final String expectedJsonResponse = "{\"success\":true,\"filteredWords\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]],\"dataAjax\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]]}";
-        final String sourceLink = "http://www.eslfast.com/supereasy/se/supereasy006.htm";
-        final Map<String, Integer> countedWords = new HashMap<>();
-        countedWords.put("Hello", 10);
-        countedWords.put("World", 7);
-        countedWords.put("Word", 13);
-        countedWords.put("Counter", 5);
-        countedWords.put("Project", 24);
-        final Map<String, Integer> unFilteredWords = new HashMap<>();
-        unFilteredWords.put("Hello", 10);
-        unFilteredWords.put("World", 7);
-        unFilteredWords.put("Word", 13);
-        unFilteredWords.put("Counter", 5);
-        unFilteredWords.put("Project", 24);
+        final String expectedJsonResponse = "{\"success\":true,\"filteredWords\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]],\"unFilteredWords\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]]}";
+        final Map<String, Integer> filteredCountedWords = new HashMap<>();
+        filteredCountedWords.put("Hello", 10);
+        filteredCountedWords.put("World", 7);
+        filteredCountedWords.put("Word", 13);
+        filteredCountedWords.put("Counter", 5);
+        filteredCountedWords.put("Project", 24);
+        final Map<String, Integer> unFilteredCountedWords = new HashMap<>();
+        unFilteredCountedWords.put("Hello", 10);
+        unFilteredCountedWords.put("World", 7);
+        unFilteredCountedWords.put("Word", 13);
+        unFilteredCountedWords.put("Counter", 5);
+        unFilteredCountedWords.put("Project", 24);
         final String dataTypeResponse = "json";
 
 
         //when
-        String actualJsonResponse = jsonResultPresentation.createResponse(sourceLink, countedWords, unFilteredWords, dataTypeResponse);
+        String actualJsonResponse = jsonResultPresentation.createResponse(filteredCountedWords, unFilteredCountedWords);
 
         //then
         Assert.assertEquals(expectedJsonResponse, actualJsonResponse);

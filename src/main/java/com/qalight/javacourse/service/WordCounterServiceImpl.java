@@ -15,14 +15,16 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final ConcurrentExecutor concurrentExecutor;
     private final CountersIntegrator integrator;
     private final ResultPresentationService resultPresentationService;
+    private final WordFilter wordFilter;
 
     @Autowired
     public WordCounterServiceImpl(ResultPresentationService resultPresentationService, RequestSplitter splitter,
-                                  ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator) {
+                                  ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator, WordFilter wordFilter) {
         this.concurrentExecutor = concurrentExecutor;
         this.splitter = splitter;
         this.integrator = integrator;
         this.resultPresentationService = resultPresentationService;
+        this.wordFilter = wordFilter;
     }
 
     @Override
@@ -33,11 +35,13 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         List<Map<String, Integer>> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests);
 
-        Map<String, Integer> countedWords = integrator.integrateResults(wordCountResults);
+        Map<String, Integer> unRefinedCountedWords = integrator.integrateResults(wordCountResults);
+
+        Map<String, Integer> refinedCountedWords = wordFilter.removeUnimportantWords(unRefinedCountedWords);
 
         ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
 
-        String result = resultPresentation.createResponse(clientRequest, countedWords, dataTypeResponse);
+        String result = resultPresentation.createResponse(unRefinedCountedWords, refinedCountedWords);
 
         return result;
     }

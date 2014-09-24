@@ -85,7 +85,7 @@ $(document).ready(function() {
             success: function( data, textStatus, jqXHR) {
                 //our country code was correct so we have some information to display
                 if(data.success){
-                    unFilteredWords = data.dataAjax;
+                    unFilteredWords = data.unFilteredWords;
                     filteredWords = data.filteredWords;
                     getFilteredWords(1);
                 }

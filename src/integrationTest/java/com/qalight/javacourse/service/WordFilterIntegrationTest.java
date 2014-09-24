@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
@@ -22,66 +20,127 @@ public class WordFilterIntegrationTest {
     @Test
     public void testRemoveUnimportantWords_removeWordEn() {
         // given
-        List<String> refinedWords = new ArrayList<>(Arrays.asList("the", "love", "ocean"));
+        final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
+            put("world", 1);
+            put("the", 1);
+            put("love", 1);
+        }};
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
+            put("world", 1);
+            put("love", 1);
+        }};
 
         // when
-        final List<String> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
 
         // then
-        Assert.assertArrayEquals(
-                Arrays.asList("love" , "ocean").toArray(), actualResult.toArray(new String[actualResult.size()]));
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-     public void testRemoveUnimportantWords_removeWordRu() {
+    public void testRemoveUnimportantWords_removeWordRu() {
         // given
-        List<String> refinedWords = new ArrayList<>(Arrays.asList("мир", "и", "любовь"));
+        final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
+            put("мир", 1);
+            put("и", 1);
+            put("любовь", 1);
+        }};
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
+            put("мир", 1);
+            put("любовь", 1);
+        }};
 
         // when
-        final List<String> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
 
         // then
-        Assert.assertArrayEquals(
-                Arrays.asList("мир", "любовь").toArray(), actualResult.toArray(new String[actualResult.size()]));
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void testRemoveUnimportantWords_removeWordUa() {
         // given
-        List<String> refinedWords = new ArrayList<>(Arrays.asList("світ", "і", "любов"));
+        final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
+            put("світ", 1);
+            put("і", 1);
+            put("любов", 1);
+        }};
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
+            put("світ", 1);
+            put("любов", 1);
+        }};
 
         // when
-        final List<String> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
 
         // then
-        Assert.assertArrayEquals(
-                Arrays.asList("світ", "любов").toArray(), actualResult.toArray(new String[actualResult.size()]));
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void testRemoveUnimportantWords_removeVarietyWordsInDifferentLanguages() {
         // given
-        List<String> refinedWords = new ArrayList<>(
-                Arrays.asList("світ", "і", "любов", "мир", "и", "любовь", "world", "the", "love", "він", "їх", "лише", "что", "его", "на", "your", "they", "with"));
+        final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
+            put("світ", 1);
+            put("і", 1);
+            put("любов", 1);
+            put("мир", 1);
+            put("и", 1);
+            put("любовь", 1);
+            put("world", 1);
+            put("the", 1);
+            put("love", 1);
+            put("він", 1);
+            put("їх", 1);
+            put("лише", 1);
+            put("что", 1);
+            put("его", 1);
+            put("на", 1);
+            put("your", 1);
+            put("they", 1);
+            put("with", 1);
+        }};
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
+            put("світ", 1);
+            put("любов", 1);
+            put("мир", 1);
+            put("любовь", 1);
+            put("world", 1);
+            put("love", 1);
+        }};
 
         // when
-        final List<String> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
 
         // then
-        Assert.assertArrayEquals(
-                Arrays.asList("світ", "любов", "мир", "любовь", "world", "love").toArray(), actualResult.toArray(new String[actualResult.size()]));
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void testRemoveUnimportantWords_removeWordsFromCleanRefinedList() {
         // given
-        List<String> refinedWords = new ArrayList<>(Arrays.asList("світ", "любов", "мир", "любовь", "world", "love"));
+//        List<String> refinedWords = new ArrayList<>(Arrays.asList("світ", "любов", "мир", "любовь", "world", "love"));\
+        final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
+            put("світ", 1);
+            put("любов", 1);
+            put("мир", 1);
+            put("любовь", 1);
+            put("world", 1);
+            put("love", 1);
+        }};
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
+            put("світ", 1);
+            put("любов", 1);
+            put("мир", 1);
+            put("любовь", 1);
+            put("world", 1);
+            put("love", 1);
+        }};
 
         // when
-        final List<String> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
 
         // then
-        Assert.assertArrayEquals(
-                Arrays.asList("світ", "любов", "мир", "любовь", "world", "love").toArray(), actualResult.toArray(new String[actualResult.size()]));
+        Assert.assertEquals(expectedResult, actualResult);
     }
 }

@@ -14,16 +14,16 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
     private final TextRefiner refiner;
-    private final WordFilter wordFilter;
+
 
     @Autowired
     public CountWordsProcessorImpl(TextTypeInquirer textTypeInquirer, DocumentConverter documentConverter,
-                                   WordCounter wordCounter, TextRefiner refiner, WordFilter wordFilter) {
+                                   WordCounter wordCounter, TextRefiner refiner) {
         this.textTypeInquirer = textTypeInquirer;
         this.documentConverter = documentConverter;
         this.wordCounter = wordCounter;
         this.refiner = refiner;
-        this.wordFilter = wordFilter;
+
     }
 
     @Override
@@ -36,9 +36,7 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
 
         List<String> refinedWords = refiner.refineText(plainText);
 
-        List<String> refinedWordsWithFilter = wordFilter.removeUnimportantWords(refinedWords);
-
-        Map<String, Integer> result = wordCounter.countWords(refinedWordsWithFilter);
+        Map<String, Integer> result = wordCounter.countWords(refinedWords);
 
         return result;
     }

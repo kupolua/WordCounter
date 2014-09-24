@@ -22,32 +22,32 @@ public class JsonResultPresentation implements ResultPresentation {
     }
 
     @Override
-    public String createResponse(String textLink, Map<String, Integer> countedWords, Map<String, Integer> unFilteredWords, String dataTypeResponse) {
-        List<List<String>> countWordsResultResponse = new ArrayList<>();
-        List<List<String>> countUnFilteredWordsResultResponse = new ArrayList<>();
+    public String createResponse(Map<String, Integer> unRefinedCountedWords, Map<String, Integer> refinedCountedWords) {
+        List<List<String>> filteredCountedWords = new ArrayList<>();
+        List<List<String>> unFilteredCountedWords = new ArrayList<>();
 
-        for (Map.Entry<String, Integer> entry : countedWords.entrySet()) {
-            List<String> countWordResultResponse = new ArrayList<>();
-            countWordResultResponse.add(entry.getKey());
-            countWordResultResponse.add(entry.getValue().toString());
-            countWordsResultResponse.add(countWordResultResponse);
-        }
-        for (Map.Entry<String, Integer> entryUnFilteredWords : unFilteredWords.entrySet()) {
+        for (Map.Entry<String, Integer> entryUnFilteredWords : unRefinedCountedWords.entrySet()) {
             List<String> countUnFilteredWordsWordResultResponse = new ArrayList<>();
             countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getKey());
             countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getValue().toString());
-            countUnFilteredWordsResultResponse.add(countUnFilteredWordsWordResultResponse);
+            unFilteredCountedWords.add(countUnFilteredWordsWordResultResponse);
+        }
+        for (Map.Entry<String, Integer> entry : refinedCountedWords.entrySet()) {
+            List<String> countWordResultResponse = new ArrayList<>();
+            countWordResultResponse.add(entry.getKey());
+            countWordResultResponse.add(entry.getValue().toString());
+            filteredCountedWords.add(countWordResultResponse);
         }
 
         Gson gson = new Gson();
         JsonObject countedWordsListObj = new JsonObject();
 
-        JsonElement filteredWords = gson.toJsonTree(countWordsResultResponse);
-        JsonElement listUnFilteredWords = gson.toJsonTree(countUnFilteredWordsResultResponse);
+        JsonElement filteredWords = gson.toJsonTree(filteredCountedWords);
+        JsonElement unFilteredWords = gson.toJsonTree(unFilteredCountedWords);
 
         countedWordsListObj.addProperty("success", true);
         countedWordsListObj.add("filteredWords", filteredWords);
-        countedWordsListObj.add("dataAjax", listUnFilteredWords);
+        countedWordsListObj.add("unFilteredWords", unFilteredWords);
 
         return countedWordsListObj.toString();
     }

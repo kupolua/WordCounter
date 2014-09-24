@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class WordFilter {
@@ -19,9 +21,10 @@ public class WordFilter {
         wordsForFilter = getWordsForFilter(wordsEn, wordsRU, wordsUA);
     }
 
-    public List<String> removeUnimportantWords(List<String> refinedWords) {
+    public Map<String, Integer> removeUnimportantWords(Map<String, Integer> unRefinedCountedWords) {
+        Map<String, Integer> refinedWords = new HashMap<>(unRefinedCountedWords);
         List<String> filter = Arrays.asList(wordsForFilter.split(" "));
-        refinedWords.removeAll(filter);
+        refinedWords.keySet().removeAll(filter);
         return refinedWords;
     }
 

@@ -107,7 +107,9 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         driver.findElement(By.className("sorting")).click();
+
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
@@ -128,6 +130,7 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         driver.findElement(By.className("sorting_desc")).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
@@ -149,6 +152,7 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         driver.findElement(By.className("sorting")).click();
         driver.findElement(By.className("sorting")).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
@@ -171,6 +175,7 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -213,6 +218,7 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.linkText("Next")).click();
 
@@ -234,6 +240,7 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.linkText("Next")).click();
         driver.findElement(By.linkText("Previous")).click();
@@ -256,6 +263,7 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         new Select(driver.findElement(By.name("example_length"))).selectByVisibleText("25");
 
@@ -277,6 +285,7 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(TEXT);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -297,6 +306,7 @@ public class WebFormTest {
         driver.findElement(By.id("userUrlsList")).clear();
         driver.findElement(By.id("userUrlsList")).sendKeys(PDF_TEST_PAGE);
         driver.findElement(By.id("button")).click();
+        driver.findElement(By.id("filterWords")).click();
         driver.findElement(By.className("sorting")).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
@@ -350,9 +360,9 @@ public class WebFormTest {
             "объем 3\n" +
             "їжак 2\n" +
             "объём 1\n" +
-            "дом 1\n" +
-            "друг 1\n" +
-                    "єнот 1";
+            "ученики 1\n" +
+            "имя 1\n" +
+            "слово 1";
 
     private static final String TEXT = "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" +
             "\n" +
@@ -363,49 +373,49 @@ public class WebFormTest {
     private static final String EXPECTED_SHOW_ENTRIES =
             "one 4\n" +
                     "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
                     "объем 3\n" +
-            "їжак 2\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1\n" +
+                    "слово 1\n" +
                     "vkamenniy@gmail.com 1\n" +
-            "объём 1\n" +
-            "дом 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "дом 1\n" +
                     "друг 1\n" +
-                    "єнот 1\n" +
-            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
-                    "время 1\n" +
-                    "человек 1\n" +
-                    "народ 1\n" +
-            "ученики 1\n" +
-            "завет 1\n" +
-            "имя 1\n" +
-            "слово 1\n" +
-                    "сказал 1";
-
-    private static final String EXPECTED_PREVIOUS_RESPONSE =
-            "one 4\n" +
-                    "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-                    "объем 3\n" +
-            "їжак 2\n" +
-                    "vkamenniy@gmail.com 1\n" +
-            "объём 1\n" +
-            "дом 1\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 1";
-
-    private static final String EXPECTED_NEXT_RESPONSE =
-            "друг 1\n" +
                     "єнот 1\n" +
                     "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
                     "время 1\n" +
                     "человек 1\n" +
                     "народ 1\n" +
-                    "ученики 1\n" +
                     "завет 1\n" +
-                    "имя 1\n" +
-                    "слово 1";
+                    "сказал 1";
+
+    private static final String EXPECTED_PREVIOUS_RESPONSE =
+            "one 4\n" +
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
+
+    private static final String EXPECTED_NEXT_RESPONSE =
+            "слово 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1\n" +
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
+                    "время 1\n" +
+                    "человек 1\n" +
+                    "народ 1\n" +
+                    "завет 1";
 
     private static final String EXPECTED_SEARCH_WORD = "білка 3";
 
@@ -422,16 +432,16 @@ public class WebFormTest {
                     "завет 1";
 
     private static final String EXPECTED_SORTING_VALUE_ASCENDING =
-            "vkamenniy@gmail.com 1\n" +
             "объём 1\n" +
-            "дом 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1\n" +
+                    "слово 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "дом 1\n" +
                     "друг 1\n" +
                     "єнот 1\n" +
-            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
-                    "время 1\n" +
-                    "человек 1\n" +
-                    "народ 1";
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1";
 
     private static final String EXPECTED_SORTING_KEY_DESCENDING =
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
@@ -448,12 +458,12 @@ public class WebFormTest {
     private static final String EXPECTED_SORTING_VALUE_DESCENDING =
             "one 4\n" +
                     "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
                     "объем 3\n" +
-            "їжак 2\n" +
-                    "vkamenniy@gmail.com 1\n" +
-            "объём 1\n" +
-            "дом 1\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 1";
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
 }
