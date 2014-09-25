@@ -5,4 +5,4 @@ logs
 .gradle
 /video
 .DS_Store
-WordCounter.iml
+*.iml
