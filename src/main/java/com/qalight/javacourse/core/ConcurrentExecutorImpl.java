@@ -3,6 +3,7 @@ package com.qalight.javacourse.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,17 +16,28 @@ import java.util.concurrent.*;
 public class ConcurrentExecutorImpl implements ConcurrentExecutor{
     private static final Logger LOG = LoggerFactory.getLogger(ConcurrentExecutorImpl.class);
     private static final int CORES = Runtime.getRuntime().availableProcessors();
-    private static final int THREADS_MULTIPLICATION_FACTOR = 2;
-    private static final int PROCESSING_TIMEOUT = 25;
+    private final int threadsMultiplicationFactor;
+    private final int processingTimeout;
     private final ExecutorService executorService;
     private final CountWordsProcessor countWordsProcessor;
 
     @Autowired
-    public ConcurrentExecutorImpl(CountWordsProcessor countWordsProcessor) {
+    public ConcurrentExecutorImpl(
+            @Value("${executor.timeout.seconds}") int processingTimeout,
+            @Value("${executor.multiplication.factor}") int threadsMultiplicationFactor,
+            @Value("${executor.max.queue.size}") int maxQueueSize,
+            ThreadFactory threadFactory,
+            CountWordsProcessor countWordsProcessor) {
+
+        this.threadsMultiplicationFactor = threadsMultiplicationFactor;
+        this.processingTimeout = processingTimeout;
         this.countWordsProcessor = countWordsProcessor;
 
-        // todo: use custom cachable thread pool with limited queue
-        executorService = Executors.newFixedThreadPool(CORES * THREADS_MULTIPLICATION_FACTOR);
+        executorService = new ThreadPoolExecutor(
+                CORES, CORES * this.threadsMultiplicationFactor,
+                0L, TimeUnit.MILLISECONDS,
+                new ArrayBlockingQueue<>(maxQueueSize),
+                threadFactory);
     }
 
     @Override
@@ -58,7 +70,7 @@ public class ConcurrentExecutorImpl implements ConcurrentExecutor{
         List<Map<String, Integer>> result = new ArrayList<>(futures.size());
         try {
             for (Future<Map<String, Integer>> future : futures) {
-                Map<String, Integer> eachResult = future.get(PROCESSING_TIMEOUT, TimeUnit.SECONDS);
+                Map<String, Integer> eachResult = future.get(processingTimeout, TimeUnit.SECONDS);
                 result.add(eachResult);
             }
         } catch (InterruptedException e) {

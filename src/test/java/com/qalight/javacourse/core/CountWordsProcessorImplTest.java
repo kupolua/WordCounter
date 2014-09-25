@@ -26,7 +26,6 @@ public class CountWordsProcessorImplTest {
         DocumentConverter documentConverter = mock(DocumentConverter.class);
         WordCounter wordCounter = mock(WordCounter.class);
         TextRefiner textRefiner = mock(TextRefiner.class);
-        WordFilter wordFilter = mock(WordFilter.class);
 
         when(textTypeInquirer.inquireTextType(inputText)).thenReturn(new PlainTextTypeImpl());
         when(documentConverter.getDocumentConverter(any(TextType.class))).thenReturn(new PlainToStringConverter());

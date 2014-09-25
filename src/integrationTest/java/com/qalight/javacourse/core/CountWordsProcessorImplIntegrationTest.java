@@ -34,7 +34,7 @@ public class CountWordsProcessorImplIntegrationTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(timeout = 120_000)
     public void testProcess_bigPdf() {
         // given
         String input = "http://d23a3s5l1qjyz.cloudfront.net/wp-content/uploads/2012/09/King-James-Bible-KJV-Bible-PDF.pdf";

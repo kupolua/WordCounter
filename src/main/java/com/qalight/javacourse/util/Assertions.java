@@ -21,7 +21,7 @@ public class Assertions {
         }
     }
 
-    public static boolean equalCollections(Collection<String> collection, Collection<String> anotherCollection){
+    public static boolean equalCollections(Collection<?> collection, Collection<?> anotherCollection){
         if (collection == null) {
             return (anotherCollection == null);
         }
@@ -31,7 +31,7 @@ public class Assertions {
         if (collection.size() != anotherCollection.size()) {
             return false;
         }
-        for (String each : collection){
+        for (Object each : collection){
             if (!anotherCollection.contains(each)) {
                 return false;
             }
