@@ -5,9 +5,11 @@ import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Component
 public class HtmlToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(HtmlToStringConverter.class);
     private final HtmlToPlainText htmlToPlainText;

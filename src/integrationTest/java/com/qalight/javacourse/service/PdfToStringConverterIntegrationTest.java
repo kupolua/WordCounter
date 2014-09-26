@@ -3,14 +3,17 @@ package com.qalight.javacourse.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class PdfToStringConverterIntegrationTest {
-    private PdfToStringConverter pdfToStringConverter;
 
-    @Before
-    public void setUp() {
-        pdfToStringConverter = new PdfToStringConverter();
-    }
+    @Autowired
+    private PdfToStringConverter pdfToStringConverter;
 
     @Test
     public void testConvertToString() {

@@ -4,15 +4,17 @@ import com.qalight.javacourse.util.ResponseHeaderGetter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class TextTypeInquirerIntegrationTest {
 
+    @Autowired
     private TextTypeInquirer textTypeInquirer;
-
-    @Before
-    public void setup() {
-        textTypeInquirer = new TextTypeInquirer();
-    }
 
     @Test
     public void testInquireTextType_plainText() {

@@ -4,13 +4,13 @@ import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by box on 03.09.2014.
- */
+@Component
 public class DocToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DocToStringConverter.class);
     private final Tika tika;

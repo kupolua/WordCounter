@@ -1,7 +1,9 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.util.Assertions;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HtmlTextTypeImpl implements TextType {
     private static final String[] TEXT_TYPES = {"htm", "html", "xml"};
 

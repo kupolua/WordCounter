@@ -3,14 +3,17 @@ package com.qalight.javacourse.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class PlainTextTypeImplIntegrationTest {
-    private PlainTextTypeImpl plainTextType;
 
-    @Before
-    public void setUp() throws Exception {
-        plainTextType = new PlainTextTypeImpl();
-    }
+    @Autowired
+    private PlainTextTypeImpl plainTextType;
 
     @Test
     public void testIsEligible() {

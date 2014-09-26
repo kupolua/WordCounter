@@ -3,14 +3,17 @@ package com.qalight.javacourse.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class PdfTextTypeImplIntegrationTest {
-    private PdfTextTypeImpl pdfTextType;
 
-    @Before
-    public void setup() {
-        pdfTextType = new PdfTextTypeImpl();
-    }
+    @Autowired
+    private PdfTextTypeImpl pdfTextType;
 
     @Test
     public void testIsEligible_okTypeHeader() {

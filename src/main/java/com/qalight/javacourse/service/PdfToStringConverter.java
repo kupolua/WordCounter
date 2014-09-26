@@ -4,13 +4,12 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.StringJoiner;
 
-/**
- * Created by box on 27.08.2014.
- */
+@Component
 public class PdfToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(PdfToStringConverter.class);
 
