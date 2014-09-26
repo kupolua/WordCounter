@@ -16,45 +16,45 @@ public class PdfTextTypeImplIntegrationTest {
     private PdfTextTypeImpl pdfTextType;
 
     @Test
-    public void testIsEligible_okTypeHeader() {
+    public void testIsEligible_okType() {
         // given
-        final String textHttpHeader = "[application/pdf]";
+        final String url = "https://dl.dropboxusercontent.com/u/12495182/About%20us.pdf";
         final boolean expectedResult = true;
 
         //when
-        final boolean actualResult = pdfTextType.isEligible(textHttpHeader);
+        final boolean actualResult = pdfTextType.isEligible(url);
 
         //then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void testIsEligible_improperTypeHeader() {
+    public void testIsEligible_improperType() {
         //given
-        final String textHttpHeader = "[text/html; charset=windows-1251]";
+        final String url = "https://dl.dropboxusercontent.com/u/12495182/About%20us.doc";
         final boolean expectedResult = false;
 
         //when
-        final boolean actualResult = pdfTextType.isEligible(textHttpHeader);
+        final boolean actualResult = pdfTextType.isEligible(url);
 
         //then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_emptyHeader() {
+    public void testIsEligible_empty() {
         //given
-        final String textHttpHeader = "";
+        final String url = "";
 
         //when
-        pdfTextType.isEligible(textHttpHeader);
+        pdfTextType.isEligible(url);
 
         //then
         //expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_nullHeader() {
+    public void testIsEligible_null() {
         //given
         final String textHttpHeader = null;
 

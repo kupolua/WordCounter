@@ -16,12 +16,24 @@ public class HtmlTextTypeImplIntegrationTest {
     HtmlTextTypeImpl htmlTextType;
 
     @Test
-    public void testIsEligible_html() {
+    public void testIsEligible_woExtension() {
         //given
-        final String textHttpHeader = "[text/html; charset=windows-1251]";
+        final String url = "http://www.w3schools.com/xml/cd_catalog";
 
         //when
-        final boolean actualResult = htmlTextType.isEligible(textHttpHeader);
+        final boolean actualResult = htmlTextType.isEligible(url);
+
+        //then
+        Assert.assertTrue(actualResult);
+    }
+
+    @Test
+    public void testIsEligible_html() {
+        //given
+        final String url = "http://sergeyteplyakov.blogspot.com/2014/09/the-dependency-inversion-principle.html";
+
+        //when
+        final boolean actualResult = htmlTextType.isEligible(url);
 
         //then
         Assert.assertTrue(actualResult);
@@ -30,10 +42,10 @@ public class HtmlTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible_xml() {
         //given
-        final String textHttpHeader = "[text/xml]";
+        final String url = "http://www.w3schools.com/xml/cd_catalog.xml";
 
         //when
-        final boolean actualResult = htmlTextType.isEligible(textHttpHeader);
+        final boolean actualResult = htmlTextType.isEligible(url);
 
         //then
         Assert.assertTrue(actualResult);
@@ -42,14 +54,13 @@ public class HtmlTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible_improperType() {
         //given
-        final String textHttpHeader = "[application/pdf]";
-        final boolean expectedResult = false;
+        final String textHttpHeader = "http://www.w3schools.com/xml/cd_catalog.pdf";
 
         //when
         final boolean actualResult = htmlTextType.isEligible(textHttpHeader);
 
         //then
-        Assert.assertEquals(expectedResult, actualResult);
+        Assert.assertFalse(actualResult);
     }
 
     @Test(expected = IllegalArgumentException.class)

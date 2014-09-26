@@ -18,10 +18,10 @@ public class PlainTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible() {
         //given
-        final String textHttpHeader = "plain_text_type";
+        final String url = "plain text type";
 
         //when
-        boolean actualResult = plainTextType.isEligible(textHttpHeader);
+        boolean actualResult = plainTextType.isEligible(url);
 
         //then
         Assert.assertTrue(actualResult);
@@ -30,10 +30,10 @@ public class PlainTextTypeImplIntegrationTest {
     @Test
     public void testIsNotEligible() throws Exception {
         //given
-        final String textHttpHeader = "[text/html]";
+        final String url = "https://dl.dropboxusercontent.com/u/12495182/About%20us.pdf";
 
         //when
-        boolean actualResult = plainTextType.isEligible(textHttpHeader);
+        boolean actualResult = plainTextType.isEligible(url);
 
         //then
         Assert.assertFalse(actualResult);
@@ -42,10 +42,10 @@ public class PlainTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullLink() {
         //given
-        final String textHttpHeader = null;
+        final String url = null;
 
         //when
-        plainTextType.isEligible(textHttpHeader);
+        plainTextType.isEligible(url);
 
         //then
         //expected exception
@@ -54,10 +54,10 @@ public class PlainTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyLink() {
         //given
-        final String textHttpHeader = "";
+        final String url = "";
 
         //when
-        plainTextType.isEligible(textHttpHeader);
+        plainTextType.isEligible(url);
 
         //then
         //expected exception

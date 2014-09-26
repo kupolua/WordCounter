@@ -20,26 +20,18 @@ public class TextTypeInquirer {
         textTypes.add(new DocTextTypeImpl());
         textTypes.add(new PlainTextTypeImpl());
     }
-    // todo 1: use spring injection instead of manual object creation
-    // todo 2: do not use separate connection to check request header
-    private final ResponseHeaderGetter responseHeaderGetter;
-
-    public TextTypeInquirer() {
-        responseHeaderGetter = new ResponseHeaderGetter();
-    }
 
     public TextType inquireTextType(String dataSourceLink) {
-        Assertions.assertStringIsNotNullOrEmpty(dataSourceLink, TextTypeInquirer.class);
-        String textHttpHeader = responseHeaderGetter.getHttpHeader(dataSourceLink).toLowerCase();
+        Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
         TextType textType = null;
         for (TextType sourceType : textTypes) {
-            if (sourceType.isEligible(textHttpHeader)) {
+            if (sourceType.isEligible(dataSourceLink)) {
                 textType = sourceType;
                 break;
             }
         }
         if(textType == null){
-            throw new IllegalArgumentException("Unknown text type at " + dataSourceLink + ": " + textHttpHeader + ".");
+            throw new IllegalArgumentException("Unknown text type at " + dataSourceLink + ".");
         }
         LOG.debug("Document type of " + dataSourceLink + " identified successfully as " + textType + ".");
         return textType;

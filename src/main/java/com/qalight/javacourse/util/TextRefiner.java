@@ -35,7 +35,7 @@ public class TextRefiner {
     private static final Pattern CLEAN_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 
     public List<String> refineText(String unrefinedPlainText) {
-        Assertions.assertStringIsNotNullOrEmpty(unrefinedPlainText, TextRefiner.class);
+        Assertions.assertStringIsNotNullOrEmpty(unrefinedPlainText);
 
         List<String> unrefinedWords = asSplitList(unrefinedPlainText);
         List<String> words = new ArrayList<>(unrefinedWords);

@@ -18,7 +18,7 @@ public class DocTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible_invalidPdfType() {
         //given
-        final String textHttpHeader = "[application/pdf]";
+        final String textHttpHeader = "https://dl.dropboxusercontent.com/u/12495182/33.pdf";
         //when
         boolean actualResult = docTextType.isEligible(textHttpHeader);
         //then
@@ -28,13 +28,13 @@ public class DocTextTypeImplIntegrationTest {
     @Test
     public void testIsEligible_validTypes() {
         //given
-        final String[] textHttpHeaders = {
-                "[application/msword]",
-                "[application/vnd.openxmlformats-officedocument.presentationml.presentation]"
+        final String[] url = {
+                "https://dl.dropboxusercontent.com/u/12495182/%D0%B7%D0%BE%D0%BA.rtf",
+                "https://dl.dropboxusercontent.com/u/12495182/33.docx"
         };
 
         //when
-        boolean actualResult = checkIfSourceIsEligible(textHttpHeaders);
+        boolean actualResult = checkIfSourceIsEligible(url);
 
         //then
         final boolean expectedResult = true;
@@ -55,10 +55,10 @@ public class DocTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullLink() {
         //given
-        final String textHttpHeader = null;
+        final String url = null;
 
         //when
-        docTextType.isEligible(textHttpHeader);
+        docTextType.isEligible(url);
 
         //then
         //expected exception
@@ -67,10 +67,10 @@ public class DocTextTypeImplIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyLink() {
         //given
-        final String textHttpHeader = "";
+        final String url = "";
 
         //when
-        docTextType.isEligible(textHttpHeader);
+        docTextType.isEligible(url);
 
         //then
         //expected exception

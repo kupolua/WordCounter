@@ -1,21 +1,24 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.core.SupportedHttpProtocol;
 import com.qalight.javacourse.util.Assertions;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DocTextTypeImpl implements TextType {
     private static final String[] TEXT_TYPES =
-            {"rtf", "opendocument", "openxmlformats", "msword", "ms-excel", "ms-powerpoint", "officedocument"};
+            {".rtf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".ods", ".odp"};
 
     @Override
-    public boolean isEligible(String textHttpHeader) {
-        Assertions.assertStringIsNotNullOrEmpty(textHttpHeader, DocTextTypeImpl.class);
+    public boolean isEligible(String dataSourceLink) {
+        Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
         boolean isEligible = false;
-        for (String type : TEXT_TYPES) {
-            if (textHttpHeader.contains(type)) {
-                isEligible = true;
-                break;
+        if (SupportedHttpProtocol.isWebProtocol(dataSourceLink)) {
+            for (String type : TEXT_TYPES) {
+                if (dataSourceLink.endsWith(type)) {
+                    isEligible = true;
+                    break;
+                }
             }
         }
         return isEligible;

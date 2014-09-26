@@ -57,25 +57,13 @@ public class TextTypeInquirerIntegrationTest {
     @Test
     public void testInquireTextType_pdf() {
         //given
-        final String textHttpHeader = "http://defas.com.ua/java/Policy_of_.UA.pdf";
+        final String dataSourceLink = "http://defas.com.ua/java/Policy_of_.UA.pdf";
 
         //when
-        final TextType actualTextType = textTypeInquirer.inquireTextType(textHttpHeader);
+        final TextType actualTextType = textTypeInquirer.inquireTextType(dataSourceLink);
 
         //then
         Assert.assertTrue(actualTextType instanceof PdfTextTypeImpl);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testInquireTextType_unsupportedFormat() {
-        //given
-        final String dataSourceLink = "http://defas.com.ua/java/fdbasecd.iso";
-
-        //when
-        textTypeInquirer.inquireTextType(dataSourceLink);
-
-        //then
-        //expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
