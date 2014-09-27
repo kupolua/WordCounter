@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,9 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +24,8 @@ import static org.junit.Assert.fail;
 
 // todo: сделать кодревью и рефакторинг: vkamenniy
 // это черновой вариант, но рабочий
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WebFormTest {
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
     private static final String PDF_TEST_PAGE = "http://defas.com.ua/java/textForSeleniumTest.pdf";
@@ -352,6 +357,40 @@ public class WebFormTest {
         }
     }
 
+    @Test
+    public void testWordFilter() throws Exception {
+        // given
+        String wordsForFilter = getWordsForFilter(WORDS_EN, WORDS_RU, WORDS_UA);
+        String wordMarker = "marker";
+
+        driver.get(BASE_URL);
+
+        // when
+        driver.findElement(By.id("userUrlsList")).clear();
+        driver.findElement(By.id("userUrlsList")).sendKeys(wordMarker + " " + wordsForFilter);
+        driver.findElement(By.id("button")).click();
+
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        //then
+        if (isReady) {
+            driver.findElement(By.id("filterWords")).click();
+            String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+            assertEquals(EXPECTED_WORD_FILTER, actualEnterTwoLinks);
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
+    }
+
+    private final String getWordsForFilter(String... languages) {
+        StringBuilder wordsForFilter = new StringBuilder();
+        for (String language : languages) {
+            wordsForFilter.append(language);
+            wordsForFilter.append(" ");
+        }
+        return wordsForFilter.toString();
+    }
+
     public boolean waitForJQueryProcessing(WebDriver driver, int timeOutInSeconds) {
         boolean jQcondition = false;
         try {
@@ -511,4 +550,16 @@ public class WebFormTest {
                     "http://habrahabr.ru/posts/top/weekly/ 1\n" +
                     "ученики 1\n" +
                     "имя 1";
+
+    private
+    @Value("${wordsEN}")
+    String WORDS_EN;
+    private
+    @Value("${wordsRU}")
+    String WORDS_RU;
+    private
+    @Value("${wordsUA}")
+    String WORDS_UA;
+
+    private static final String EXPECTED_WORD_FILTER = "marker 1";
 }
