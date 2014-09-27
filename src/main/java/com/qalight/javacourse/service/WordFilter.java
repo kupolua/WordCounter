@@ -22,6 +22,9 @@ public class WordFilter {
     }
 
     public Map<String, Integer> removeUnimportantWords(Map<String, Integer> unRefinedCountedWords) {
+        if (unRefinedCountedWords == null) {
+            throw new IllegalArgumentException("results collection should not be null");
+        }
         Map<String, Integer> refinedWords = new HashMap<>(unRefinedCountedWords);
         List<String> filter = Arrays.asList(wordsForFilter.split(" "));
         refinedWords.keySet().removeAll(filter);

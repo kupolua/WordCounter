@@ -119,7 +119,6 @@ public class WordFilterIntegrationTest {
     @Test
     public void testRemoveUnimportantWords_removeWordsFromCleanRefinedList() {
         // given
-//        List<String> refinedWords = new ArrayList<>(Arrays.asList("світ", "любов", "мир", "любовь", "world", "love"));\
         final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
             put("світ", 1);
             put("любов", 1);
@@ -142,5 +141,17 @@ public class WordFilterIntegrationTest {
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void removeUnimportantWords_null() {
+        //given
+        final Map<String, Integer> countedWords = null;
+
+        //when
+        wordFilter.removeUnimportantWords(countedWords);
+
+        //then
+        //expected exception
     }
 }

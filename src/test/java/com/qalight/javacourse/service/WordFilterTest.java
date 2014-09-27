@@ -145,7 +145,6 @@ public class WordFilterTest {
     public void removeUnimportantWords_removeWordsFromCleanRefinedList() {
         // given
         final WordFilter filter = new WordFilter("the your they with", "и что его на", "і він їх лише");
-//        final List<String> refinedWords = new ArrayList<>(Arrays.asList("світ", "любов", "мир", "любовь", "world", "love"));
         final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
             put("світ", 1);
             put("любов", 1);
@@ -168,5 +167,18 @@ public class WordFilterTest {
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void removeUnimportantWords_null() {
+        //given
+        final WordFilter filter = new WordFilter("the your they with", "и что его на", "і він їх лише");
+        final Map<String, Integer> countedWords = null;
+
+        //when
+        filter.removeUnimportantWords(countedWords);
+
+        //then
+        //expected exception
     }
 }
