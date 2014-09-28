@@ -16,10 +16,10 @@
             <a href="/WordCounter">Word Counter ${version}</a>
         </div>
         <div id="goHome">
-            <a href="/WordCounter">Home</a>
+            <a href="/WordCounter"><spring:message code="about.home"/></a>
         </div>
-        <div id="aboutUsHeaderLine">about us</div>
-        <spring:message code="about.springmvc" text="default text" />
+        <div id="aboutUsHeaderLine"><spring:message code="about.us"/></div>
+        <spring:message code="about.text"/>
     </div>
 </body>
 </html>

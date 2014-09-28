@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -14,12 +16,12 @@
             <a href="/WordCounter">Word Counter ${version}</a>
         </div>
         <div id="goHome">
-            <a href="/WordCounter">Home</a>
+            <a href="/WordCounter"><spring:message code="filter.home"/></a>
         </div>
-        <div id="aboutUsHeaderLine">Filter</div>
-        <div id="filterEN"><b>Service words in English language:</b></br> ${wordsEN}</p> </div>
-        <div id="filterUA"><b>Service words in Ukranian language:</b></br> ${wordsUA}</p></div>
-        <div id="filterRU"><b>Service words in Russian language:</b></br> ${wordsRU}</p></div>
+        <div id="aboutUsHeaderLine"><spring:message code="filter.description"/></div>
+        <div id="filterEN"><b><spring:message code="filter.wordsEn"/></b></br> ${wordsEN}</p> </div>
+        <div id="filterUA"><b><spring:message code="filter.wordsRu"/></b></br> ${wordsRU}</p></div>
+        <div id="filterRU"><b><spring:message code="filter.wordsUk"/></b></br> ${wordsUA}</p></div>
     </div>
 </body>
 </html>
