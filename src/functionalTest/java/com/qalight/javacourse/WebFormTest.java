@@ -22,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-// todo: сделать кодревью и рефакторинг: vkamenniy
-// это черновой вариант, но рабочий
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WebFormTest {
@@ -423,7 +421,6 @@ public class WebFormTest {
                     "http://habrahabr.ru/posts/top/weekly/ 2\n" +
                     "ученики 2\n" +
                     "имя 2";
-
     private static final String EXPECTED_READING_PDF =
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
                     "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE 1\n" +
@@ -435,7 +432,6 @@ public class WebFormTest {
                     "two 3\n" +
                     "білка 3\n" +
                     "время 1";
-
     private static final String EXPECTED_INPUT_TEXT =
             "one 4\n" +
                     "ёлка 3\n" +
@@ -447,13 +443,11 @@ public class WebFormTest {
                     "ученики 1\n" +
                     "имя 1\n" +
                     "слово 1";
-
     private static final String TEXT = "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" +
             "\n" +
             "ёлка і Ёлка та ёлКА: ОБЪЁМ объем обЪем, але, но объем сказал завет человек время, имя, ученики, дом, друг, народ, слово, \n" +
             "\n" +
             "Їжак їжак єнот білка БІЛКА БіЛкА ";
-
     private static final String EXPECTED_SHOW_ENTRIES =
             "one 4\n" +
                     "ёлка 3\n" +
@@ -476,7 +470,6 @@ public class WebFormTest {
                     "народ 1\n" +
                     "завет 1\n" +
                     "сказал 1";
-
     private static final String EXPECTED_PREVIOUS_RESPONSE =
             "one 4\n" +
                     "ёлка 3\n" +
@@ -488,7 +481,6 @@ public class WebFormTest {
                     "http://habrahabr.ru/posts/top/weekly/ 1\n" +
                     "ученики 1\n" +
                     "имя 1";
-
     private static final String EXPECTED_NEXT_RESPONSE =
             "слово 1\n" +
                     "vkamenniy@gmail.com 1\n" +
@@ -500,9 +492,7 @@ public class WebFormTest {
                     "человек 1\n" +
                     "народ 1\n" +
                     "завет 1";
-
     private static final String EXPECTED_SEARCH_WORD = "білка 3";
-
     private static final String EXPECTED_SORTING_KEY_ASCENDING =
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
                     "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
@@ -514,7 +504,6 @@ public class WebFormTest {
                     "дом 1\n" +
                     "друг 1\n" +
                     "завет 1";
-
     private static final String EXPECTED_SORTING_VALUE_ASCENDING =
             "объём 1\n" +
                     "http://habrahabr.ru/posts/top/weekly/ 1\n" +
@@ -526,7 +515,6 @@ public class WebFormTest {
                     "друг 1\n" +
                     "єнот 1\n" +
                     "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1";
-
     private static final String EXPECTED_SORTING_KEY_DESCENDING =
             "їжак 2\n" +
                     "єнот 1\n" +
@@ -538,7 +526,6 @@ public class WebFormTest {
                     "объём 1\n" +
                     "объем 3\n" +
                     "народ 1";
-
     private static final String EXPECTED_SORTING_VALUE_DESCENDING =
             "one 4\n" +
                     "ёлка 3\n" +
@@ -550,6 +537,7 @@ public class WebFormTest {
                     "http://habrahabr.ru/posts/top/weekly/ 1\n" +
                     "ученики 1\n" +
                     "имя 1";
+    private static final String EXPECTED_WORD_FILTER = "marker 1";
 
     private
     @Value("${wordsEN}")
@@ -560,6 +548,4 @@ public class WebFormTest {
     private
     @Value("${wordsUA}")
     String WORDS_UA;
-
-    private static final String EXPECTED_WORD_FILTER = "marker 1";
 }
