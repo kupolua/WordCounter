@@ -1,5 +1,6 @@
 package com.qalight.javacourse.util;
 
+import static com.qalight.javacourse.util.TextRefinerConstants.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -8,31 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Component
 public class TextRefiner {
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
-    private static final String NON_BREAKING_HYPHEN = "&#8";
-    private static final String JSOUP_TAGS = "[<>]";
-    private static final String SPACES = "(\\s+)";
-    private static final String NON_BREAKING_SPACE = "|(&nbsp;)|(\\xA0)|(&#160;)";
-    private static final String SPACE_LENGTH_N = "|(&ensp;)|(&#8194;)";
-    private static final String SPACE_LENGTH_M = "|(&emsp;)|(&#8195;)";
-    private static final String NARROW_SPACE = "|(&thinsp;)|(&#8201;)";
-    private static final String ZERO_WIDTH_NON_JOINER = "|(&zwnj;)|(&#8204;)";
-
-    private static final Pattern WHITESPACES_PATTERN =
-            Pattern.compile("(\\s+)|(&nbsp;)|(\\xA0)|(&#160;)|(&ensp;)|(&#8194;)|(&emsp;)|(&#8195;)|(&thinsp;)|(&#8201;)|(&zwnj;)|(&#8204;)|—");
-    // todo: use constants with names for values like "&#160;" as reader do not understand what it means
-    // I don't know right way to do this:
-    //      Pattern.compile(String.join(SPACES).join(NON_BREAKING_SPACE).join(SPACE_LENGTH_N).join(SPACE_LENGTH_M).join(NARROW_SPACE).join(ZERO_WIDTH_NON_JOINER).join("|—"));
-    private static final Pattern HYPHEN_PATTERN = Pattern.compile("(.+-)|(-.+)");
-    private static final Pattern EMAIL_PATTERN =
-            Pattern.compile("(^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,}))");
-    private static final Pattern URL_PATTERN =
-            Pattern.compile("(<http://.*)|(<https://.*)|(<ftp://.*)|(<www\\..*)|(http://.*)|(https://.*)|(ftp://.*)|(www\\..*)");
-    private static final Pattern CLEAN_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ]");
 
     public List<String> refineText(String unrefinedPlainText) {
         Assertions.assertStringIsNotNullOrEmpty(unrefinedPlainText);
@@ -40,7 +20,7 @@ public class TextRefiner {
         List<String> unrefinedWords = asSplitList(unrefinedPlainText);
         List<String> words = new ArrayList<>(unrefinedWords);
 
-        List<String> emailsUrlsList = new ArrayList<String>();
+        List<String> emailsUrlsList = new ArrayList<>();
         for (String word : words) {
             Matcher emailMatcher = EMAIL_PATTERN.matcher(word.toLowerCase());
             Matcher urlMatcher = URL_PATTERN.matcher(word.toLowerCase());
