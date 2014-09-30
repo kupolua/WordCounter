@@ -2,7 +2,6 @@ package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.core.ConcurrentExecutor;
 import com.qalight.javacourse.util.Assertions;
-import com.qalight.javacourse.util.PropertiesReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

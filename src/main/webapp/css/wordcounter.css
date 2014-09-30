@@ -1,7 +1,7 @@
-.filterBotton div:nth-child(1){
+.filterButton div:nth-child(1){
     float: left;
 }
-.filterBotton div:nth-child(2){
+.filterButton div:nth-child(2){
     padding-top: 5px;
     float: left;
 }

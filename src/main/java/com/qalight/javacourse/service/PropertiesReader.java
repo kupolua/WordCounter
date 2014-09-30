@@ -1,4 +1,4 @@
-package com.qalight.javacourse.util;
+package com.qalight.javacourse.service;
 
 import java.util.Map;
 

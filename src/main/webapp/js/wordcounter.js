@@ -5,10 +5,10 @@ var userLang = navigator.language || navigator.userLanguage;
 
 function getFilteredWords(isFilter) {
     if (isFilter == 1){
-        $('#getFilterWords').html( '<input type="button" value="' + webFormProperties['botton.Filtered_' + userLang.substr(0,2)] + '" id="filterWords" onclick="getFilteredWords(0)">');
+        $('#getFilterWords').html( '<input type="button" value="' + webFormProperties['button.Filtered_' + userLang.substr(0,2)] + '" id="filterWords" onclick="getFilteredWords(0)">');
         writeTable(unFilteredWords);
     } else {
-        $('#getFilterWords').html( '<input type="button" value="' + webFormProperties['botton.UnFiltered_' + userLang.substr(0,2)] + '" id="filterWords" onclick="getFilteredWords(1)">');
+        $('#getFilterWords').html( '<input type="button" value="' + webFormProperties['button.UnFiltered_' + userLang.substr(0,2)] + '" id="filterWords" onclick="getFilteredWords(1)">');
         writeTable(filteredWords);
     }
 }
@@ -90,9 +90,9 @@ $(document).ready(function() {
                     filteredWords = data.filteredWords;
                     webFormProperties = data.webFormProp;
                     $('#filterContainer').html(
-                            '<div class="filterBotton">' +
+                            '<div class="filterButton">' +
                             '<div id="getFilterWords"></div>' +
-                            '<div id="showFilter">' + '<a href="filter" target="_blank">' + webFormProperties['botton.ShowFilter_' + userLang.substr(0,2)] + '</a></div>' +
+                            '<div id="showFilter">' + '<a href="filter" target="_blank">' + webFormProperties['button.ShowFilter_' + userLang.substr(0,2)] + '</a></div>' +
                             '</div>'
                     );
                     getFilteredWords(1);

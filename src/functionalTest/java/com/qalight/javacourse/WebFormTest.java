@@ -34,7 +34,7 @@ public class WebFormTest {
     private static final String BASE_URL = "http://localhost:" + PORT + CONTEXT;
     private static final String RESPONSE_IS_NOT_READY = "Verify Failed: Response is not ready";
     private static final String ANCHOR_HTML_PAGE_WITH_WORDS = "tbody";
-    private static final String ANCHOR_HTML_PAGE_WITHOUT_WORDS = "div#ajaxResponse";
+    private static final String ANCHOR_HTML_PAGE_WITHOUT_WORDS = "div#wordCounterResponse";
 
     private WebDriver driver;
 
