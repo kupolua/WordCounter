@@ -14,8 +14,7 @@ function getFilteredWords(isFilter) {
 }
 
 function writeTable(parsed, filter) {
-    $('#ajaxResponse').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
-    $('#showFilter').html( '<a href="filter" target="_blank">' + webFormProperties['botton.ShowFilter_' + userLang.substr(0,2)] + '</a>');
+    $('#wordCounterResponse').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
     var arr1 = [];
     var parsedLength = parsed.length;
 
@@ -61,7 +60,7 @@ $(document).ready(function() {
     var spinner;
 
 //Stops the submit request
-    $("#myAjaxRequestForm").submit(function(e){
+    $("#wordCounterForm").submit(function(e){
         e.preventDefault();
     });
 
@@ -69,7 +68,7 @@ $(document).ready(function() {
     $("#button").click(function(e){
 
         //getTextType the form data and then serialize that
-        dataString = $("#myAjaxRequestForm").serialize();
+        dataString = $("#wordCounterForm").serialize();
 
         //getTextType the form data using another method
         var userUrlsList = $("textarea#userUrlsList").val();
@@ -90,19 +89,25 @@ $(document).ready(function() {
                     unFilteredWords = data.unFilteredWords;
                     filteredWords = data.filteredWords;
                     webFormProperties = data.webFormProp;
+                    $('#filterContainer').html(
+                            '<div class="filterBotton">' +
+                            '<div id="getFilterWords"></div>' +
+                            '<div id="showFilter">' + '<a href="filter" target="_blank">' + webFormProperties['botton.ShowFilter_' + userLang.substr(0,2)] + '</a></div>' +
+                            '</div>'
+                    );
                     getFilteredWords(1);
                 }
                 //display error message
                 else {
-                    $("#ajaxResponse").html("");
-                    $("#ajaxResponse").append("<p>" + data.errorMessageToUser + "</p>");
+                    $("#wordCounterResponse").html("");
+                    $("#wordCounterResponse").append("<p>" + data.errorMessageToUser + "</p>");
                 }
             },
 
             //If there was no resonse from the server
             error: function(jqXHR, textStatus, errorThrown){
                 //console.log("Something really bad happened " + textStatus);
-                $("#ajaxResponse").html(jqXHR.responseText);
+                $("#wordCounterResponse").html(jqXHR.responseText);
             },
 
             //capture the request before it was sent to server

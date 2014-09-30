@@ -1,15 +1,46 @@
-#allContent {
+.filterBotton div:nth-child(1){
+    float: left;
+}
+.filterBotton div:nth-child(2){
+    padding-top: 5px;
+    float: left;
+}
+#wordCounterContent {
     padding: 0px 50px;
 }
-#myHeader {
+#wordCounterHeader {
     font-family: "Times New Roman", Georgia, Serif;
     font-size: 50px;
     color: #2ba6cb;
-
     padding-top: 25px;
     padding-right: 50px;
     padding-bottom: 25px;
     padding-left: 50px;
+}
+#descriptionMessage {
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 22px;
+    color: #008080;
+}
+#examleRequest {
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 16px;
+    color: #008080;
+    padding-top: 15px;
+}
+#showFilter {
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 12px;
+    color: #8da68f;;
+}
+#exampleFullText {
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 15px;
+    color: #008080;
+    padding-top: 25px;
+    padding-right: 50px;
+    padding-bottom: 0px;
+    padding-left: 30px;
 }
 #aboutUsHeaderLine {
     font-family: "Times New Roman", Georgia, Serif;
