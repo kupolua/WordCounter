@@ -22,7 +22,7 @@ public class JsonResultPresentation implements ResultPresentation {
     }
 
     @Override
-    public String createResponse(Map<String, Integer> unRefinedCountedWords, Map<String, Integer> refinedCountedWords) {
+    public String createResponse(Map<String, Integer> unRefinedCountedWords, Map<String, Integer> refinedCountedWords, Map<String, String> webFormProperties) {
         List<List<String>> filteredCountedWords = new ArrayList<>();
         List<List<String>> unFilteredCountedWords = new ArrayList<>();
 
@@ -44,10 +44,12 @@ public class JsonResultPresentation implements ResultPresentation {
 
         JsonElement filteredWords = gson.toJsonTree(filteredCountedWords);
         JsonElement unFilteredWords = gson.toJsonTree(unFilteredCountedWords);
+        JsonElement webFormProp = gson.toJsonTree(webFormProperties);
 
         countedWordsListObj.addProperty("success", true);
         countedWordsListObj.add("filteredWords", filteredWords);
         countedWordsListObj.add("unFilteredWords", unFilteredWords);
+        countedWordsListObj.add("webFormProp", webFormProp);
 
         return countedWordsListObj.toString();
     }

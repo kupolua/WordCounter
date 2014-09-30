@@ -2,6 +2,7 @@ package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.core.ConcurrentExecutor;
 import com.qalight.javacourse.util.Assertions;
+import com.qalight.javacourse.util.PropertiesReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +17,18 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final CountersIntegrator integrator;
     private final ResultPresentationService resultPresentationService;
     private final WordFilter wordFilter;
+    private final PropertiesReader propertiesReader;
 
     @Autowired
     public WordCounterServiceImpl(ResultPresentationService resultPresentationService, RequestSplitter splitter,
-                                  ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator, WordFilter wordFilter) {
+                                  ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator,
+                                  WordFilter wordFilter, PropertiesReader propertiesReader) {
         this.concurrentExecutor = concurrentExecutor;
         this.splitter = splitter;
         this.integrator = integrator;
         this.resultPresentationService = resultPresentationService;
         this.wordFilter = wordFilter;
+        this.propertiesReader = propertiesReader;
     }
 
     @Override
@@ -41,7 +45,9 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
 
-        String result = resultPresentation.createResponse(unRefinedCountedWords, refinedCountedWords);
+        Map<String, String> webFormProperties = propertiesReader.readProperties();
+
+        String result = resultPresentation.createResponse(unRefinedCountedWords, refinedCountedWords, webFormProperties);
 
         return result;
     }

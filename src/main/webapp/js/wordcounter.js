@@ -1,19 +1,21 @@
 var filteredWords;
 var unFilteredWords;
+var webFormProperties;
+var userLang = navigator.language || navigator.userLanguage;
 
 function getFilteredWords(isFilter) {
     if (isFilter == 1){
-        $('#getFilterWords').html( '<blockquote id="filterWords" onclick="getFilteredWords(0)">Filter words</blockquote>');
+        $('#getFilterWords').html( '<input type="button" value="' + webFormProperties['botton.Filtered_' + userLang.substr(0,2)] + '" id="filterWords" onclick="getFilteredWords(0)">');
         writeTable(unFilteredWords);
     } else {
-        $('#getFilterWords').html( '<blockquote id="filterWords" onclick="getFilteredWords(1)">Unfilter words</blockquote>');
+        $('#getFilterWords').html( '<input type="button" value="' + webFormProperties['botton.UnFiltered_' + userLang.substr(0,2)] + '" id="filterWords" onclick="getFilteredWords(1)">');
         writeTable(filteredWords);
     }
 }
 
 function writeTable(parsed, filter) {
     $('#ajaxResponse').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
-    $('#showFilter').html( '<a href="filter" target="_blank">Show filter</a>');
+    $('#showFilter').html( '<a href="filter" target="_blank">' + webFormProperties['botton.ShowFilter_' + userLang.substr(0,2)] + '</a>');
     var arr1 = [];
     var parsedLength = parsed.length;
 
@@ -87,6 +89,7 @@ $(document).ready(function() {
                 if(data.success){
                     unFilteredWords = data.unFilteredWords;
                     filteredWords = data.filteredWords;
+                    webFormProperties = data.webFormProp;
                     getFilteredWords(1);
                 }
                 //display error message
