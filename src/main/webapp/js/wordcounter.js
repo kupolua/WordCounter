@@ -87,12 +87,19 @@ $(document).ready(function() {
                 if(data.success){
                     unFilteredWords = data.unFilteredWords;
                     filteredWords = data.filteredWords;
-                    $('#filterContainer').html(
-                            '<div class="filterButton">' +
-                            '<div id="getFilterWords"></div>' +
-                            '<div id="showFilter">' + '<a href="filter" target="_blank" class="contentLocalLang_' + userLang.substr(0,2) + '"></a></div>' +
-                            '</div>'
+                    $('#pdfGetter').html('<a class="saveAsPdf_' + userLang.substr(0,2) + '" href="downloadPDF?userUrlsList=' + userUrlsList + '&dataTypeResponse=pdf"></a>');
+                    $('#modalParam').html(
+                        '<div id="osx-modal-content">' +
+                            '<div id="osx-modal-title"><div class="modalTitle_' + userLang.substr(0,2) + '"></div></div>' +
+                            '<div class="close"><a href="#" class="simplemodal-close">x</a></div>' +
+                            '<div id="osx-modal-data">' +
+                                '<h2><div class="modalHeader_' + userLang.substr(0,2) + '"></div></h2>' +
+                                '<div class="wordsFilter_' + userLang.substr(0,2) + '"></div>' +
+                                '</p><button class="simplemodal-close"><div class="modalClose_' + userLang.substr(0,2) + '" </button>' +
+                            '</div>' +
+                        '</div>'
                     );
+                    $('#textModalButton').html('<div class="contentLocalLang_' + userLang.substr(0,2) + '"></div>');
                     getFilteredWords(1);
                 }
                 //display error message
