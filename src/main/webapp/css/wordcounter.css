@@ -2,8 +2,63 @@
     float: left;
 }
 .filterButton div:nth-child(2){
-    padding-top: 5px;
+    padding-left: 15px;
+    padding-top: 15px;
     float: left;
+}
+.filteredLocalLang_ru:before {
+    visibility: visible;
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 12px;
+    color: #800b17;
+    content: 'Фильтровать';
+}
+.unFilteredLocalLang_ru:after {
+    visibility: visible;
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 12px;
+    color: #800b17;
+    content: 'Не фильтровать';
+}
+.contentLocalLang_ru:before {
+    visibility: visible;
+    content: 'Показать фильтр';
+}
+.filteredLocalLang_uk:before {
+    visibility: visible;
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 12px;
+    color: #800b17;
+    content: 'Фільтрувати';
+}
+.unFilteredLocalLang_uk:after {
+    visibility: visible;
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 12px;
+    color: #800b17;
+    content: 'Не фільтрувати';
+}
+.contentLocalLang_uk:before {
+    visibility: visible;
+    content: 'Показати филітр';
+}
+.filteredLocalLang_en:before {
+    visibility: visible;
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 12px;
+    color: #800b17;
+    content: 'Filter';
+}
+.unFilteredLocalLang_en:after {
+    visibility: visible;
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 12px;
+    color: #800b17;
+    content: 'Un filter';
+}
+.contentLocalLang_en:before {
+    visibility: visible;
+    content: 'Show filter';
 }
 #wordCounterContent {
     padding: 0px 50px;

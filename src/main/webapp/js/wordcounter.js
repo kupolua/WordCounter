@@ -1,14 +1,13 @@
 var filteredWords;
 var unFilteredWords;
-var webFormProperties;
 var userLang = navigator.language || navigator.userLanguage;
 
 function getFilteredWords(isFilter) {
     if (isFilter == 1){
-        $('#getFilterWords').html( '<input type="button" value="' + webFormProperties['button.Filtered_' + userLang.substr(0,2)] + '" id="filterWords" onclick="getFilteredWords(0)">');
+        $('#getFilterWords').html( '<button class="filteredLocalLang_' + userLang.substr(0,2) + '" id="filterWords" onclick="getFilteredWords(0)"></button>');
         writeTable(unFilteredWords);
     } else {
-        $('#getFilterWords').html( '<input type="button" value="' + webFormProperties['button.UnFiltered_' + userLang.substr(0,2)] + '" id="filterWords" onclick="getFilteredWords(1)">');
+        $('#getFilterWords').html( '<button class="unFilteredLocalLang_' + userLang.substr(0,2) + '" id="filterWords" onclick="getFilteredWords(1)"></button>');
         writeTable(filteredWords);
     }
 }
@@ -88,11 +87,10 @@ $(document).ready(function() {
                 if(data.success){
                     unFilteredWords = data.unFilteredWords;
                     filteredWords = data.filteredWords;
-                    webFormProperties = data.webFormProp;
                     $('#filterContainer').html(
                             '<div class="filterButton">' +
                             '<div id="getFilterWords"></div>' +
-                            '<div id="showFilter">' + '<a href="filter" target="_blank">' + webFormProperties['button.ShowFilter_' + userLang.substr(0,2)] + '</a></div>' +
+                            '<div id="showFilter">' + '<a href="filter" target="_blank" class="contentLocalLang_' + userLang.substr(0,2) + '"></a></div>' +
                             '</div>'
                     );
                     getFilteredWords(1);
