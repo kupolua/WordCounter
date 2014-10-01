@@ -87,7 +87,7 @@ $(document).ready(function() {
                 if(data.success){
                     unFilteredWords = data.unFilteredWords;
                     filteredWords = data.filteredWords;
-                    $('#pdfGetter').html('<a class="saveAsPdf_' + userLang.substr(0,2) + '" href="downloadPDF?userUrlsList=' + userUrlsList + '&dataTypeResponse=pdf"></a>');
+//                    $('#pdfGetter').html('<a class="saveAsPdf_' + userLang.substr(0,2) + '" href="downloadPDF?userUrlsList=' + userUrlsList + '&dataTypeResponse=pdf"></a>');
                     $('#modalParam').html(
                         '<div id="osx-modal-content">' +
                             '<div id="osx-modal-title"><div class="modalTitle_' + userLang.substr(0,2) + '"></div></div>' +
