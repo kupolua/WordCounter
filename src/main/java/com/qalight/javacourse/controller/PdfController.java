@@ -9,12 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@RequestMapping(value = "/downloadPDF")
 public class PdfController {
-    @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView downloadPdf() {
         Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
             put("world", 3);
             put("love", 5);
+            put("плейстейшн", 5);
         }};
         return new ModelAndView("pdfView", "calculatedWords", expectedResult);
     }
