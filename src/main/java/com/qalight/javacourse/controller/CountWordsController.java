@@ -34,7 +34,7 @@ public class CountWordsController {
         return jsonResult;
     }
 
-    @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET)
+    @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, consumes = "application/pdf", produces = "application/pdf")
     public ModelAndView getPdfResult(@RequestParam String userUrlsList, @RequestParam String dataTypeResponse) {
         final String VIEW_NAME = "pdfView";
         final String MODEL_NAME = "calculatedWords";

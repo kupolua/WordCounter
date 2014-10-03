@@ -112,6 +112,7 @@ function writeTable(unFilteredWords, isFilter) {
     }
 
     $("#showFilter").show();
+    $("#saveAsPdf").show();
     $("#wordCounterResponse").show();
     $('#countedWords').show();
     $('#countedWords').dataTable( {

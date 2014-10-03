@@ -42,7 +42,7 @@ public class PdfBuilder extends AbstractPdfView {
         Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
             if (entry.getKey().startsWith("<a href=")){
-                Chunk link = getChunk(entry);
+                Chunk link = deleteTagAndgetChunk(entry);
                 cell.setPhrase(new Phrase(link));
                 table.addCell(cell);
             } else {
@@ -56,7 +56,7 @@ public class PdfBuilder extends AbstractPdfView {
         document.add(table);
     }
 
-    private Chunk getChunk(Map.Entry<String, Integer> entry) {
+    private Chunk deleteTagAndgetChunk(Map.Entry<String, Integer> entry) {
         String unTaggedLink = Jsoup.clean(entry.getKey(), Whitelist.simpleText());
         Chunk link = new Chunk(unTaggedLink);
         link.setAnchor(unTaggedLink);
