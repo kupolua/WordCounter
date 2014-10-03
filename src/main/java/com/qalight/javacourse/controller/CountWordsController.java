@@ -26,24 +26,25 @@ public class CountWordsController {
 
     @RequestMapping(method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String getResult(@RequestParam String userUrlsList, @RequestParam String dataTypeResponse) {
-        final String result = getResultAndCatchException(userUrlsList, dataTypeResponse);
+    public String getResult(@RequestParam String userUrlsList) {
+        final String result = getResultAndCatchException(userUrlsList);
         return result;
     }
 
-    private String getResultAndCatchException(String dataSources, String dataTypeResponse) {
+    private String getResultAndCatchException(String dataSources) {
         String result;
         try {
-            result = wordCounterService.getWordCounterResult(dataSources, dataTypeResponse);
+            result = wordCounterService.getWordCounterResult(dataSources);
         } catch (Throwable e) {
             LOG.error("error while processing request: " + e.getMessage(), e);
-            result = logAndCreateErrorResponse(dataTypeResponse, e);
+            result = logAndCreateErrorResponse("dataTypeResponse", e);
         }
         return result;
     }
-
+    //todo: why we use dataTypeResponse?
     private String logAndCreateErrorResponse(String dataTypeResponse, Throwable e) {
-        String result;ResultPresentationService resultPresentationService = new ResultPresentationService();
+        String result;
+        ResultPresentationService resultPresentationService = new ResultPresentationService();
         ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
         result = resultPresentation.createErrorResponse(e.getMessage());
         return result;

@@ -6,131 +6,27 @@
 }
 .filterButton div:nth-child(2){
     padding-left: 15px;
-    padding-top: 15px;
+    padding-top: 5px;
     float: left;
 }
 .filterButton div:nth-child(3){
-    padding-left: 15px;
+    padding-left: 5px;
     padding-top: 15px;
     float: left;
 }
-.filteredLocalLang_ru:before {
-    visibility: visible;
-    font-family: "Verdana", Georgia, Serif;
-    font-size: 12px;
-    color: #f9fffb;
-    content: 'Фильтровать';
-}
-.unFilteredLocalLang_ru:after {
-    visibility: visible;
-    font-family: "Verdana", Georgia, Serif;
-    font-size: 12px;
-    color: #f9fffb;
-    content: 'Не фильтровать';
-}
-.contentLocalLang_ru:before {
-    visibility: visible;
-    content: 'Показать фильтр';
-}
-.modalTitle_ru:before {
-    content: 'Фильтр';
-}
-.modalHeader_ru:before {
-    content: 'Наиболее часто используемые слова';
-}
-.wordsFilter_ru:before {
-    content: 'в вы своего вами она нем тебе кого и в не что его на он я же но ибо с а как от к из в чтобы ему то вам они по вас если когда им о их все во кто за ты мы меня мне это у есть для так потому будет ли был или ни бы тогда который да нас него тебя тот было итак тебя нам них которые себя того были ее всех со вот до пред перед еще быть всем уже сего которого между только нему нет сие это себе дабы через там где ними при сам своих тем сей мой посему над ничего соего собою чем некоторые свою ко после своих ей под об те г д ж з й к л м н о п р т ф х ц ч ш щ ъ ь ы э ю';
-}
-.modalClose_ru:before {
-    padding-top: 5px;
-    content: 'Закрыть';
-}
-.saveAsPdf_ru:after {
-    visibility: visible;
+
+#saveAsPdf {
+    visibility: hidden;
     font-family: "Verdana", Georgia, Serif;
     font-size: 12px;
     color: #2ba6cb;
-    content: 'Сохранить как pdf';
 }
-
-.filteredLocalLang_uk:before {
-    visibility: visible;
-    font-family: "Verdana", Georgia, Serif;
-    font-size: 12px;
-    color: #f9fffb;
-    content: 'Фільтрувати';
+#buttonGetFilterWords {
+    display: none;
 }
-.unFilteredLocalLang_uk:after {
-    visibility: visible;
-    font-family: "Verdana", Georgia, Serif;
-    font-size: 12px;
-    color: #f9fffb;
-    content: 'Не фільтрувати';
+#buttonGetUnFilterWords {
+    display: none;
 }
-.contentLocalLang_uk:before {
-    visibility: visible;
-    content: 'Показати филітр';
-}
-.modalTitle_uk:before {
-    content: 'Фільтр';
-}
-.modalHeader_uk:before {
-    content: 'Найбільш найчастіше використовувані слова';
-}
-.wordsFilter_uk:before {
-    content: 'і з що до його та як було її за про й були але р від для він їх лише між вони же це тому чи тим тільки своїх там над так навіть зокрема проте які при цього ж все всі всіх є свого т таким під після н ці серед цьому е своєї який ще із вона цих них зі також свої м уже цей коли через перед той отже може тобто якому того ні ними яка своїм щоб якого своє всього свій себе своїй якої якій або б вже без їхній їхнього їхні своїми де по ним ній тут йому буду яким тих то їм нього їхніх те цю мав собі ньому з-під цій деякі крім би всю ї ґ';
-}
-.modalClose_uk:before {
-    padding-top: 5px;
-    content: 'Закрити';
-}
-.saveAsPdf_uk:after {
-    visibility: visible;
-    font-family: "Verdana", Georgia, Serif;
-    font-size: 12px;
-    color: #2ba6cb;
-    content: 'Зберегти як pdf';
-}
-
-.filteredLocalLang_en:before {
-    visibility: visible;
-    font-family: "Verdana", Georgia, Serif;
-    font-size: 12px;
-    color: #f9fffb;
-    content: 'Filter';
-}
-.unFilteredLocalLang_en:after {
-    visibility: visible;
-    font-family: "Verdana", Georgia, Serif;
-    font-size: 12px;
-    color: #f9fffb;
-    content: 'Un filter';
-}
-.contentLocalLang_en:before {
-    visibility: visible;
-    content: 'Show filter';
-}
-.modalTitle_en:before {
-    content: 'Filter';
-}
-.modalHeader_en:before {
-    content: 'The most frequently used words';
-}
-.wordsFilter_en:before {
-    content: 'the a an to and of in will he i is for his your they with not that him be them it who from on all my have was as me but are this their so then when had were what by has at or up we there if no her those into before our am these its she o about also through other after how which where would each any some why than off while until yet nor s b c d e f g h j k l m n o p q r s t u v w x y z';
-}
-.modalClose_en:before {
-    padding-top: 5px;
-    content: 'Close';
-}
-.saveAsPdf_en:after {
-    visibility: visible;
-    font-family: "Verdana", Georgia, Serif;
-    font-size: 12px;
-    color: #2ba6cb;
-    content: 'Save as pdf';
-}
-
 #wordCounterContent {
     padding: 0px 50px;
 }
@@ -155,9 +51,19 @@
     padding-top: 15px;
 }
 #showFilter {
+    display: none;
     font-family: "Verdana", Georgia, Serif;
     font-size: 12px;
-    color: #8da68f;;
+    color: #8da68f;
+}
+#wordCounterResponse{
+    display: none;
+}
+#noWordCounter {
+    display: inline;
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 16px;
+    color: #2ba6cb;
 }
 #exampleFullText {
     font-family: "Verdana", Georgia, Serif;

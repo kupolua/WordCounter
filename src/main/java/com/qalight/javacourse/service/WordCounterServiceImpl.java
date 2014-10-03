@@ -29,8 +29,8 @@ public class WordCounterServiceImpl implements WordCounterService {
     }
 
     @Override
-    public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
-        checkParams(clientRequest, dataTypeResponse);
+    public String getWordCounterResult(String clientRequest) {
+        checkParams(clientRequest);
 
         Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest);
 
@@ -40,17 +40,15 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         Map<String, Integer> refinedCountedWords = wordFilter.removeUnimportantWords(unRefinedCountedWords);
 
-        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
-
-
+        //todo: this will be to remove when we will implement WordCounterResult
+        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation("json");
         String result = resultPresentation.createResponse(unRefinedCountedWords, refinedCountedWords);
 
         return result;
     }
 
-    private static void checkParams(String userUrlsString, String dataTypeResponse) {
+    private static void checkParams(String userUrlsString) {
         Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
-        Assertions.assertStringIsNotNullOrEmpty(dataTypeResponse);
     }
 
 }
