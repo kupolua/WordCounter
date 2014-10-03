@@ -1,12 +1,12 @@
 package com.qalight.javacourse.controller;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.Font;
-import com.lowagie.text.Phrase;
+import com.lowagie.text.*;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,12 +41,25 @@ public class PdfBuilder extends AbstractPdfView {
 
         Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
-            cell.setPhrase(new Phrase(entry.getKey(), bodyFont));
-            table.addCell(cell);
+            if (entry.getKey().startsWith("<a href=")){
+                Chunk link = getChunk(entry);
+                cell.setPhrase(new Phrase(link));
+                table.addCell(cell);
+            } else {
+                cell.setPhrase(new Phrase(entry.getKey(), bodyFont));
+                table.addCell(cell);
+            }
             cell.setPhrase(new Phrase(entry.getValue().toString(), bodyFont));
             table.addCell(cell);
         }
 
         document.add(table);
+    }
+
+    private Chunk getChunk(Map.Entry<String, Integer> entry) {
+        String unTaggedLink = Jsoup.clean(entry.getKey(), Whitelist.simpleText());
+        Chunk link = new Chunk(unTaggedLink);
+        link.setAnchor(unTaggedLink);
+        return link;
     }
 }

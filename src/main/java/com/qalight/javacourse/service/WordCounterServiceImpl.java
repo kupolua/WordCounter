@@ -31,11 +31,11 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         List<Map<String, Integer>> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests);
 
-        Map<String, Integer> unRefinedCountedWords = integrator.integrateResults(wordCountResults);
+        Map<String, Integer> refinedCountedWords = integrator.integrateResults(wordCountResults);
 
-        Map<String, Integer> sortedUnrefinedCountedWords = WordResultSorter.VALUE_DESCENDING.getSortedWords(unRefinedCountedWords);
+        Map<String, Integer> sortedRefinedCountedWords = WordResultSorter.VALUE_DESCENDING.getSortedWords(refinedCountedWords);
 
-        WordCounterResultContainer result = new WordCounterResultContainer(sortedUnrefinedCountedWords);
+        WordCounterResultContainer result = new WordCounterResultContainer(sortedRefinedCountedWords);
 
         return result;
     }
