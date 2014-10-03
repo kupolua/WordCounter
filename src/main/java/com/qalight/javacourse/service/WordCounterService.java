@@ -4,5 +4,5 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 public interface WordCounterService {
-    String getWordCounterResult(String dataSources, String dataTypeResponse) throws InterruptedException, ExecutionException, TimeoutException;
+    WordCounterResultContainer getWordCounterResult(String dataSources) throws InterruptedException, ExecutionException, TimeoutException;
 }

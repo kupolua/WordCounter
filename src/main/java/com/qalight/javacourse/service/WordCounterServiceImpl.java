@@ -1,6 +1,7 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.core.ConcurrentExecutor;
+import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,23 +15,17 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final RequestSplitter splitter;
     private final ConcurrentExecutor concurrentExecutor;
     private final CountersIntegrator integrator;
-    private final ResultPresentationService resultPresentationService;
-    private final WordFilter wordFilter;
 
     @Autowired
-    public WordCounterServiceImpl(ResultPresentationService resultPresentationService, RequestSplitter splitter,
-                                  ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator,
-                                  WordFilter wordFilter) {
+    public WordCounterServiceImpl(RequestSplitter splitter, ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator) {
         this.concurrentExecutor = concurrentExecutor;
         this.splitter = splitter;
         this.integrator = integrator;
-        this.resultPresentationService = resultPresentationService;
-        this.wordFilter = wordFilter;
     }
 
     @Override
-    public String getWordCounterResult(String clientRequest, String dataTypeResponse) {
-        checkParams(clientRequest, dataTypeResponse);
+    public WordCounterResultContainer getWordCounterResult(String clientRequest) {
+        checkParams(clientRequest);
 
         Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest);
 
@@ -38,19 +33,15 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         Map<String, Integer> unRefinedCountedWords = integrator.integrateResults(wordCountResults);
 
-        Map<String, Integer> refinedCountedWords = wordFilter.removeUnimportantWords(unRefinedCountedWords);
+        Map<String, Integer> sortedUnrefinedCountedWords = WordResultSorter.VALUE_DESCENDING.getSortedWords(unRefinedCountedWords);
 
-        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
-
-
-        String result = resultPresentation.createResponse(unRefinedCountedWords, refinedCountedWords);
+        WordCounterResultContainer result = new WordCounterResultContainer(sortedUnrefinedCountedWords);
 
         return result;
     }
 
-    private static void checkParams(String userUrlsString, String dataTypeResponse) {
+    private static void checkParams(String userUrlsString) {
         Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
-        Assertions.assertStringIsNotNullOrEmpty(dataTypeResponse);
     }
 
 }

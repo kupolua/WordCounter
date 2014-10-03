@@ -3,11 +3,13 @@ package com.qalight.javacourse.service;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class JsonResultPresentation implements ResultPresentation {
     // todo: add checks for nulls and other validations for methods
     private static final String DATA_TYPES = "json";
@@ -22,8 +24,7 @@ public class JsonResultPresentation implements ResultPresentation {
     }
 
     @Override
-    public String createResponse(Map<String, Integer> unRefinedCountedWords, Map<String, Integer> refinedCountedWords) {
-        List<List<String>> filteredCountedWords = new ArrayList<>();
+    public String createResponse(Map<String, Integer> unRefinedCountedWords) {
         List<List<String>> unFilteredCountedWords = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entryUnFilteredWords : unRefinedCountedWords.entrySet()) {
@@ -32,21 +33,13 @@ public class JsonResultPresentation implements ResultPresentation {
             countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getValue().toString());
             unFilteredCountedWords.add(countUnFilteredWordsWordResultResponse);
         }
-        for (Map.Entry<String, Integer> entry : refinedCountedWords.entrySet()) {
-            List<String> countWordResultResponse = new ArrayList<>();
-            countWordResultResponse.add(entry.getKey());
-            countWordResultResponse.add(entry.getValue().toString());
-            filteredCountedWords.add(countWordResultResponse);
-        }
 
         Gson gson = new Gson();
         JsonObject countedWordsListObj = new JsonObject();
 
-        JsonElement filteredWords = gson.toJsonTree(filteredCountedWords);
         JsonElement unFilteredWords = gson.toJsonTree(unFilteredCountedWords);
 
         countedWordsListObj.addProperty("success", true);
-        countedWordsListObj.add("filteredWords", filteredWords);
         countedWordsListObj.add("unFilteredWords", unFilteredWords);
 
         return countedWordsListObj.toString();

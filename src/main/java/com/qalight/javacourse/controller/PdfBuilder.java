@@ -1,4 +1,4 @@
-package com.qalight.javacourse.util;
+package com.qalight.javacourse.controller;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Font;
@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 public class PdfBuilder extends AbstractPdfView {
+    private static final String FONT_ARIAL_BOLD_ITALIC = "fonts/arialbi.ttf";
+    private static final String FONT_ARIAL_NORMAL = "fonts/arial.ttf";
+    private static final String HEAD_CELL_WORDS = "Words";
+    private static final String HEAD_CELL_COUNT = "Count";
+    private static final String MODEL_NAME = "calculatedWords";
 
     @Override
     protected void buildPdfDocument(Map model, Document document, PdfWriter writer, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -21,20 +26,20 @@ public class PdfBuilder extends AbstractPdfView {
         table.setWidths(new float[] {2.0f, 1.0f});
         table.setSpacingBefore(10);
 
-        BaseFont unicodeArialBold = BaseFont.createFont("fonts/arialbi.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        BaseFont unicodeArialBold = BaseFont.createFont(FONT_ARIAL_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font headFont = new Font(unicodeArialBold);
-        BaseFont unicodeArial = BaseFont.createFont("fonts/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        BaseFont unicodeArial = BaseFont.createFont(FONT_ARIAL_NORMAL, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font bodyFont = new Font(unicodeArial);
 
         PdfPCell cell = new PdfPCell();
         cell.setPadding(5);
 
-        cell.setPhrase(new Phrase("Words", headFont));
+        cell.setPhrase(new Phrase(HEAD_CELL_WORDS, headFont));
         table.addCell(cell);
-        cell.setPhrase(new Phrase("Count", headFont));
+        cell.setPhrase(new Phrase(HEAD_CELL_COUNT, headFont));
         table.addCell(cell);
 
-        Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get("calculatedWords");
+        Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
             cell.setPhrase(new Phrase(entry.getKey(), bodyFont));
             table.addCell(cell);
