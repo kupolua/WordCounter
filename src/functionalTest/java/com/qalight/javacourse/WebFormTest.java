@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 //todo this code need codereview
@@ -420,6 +421,30 @@ public class WebFormTest {
             driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             String actualParallelExecution = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_PARALLEL_EXECUTION, actualParallelExecution);
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
+    }
+
+    //todo find better way for this test
+//todo add check filter words
+    @Test
+    public void testLinkShowFilter() throws Exception {
+        // given
+        driver.get(BASE_URL);
+
+        // when
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        //then
+        if (isReady) {
+            driver.findElement(By.cssSelector("#showFilter > a")).click();
+            boolean isModalWindow = driver.getPageSource().contains("simplemodal-placeholder");
+            assertTrue(isModalWindow);
         } else {
             fail(RESPONSE_IS_NOT_READY);
         }
