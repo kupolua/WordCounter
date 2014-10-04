@@ -111,9 +111,8 @@ $(document).ready(function() {
     });
 
     $("#getPdfByUrl").click(function(e){
-//        $("#getPdfByUrl").attr("href", "downloadPDF?userUrlsList=" + encodeURIComponent(userUrlsList));
-//        $("#getPdfByUrl").attr("target", "_blank");
-//        alert($("#aria-sort").attr());
+        $("#getPdfByUrl").attr("href", "downloadPDF?userUrlsList=" + encodeURIComponent(userUrlsList));
+        $("#getPdfByUrl").attr("target", "_blank");
 
         var sortingParamKey = $("th[aria-sort]").each( function () {
             $(this).val( $(this).attr("aria-sort") );
