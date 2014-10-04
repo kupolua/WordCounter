@@ -26,7 +26,7 @@ public class CountWordsController {
         this.resultPresentation = resultPresentation;
     }
 
-    @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+    @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getResult(@RequestParam String userUrlsList) {
         WordCounterResultContainer result = getResultAndCatchException(userUrlsList);
@@ -34,7 +34,7 @@ public class CountWordsController {
         return jsonResult;
     }
 
-    @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, consumes = "application/pdf", produces = "application/pdf")
+    @RequestMapping(value = "/downloadPDF", method = RequestMethod.POST, produces = "application/pdf")
     public ModelAndView getPdfResult(@RequestParam String userUrlsList, @RequestParam String dataTypeResponse) {
         final String VIEW_NAME = "pdfView";
         final String MODEL_NAME = "calculatedWords";
