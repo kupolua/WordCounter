@@ -450,6 +450,20 @@ public class WebFormTest {
         }
     }
 
+    // todo maybe is better way for this test. Ask Sasha or find better way
+    @Test
+    public void testLinkAboutUs() throws Exception {
+        // given
+        driver.get(BASE_URL);
+
+        // when
+        driver.findElement(By.cssSelector("#aboutUs > a")).click();
+
+        //then
+        boolean isPageAboutUs = driver.getPageSource().contains("aboutUsHeaderLine");
+        assertTrue(isPageAboutUs);
+    }
+
     private final String getWordsForFilter(String... languages) {
         StringBuilder wordsForFilter = new StringBuilder();
         for (String language : languages) {
