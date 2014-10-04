@@ -2,6 +2,7 @@ var spinner;
 var dataResponse;
 var isFilter = 0;
 var userUrlsList;
+var selectedRows = 10;
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
         e.preventDefault();
@@ -39,7 +40,7 @@ $(document).ready(function() {
                 //todo remove if when error hending
                 if(data.success){
                     dataResponse = data.unFilteredWords;
-                    writeTable(dataResponse, isFilter); //todo remove writeTable(). Use callback
+                    writeTable(dataResponse, isFilter, selectedRows); //todo remove writeTable(). Use callback
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
@@ -110,26 +111,43 @@ $(document).ready(function() {
     });
 
     $("#getPdfByUrl").click(function(e){
-        $("#getPdfByUrl").attr("href", "downloadPDF?userUrlsList=" + encodeURIComponent(userUrlsList));
-        $("#getPdfByUrl").attr("target", "_blank");
+//        $("#getPdfByUrl").attr("href", "downloadPDF?userUrlsList=" + encodeURIComponent(userUrlsList));
+//        $("#getPdfByUrl").attr("target", "_blank");
+//        alert($("#aria-sort").attr());
+
+        var sortingParamKey = $("th[aria-sort]").each( function () {
+            $(this).val( $(this).attr("aria-sort") );
+        });
+//        alert(sortingParamKey.text());
+        var sortingParamValue = $("th[aria-sort]").val(function() {
+            return $(this).attr("aria-sort");
+        });
     });
 
     $("#buttonGetFilterWords").click(function(e){
+        selectedRows = $("select[name] option:selected").val(function() {
+            return $(this).text();
+        });
+//        alert(selectedRows.text());
         $('#countedWords').dataTable().fnDestroy();
         $('#countedWords').hide();
         isFilter = 1;
-        writeTable(dataResponse, isFilter);
+        writeTable(dataResponse, isFilter, selectedRows.text());
     });
 
     $("#buttonGetUnFilterWords").click(function(e){
+        selectedRows = $("select[name] option:selected").val(function() {
+            return $(this).text();
+        });
+//        alert(selectedRows.text());
         $('#countedWords').dataTable().fnDestroy();
         $('#countedWords').hide();
         isFilter = 0;
-        writeTable(dataResponse, isFilter);
+        writeTable(dataResponse, isFilter, selectedRows.text());
     });
 });
 
-function writeTable(unFilteredWords, isFilter) {
+function writeTable(unFilteredWords, isFilter, pageLength) {
     var index;
     var k = 0;
     var isFound = 0;
@@ -185,6 +203,7 @@ function writeTable(unFilteredWords, isFilter) {
     $('#countedWords').dataTable( {
         "data": countedWords,
         "order": [ 1, 'desc' ],
+        "pageLength": pageLength,
         "columns": [
             { "title": "Word" },
             { "title": "Count" }
