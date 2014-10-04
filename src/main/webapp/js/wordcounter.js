@@ -110,7 +110,7 @@ $(document).ready(function() {
     });
 
     $("#getPdfByUrl").click(function(e){
-        $("#getPdfByUrl").attr("href", "downloadPDF?userUrlsList=" + userUrlsList);
+        $("#getPdfByUrl").attr("href", "downloadPDF?userUrlsList=" + encodeURIComponent(userUrlsList));
         $("#getPdfByUrl").attr("target", "_blank");
     });
 
