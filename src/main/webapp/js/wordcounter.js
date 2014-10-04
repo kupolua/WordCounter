@@ -1,6 +1,7 @@
 var spinner;
 var dataResponse;
 var isFilter = 0;
+var userUrlsList;
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
         e.preventDefault();
@@ -26,7 +27,7 @@ $(document).ready(function() {
             left: '50%' // Left position relative to parent
         };
         var target = document.getElementById('spinner');
-        var userUrlsList = $("textarea#userUrlsList").val();
+        userUrlsList = $("textarea#userUrlsList").val();
         var dataTypeResponse = $('input[name=dataTypeResponse]').val();
         dataString = "userUrlsList=" + encodeURIComponent(userUrlsList);
         $.ajax({
@@ -55,19 +56,76 @@ $(document).ready(function() {
             }
         });
     });
+    //todo hide button. It will be use for ajax request
+    $("#buttonSaveAsPdf").click(function(e){
+        var opts = {
+            lines: 11, // The number of lines to draw
+            length: 17, // The length of each line
+            width: 10, // The line thickness
+            radius: 18, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 7, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#2ba6cb', // #rgb or #rrggbb or array of colors
+            speed: 1.1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: '150', // Top position relative to parent
+            left: '50%' // Left position relative to parent
+        };
+        var target = document.getElementById('spinner');
+        userUrlsList = $("textarea#userUrlsList").val();
+        dataString = "userUrlsList=" + encodeURIComponent(userUrlsList);
+        $.ajax({
+            type: "POST",
+            url: "./downloadPDF",
+            data: dataString,
+            dataType: "pdf",
+            success: function( data, textStatus, jqXHR) {
+                //todo remove if when error hending
+//                if(data.success){
+//                    alert("pdf");
+//                    var win = window.open();
+//                    win.document.write(data);
+//                    dataResponse = data.unFilteredWords;
+//                    writeTable(dataResponse, isFilter); //todo remove writeTable(). Use callback
+//                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                $("#wordCounterResponse").html(jqXHR.responseText);
+            },
+            beforeSend: function(jqXHR, settings){
+                settings.data += "&dummyData=whatever";
+                $('#buttonSaveAsPdf').attr("disabled", true)
+                spinner = new Spinner(opts).spin(target);
+            },
+            complete: function(jqXHR, textStatus){
+                $('#buttonSaveAsPdf').attr("disabled", false);
+                spinner.stop(target);
+            }
+        });
+    });
+
+    $("#getPdfByUrl").click(function(e){
+        $("#getPdfByUrl").attr("href", "downloadPDF?userUrlsList=" + userUrlsList);
+        $("#getPdfByUrl").attr("target", "_blank");
+    });
 
     $("#buttonGetFilterWords").click(function(e){
         $('#countedWords').dataTable().fnDestroy();
         $('#countedWords').hide();
-        writeTable(dataResponse, isFilter);
         isFilter = 1;
+        writeTable(dataResponse, isFilter);
     });
 
     $("#buttonGetUnFilterWords").click(function(e){
         $('#countedWords').dataTable().fnDestroy();
         $('#countedWords').hide();
-        writeTable(dataResponse, isFilter);
         isFilter = 0;
+        writeTable(dataResponse, isFilter);
     });
 });
 
@@ -121,6 +179,7 @@ function writeTable(unFilteredWords, isFilter) {
 
     $("#showFilter").show();
     $("#saveAsPdf").show();
+    $("#buttonSaveAsPdf").hide(); //todo hide button. It will be use for ajax request
     $("#wordCounterResponse").show();
     $('#countedWords').show();
     $('#countedWords').dataTable( {
