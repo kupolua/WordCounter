@@ -40,13 +40,8 @@ public class JsonResultPresentationTest {
     @Test
     public void testCreateResponse() throws Exception {
         //given
-        final String expectedJsonResponse = "{\"success\":true,\"filteredWords\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]],\"unFilteredWords\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]]}";
-        final Map<String, Integer> filteredCountedWords = new HashMap<>();
-        filteredCountedWords.put("Hello", 10);
-        filteredCountedWords.put("World", 7);
-        filteredCountedWords.put("Word", 13);
-        filteredCountedWords.put("Counter", 5);
-        filteredCountedWords.put("Project", 24);
+        final String expectedJsonResponse = "{\"success\":true,\"unFilteredWords\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]]}";
+
         final Map<String, Integer> unFilteredCountedWords = new HashMap<>();
         unFilteredCountedWords.put("Hello", 10);
         unFilteredCountedWords.put("World", 7);
@@ -55,7 +50,7 @@ public class JsonResultPresentationTest {
         unFilteredCountedWords.put("Project", 24);
 
         //when
-        String actualJsonResponse = jsonResultPresentation.createResponse(filteredCountedWords, unFilteredCountedWords);
+        String actualJsonResponse = jsonResultPresentation.createResponse(unFilteredCountedWords);
 
         //then
         Assert.assertEquals(expectedJsonResponse, actualJsonResponse);

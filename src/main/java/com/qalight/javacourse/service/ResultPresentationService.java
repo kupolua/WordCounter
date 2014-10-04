@@ -9,9 +9,7 @@ import java.util.Set;
 @Component
 public class ResultPresentationService {
     private static final Logger LOG = LoggerFactory.getLogger(ResultPresentationService.class);
-
     private static Set<ResultPresentation> resultPresentations;
-
     static {
         resultPresentations = new HashSet<>();
         resultPresentations.add(new JsonResultPresentation());

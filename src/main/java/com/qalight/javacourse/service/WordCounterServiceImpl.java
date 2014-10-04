@@ -1,6 +1,7 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.core.ConcurrentExecutor;
+import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,35 +15,27 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final RequestSplitter splitter;
     private final ConcurrentExecutor concurrentExecutor;
     private final CountersIntegrator integrator;
-    private final ResultPresentationService resultPresentationService;
-    private final WordFilter wordFilter;
 
     @Autowired
-    public WordCounterServiceImpl(ResultPresentationService resultPresentationService, RequestSplitter splitter,
-                                  ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator,
-                                  WordFilter wordFilter) {
+    public WordCounterServiceImpl(RequestSplitter splitter, ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator) {
         this.concurrentExecutor = concurrentExecutor;
         this.splitter = splitter;
         this.integrator = integrator;
-        this.resultPresentationService = resultPresentationService;
-        this.wordFilter = wordFilter;
     }
 
     @Override
-    public String getWordCounterResult(String clientRequest) {
+    public WordCounterResultContainer getWordCounterResult(String clientRequest) {
         checkParams(clientRequest);
 
         Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest);
 
         List<Map<String, Integer>> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests);
 
-        Map<String, Integer> unRefinedCountedWords = integrator.integrateResults(wordCountResults);
+        Map<String, Integer> refinedCountedWords = integrator.integrateResults(wordCountResults);
 
-        Map<String, Integer> refinedCountedWords = wordFilter.removeUnimportantWords(unRefinedCountedWords);
+        Map<String, Integer> sortedRefinedCountedWords = WordResultSorter.VALUE_DESCENDING.getSortedWords(refinedCountedWords);
 
-        //todo: this will be to remove when we will implement WordCounterResult
-        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation("json");
-        String result = resultPresentation.createResponse(unRefinedCountedWords, refinedCountedWords);
+        WordCounterResultContainer result = new WordCounterResultContainer(sortedRefinedCountedWords);
 
         return result;
     }
