@@ -28,6 +28,7 @@ $(document).ready(function() {
             left: '50%' // Left position relative to parent
         };
         var target = document.getElementById('spinner');
+
         userUrlsList = $("textarea#userUrlsList").val();
         var dataTypeResponse = $('input[name=dataTypeResponse]').val();
         dataString = "userUrlsList=" + encodeURIComponent(userUrlsList);
@@ -200,6 +201,7 @@ function writeTable(unFilteredWords, isFilter, pageLength) {
     $("#wordCounterResponse").show();
     $('#countedWords').show();
     $('#countedWords').dataTable( {
+        "destroy": true,
         "data": countedWords,
         "order": [ 1, 'desc' ],
         "pageLength": pageLength,
