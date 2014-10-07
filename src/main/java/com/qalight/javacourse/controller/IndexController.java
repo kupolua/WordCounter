@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-    @Value("${app.version}")
-    private String version;
+    @Value("${app.version}") private String version;
+    @Value("${app.filter}") private String filter;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
         model.addAttribute("version", version);
+        model.addAttribute("filter", filter);
         return "index";
     }
 }

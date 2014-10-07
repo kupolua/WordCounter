@@ -1,3 +1,4 @@
+/* todo */
 .filterButton div:nth-child(1){
     float: left;
 }
@@ -15,6 +16,13 @@
 #consolidateFilter {
     display: none;
 }
+#wordsColumNameAnchor {
+    display: none;
+}
+#countColumNameAnchor {
+    display: none;
+}
+
 #saveAsPdf {
     display: none;
     padding-top: 6px;

@@ -40,7 +40,7 @@ public class WebFormTest {
     private static final String ANCHOR_HTML_PAGE_WITHOUT_WORDS = "div#wordCounterResponse";
     private static final String BUTTON_ID_COUNT_WORDS = "CountWords";
     private static final String BUTTON_ID_FILTER_WORDS = "buttonGetFilterWords";
-    private static final String ELEMENT_ID_TEXT_AREA = "userUrlsList";
+    private static final String ELEMENT_ID_TEXT_AREA = "textCount";
 
     private WebDriver driver;
     private WebDriver driverSecondary;

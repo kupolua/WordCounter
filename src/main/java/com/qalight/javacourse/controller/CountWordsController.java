@@ -28,18 +28,18 @@ public class CountWordsController {
 
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getResult(@RequestParam String userUrlsList) {
-        WordCounterResultContainer result = getResultAndCatchException(userUrlsList);
+    public String getResult(@RequestParam String textCount) {
+        WordCounterResultContainer result = getResultAndCatchException(textCount);
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
         return jsonResult;
     }
 
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
     @ResponseBody
-    public ModelAndView getPdfResult(@RequestParam String userUrlsList) {
+    public ModelAndView getPdfResult(@RequestParam String textCount) {
         final String VIEW_NAME = "pdfView";
         final String MODEL_NAME = "calculatedWords";
-        WordCounterResultContainer result = getResultAndCatchException(userUrlsList);
+        WordCounterResultContainer result = getResultAndCatchException(textCount);
         Map<String, Integer> resultMap = result.getCountedResult();
         return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
     }
