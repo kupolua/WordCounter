@@ -36,7 +36,12 @@ public class CountWordsController {
 
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
     @ResponseBody
-    public ModelAndView getPdfResult(@RequestParam String textCount) {
+    public ModelAndView getPdfResult(
+            @RequestParam String textCount,
+            @RequestParam String sortingField,
+            @RequestParam String sortingOrder,
+            @RequestParam String isFilterWords
+    ) {
         final String VIEW_NAME = "pdfView";
         final String MODEL_NAME = "calculatedWords";
         WordCounterResultContainer result = getResultAndCatchException(textCount);
