@@ -29,9 +29,9 @@
             <list>
                 <value>/WEB-INF/internationalization/about</value>
                 <value>/WEB-INF/internationalization/index</value>
-                <value>/WEB-INF/internationalization/filter</value>
             </list>
         </property>
+        <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 
     <bean id="pdfViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
