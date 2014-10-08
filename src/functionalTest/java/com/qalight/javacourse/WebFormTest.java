@@ -26,14 +26,19 @@ import static org.junit.Assert.fail;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WebFormTest {
-    private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
-    private static final String HTML_TEST_PAGE_SECONDARY = "https://dl.dropboxusercontent.com/u/12495182/" +
-            "textForSeleniumTestSecondary.pdf";
-    private static final String PDF_TEST_PAGE = "http://defas.com.ua/java/textForSeleniumTest.pdf";
-    private static final String CONTEXT = "/WordCounter/";
+    //todo if this posssible to move text in constant to properties file?
     private static final int WAIT_FOR_ELEMENT = 7;
     private static final int DEFAULT_WAIT_FOR_PAGE = 30;
     private static final int PORT = 8080;
+    private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
+    private static final String HTML_TEST_PAGE_SECONDARY = "https://dl.dropboxusercontent.com/u/12495182/" +
+            "textForSeleniumTestSecondary.pdf";
+    private static final String INCORRECT_SYMBOL = "a";
+    private static final String EXPECTED_EMPTY_RESULT = "";
+    private static final String EXPECTED_INCORRECT_RESULT = "";
+    private static final String PDF_TEST_PAGE = "http://defas.com.ua/java/textForSeleniumTest.pdf";
+    private static final String URL_SEPARATOR = " ";
+    private static final String CONTEXT = "/WordCounter/";
     private static final String BASE_URL = "http://localhost:" + PORT + CONTEXT;
     private static final String RESPONSE_IS_NOT_READY = "Verify Failed: Response is not ready";
     private static final String ANCHOR_HTML_PAGE_WITH_WORDS = "#countedWords > tbody";
@@ -41,7 +46,169 @@ public class WebFormTest {
     private static final String BUTTON_ID_COUNT_WORDS = "CountWords";
     private static final String BUTTON_ID_FILTER_WORDS = "buttonGetFilterWords";
     private static final String ELEMENT_ID_TEXT_AREA = "textCount";
-
+    private static final String ELEMENT_ID_SORTING = "sorting";
+    private static final String ELEMENT_ID_SORTING_ASC  = "sorting_asc";
+    private static final String ELEMENT_ID_SORTING_DESC = "sorting_desc";
+    private static final String ELEMENT_CSS_SELECTOR = "input[type=\"search\"]";
+    private static final String SEARCH_WORD = "білка";
+    private static final String ELEMENT_LINK_TEXT_NEXT = "Next";
+    private static final String ELEMENT_LINK_TEXT_PREV = "Previous";
+    private static final String ELEMENT_DATATABLES_LENGTH= "countedWords_length";
+    private static final String DATATABLES_LENGTH= "25";
+    private static final String WORD_MARKER= "marker";
+    private static final String ELEMENT_SHOW_FILTER = "#showFilter > a";
+    private static final String IS_MODAL_WINDOW = "simplemodal-placeholder";
+    private static final String ELEMENT_ID_ABOUT_US = "aboutUsLink";
+    private static final String IS_PAGE_ABOUT_US = "aboutUsHeaderLine";
+    private static final String JQUERY_ACTIVE = "return jQuery.active == 0";
+    private static final String EXPECTED_PARALLEL_EXECUTION = "one 4\n" +
+            "ёлка 3\n" +
+            "two 3\n" +
+            "білка 3\n" +
+            "объем 3\n" +
+            "їжак 2\n" +
+            "объём 1\n" +
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+            "ученики 1\n" +
+            "имя 1";
+    private static final String EXPECTED_ENTER_TWO_LINKS =
+            "one 8\n" +
+                    "ёлка 6\n" +
+                    "two 6\n" +
+                    "білка 6\n" +
+                    "объем 6\n" +
+                    "їжак 4\n" +
+                    "объём 2\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 2\n" +
+                    "ученики 2\n" +
+                    "имя 2";
+    private static final String EXPECTED_READING_PDF =
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "dbdbddbaqschromeijljjsourc 1\n" +
+                    "ddbcdpatterncompiledb 1\n" +
+                    "eidchromeessmieutf 1\n" +
+                    "one 4\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "время 1";
+    private static final String EXPECTED_INPUT_TEXT =
+            "one 4\n" +
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1";
+    private static final String TEXT = "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" +
+            "\n" +
+            "ёлка і Ёлка та ёлКА: ОБЪЁМ объем обЪем, але, но объем сказал завет человек время, имя, ученики, дом, " +
+            "друг, народ, слово, \n" +
+            "\n" +
+            "Їжак їжак єнот білка БІЛКА БіЛкА ";
+    private static final String EXPECTED_SHOW_ENTRIES =
+            "one 4\n" +
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1\n" +
+                    "слово 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1\n" +
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern." +
+                    "compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_" +
+                    "sm=93&ie=UTF-8 1\n" +
+                    "время 1\n" +
+                    "человек 1\n" +
+                    "народ 1\n" +
+                    "завет 1\n" +
+                    "сказал 1";
+    private static final String EXPECTED_PREVIOUS_RESPONSE =
+            "one 4\n" +
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
+    private static final String EXPECTED_NEXT_RESPONSE =
+            "one 4\n" +
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
+    private static final String EXPECTED_SEARCH_WORD = "білка 3";
+    private static final String EXPECTED_SORTING_KEY_ASCENDING =
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern." +
+                    "compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome" +
+                    "&es_sm=93&ie=UTF-8 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "one 4\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "время 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "завет 1";
+    private static final String EXPECTED_SORTING_VALUE_ASCENDING =
+            "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1\n" +
+                    "слово 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1\n" +
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+" +
+                    "Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=" +
+                    "chrome&es_sm=93&ie=UTF-8 1";
+    private static final String EXPECTED_SORTING_KEY_DESCENDING =
+            "їжак 2\n" +
+                    "єнот 1\n" +
+                    "ёлка 3\n" +
+                    "человек 1\n" +
+                    "ученики 1\n" +
+                    "слово 1\n" +
+                    "сказал 1\n" +
+                    "объём 1\n" +
+                    "объем 3\n" +
+                    "народ 1";
+    private static final String EXPECTED_SORTING_VALUE_DESCENDING =
+            "one 4\n" +
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
+    private static final String EXPECTED_WORD_FILTER = "marker 1";
+    @Value("${wordsEN}") private String WORDS_EN;
+    @Value("${wordsRU}") private String WORDS_RU;
+    @Value("${wordsUA}") private String WORDS_UA;
     private WebDriver driver;
     private WebDriver driverSecondary;
 
@@ -80,7 +247,7 @@ public class WebFormTest {
         // then
         if (isReady) {
             String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITHOUT_WORDS)).getText();
-            String expectedResult = "";
+            String expectedResult = EXPECTED_EMPTY_RESULT;
             assertEquals(expectedResult, actualResult);
         } else {
             fail(RESPONSE_IS_NOT_READY);
@@ -94,7 +261,7 @@ public class WebFormTest {
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE + "a");
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE + INCORRECT_SYMBOL);
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
 
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
@@ -102,7 +269,7 @@ public class WebFormTest {
         // then
         if (isReady) {
             String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITHOUT_WORDS)).getText();
-            final String expectedResult = "";
+            final String expectedResult = EXPECTED_INCORRECT_RESULT;
             assertEquals(expectedResult, actualResult);
         } else {
             fail(RESPONSE_IS_NOT_READY);
@@ -124,7 +291,7 @@ public class WebFormTest {
         //then
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
-            driver.findElement(By.className("sorting")).click();
+            driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
             String actualSortingKeyAscending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SORTING_KEY_ASCENDING, actualSortingKeyAscending);
         } else {
@@ -147,7 +314,7 @@ public class WebFormTest {
         // then
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
-            driver.findElement(By.className("sorting_desc")).click();
+            driver.findElement(By.className(ELEMENT_ID_SORTING_DESC)).click();
             String actualSortingValueAscending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SORTING_VALUE_ASCENDING, actualSortingValueAscending);
         } else {
@@ -170,8 +337,8 @@ public class WebFormTest {
         // then
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
-            driver.findElement(By.className("sorting")).click();
-            driver.findElement(By.className("sorting_asc")).click();
+            driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
+            driver.findElement(By.className(ELEMENT_ID_SORTING_ASC)).click();
             String actualSortingKeyDescending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SORTING_KEY_DESCENDING, actualSortingKeyDescending);
         } else {
@@ -210,13 +377,13 @@ public class WebFormTest {
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-        driver.findElement(By.cssSelector("input[type=\"search\"]")).clear();
+        driver.findElement(By.cssSelector(ELEMENT_CSS_SELECTOR)).clear();
 
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
         if (isReady) {
-            driver.findElement(By.cssSelector("input[type=\"search\"]")).sendKeys("білка");
+            driver.findElement(By.cssSelector(ELEMENT_CSS_SELECTOR)).sendKeys(SEARCH_WORD);
             String actualSearchWord = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SEARCH_WORD, actualSearchWord);
         } else {
@@ -239,7 +406,7 @@ public class WebFormTest {
         // then
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
-            driver.findElement(By.linkText("Next")).click();
+            driver.findElement(By.linkText(ELEMENT_LINK_TEXT_NEXT)).click();
             String actualNextResponse = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_NEXT_RESPONSE, actualNextResponse);
         } else {
@@ -262,8 +429,8 @@ public class WebFormTest {
         // then
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
-            driver.findElement(By.linkText("Next")).click();
-            driver.findElement(By.linkText("Previous")).click();
+            driver.findElement(By.linkText(ELEMENT_LINK_TEXT_NEXT)).click();
+            driver.findElement(By.linkText(ELEMENT_LINK_TEXT_PREV)).click();
 
             String actualPreviousResponse = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_PREVIOUS_RESPONSE, actualPreviousResponse);
@@ -287,7 +454,7 @@ public class WebFormTest {
         // then
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
-            new Select(driver.findElement(By.name("countedWords_length"))).selectByVisibleText("25");
+            new Select(driver.findElement(By.name(ELEMENT_DATATABLES_LENGTH))).selectByVisibleText(DATATABLES_LENGTH);
             String actualShowEntries = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SHOW_ENTRIES, actualShowEntries);
         } else {
@@ -332,7 +499,7 @@ public class WebFormTest {
         //then
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
-            driver.findElement(By.className("sorting")).click();
+            driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
             String actualReadingPDF = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_READING_PDF, actualReadingPDF);
         } else {
@@ -347,7 +514,7 @@ public class WebFormTest {
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE + " " + PDF_TEST_PAGE);
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE + URL_SEPARATOR + PDF_TEST_PAGE);
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
 
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
@@ -366,13 +533,13 @@ public class WebFormTest {
     public void testWordFilter() throws Exception {
         // given
         String wordsForFilter = getWordsForFilter(WORDS_EN, WORDS_RU, WORDS_UA);
-        String wordMarker = "marker";
+        String wordMarker = WORD_MARKER;
 
         driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(wordMarker + " " + wordsForFilter);
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(wordMarker + URL_SEPARATOR + wordsForFilter);
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
 
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
@@ -390,6 +557,7 @@ public class WebFormTest {
     @Test
     public void testParallelExecution() throws Exception {
         // given
+        //todo I'm not sure that is the best practice to create driverSecondary
         if (isMacOs()) {
             driverSecondary = new SafariDriver();
         } else {
@@ -441,8 +609,8 @@ public class WebFormTest {
 
         //then
         if (isReady) {
-            driver.findElement(By.cssSelector("#showFilter > a")).click();
-            boolean isModalWindow = driver.getPageSource().contains("simplemodal-placeholder");
+            driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
+            boolean isModalWindow = driver.getPageSource().contains(IS_MODAL_WINDOW);
             assertTrue(isModalWindow);
         } else {
             fail(RESPONSE_IS_NOT_READY);
@@ -456,10 +624,10 @@ public class WebFormTest {
         driver.get(BASE_URL);
 
         // when
-        driver.findElement(By.id("aboutUsLink")).click();
+        driver.findElement(By.id(ELEMENT_ID_ABOUT_US)).click();
 
         //then
-        boolean isPageAboutUs = driver.getPageSource().contains("aboutUsHeaderLine");
+        boolean isPageAboutUs = driver.getPageSource().contains(IS_PAGE_ABOUT_US);
         assertTrue(isPageAboutUs);
     }
 
@@ -481,10 +649,10 @@ public class WebFormTest {
 
                 @Override
                 public Boolean apply(WebDriver driverObject) {
-                    return (Boolean) ((JavascriptExecutor) driverObject).executeScript("return jQuery.active == 0");
+                    return (Boolean) ((JavascriptExecutor) driverObject).executeScript(JQUERY_ACTIVE);
                 }
             });
-            jQcondition = (Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active == 0");
+            jQcondition = (Boolean) ((JavascriptExecutor) driver).executeScript(JQUERY_ACTIVE);
             driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS); //reset implicitlyWait
             return jQcondition;
         } catch (Exception e) {
@@ -492,154 +660,4 @@ public class WebFormTest {
         }
         return jQcondition;
     }
-
-    private static final String EXPECTED_PARALLEL_EXECUTION = "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "ученики 1\n" +
-            "имя 1";
-
-    private static final String EXPECTED_ENTER_TWO_LINKS =
-            "one 8\n" +
-                    "ёлка 6\n" +
-                    "two 6\n" +
-                    "білка 6\n" +
-                    "объем 6\n" +
-                    "їжак 4\n" +
-                    "объём 2\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 2\n" +
-                    "ученики 2\n" +
-                    "имя 2";
-    private static final String EXPECTED_READING_PDF =
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE 1\n" +
-                    "vkamenniy@gmail.com 1\n" +
-                    "dbdbddbaqschromeijljjsourc 1\n" +
-                    "ddbcdpatterncompiledb 1\n" +
-                    "eidchromeessmieutf 1\n" +
-                    "one 4\n" +
-                    "two 3\n" +
-                    "білка 3\n" +
-                    "время 1";
-    private static final String EXPECTED_INPUT_TEXT =
-            "one 4\n" +
-                    "ёлка 3\n" +
-                    "two 3\n" +
-                    "білка 3\n" +
-                    "объем 3\n" +
-                    "їжак 2\n" +
-                    "объём 1\n" +
-                    "дом 1\n" +
-                    "друг 1\n" +
-                    "єнот 1";
-    private static final String TEXT = "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" +
-            "\n" +
-            "ёлка і Ёлка та ёлКА: ОБЪЁМ объем обЪем, але, но объем сказал завет человек время, имя, ученики, дом, друг, народ, слово, \n" +
-            "\n" +
-            "Їжак їжак єнот білка БІЛКА БіЛкА ";
-    private static final String EXPECTED_SHOW_ENTRIES =
-            "one 4\n" +
-                    "ёлка 3\n" +
-                    "two 3\n" +
-                    "білка 3\n" +
-                    "объем 3\n" +
-                    "їжак 2\n" +
-                    "объём 1\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-                    "ученики 1\n" +
-                    "имя 1\n" +
-                    "слово 1\n" +
-                    "vkamenniy@gmail.com 1\n" +
-                    "дом 1\n" +
-                    "друг 1\n" +
-                    "єнот 1\n" +
-                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
-                    "время 1\n" +
-                    "человек 1\n" +
-                    "народ 1\n" +
-                    "завет 1\n" +
-                    "сказал 1";
-    private static final String EXPECTED_PREVIOUS_RESPONSE =
-            "one 4\n" +
-                    "ёлка 3\n" +
-                    "two 3\n" +
-                    "білка 3\n" +
-                    "объем 3\n" +
-                    "їжак 2\n" +
-                    "объём 1\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-                    "ученики 1\n" +
-                    "имя 1";
-    private static final String EXPECTED_NEXT_RESPONSE =
-            "one 4\n" +
-                    "ёлка 3\n" +
-                    "two 3\n" +
-                    "білка 3\n" +
-                    "объем 3\n" +
-                    "їжак 2\n" +
-                    "объём 1\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-                    "ученики 1\n" +
-                    "имя 1";
-    private static final String EXPECTED_SEARCH_WORD = "білка 3";
-    private static final String EXPECTED_SORTING_KEY_ASCENDING =
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
-                    "vkamenniy@gmail.com 1\n" +
-                    "one 4\n" +
-                    "two 3\n" +
-                    "білка 3\n" +
-                    "время 1\n" +
-                    "дом 1\n" +
-                    "друг 1\n" +
-                    "завет 1";
-    private static final String EXPECTED_SORTING_VALUE_ASCENDING =
-            "объём 1\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-                    "ученики 1\n" +
-                    "имя 1\n" +
-                    "слово 1\n" +
-                    "vkamenniy@gmail.com 1\n" +
-                    "дом 1\n" +
-                    "друг 1\n" +
-                    "єнот 1\n" +
-                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1";
-    private static final String EXPECTED_SORTING_KEY_DESCENDING =
-            "їжак 2\n" +
-                    "єнот 1\n" +
-                    "ёлка 3\n" +
-                    "человек 1\n" +
-                    "ученики 1\n" +
-                    "слово 1\n" +
-                    "сказал 1\n" +
-                    "объём 1\n" +
-                    "объем 3\n" +
-                    "народ 1";
-    private static final String EXPECTED_SORTING_VALUE_DESCENDING =
-            "one 4\n" +
-                    "ёлка 3\n" +
-                    "two 3\n" +
-                    "білка 3\n" +
-                    "объем 3\n" +
-                    "їжак 2\n" +
-                    "объём 1\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-                    "ученики 1\n" +
-                    "имя 1";
-    private static final String EXPECTED_WORD_FILTER = "marker 1";
-
-    private
-    @Value("${wordsEN}")
-    String WORDS_EN;
-    private
-    @Value("${wordsRU}")
-    String WORDS_RU;
-    private
-    @Value("${wordsUA}")
-    String WORDS_UA;
 }

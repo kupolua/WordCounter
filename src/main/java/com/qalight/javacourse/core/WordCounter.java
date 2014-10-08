@@ -12,7 +12,8 @@ import java.util.Map;
 public class WordCounter {
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);
 
-    public Map<String, Integer> countWords(List<String> refinedWords) {
+//    public Map<String, Integer> countWords(List<String> refinedWords) {
+    public  Map<String, Integer> countWords(List<String> refinedWords) {
         if (refinedWords == null) {
             String msg = "refinedWords is NULL.";
             LOG.error(msg);

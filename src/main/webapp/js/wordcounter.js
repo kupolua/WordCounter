@@ -1,6 +1,7 @@
 var spinner;
 var dataResponse;
 var isFilter = 0;
+var isFilterWords = 0;
 var textCount;
 var countedWords;
 var selectedRows = 10;
@@ -65,16 +66,17 @@ $(document).ready(function() {
     });
 
     $("#getPdfByUrl").click(function(e){
-        $("#getPdfByUrl").attr("href", "downloadPDF?textCount=" + encodeURIComponent(textCount));
+        var sortedElement = $("th[aria-sort]");
+        var sortingOrder = sortedElement.attr("aria-sort");
+        var sortingField = sortedElement.index();
+//        alert("sortingField " + sortingField + " sortingOrder " + sortingOrder + " isFilterWords " + isFilterWords);
+        $("#getPdfByUrl").attr("href", "downloadPDF?" +
+            "textCount=" + encodeURIComponent(textCount) +
+            "&sortingField=" + sortingField +
+            "&sortingOrder=" + sortingOrder +
+            "&isFilterWords=" + isFilterWords
+        );
         $("#getPdfByUrl").attr("target", "_blank");
-
-        // todo set parameter of sorting for GET request
-        var sortingParamKey = $("th[aria-sort]").each( function () {
-            $(this).val( $(this).attr("aria-sort") );
-        });
-        var sortingParamValue = $("th[aria-sort]").val(function() {
-            return $(this).attr("aria-sort");
-        });
     });
 
     $("#buttonGetFilterWords").click(function(e){
@@ -92,6 +94,7 @@ function setTableContext(isFilter) {
     setStatusFilterButton(isFilter);
     dataTableDestroy();
     displayResponseContainer();
+//    alert(isFilter);
     writeTable(countedWords, selectedRows.text());
 }
 
@@ -114,7 +117,7 @@ function getCountedWords(unFilteredWords, isFilter) {
     var filterLength = 0;
     var countedWordsTable = [];
     var isFound = 0;
-    var isFilteredword = 0;
+    var isFilteredWord = 0;
 
     if(isFilter == 1) {
         var wordsFilter = $('#wordsFilter').text().split(' ');
@@ -122,12 +125,12 @@ function getCountedWords(unFilteredWords, isFilter) {
 
     for(i = 0; i < unFilteredWordsLength; i++){
         if(isFilter == 0) {
-            countedWordsTable[isFilteredword] = [];
+            countedWordsTable[isFilteredWord] = [];
             isFound = 1;
         } else {
             index = wordsFilter.indexOf(unFilteredWords[i][0]);
             if (index < 0) {
-                countedWordsTable[isFilteredword] = [];
+                countedWordsTable[isFilteredWord] = [];
                 isFound = 1;
             } else {
                 isFound = 0;
@@ -136,9 +139,9 @@ function getCountedWords(unFilteredWords, isFilter) {
         if(isFound == 1) {
             filterLength = unFilteredWords[i].length;
             for(j = 0; j < filterLength; j++) {
-                countedWordsTable[isFilteredword][j] = unFilteredWords[i][j];
+                countedWordsTable[isFilteredWord][j] = unFilteredWords[i][j];
             }
-            isFilteredword++;
+            isFilteredWord++;
         }
     }
     return countedWordsTable;
@@ -161,11 +164,11 @@ function setStatusFilterButton(isFilter) {
     if(isFilter == 0) {
         $("#buttonGetUnFilterWords").hide();
         $("#buttonGetFilterWords").show();
-        isFilter = 1;
+        isFilterWords = 0;
     } else {
         $("#buttonGetFilterWords").hide();
         $("#buttonGetUnFilterWords").show();
-        isFilter = 0;
+        isFilterWords = 1;
     }
 
 }
