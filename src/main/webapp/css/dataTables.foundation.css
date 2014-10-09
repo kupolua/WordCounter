@@ -13,6 +13,7 @@ div.dataTables_length label {
     float: left;
     text-align: left;
     margin-bottom: 0;
+    margin-top:8px;
 }
 
 div.dataTables_length select {
