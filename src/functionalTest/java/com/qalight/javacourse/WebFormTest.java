@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WebFormTest {
     private static final int WAIT_FOR_ELEMENT = 15;
-    private static final int DEFAULT_WAIT_FOR_PAGE = 30;
+    private static final int DEFAULT_WAIT_FOR_PAGE = 60;
     private static final int PORT = 8080;
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
     private static final String HTML_TEST_PAGE_SECONDARY = "https://dl.dropboxusercontent.com/u/12495182/" +
