@@ -29,14 +29,14 @@
             <list>
                 <value>/WEB-INF/internationalization/about</value>
                 <value>/WEB-INF/internationalization/index</value>
-                <value>/WEB-INF/internationalization/filter</value>
             </list>
         </property>
+        <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 
     <bean id="pdfViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
         <property name="order" value="1"/>
-        <property name="basename" value="views"/>
+        <property name="basename" value="viewsOfExportTypes"/>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

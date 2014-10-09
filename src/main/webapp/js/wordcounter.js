@@ -45,7 +45,6 @@ $(document).ready(function() {
                 if(data.success){
                     dataResponse = data.unFilteredWords;
                     countedWords = getCountedWords(dataResponse, isFilter);
-//                    alert("countedWords " + countedWords);
                     setStatusFilterButton(isFilter);
                     displayResponseContainer();
                     writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
@@ -66,18 +65,36 @@ $(document).ready(function() {
     });
 
     $("#getPdfByUrl").click(function(e){
-        var sortedElement = $("th[aria-sort]");
-        var sortingOrder = sortedElement.attr("aria-sort");
-        var sortingField = sortedElement.index();
-//        alert("sortingField " + sortingField + " sortingOrder " + sortingOrder + " isFilterWords " + isFilterWords);
+        var sortParam = getSortingParam();
         $("#getPdfByUrl").attr("href", "downloadPDF?" +
             "textCount=" + encodeURIComponent(textCount) +
-            "&sortingField=" + sortingField +
-            "&sortingOrder=" + sortingOrder +
+            "&sortingField=" + sortParam.sortingField +
+            "&sortingOrder=" + sortParam.sortingOrder +
             "&isFilterWords=" + isFilterWords
         );
         $("#getPdfByUrl").attr("target", "_blank");
     });
+    $("#getXlsByUrl").click(function(e){
+        var sortParam = getSortingParam();
+        $("#getXlsByUrl").attr("href", "downloadExcel?" +
+            "textCount=" + encodeURIComponent(textCount) +
+            "&sortingField=" + sortParam.sortingField +
+            "&sortingOrder=" + sortParam.sortingOrder +
+            "&isFilterWords=" + isFilterWords
+        );
+        $("#getXlsByUrl").attr("target", "_blank");
+    });
+
+    function getSortingParam() {
+        var sortedElement = $("th[aria-sort]");
+        var sortingOrder = sortedElement.attr("aria-sort");
+        var sortingField = sortedElement.index();
+        return {
+            sortedElement: sortedElement,
+            sortingOrder: sortingOrder,
+            sortingField: sortingField
+        }
+    }
 
     $("#buttonGetFilterWords").click(function(e){
         setTableContext(1);
@@ -94,7 +111,6 @@ function setTableContext(isFilter) {
     setStatusFilterButton(isFilter);
     dataTableDestroy();
     displayResponseContainer();
-//    alert(isFilter);
     writeTable(countedWords, selectedRows.text());
 }
 
@@ -170,12 +186,12 @@ function setStatusFilterButton(isFilter) {
         $("#buttonGetUnFilterWords").show();
         isFilterWords = 1;
     }
-
 }
 
 function displayResponseContainer() {
     $("#showFilter").show();
     $("#saveAsPdf").show();
+    $("#saveAsXls").show();
     $("#buttonSaveAsPdf").hide(); //todo hide button. It will be use for ajax request
     $("#wordCounterResponse").show();
     $('#countedWords').show();

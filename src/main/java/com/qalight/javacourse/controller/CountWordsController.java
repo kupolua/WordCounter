@@ -34,18 +34,24 @@ public class CountWordsController {
         return jsonResult;
     }
 
+    //todo: handle sorting & filtering params
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
-    @ResponseBody
-    public ModelAndView getPdfResult(
-            @RequestParam String textCount,
-            @RequestParam String sortingField,
-            @RequestParam String sortingOrder,
-            @RequestParam String isFilterWords
-    ) {
+    public ModelAndView getPdfResult(@RequestParam String textCount, @RequestParam String sortingField,
+                                     @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
         final String VIEW_NAME = "pdfView";
         final String MODEL_NAME = "calculatedWords";
         WordCounterResultContainer result = getResultAndCatchException(textCount);
         Map<String, Integer> resultMap = result.getCountedResult();
+        return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
+    }
+
+    @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
+    public ModelAndView getExcelResult(@RequestParam String textCount, @RequestParam String sortingField,
+                                       @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
+        final String VIEW_NAME = "excelView";
+        final String MODEL_NAME = "calculatedWords";
+        WordCounterResultContainer resultContainer = getResultAndCatchException(textCount);
+        Map<String, Integer> resultMap = resultContainer.getCountedResult();
         return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
     }
 
