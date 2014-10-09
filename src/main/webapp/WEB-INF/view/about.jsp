@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <!-- //todo do refactor after change web design by kristi-->
 <html>
 <head>
@@ -9,11 +10,11 @@
 
     <link rel="stylesheet" href="css/aboutus.css" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='font/Lato-Regular.ttf' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div id="logo">
-        <img src="https://dl.dropboxusercontent.com/u/18408157/wc-6.png" alt="WordCounterLogo">
+        <img src="img/wc-6.png" alt="WordCounterLogo">
     </div>
     <div id="navi">
             <ul>
@@ -22,9 +23,10 @@
             </ul>
     </div>
 <div id="allAboutContent">
-        <p id="aboutText">We are a smart, ambitious and young team of software developers from Ukraine.</p>
-        <p id="aboutText">We value hard work, collaboration and integrity.</p>
-        <p id="aboutText">We are dedicated to what we do striving to provide the best quality for our customers.</p>
+        <div id="aboutWCHead"><spring:message code="about.WCHeader"/></div>
+        <div id="aboutText"><spring:message code="about.aboutWC"/></div>
+        <div id="aboutUsHead"><spring:message code="about.UsHeader"/></div>
+        <div id="aboutUsText"><spring:message code="about.aboutUs"/></div>
 </div>
 </body>
 </html>
