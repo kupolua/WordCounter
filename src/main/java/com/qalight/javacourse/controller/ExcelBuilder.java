@@ -1,10 +1,10 @@
 package com.qalight.javacourse.controller;
 
+import static com.qalight.javacourse.util.ViewsConstants.*;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.jsoup.Jsoup;
@@ -16,32 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 public class ExcelBuilder extends AbstractExcelView {
-    private static final String HEAD_CELL_WORDS_EN = "Words";
-    private static final String HEAD_CELL_COUNT_EN = "Count";
-    private static final String HEAD_CELL_WORDS_RU = "Слово";
-    private static final String HEAD_CELL_COUNT_RU = "Количество";
-    private static final String HEAD_CELL_WORDS_UKR = "Слово";
-    private static final String HEAD_CELL_COUNT_UKR = "Кiлькiсть";
-    private static final String MODEL_NAME = "calculatedWords";
-    private static final String A_HREF_TAG = "<a href=";
-    private static final String FILE_NAME = "calculatedWords.xls";
-    private static final String SHEET_NAME = "Calculated Words";
 
     @Override
-    protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook,
+                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
         setExportFileName(response);
 
-        //todo: add link support?
-        //todo: delete hardcode
         HSSFSheet excelSheet = workbook.createSheet(SHEET_NAME);
-        excelSheet.setDefaultColumnWidth(20);
+        excelSheet.setDefaultColumnWidth(COLUMN_WIDTH);
 
         CellStyle style = workbook.createCellStyle();
         Font font = workbook.createFont();
-        style.setFillForegroundColor(HSSFColor.BLUE.index);
-        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        font.setColor(HSSFColor.WHITE.index);
         style.setFont(font);
 
         setExcelHeader(excelSheet, request, style);
@@ -51,17 +37,17 @@ public class ExcelBuilder extends AbstractExcelView {
     }
 
     private void setExportFileName(HttpServletResponse response) {
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + FILE_NAME + "\"");
+        response.setHeader(RESPONSE_HEADER_NAME, HEADER_VALUE_XLS);
     }
 
     private void setExcelHeader(HSSFSheet excelSheet, HttpServletRequest request, CellStyle style) {
-        final String USER_BROWSER_LOCALE = request.getHeader("Accept-Language");
+        final String USER_BROWSER_LOCALE = request.getHeader(REQUEST_HEADER_NAME);
         String wordsCell = HEAD_CELL_WORDS_EN;
         String countCell = HEAD_CELL_COUNT_EN;
-        if (USER_BROWSER_LOCALE.startsWith("ru")){
+        if (USER_BROWSER_LOCALE.startsWith(LOCALE_RU)){
             wordsCell = HEAD_CELL_WORDS_RU;
             countCell = HEAD_CELL_COUNT_RU;
-        } else if (USER_BROWSER_LOCALE.startsWith("uk")){
+        } else if (USER_BROWSER_LOCALE.startsWith(LOCALE_UKR)){
             wordsCell = HEAD_CELL_WORDS_UKR;
             countCell = HEAD_CELL_COUNT_UKR;
         }
@@ -79,7 +65,7 @@ public class ExcelBuilder extends AbstractExcelView {
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
             HSSFRow excelRow = excelSheet.createRow(record++);
             if (entry.getKey().startsWith(A_HREF_TAG)){
-                String unTaggedLink = Jsoup.clean(entry.getKey(), Whitelist.simpleText());
+                String unTaggedLink = deleteTag(entry);
                 excelRow.createCell(0).setCellValue(unTaggedLink);
                 excelRow.getCell(0).setCellStyle(style);
             } else {
@@ -89,5 +75,9 @@ public class ExcelBuilder extends AbstractExcelView {
             excelRow.createCell(1).setCellValue(entry.getValue());
             excelRow.getCell(1).setCellStyle(style);
         }
+    }
+
+    private String deleteTag(Map.Entry<String, Integer> entry) {
+        return Jsoup.clean(entry.getKey(), Whitelist.simpleText());
     }
 }

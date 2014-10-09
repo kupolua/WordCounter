@@ -34,15 +34,10 @@ public class CountWordsController {
         return jsonResult;
     }
 
-    //todo: add sorting & filtering params
+    //todo: handle sorting & filtering params
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
-    @ResponseBody
-    public ModelAndView getPdfResult(
-            @RequestParam String textCount,
-            @RequestParam String sortingField,
-            @RequestParam String sortingOrder,
-            @RequestParam String isFilterWords
-    ) {
+    public ModelAndView getPdfResult(@RequestParam String textCount, @RequestParam String sortingField,
+                                     @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
         final String VIEW_NAME = "pdfView";
         final String MODEL_NAME = "calculatedWords";
         WordCounterResultContainer result = getResultAndCatchException(textCount);
@@ -51,12 +46,12 @@ public class CountWordsController {
     }
 
     @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
-    @ResponseBody
-    public ModelAndView getExcelResult(@RequestParam String textCount) {
+    public ModelAndView getExcelResult(@RequestParam String textCount, @RequestParam String sortingField,
+                                       @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
         final String VIEW_NAME = "excelView";
         final String MODEL_NAME = "calculatedWords";
-        WordCounterResultContainer result = getResultAndCatchException(textCount);
-        Map<String, Integer> resultMap = result.getCountedResult();
+        WordCounterResultContainer resultContainer = getResultAndCatchException(textCount);
+        Map<String, Integer> resultMap = resultContainer.getCountedResult();
         return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
     }
 

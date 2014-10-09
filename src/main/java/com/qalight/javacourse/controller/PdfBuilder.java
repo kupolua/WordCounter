@@ -1,5 +1,6 @@
 package com.qalight.javacourse.controller;
 
+import static com.qalight.javacourse.util.ViewsConstants.*;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
@@ -13,28 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 public class PdfBuilder extends AbstractPdfView {
-    private static final String FONT_ARIAL_BOLD_ITALIC = "fonts/arialbi.ttf";
-    private static final String FONT_ARIAL_NORMAL = "fonts/arial.ttf";
-    private static final String HEAD_CELL_WORDS_EN = "Words";
-    private static final String HEAD_CELL_COUNT_EN = "Count";
-    private static final String HEAD_CELL_WORDS_RU = "Слово";
-    private static final String HEAD_CELL_COUNT_RU = "Количество";
-    private static final String HEAD_CELL_WORDS_UKR = "Слово";
-    private static final String HEAD_CELL_COUNT_UKR = "Кiлькiсть";
-    private static final String MODEL_NAME = "calculatedWords";
-    private static final String A_HREF_TAG = "<a href=";
-    private static final String FILE_NAME = "calculatedWords.pdf";
 
     @Override
     protected void buildPdfDocument(Map model, Document document, PdfWriter writer,
                                     HttpServletRequest request, HttpServletResponse response) throws Exception {
         setExportFileName(response);
 
-        //todo: delete hardcode
-        PdfPTable table = new PdfPTable(2);
-        table.setWidthPercentage(100.0f);
-        table.setWidths(new float[] {2.0f, 1.0f});
-        table.setSpacingBefore(10);
+        PdfPTable table = new PdfPTable(COLUMNS);
+        table.setWidthPercentage(WIDTH_PERCENTAGE);
+        table.setWidths(new float[] {WIDTH_TABLE_ONE, WIDTH_TABLE_TWO});
+        table.setSpacingBefore(SPACING_BEFORE_TABLE);
 
         BaseFont unicodeArialBold = BaseFont.createFont(FONT_ARIAL_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font headFont = new Font(unicodeArialBold);
@@ -42,7 +31,7 @@ public class PdfBuilder extends AbstractPdfView {
         Font bodyFont = new Font(unicodeArial);
 
         PdfPCell cell = new PdfPCell();
-        cell.setPadding(5);
+        cell.setPadding(PADDING);
 
         setHeadCells(table, headFont, cell, request);
 
@@ -52,17 +41,17 @@ public class PdfBuilder extends AbstractPdfView {
     }
 
     private void setExportFileName(HttpServletResponse response) {
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + FILE_NAME + "\"");
+        response.setHeader(RESPONSE_HEADER_NAME, HEADER_VALUE_PDF);
     }
 
     private void setHeadCells(PdfPTable table, Font headFont, PdfPCell cell, HttpServletRequest request) {
-        final String USER_BROWSER_LOCALE = request.getHeader("Accept-Language");
+        final String USER_BROWSER_LOCALE = request.getHeader(REQUEST_HEADER_NAME);
         String wordsCell = HEAD_CELL_WORDS_EN;
         String countCell = HEAD_CELL_COUNT_EN;
-        if (USER_BROWSER_LOCALE.startsWith("ru")){
+        if (USER_BROWSER_LOCALE.startsWith(LOCALE_RU)){
             wordsCell = HEAD_CELL_WORDS_RU;
             countCell = HEAD_CELL_COUNT_RU;
-        } else if (USER_BROWSER_LOCALE.startsWith("uk")){
+        } else if (USER_BROWSER_LOCALE.startsWith(LOCALE_UKR)){
             wordsCell = HEAD_CELL_WORDS_UKR;
             countCell = HEAD_CELL_COUNT_UKR;
         }
