@@ -28,8 +28,11 @@ public class CountWordsController {
 
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getResult(@RequestParam String textCount, @RequestParam String sortingField,
-                            @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
+    public String getResult(@RequestParam String textCount) {
+        //temporary solution, not a friend of JS =)
+        String sortingField = "1";
+        String sortingOrder = "ascending";
+        String isFilterWords = "1";
         WordCounterResultContainer result = getResultAndCatchException(textCount, sortingField, sortingOrder, isFilterWords);
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
         return jsonResult;
