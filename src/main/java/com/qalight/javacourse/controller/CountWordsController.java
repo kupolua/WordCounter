@@ -32,7 +32,7 @@ public class CountWordsController {
         //temporary solution, not a friend of JS =)
         String sortingField = "1";
         String sortingOrder = "ascending";
-        String isFilterWords = "1";
+        String isFilterWords = "0";
         WordCounterResultContainer result = getResultAndCatchException(textCount, sortingField, sortingOrder, isFilterWords);
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
         return jsonResult;
