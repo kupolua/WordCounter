@@ -40,9 +40,10 @@ public class CountWordsController {
                                      @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
         final String VIEW_NAME = "pdfView";
         final String MODEL_NAME = "calculatedWords";
+        UserTextRequest textRequest = new UserTextRequest(sortingField, sortingOrder, isFilterWords);
         WordCounterResultContainer result = getResultAndCatchException(textCount);
-        Map<String, Integer> resultMap = result.getCountedResult();
-        return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
+        Map<String, Integer> sortedMap = textRequest.getSortedMap(result.getCountedResult());
+        return new ModelAndView(VIEW_NAME, MODEL_NAME, sortedMap);
     }
 
     @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
@@ -50,9 +51,10 @@ public class CountWordsController {
                                        @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
         final String VIEW_NAME = "excelView";
         final String MODEL_NAME = "calculatedWords";
+        UserTextRequest textRequest = new UserTextRequest(sortingField, sortingOrder, isFilterWords);
         WordCounterResultContainer resultContainer = getResultAndCatchException(textCount);
-        Map<String, Integer> resultMap = resultContainer.getCountedResult();
-        return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
+        Map<String, Integer> sortedMap = textRequest.getSortedMap(resultContainer.getCountedResult());
+        return new ModelAndView(VIEW_NAME, MODEL_NAME, sortedMap);
     }
 
     private WordCounterResultContainer getResultAndCatchException(String dataSources) {

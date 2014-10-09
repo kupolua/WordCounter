@@ -33,9 +33,8 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         Map<String, Integer> refinedCountedWords = integrator.integrateResults(wordCountResults);
 
-        Map<String, Integer> sortedRefinedCountedWords = WordResultSorter.VALUE_DESCENDING.getSortedWords(refinedCountedWords);
 
-        WordCounterResultContainer result = new WordCounterResultContainer(sortedRefinedCountedWords);
+        WordCounterResultContainer result = new WordCounterResultContainer(refinedCountedWords);
 
         return result;
     }
