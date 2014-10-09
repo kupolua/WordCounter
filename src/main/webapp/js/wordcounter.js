@@ -45,7 +45,6 @@ $(document).ready(function() {
                 if(data.success){
                     dataResponse = data.unFilteredWords;
                     countedWords = getCountedWords(dataResponse, isFilter);
-//                    alert("countedWords " + countedWords);
                     setStatusFilterButton(isFilter);
                     displayResponseContainer();
                     writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
@@ -69,7 +68,6 @@ $(document).ready(function() {
         var sortedElement = $("th[aria-sort]");
         var sortingOrder = sortedElement.attr("aria-sort");
         var sortingField = sortedElement.index();
-//        alert("sortingField " + sortingField + " sortingOrder " + sortingOrder + " isFilterWords " + isFilterWords);
         $("#getPdfByUrl").attr("href", "downloadPDF?" +
             "textCount=" + encodeURIComponent(textCount) +
             "&sortingField=" + sortingField +
@@ -94,7 +92,6 @@ function setTableContext(isFilter) {
     setStatusFilterButton(isFilter);
     dataTableDestroy();
     displayResponseContainer();
-//    alert(isFilter);
     writeTable(countedWords, selectedRows.text());
 }
 
@@ -170,7 +167,6 @@ function setStatusFilterButton(isFilter) {
         $("#buttonGetUnFilterWords").show();
         isFilterWords = 1;
     }
-
 }
 
 function displayResponseContainer() {
