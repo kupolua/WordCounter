@@ -96,18 +96,18 @@ div.dataTables_scrollFoot table {
  */
 .table tbody tr.active td,
 .table tbody tr.active th {
-    background-color: #08C;
+    background-color: #8c8989;
     color: white;
 }
 
 .table tbody tr.active:hover td,
 .table tbody tr.active:hover th {
-    background-color: #0075b0 !important;
+    background-color: #8c8989 !important;
 }
 
 .table-striped tbody tr.active:nth-child(odd) td,
 .table-striped tbody tr.active:nth-child(odd) th {
-    background-color: #017ebc;
+    background-color: #8c8989;
 }
 
 table.DTTT_selectable tbody tr {
@@ -129,7 +129,7 @@ ul.DTTT_dropdown.dropdown-menu li {
 }
 
 ul.DTTT_dropdown.dropdown-menu li:hover a {
-    background-color: #0088cc;
+    background-color: #8c8989;
     color: white !important;
 }
 

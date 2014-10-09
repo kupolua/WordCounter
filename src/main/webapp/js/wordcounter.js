@@ -21,7 +21,7 @@ $(document).ready(function() {
             corners: 1, // Corner roundness (0..1)
             rotate: 7, // The rotation offset
             direction: 1, // 1: clockwise, -1: counterclockwise
-            color: '#2ba6cb', // #rgb or #rrggbb or array of colors
+            color: '#b7aeae', // #rgb or #rrggbb or array of colors
             speed: 1.1, // Rounds per second
             trail: 60, // Afterglow percentage
             shadow: false, // Whether to render a shadow
@@ -177,3 +177,28 @@ function displayResponseContainer() {
     $("#wordCounterResponse").show();
     $('#countedWords').show();
 }
+
+/* ================================================================
+This copyright notice must be untouched at all times.
+Copyright (c) 2009 Stu Nicholls - stunicholls.com - all rights reserved.
+=================================================================== */
+$(document).ready(function(){
+
+$(".hidden").hide();
+$(".show").html("find out more...");
+
+$(".show").click(function() {
+if (this.className.indexOf('clicked') != -1 ) {
+		$(this).prev().slideUp(500);
+		$(this).removeClass('clicked')
+		$(this).html("find out more...");
+		}
+		else {
+		$(this).addClass('clicked')
+		$(this).prev().slideDown(500);
+		$(this).html("...hide");
+		}
+});
+
+});
+
