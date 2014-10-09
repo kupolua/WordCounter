@@ -28,8 +28,9 @@ public class CountWordsController {
 
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getResult(@RequestParam String textCount) {
-        WordCounterResultContainer result = getResultAndCatchException(textCount);
+    public String getResult(@RequestParam String textCount, @RequestParam String sortingField,
+                            @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
+        WordCounterResultContainer result = getResultAndCatchException(textCount, sortingField, sortingOrder, isFilterWords);
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
         return jsonResult;
     }
@@ -40,9 +41,8 @@ public class CountWordsController {
                                      @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
         final String VIEW_NAME = "pdfView";
         final String MODEL_NAME = "calculatedWords";
-        UserTextRequest textRequest = new UserTextRequest(sortingField, sortingOrder, isFilterWords);
-        WordCounterResultContainer result = getResultAndCatchException(textCount);
-        Map<String, Integer> sortedMap = textRequest.getSortedMap(result.getCountedResult());
+        WordCounterResultContainer result = getResultAndCatchException(textCount, sortingField, sortingOrder, isFilterWords);
+        Map<String, Integer> sortedMap = result.getCountedResult();
         return new ModelAndView(VIEW_NAME, MODEL_NAME, sortedMap);
     }
 
@@ -51,16 +51,15 @@ public class CountWordsController {
                                        @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
         final String VIEW_NAME = "excelView";
         final String MODEL_NAME = "calculatedWords";
-        UserTextRequest textRequest = new UserTextRequest(sortingField, sortingOrder, isFilterWords);
-        WordCounterResultContainer resultContainer = getResultAndCatchException(textCount);
-        Map<String, Integer> sortedMap = textRequest.getSortedMap(resultContainer.getCountedResult());
+        WordCounterResultContainer resultContainer = getResultAndCatchException(textCount, sortingField, sortingOrder, isFilterWords);
+        Map<String, Integer> sortedMap = resultContainer.getCountedResult();
         return new ModelAndView(VIEW_NAME, MODEL_NAME, sortedMap);
     }
 
-    private WordCounterResultContainer getResultAndCatchException(String dataSources) {
+    private WordCounterResultContainer getResultAndCatchException(String dataSources, String sortingField, String sortingOrder, String isFilterWords) {
         WordCounterResultContainer result = null;
         try {
-            result = wordCounterService.getWordCounterResult(dataSources);
+            result = wordCounterService.getWordCounterResult(dataSources, sortingField, sortingOrder, isFilterWords);
         } catch (Throwable e) {
             LOG.error("error while processing request: " + e.getMessage(), e);
         }
