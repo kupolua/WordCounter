@@ -1,4 +1,8 @@
-/* todo */
+A:link {text-decoration: none}
+A:visited {text-decoration: none}
+A:active {text-decoration: none}
+A:hover {text-decoration: none}
+
 .filterButton div:nth-child(1){
     float: left;
 }
@@ -12,14 +16,13 @@
     padding-top: 15px;
     float: left;
 }
+.filterButton div:nth-child(4){
+    padding-left: 5px;
+    padding-top: 15px;
+    float: left;
+}
 
 #consolidateFilter {
-    display: none;
-}
-#wordsColumNameAnchor {
-    display: none;
-}
-#countColumNameAnchor {
     display: none;
 }
 
@@ -32,7 +35,22 @@
     font-size: 12px;
     color: #2ba6cb;
 }
+#saveAsXls {
+    display: none;
+    padding-top: 6px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    font-family: "Verdana", Georgia, Serif;
+    font-size: 12px;
+    color: #2ba6cb;
+}
 #buttonGetFilterWords {
+    display: none;
+}
+#wordsColumNameAnchor {
+    display: none;
+}
+#countColumNameAnchor {
     display: none;
 }
 #buttonGetUnFilterWords {
@@ -109,8 +127,3 @@
     padding-bottom: 0px;
     padding-left: 30px;
 }
-
-A:link {text-decoration: none}
-A:visited {text-decoration: none}
-A:active {text-decoration: none}
-A:hover {text-decoration: none}

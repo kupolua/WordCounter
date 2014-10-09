@@ -65,17 +65,36 @@ $(document).ready(function() {
     });
 
     $("#getPdfByUrl").click(function(e){
-        var sortedElement = $("th[aria-sort]");
-        var sortingOrder = sortedElement.attr("aria-sort");
-        var sortingField = sortedElement.index();
+        var sortParam = getSortingParam();
         $("#getPdfByUrl").attr("href", "downloadPDF?" +
             "textCount=" + encodeURIComponent(textCount) +
-            "&sortingField=" + sortingField +
-            "&sortingOrder=" + sortingOrder +
+            "&sortingField=" + sortParam.sortingField +
+            "&sortingOrder=" + sortParam.sortingOrder +
             "&isFilterWords=" + isFilterWords
         );
         $("#getPdfByUrl").attr("target", "_blank");
     });
+    $("#getXlsByUrl").click(function(e){
+        var sortParam = getSortingParam();
+        $("#getXlsByUrl").attr("href", "downloadExcel?" +
+            "textCount=" + encodeURIComponent(textCount) +
+            "&sortingField=" + sortParam.sortingField +
+            "&sortingOrder=" + sortParam.sortingOrder +
+            "&isFilterWords=" + isFilterWords
+        );
+        $("#getXlsByUrl").attr("target", "_blank");
+    });
+
+    function getSortingParam() {
+        var sortedElement = $("th[aria-sort]");
+        var sortingOrder = sortedElement.attr("aria-sort");
+        var sortingField = sortedElement.index();
+        return {
+            sortedElement: sortedElement,
+            sortingOrder: sortingOrder,
+            sortingField: sortingField
+        }
+    }
 
     $("#buttonGetFilterWords").click(function(e){
         setTableContext(1);
@@ -172,6 +191,7 @@ function setStatusFilterButton(isFilter) {
 function displayResponseContainer() {
     $("#showFilter").show();
     $("#saveAsPdf").show();
+    $("#saveAsXls").show();
     $("#buttonSaveAsPdf").hide(); //todo hide button. It will be use for ajax request
     $("#wordCounterResponse").show();
     $('#countedWords').show();
