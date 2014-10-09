@@ -29,9 +29,9 @@ public final class UserTextRequest {
         Map<String, Integer> filteredMap = refinedCountedWords;
 
         //NPE zone
-//        if (isFilterWords.equals(FILTERING_IS_ON)) {
-//            filteredMap = getFilteredMap(refinedCountedWords);
-//        }
+        if (FILTERING_IS_ON.equals(isFilterWords)) {
+            filteredMap = getFilteredMap(refinedCountedWords);
+        }
         Map<String, Integer> sortedMap;
         switch (typeOfSort) {
             case WORDS_DESCENDING:
