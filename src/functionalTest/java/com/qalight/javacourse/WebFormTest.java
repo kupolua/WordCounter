@@ -57,7 +57,7 @@ public class WebFormTest {
     private static final String ELEMENT_SHOW_FILTER = "#showFilter > a";
     private static final String IS_MODAL_WINDOW = "simplemodal-placeholder";
     private static final String ELEMENT_ID_ABOUT_US = "aboutUsLink";
-    private static final String IS_PAGE_ABOUT_US = "aboutUsHeaderLine";
+    private static final String IS_PAGE_ABOUT_US = "allAboutContent";
     private static final String JQUERY_ACTIVE = "return jQuery.active == 0";
     private static final String EXPECTED_PARALLEL_EXECUTION = "one 4\n" +
             "ёлка 3\n" +
