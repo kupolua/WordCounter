@@ -30,6 +30,7 @@ public class WordCounterServiceImpl implements WordCounterService {
         Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest);
 
         List<Map<String, Integer>> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests);
+        System.out.println(wordCountResults);
 
         Map<String, Integer> refinedCountedWords = integrator.integrateResults(wordCountResults);
 
