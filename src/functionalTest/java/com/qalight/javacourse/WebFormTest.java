@@ -613,11 +613,20 @@ public class WebFormTest {
         driver.get(BASE_URL);
 
         // when
-        driver.findElement(By.id(ELEMENT_ID_ABOUT_US)).click();
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
-        boolean isPageAboutUs = driver.getPageSource().contains(IS_PAGE_ABOUT_US);
-        assertTrue(isPageAboutUs);
+        if (isReady) {
+            driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
+            boolean isModalWindow = driver.getPageSource().contains(IS_MODAL_WINDOW);
+            assertTrue(isModalWindow);
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
     }
 
     private final String getWordsForFilter(String... languages) {

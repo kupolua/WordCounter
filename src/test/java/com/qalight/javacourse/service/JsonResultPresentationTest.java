@@ -56,15 +56,17 @@ public class JsonResultPresentationTest {
         Assert.assertEquals(expectedJsonResponse, actualJsonResponse);
     }
 
+    //todo fix test
     @Test
     public void testCreateErrorResponse() throws Exception {
         //given
-        String expectedJsonResponse = "{\"success\":false,\"errorMessageToUser\":";
+        String expectedJsonResponse = "{\"respMessage\":\"WordCounter Exception: results collection should not be null\"}";
 
         //when
-        boolean isExpectedJsonResponse = jsonResultPresentation.createErrorResponse("Your request is empty.").startsWith(expectedJsonResponse);
+        Throwable e = new IllegalArgumentException("results collection should not be null");
+        String actualJsonResponse = jsonResultPresentation.createErrorResponse(e);
 
         //then
-        Assert.assertTrue(isExpectedJsonResponse);
+        Assert.assertEquals(expectedJsonResponse, actualJsonResponse);
     }
 }

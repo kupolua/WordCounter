@@ -41,20 +41,18 @@ public class JsonResultPresentation implements ResultPresentation {
 
         countedWordsListObj.addProperty("success", true);
         countedWordsListObj.add("unFilteredWords", unFilteredWords);
-
         return countedWordsListObj.toString();
     }
 
     @Override
-    public String createErrorResponse(String errorMessageToUser) {
+    public String createErrorResponse(Throwable e) {
+        String errorMessage = "WordCounter Exception: ";
+        errorMessage += e.getMessage();
+
+        ErrorDataContainer errorDataContainer = new ErrorDataContainer(errorMessage);
+
         Gson gson = new Gson();
-        JsonObject errorMessageToUserObj = new JsonObject();
-
-        JsonElement errorMessageToUserJson = gson.toJsonTree(errorMessageToUser);
-
-        errorMessageToUserObj.addProperty("success", false);
-        errorMessageToUserObj.add("errorMessageToUser", errorMessageToUserJson);
-
-        return errorMessageToUserObj.toString();
+        String responseErrorMessage = gson.toJson(errorDataContainer);
+        return responseErrorMessage;
     }
 }

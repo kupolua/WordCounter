@@ -1,15 +1,15 @@
 package com.qalight.javacourse.controller;
 
-import com.qalight.javacourse.service.*;
+import com.qalight.javacourse.service.JsonResultPresentation;
+import com.qalight.javacourse.service.WordCounterResultContainer;
+import com.qalight.javacourse.service.WordCounterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -21,15 +21,16 @@ public class CountWordsController {
     private final JsonResultPresentation resultPresentation;
 
     @Autowired
-    public CountWordsController(@Qualifier("wordCounterService") WordCounterService wordCounterService, JsonResultPresentation resultPresentation) {
+    public CountWordsController(@Qualifier("wordCounterService") WordCounterService wordCounterService,
+                                JsonResultPresentation resultPresentation) {
         this.wordCounterService = wordCounterService;
         this.resultPresentation = resultPresentation;
     }
 
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getResult(@RequestParam String textCount) {
-        WordCounterResultContainer result = getResultAndCatchException(textCount);
+    public String getResult(@RequestParam String textCount) throws Throwable {
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(textCount);
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
         return jsonResult;
     }
@@ -45,6 +46,7 @@ public class CountWordsController {
         return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
     }
 
+    //todo: handle sorting & filtering params
     @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
     public ModelAndView getExcelResult(@RequestParam String textCount, @RequestParam String sortingField,
                                        @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
@@ -55,6 +57,16 @@ public class CountWordsController {
         return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
     }
 
+    @ExceptionHandler(Throwable.class)
+    @ResponseStatus(value= HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleExceptions(Throwable ex) {
+        String errorMessage = resultPresentation.createErrorResponse(ex);
+        LOG.error("Error while processing request: " + ex.getMessage(), ex);
+        return errorMessage;
+    }
+
+    //todo if we use handleExceptions may be delete it?
     private WordCounterResultContainer getResultAndCatchException(String dataSources) {
         WordCounterResultContainer result = null;
         try {
@@ -65,11 +77,4 @@ public class CountWordsController {
         return result;
     }
 
-    private String logAndCreateErrorResponse(String dataTypeResponse, Throwable e) {
-        String result;
-        ResultPresentationService resultPresentationService = new ResultPresentationService();
-        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
-        result = resultPresentation.createErrorResponse(e.getMessage());
-        return result;
-    }
 }
