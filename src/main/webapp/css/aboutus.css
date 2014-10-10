@@ -3,7 +3,7 @@ body {
  }
 #navi {
 	width: 100%;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 18px;
 	float: left;
 	margin: 0 0 1em 0;
@@ -44,7 +44,7 @@ body {
 }
 #aboutWCHead, #aboutUsHead {
     text-align: left;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color: #534d4d;
     font-size: 25px;
     font-weight: bold;
@@ -56,7 +56,7 @@ body {
     text-align: left;
     font-size: 18px;
     color: #534d4d;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     }
 #aboutText ul {
     list-style-type: circle;
@@ -71,5 +71,5 @@ body {
     text-align: left;
     font-size: 18px;
     color: #534d4d;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
