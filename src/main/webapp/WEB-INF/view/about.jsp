@@ -10,7 +10,7 @@
 
     <link href="css/aboutus.css" rel="stylesheet" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
-    <link href="font/Lato-Regular.ttf" rel="stylesheet" type="text/css">
+    <link href="font/OpenSans-Regular.ttf" rel="stylesheet" type='text/css'>
 </head>
 <body>
     <div id="logo">

@@ -35,7 +35,7 @@
 }
 #navi {
 	width: 100%;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 18px;
 	float: left;
 	margin: 0 0 1em 0;
@@ -74,7 +74,7 @@
     width: 65%;
     margin: 0 auto;
     color:#534d4d;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     padding-bottom: 10px;
 }
@@ -93,25 +93,23 @@
 }
 legend {
     color: #3f3838;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     text-align: left;
 }
 #saveAsPdf {
     display: none;
-    padding-top: 10px;
+    padding-top: 3px;
     padding-left: 15px;
-    padding-bottom: 10px;
-    font-family: 'Lato', sans-serif;
-    font-size: 14px;
+    padding-bottom: 9px;
+    font-family: 'Open Sans', sans-serif;
     color: #534d4d;
 }
 #saveAsXls {
     display: none;
-    padding-top: 10px;
+    padding-top: 3px;
     padding-left: 15px;
-    padding-bottom: 10px;
-    font-family: 'Lato', sans-serif;
-    font-size: 14px;
+    padding-bottom: 9px;
+    font-family: 'Open Sans', sans-serif;
     color: #534d4d;
 }
 #buttonGetFilterWords {
@@ -136,30 +134,30 @@ legend {
     padding-top: 10px;
     padding-left: 15px;
     padding-bottom: 10px;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     color: #534d4d;
 }
 #note {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     color: #534d4d;
 }
 #wordCounterResponse{
     display: none;
     color: #3f3838;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     text-align: left;
 }
 #noWordCounter {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     color: #30b1d9;
     text-align: left;
 }
 label {
     text-align:left;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 footer {
     text-align:center;
@@ -191,7 +189,7 @@ input[type="button"] {
 	display:inline-block;
 	cursor:pointer;
 	color:#777777;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-size:15px;
 	font-weight:bold;
 	padding:6px 24px;
