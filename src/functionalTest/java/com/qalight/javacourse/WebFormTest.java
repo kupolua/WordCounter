@@ -2,6 +2,7 @@ package com.qalight.javacourse;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -29,8 +30,7 @@ public class WebFormTest {
     private static final int DEFAULT_WAIT_FOR_PAGE = 60;
     private static final int PORT = 8080;
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
-    private static final String HTML_TEST_PAGE_SECONDARY = "https://dl.dropboxusercontent.com/u/12495182/" +
-            "textForSeleniumTestSecondary.pdf";
+    private static final String HTML_TEST_PAGE_SECONDARY = "https://dl.dropboxusercontent.com/u/12495182/textForSeleniumTestSecondary.pdf";
     private static final String INCORRECT_SYMBOL = "a";
     private static final String EXPECTED_EMPTY_RESULT = "";
     private static final String EXPECTED_INCORRECT_RESULT = "";
@@ -59,7 +59,8 @@ public class WebFormTest {
     private static final String ELEMENT_ID_ABOUT_US = "aboutUsLink";
     private static final String IS_PAGE_ABOUT_US = "allAboutContent";
     private static final String JQUERY_ACTIVE = "return jQuery.active == 0";
-    private static final String EXPECTED_PARALLEL_EXECUTION = "one 4\n" +
+    private static final String EXPECTED_PARALLEL_EXECUTION =
+            "one 4\n" +
             "ёлка 3\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -69,7 +70,8 @@ public class WebFormTest {
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
             "ученики 1\n" +
             "имя 1";
-    private static final String EXPECTED_ENTER_TWO_LINKS = "one 8\n" +
+    private static final String EXPECTED_ENTER_TWO_LINKS =
+            "one 8\n" +
             "ёлка 6\n" +
             "two 6\n" +
             "білка 6\n" +
@@ -79,7 +81,8 @@ public class WebFormTest {
             "http://habrahabr.ru/posts/top/weekly/ 2\n" +
             "ученики 2\n" +
             "имя 2";
-    private static final String EXPECTED_READING_PDF = "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+    private static final String EXPECTED_READING_PDF =
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
             "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE 1\n" +
             "vkamenniy@gmail.com 1\n" +
             "dbdbddbaqschromeijljjsourc 1\n" +
@@ -89,7 +92,8 @@ public class WebFormTest {
             "two 3\n" +
             "білка 3\n" +
             "время 1";
-    private static final String EXPECTED_INPUT_TEXT = "one 4\n" +
+    private static final String EXPECTED_INPUT_TEXT =
+            "one 4\n" +
             "ёлка 3\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -99,13 +103,15 @@ public class WebFormTest {
             "дом 1\n" +
             "друг 1\n" +
             "єнот 1";
-    private static final String TEXT = "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" +
+    private static final String TEXT =
+            "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" +
             "\n" +
             "ёлка і Ёлка та ёлКА: ОБЪЁМ объем обЪем, але, но объем сказал завет человек время, имя, ученики, дом, " +
             "друг, народ, слово, \n" +
             "\n" +
             "Їжак їжак єнот білка БІЛКА БіЛкА ";
-    private static final String EXPECTED_SHOW_ENTRIES = "one 4\n" +
+    private static final String EXPECTED_SHOW_ENTRIES =
+            "one 4\n" +
             "ёлка 3\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -128,7 +134,8 @@ public class WebFormTest {
             "народ 1\n" +
             "завет 1\n" +
             "сказал 1";
-    private static final String EXPECTED_PREVIOUS_RESPONSE = "one 4\n" +
+    private static final String EXPECTED_PREVIOUS_RESPONSE =
+            "one 4\n" +
             "ёлка 3\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -138,7 +145,8 @@ public class WebFormTest {
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
             "ученики 1\n" +
             "имя 1";
-    private static final String EXPECTED_NEXT_RESPONSE = "one 4\n" +
+    private static final String EXPECTED_NEXT_RESPONSE =
+            "one 4\n" +
             "ёлка 3\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -149,19 +157,19 @@ public class WebFormTest {
             "ученики 1\n" +
             "имя 1";
     private static final String EXPECTED_SEARCH_WORD = "білка 3";
-    private static final String EXPECTED_SORTING_KEY_ASCENDING = "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern." +
-            "compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome" +
-            "&es_sm=93&ie=UTF-8 1\n" +
+    private static final String EXPECTED_SORTING_KEY_ASCENDING =
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
             "vkamenniy@gmail.com 1\n" +
+                    "a 1\n" +
             "one 4\n" +
+                    "r 1\n" +
+                    "the 1\n" +
             "two 3\n" +
-            "білка 3\n" +
-            "время 1\n" +
-            "дом 1\n" +
-            "друг 1\n" +
-            "завет 1";
-    private static final String EXPECTED_SORTING_VALUE_ASCENDING = "объём 1\n" +
+                    "але 1\n" +
+                    "білка 3";
+    private static final String EXPECTED_SORTING_VALUE_ASCENDING =
+            "объём 1\n" +
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
             "ученики 1\n" +
             "имя 1\n" +
@@ -173,7 +181,8 @@ public class WebFormTest {
             "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+" +
             "Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=" +
             "chrome&es_sm=93&ie=UTF-8 1";
-    private static final String EXPECTED_SORTING_KEY_DESCENDING = "їжак 2\n" +
+    private static final String EXPECTED_SORTING_KEY_DESCENDING =
+            "їжак 2\n" +
             "єнот 1\n" +
             "ёлка 3\n" +
             "человек 1\n" +
@@ -183,7 +192,8 @@ public class WebFormTest {
             "объём 1\n" +
             "объем 3\n" +
             "народ 1";
-    private static final String EXPECTED_SORTING_VALUE_DESCENDING = "one 4\n" +
+    private static final String EXPECTED_SORTING_VALUE_DESCENDING =
+            "one 4\n" +
             "ёлка 3\n" +
             "two 3\n" +
             "білка 3\n" +
@@ -194,6 +204,7 @@ public class WebFormTest {
             "ученики 1\n" +
             "имя 1";
     private static final String EXPECTED_WORD_FILTER = "marker 1";
+    private static final String EXPECTED_ENTER_TWO_LINKS_ONE_BY_ONE = "?";
 
     private
     @Value("${wordsEN}")
@@ -285,7 +296,6 @@ public class WebFormTest {
 
         //then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
             String actualSortingKeyAscending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SORTING_KEY_ASCENDING, actualSortingKeyAscending);
@@ -627,6 +637,41 @@ public class WebFormTest {
             wordsForFilter.append(" ");
         }
         return wordsForFilter.toString();
+    }
+
+    @Ignore //after fix bug WORDS-273 we can finish this test
+    @Test
+    public void testEnterTwoLinksOneByOne() throws Exception {
+        // given
+        driver.get(BASE_URL);
+
+        // when
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE_SECONDARY);
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        //then
+        if (isReady) {
+            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
+            driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+            driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
+            driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+            driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();//this is not duplication
+
+            isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+            if (isReady) {
+                String actualEnterTwoLinksOneByOne = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS))
+                        .getText();
+                assertEquals(EXPECTED_ENTER_TWO_LINKS_ONE_BY_ONE, actualEnterTwoLinksOneByOne);
+            } else {
+                fail(RESPONSE_IS_NOT_READY);
+            }
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
     }
 
     public boolean waitForJQueryProcessing(WebDriver driver, int timeOutInSeconds) {
