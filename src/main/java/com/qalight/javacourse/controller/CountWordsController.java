@@ -29,36 +29,45 @@ public class CountWordsController {
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getResult(@RequestParam String textCount) {
-        WordCounterResultContainer result = getResultAndCatchException(textCount);
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount);
+        WordCounterResultContainer result = getResultAndCatchException(request);
+
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
         return jsonResult;
     }
 
     //todo: handle sorting & filtering params
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
-    public ModelAndView getPdfResult(@RequestParam String textCount, @RequestParam String sortingField,
-                                     @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
-        final String VIEW_NAME = "pdfView";
-        final String MODEL_NAME = "calculatedWords";
-        WordCounterResultContainer result = getResultAndCatchException(textCount);
+    public ModelAndView getPdfResult(@RequestParam String textCount, @RequestParam String sortingOrder,
+                                     @RequestParam String isFilterWords) {
+        final String viewName = "pdfView";
+        final String modelName = "calculatedWords";
+
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
+        WordCounterResultContainer result = getResultAndCatchException(request);
+
         Map<String, Integer> resultMap = result.getCountedResult();
-        return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
+        return new ModelAndView(viewName, modelName, resultMap);
     }
 
     @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
-    public ModelAndView getExcelResult(@RequestParam String textCount, @RequestParam String sortingField,
-                                       @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
-        final String VIEW_NAME = "excelView";
-        final String MODEL_NAME = "calculatedWords";
-        WordCounterResultContainer resultContainer = getResultAndCatchException(textCount);
+    public ModelAndView getExcelResult(@RequestParam String textCount,
+                                       @RequestParam String sortingOrder,
+                                       @RequestParam String isFilterWords) {
+        final String viewName = "excelView";
+        final String modelName = "calculatedWords";
+
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
+        WordCounterResultContainer resultContainer = getResultAndCatchException(request);
+
         Map<String, Integer> resultMap = resultContainer.getCountedResult();
-        return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
+        return new ModelAndView(viewName, modelName, resultMap);
     }
 
-    private WordCounterResultContainer getResultAndCatchException(String dataSources) {
+    private WordCounterResultContainer getResultAndCatchException(CountWordsUserRequest request) {
         WordCounterResultContainer result = null;
         try {
-            result = wordCounterService.getWordCounterResult(dataSources);
+            result = wordCounterService.getWordCounterResult(request);
         } catch (Throwable e) {
             LOG.error("error while processing request: " + e.getMessage(), e);
         }

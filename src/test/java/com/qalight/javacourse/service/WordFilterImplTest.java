@@ -2,24 +2,16 @@ package com.qalight.javacourse.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.*;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:/test_spring_config.xml")
-public class WordFilterIntegrationTest {
-
-    @Autowired
-    private WordFilter wordFilter;
+public class WordFilterImplTest {
 
     @Test
-    public void testRemoveUnimportantWords_removeWordEn() {
+    public void removeUnimportantWords_removeOneWordEng() {
         // given
+        final WordFilter filter = new WordFilterImpl("the", "", "");
         final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
             put("world", 1);
             put("the", 1);
@@ -31,15 +23,16 @@ public class WordFilterIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void testRemoveUnimportantWords_removeWordRu() {
+    public void removeUnimportantWords_removeOneWordRu() {
         // given
+        final WordFilter filter = new WordFilterImpl("", "и", "");
         final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
             put("мир", 1);
             put("и", 1);
@@ -51,15 +44,16 @@ public class WordFilterIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void testRemoveUnimportantWords_removeWordUa() {
+    public void removeUnimportantWords_removeOneWordUa() {
         // given
+        final WordFilter filter = new WordFilterImpl("", "", "і");
         final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
             put("світ", 1);
             put("і", 1);
@@ -71,15 +65,47 @@ public class WordFilterIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void testRemoveUnimportantWords_removeVarietyWordsInDifferentLanguages() {
+    public void removeUnimportantWords_removeWordsInDifferentLanguages() {
         // given
+        final WordFilter filter = new WordFilterImpl("the", "и", "і");
+        final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
+            put("світ", 1);
+            put("і", 1);
+            put("любов", 1);
+            put("мир", 1);
+            put("и", 1);
+            put("любовь", 1);
+            put("world", 1);
+            put("the", 1);
+            put("love", 1);
+        }};
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
+            put("світ", 1);
+            put("любов", 1);
+            put("мир", 1);
+            put("любовь", 1);
+            put("world", 1);
+            put("love", 1);
+        }};
+
+        // when
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void removeUnimportantWords_removeVarietyWordsInDifferentLanguages() {
+        // given
+        final WordFilter filter = new WordFilterImpl("the your they with", "и что его на", "і він їх лише");
         final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
             put("світ", 1);
             put("і", 1);
@@ -110,15 +136,16 @@ public class WordFilterIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void testRemoveUnimportantWords_removeWordsFromCleanRefinedList() {
+    public void removeUnimportantWords_removeWordsFromCleanRefinedList() {
         // given
+        final WordFilter filter = new WordFilterImpl("the your they with", "и что его на", "і він їх лише");
         final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
             put("світ", 1);
             put("любов", 1);
@@ -137,7 +164,7 @@ public class WordFilterIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -146,10 +173,11 @@ public class WordFilterIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void removeUnimportantWords_null() {
         //given
+        final WordFilter filter = new WordFilterImpl("the your they with", "и что его на", "і він їх лише");
         final Map<String, Integer> countedWords = null;
 
         //when
-        wordFilter.removeUnimportantWords(countedWords);
+        filter.removeUnimportantWords(countedWords);
 
         //then
         //expected exception
