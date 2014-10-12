@@ -57,10 +57,10 @@ public enum WordResultSorter {
 
     public abstract Map<String, Integer> getSortedWords(Map<String, Integer> countedWords);
 
-    public static WordResultSorter getOrderType(String sortingOrder) {
+    public static WordResultSorter getOrderType(String sortingOrder) { //todo: create test
         final WordResultSorter defaultSorter = VALUE_DESCENDING;
         WordResultSorter result = defaultSorter;
-        if (sortingOrder != null || sortingOrder.trim().equals("")) {
+        if (sortingOrder != null && sortingOrder.trim().equals("")) {
             result = WordResultSorter.valueOf(sortingOrder);
         }
         return result;

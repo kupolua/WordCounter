@@ -13,9 +13,10 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WordFilterImplIntegrationTest {
+    private static final boolean isFilterRequired = true;
 
     @Autowired
-    private WordFilter wordFilterImpl;
+    private WordFilter wordFilter;
 
     @Test
     public void testRemoveUnimportantWords_removeWordEn() {
@@ -31,7 +32,29 @@ public class WordFilterImplIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilterImpl.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords, isFilterRequired);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testRemoveUnimportantWords_filterIsNotRequired() {
+        // given
+        final boolean filterIsNotRequired = false;
+        final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
+            put("world", 1);
+            put("the", 1);
+            put("love", 1);
+        }};
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){{
+            put("world", 1);
+            put("the", 1);
+            put("love", 1);
+        }};
+
+        // when
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords, filterIsNotRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -51,7 +74,7 @@ public class WordFilterImplIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilterImpl.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -71,7 +94,7 @@ public class WordFilterImplIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilterImpl.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -110,7 +133,7 @@ public class WordFilterImplIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilterImpl.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -137,7 +160,7 @@ public class WordFilterImplIntegrationTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = wordFilterImpl.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = wordFilter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -149,7 +172,7 @@ public class WordFilterImplIntegrationTest {
         final Map<String, Integer> countedWords = null;
 
         //when
-        wordFilterImpl.removeUnimportantWords(countedWords);
+        wordFilter.removeUnimportantWords(countedWords, isFilterRequired);
 
         //then
         //expected exception

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WordFilterImplTest {
+    private static final boolean isFilterRequired = true;
 
     @Test
     public void removeUnimportantWords_removeOneWordEng() {
@@ -23,7 +24,30 @@ public class WordFilterImplTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords, isFilterRequired);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void removeUnimportantWords_filterIsNotRequired() {
+        // given
+        final boolean filterIsNotRequired = false;
+        final WordFilter filter = new WordFilterImpl("the", "", "");
+        final Map<String, Integer> refinedWords = new HashMap<String, Integer>(){{
+            put("world", 1);
+            put("the", 1);
+            put("love", 1);
+        }};
+        final Map<String, Integer> expectedResult = new HashMap<String, Integer>(){
+            {
+                put("world", 1);
+                put("the", 1);
+                put("love", 1);
+            }};
+        // when
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords, filterIsNotRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -44,7 +68,7 @@ public class WordFilterImplTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -65,7 +89,7 @@ public class WordFilterImplTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -96,7 +120,7 @@ public class WordFilterImplTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -136,7 +160,7 @@ public class WordFilterImplTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -164,7 +188,7 @@ public class WordFilterImplTest {
         }};
 
         // when
-        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords);
+        final Map<String, Integer> actualResult = filter.removeUnimportantWords(refinedWords, isFilterRequired);
 
         // then
         Assert.assertEquals(expectedResult, actualResult);
@@ -177,7 +201,7 @@ public class WordFilterImplTest {
         final Map<String, Integer> countedWords = null;
 
         //when
-        filter.removeUnimportantWords(countedWords);
+        filter.removeUnimportantWords(countedWords, isFilterRequired);
 
         //then
         //expected exception

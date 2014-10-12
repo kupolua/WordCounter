@@ -1,5 +1,6 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.controller.CountWordsUserRequest;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -11,41 +12,46 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WordCounterServiceImplIntegrationTest {
+    private static final String TEXT_COUNT = "http://defas.com.ua/java/pageForSeleniumTest.html";
 
     @Autowired
     private WordCounterService wordCounterService;
 
+    //todo: create additional tests, use mock?
+
     @Test
-    public void testGetWordCounterResult_okUrl() throws Exception {
+    public void testGetWordCounterResult_singleParam() throws Exception {
         // given
-        final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT);
 
         // when
-        WordCounterResultContainer actualResult = wordCounterService.getWordCounterResult(HTML_TEST_PAGE);
+        WordCounterResultContainer actualResult = wordCounterService.getWordCounterResult(userRequest);
 
         // then
         Assert.assertTrue(actualResult != null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetWordCounterResult_emptyUrl_KeyAscSort_JsonResp()  throws Exception {
+    public void testGetWordCounterResult_emptySingleParam()  throws Exception {
         // given
-        final String clientRequestEmptyUrl = "";
+        final String emptyTextCount = "";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(emptyTextCount);
 
         // when
-        wordCounterService.getWordCounterResult(clientRequestEmptyUrl);
+        wordCounterService.getWordCounterResult(userRequest);
 
         // then
         // expected exception
     }
 
     @Test(expected = RuntimeException.class)
-    public void testGetWordCounterResult_InvalidUrl_KeyAscSort_JsonResp() throws Exception{
+    public void testGetWordCounterResult_invalidSingleParam() throws Exception{
         // given
-        final String clientRequestInvalidUrl = "http://95.158.60.148:8008/kpl/testingPageINVALID.html";
+        final String invalidTextCount = "http://95.158.60.148:8008/kpl/testingPageINVALID.html";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(invalidTextCount);
 
         // when
-            wordCounterService.getWordCounterResult(clientRequestInvalidUrl);
+            wordCounterService.getWordCounterResult(userRequest);
 
         // then
         // expected exception
