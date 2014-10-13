@@ -64,46 +64,60 @@ $(document).ready(function() {
         });
     });
 
-    $("#getPdfByUrl").click(function(e){
-        var sortParam = getSortingParam();
-        $("#getPdfByUrl").attr("href", "downloadPDF?" +
-            "textCount=" + encodeURIComponent(textCount) +
-            "&sortingField=" + sortParam.sortingField +
-            "&sortingOrder=" + sortParam.sortingOrder +
-            "&isFilterWords=" + isFilterWords
-        );
-        $("#getPdfByUrl").attr("target", "_blank");
-    });
-    $("#getXlsByUrl").click(function(e){
-        var sortParam = getSortingParam();
-        $("#getXlsByUrl").attr("href", "downloadExcel?" +
-            "textCount=" + encodeURIComponent(textCount) +
-            "&sortingField=" + sortParam.sortingField +
-            "&sortingOrder=" + sortParam.sortingOrder +
-            "&isFilterWords=" + isFilterWords
-        );
-        $("#getXlsByUrl").attr("target", "_blank");
-    });
-
-    function getSortingParam() {
-        var sortedElement = $("th[aria-sort]");
-        var sortingOrder = sortedElement.attr("aria-sort");
-        var sortingField = sortedElement.index();
-        return {
-            sortedElement: sortedElement,
-            sortingOrder: sortingOrder,
-            sortingField: sortingField
-        }
-    }
-
     $("#buttonGetFilterWords").click(function(e){
-        setTableContext(1);
+        isFilter = true;
+        setTableContext(isFilter);
     });
 
     $("#buttonGetUnFilterWords").click(function(e){
-        setTableContext(0);
+        isFilter = false;
+        setTableContext(isFilter);
+    });
+
+    $("#getPdfByUrl").click(function(e){
+        $("#getPdfByUrl").attr("href", getLink("downloadPDF?"));
+        $("#getPdfByUrl").attr("target", "_blank");
+    });
+
+    $("#getXlsByUrl").click(function(e){
+        $("#getXlsByUrl").attr("href", getLink("downloadExcel?"));
+        $("#getXlsByUrl").attr("target", "_blank");
     });
 });
+
+function getLink(appPath) {
+    var linkAppPath = appPath +
+        "textCount=" + encodeURIComponent(textCount) +
+        "&sortingOrder=" + getSortingOrder() +
+        "&isFilterWords=" + isFilterWords;
+    return linkAppPath;
+}
+
+function getSortingOrder() {
+    var sortedElement = $("th[aria-sort]");
+    var sortingOrder = sortedElement.attr("aria-sort");
+    var sortingField = sortedElement.index();
+
+    if(sortingField == 0) {
+        sortingField = "KEY_";
+    }
+    if(sortingField == 1) {
+        sortingField = "VALUE_";
+    }
+
+    if(sortingOrder == "ascending") {
+        sortingOrder = "ASCENDING";
+    }
+    if(sortingOrder == "descending") {
+        sortingOrder = "DESCENDING";
+    }
+
+    if(sortingField && sortingOrder) {
+        return sortingField+sortingOrder;
+    } else {
+        return "NOT_DEFINED";
+    }
+}
 
 function setTableContext(isFilter) {
     selectedRows = getSelectedRows();
@@ -132,27 +146,27 @@ function getCountedWords(unFilteredWords, isFilter) {
     var unFilteredWordsLength = unFilteredWords.length;
     var filterLength = 0;
     var countedWordsTable = [];
-    var isFound = 0;
+    var isFound = false;
     var isFilteredWord = 0;
 
-    if(isFilter == 1) {
+    if(isFilter) {
         var wordsFilter = $('#wordsFilter').text().split(' ');
     }
 
     for(i = 0; i < unFilteredWordsLength; i++){
-        if(isFilter == 0) {
+        if(!isFilter) {
             countedWordsTable[isFilteredWord] = [];
-            isFound = 1;
+            isFound = true;
         } else {
             index = wordsFilter.indexOf(unFilteredWords[i][0]);
             if (index < 0) {
                 countedWordsTable[isFilteredWord] = [];
-                isFound = 1;
+                isFound = true;
             } else {
-                isFound = 0;
+                isFound = false;
             }
         }
-        if(isFound == 1) {
+        if(isFound) {
             filterLength = unFilteredWords[i].length;
             for(j = 0; j < filterLength; j++) {
                 countedWordsTable[isFilteredWord][j] = unFilteredWords[i][j];
@@ -177,14 +191,14 @@ function getSelectedRows() {
 
 function setStatusFilterButton(isFilter) {
     $("#noWordCounter").hide();
-    if(isFilter == 0) {
+    if(!isFilter) {
         $("#buttonGetUnFilterWords").hide();
         $("#buttonGetFilterWords").show();
-        isFilterWords = 0;
+        isFilterWords = false;
     } else {
         $("#buttonGetFilterWords").hide();
         $("#buttonGetUnFilterWords").show();
-        isFilterWords = 1;
+        isFilterWords = true;
     }
 }
 
