@@ -1,6 +1,6 @@
 var spinner;
 var dataResponse;
-var isFilter = 0;
+var isFilter = false;
 var isFilterWords = 0;
 var textCount;
 var countedWords;
@@ -137,13 +137,8 @@ function writeTable(countedWords, pageLength) {
         "order": [ 1, 'desc' ],
         "pageLength": pageLength,
         "columns": [
-            {
-                "title": $("#wordsColumNameAnchor").text(),
-                "width": "70%"},
-            {
-                "title": $("#countColumNameAnchor").text(),
-                "width": "30%"
-            }
+            {"title": $("#wordsColumNameAnchor").text()},
+            {"title": $("#countColumNameAnchor").text()}
         ]
     });
 }

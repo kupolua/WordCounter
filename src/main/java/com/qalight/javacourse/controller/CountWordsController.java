@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 @Controller
 public class CountWordsController {
@@ -21,60 +23,67 @@ public class CountWordsController {
     private final JsonResultPresentation resultPresentation;
 
     @Autowired
-    public CountWordsController(@Qualifier("wordCounterService") WordCounterService wordCounterService,
-                                JsonResultPresentation resultPresentation) {
+    public CountWordsController(@Qualifier("wordCounterService") WordCounterService wordCounterService, JsonResultPresentation resultPresentation) {
         this.wordCounterService = wordCounterService;
         this.resultPresentation = resultPresentation;
     }
 
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getResult(@RequestParam String textCount) throws Throwable {
-        WordCounterResultContainer result = wordCounterService.getWordCounterResult(textCount);
+    public String getResult(@RequestParam String textCount) throws InterruptedException, ExecutionException, TimeoutException {
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount);
+        //todo this must be deleted. Its here only for compare with old version.
+//        WordCounterResultContainer result = getResultAndCatchException(request);
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
+
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
         return jsonResult;
     }
 
     //todo: handle sorting & filtering params
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
-    public ModelAndView getPdfResult(@RequestParam String textCount, @RequestParam String sortingField,
-                                     @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
-        final String VIEW_NAME = "pdfView";
-        final String MODEL_NAME = "calculatedWords";
-        WordCounterResultContainer result = getResultAndCatchException(textCount);
+    public ModelAndView getPdfResult(@RequestParam String textCount, @RequestParam String sortingOrder,
+                                     @RequestParam String isFilterWords) {
+        final String viewName = "pdfView";
+        final String modelName = "calculatedWords";
+
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
+        WordCounterResultContainer result = getResultAndCatchException(request);
+
         Map<String, Integer> resultMap = result.getCountedResult();
-        return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
+        return new ModelAndView(viewName, modelName, resultMap);
     }
 
-    //todo: handle sorting & filtering params
     @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
-    public ModelAndView getExcelResult(@RequestParam String textCount, @RequestParam String sortingField,
-                                       @RequestParam String sortingOrder, @RequestParam String isFilterWords) {
-        final String VIEW_NAME = "excelView";
-        final String MODEL_NAME = "calculatedWords";
-        WordCounterResultContainer resultContainer = getResultAndCatchException(textCount);
+    public ModelAndView getExcelResult(@RequestParam String textCount,
+                                       @RequestParam String sortingOrder,
+                                       @RequestParam String isFilterWords) {
+        final String viewName = "excelView";
+        final String modelName = "calculatedWords";
+
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
+        WordCounterResultContainer resultContainer = getResultAndCatchException(request);
+
         Map<String, Integer> resultMap = resultContainer.getCountedResult();
-        return new ModelAndView(VIEW_NAME, MODEL_NAME, resultMap);
+        return new ModelAndView(viewName, modelName, resultMap);
     }
 
-    @ExceptionHandler(Throwable.class)
-    @ResponseStatus(value= HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public String handleExceptions(Throwable ex) {
-        String errorMessage = resultPresentation.createErrorResponse(ex);
-        LOG.error("Error while processing request: " + ex.getMessage(), ex);
-        return errorMessage;
-    }
-
-    //todo if we use handleExceptions may be delete it?
-    private WordCounterResultContainer getResultAndCatchException(String dataSources) {
+    private WordCounterResultContainer getResultAndCatchException(CountWordsUserRequest request) {
         WordCounterResultContainer result = null;
         try {
-            result = wordCounterService.getWordCounterResult(dataSources);
+            result = wordCounterService.getWordCounterResult(request);
         } catch (Throwable e) {
             LOG.error("error while processing request: " + e.getMessage(), e);
         }
         return result;
     }
 
+    @ExceptionHandler(Throwable.class)
+    @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public String handleExceptions(Throwable ex) {
+        String errorMessage = resultPresentation.createErrorResponse(ex);
+        LOG.error("Error while processing request: " + ex.getMessage(), ex);
+        return errorMessage;
+    }
 }
