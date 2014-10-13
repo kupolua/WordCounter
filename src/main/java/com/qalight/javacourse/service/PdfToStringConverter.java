@@ -55,6 +55,6 @@ public class PdfToStringConverter implements DocumentToStringConverter {
             joiner.add(text);
         }
 
-        return joiner.toString();
+        return String.valueOf(joiner);
     }
 }

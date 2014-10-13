@@ -636,7 +636,7 @@ public class WebFormTest {
             wordsForFilter.append(language);
             wordsForFilter.append(" ");
         }
-        return wordsForFilter.toString();
+        return String.valueOf(wordsForFilter);
     }
 
     @Ignore //after fix bug WORDS-273 we can finish this test

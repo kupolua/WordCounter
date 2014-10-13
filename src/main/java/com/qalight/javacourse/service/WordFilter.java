@@ -37,6 +37,6 @@ public class WordFilter {
             wordsForFilter.append(language);
             wordsForFilter.append(" ");
         }
-        return wordsForFilter.toString();
+        return String.valueOf(wordsForFilter);
     }
 }

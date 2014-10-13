@@ -30,7 +30,7 @@ public class JsonResultPresentation implements ResultPresentation {
         for (Map.Entry<String, Integer> entryUnFilteredWords : unRefinedCountedWords.entrySet()) {
             List<String> countUnFilteredWordsWordResultResponse = new ArrayList<>();
             countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getKey());
-            countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getValue().toString());
+            countUnFilteredWordsWordResultResponse.add(String.valueOf(entryUnFilteredWords.getValue()));
             unFilteredCountedWords.add(countUnFilteredWordsWordResultResponse);
         }
 
@@ -42,7 +42,7 @@ public class JsonResultPresentation implements ResultPresentation {
         countedWordsListObj.addProperty("success", true);
         countedWordsListObj.add("unFilteredWords", unFilteredWords);
 
-        return countedWordsListObj.toString();
+        return String.valueOf(countedWordsListObj);
     }
 
     @Override
@@ -55,6 +55,6 @@ public class JsonResultPresentation implements ResultPresentation {
         errorMessageToUserObj.addProperty("success", false);
         errorMessageToUserObj.add("errorMessageToUser", errorMessageToUserJson);
 
-        return errorMessageToUserObj.toString();
+        return String.valueOf(errorMessageToUserObj);
     }
 }

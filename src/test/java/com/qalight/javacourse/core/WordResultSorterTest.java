@@ -27,7 +27,7 @@ public class WordResultSorterTest {
         //when
         Set<String> actualEnumValues = new TreeSet<>();
         for (WordResultSorter wordResultSorter : WordResultSorter.values()) {
-            actualEnumValues.add(wordResultSorter.toString());
+            actualEnumValues.add(String.valueOf(wordResultSorter));
         }
 
         //then
@@ -49,7 +49,7 @@ public class WordResultSorterTest {
         Map<String, Integer> actualResultByKA = WordResultSorter.valueOf(KEY_ASCENDING).getSortedWords(givenHashMap);
 
         //then
-        Assert.assertEquals(expectedResultByKA, actualResultByKA.toString());
+        Assert.assertEquals(expectedResultByKA, String.valueOf(actualResultByKA));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class WordResultSorterTest {
         Map<String, Integer> actualResultByKD = WordResultSorter.valueOf(KEY_DESCENDING).getSortedWords(givenHashMap);
 
         //then
-        Assert.assertEquals(expectedResultByKD, actualResultByKD.toString());
+        Assert.assertEquals(expectedResultByKD, String.valueOf(actualResultByKD));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class WordResultSorterTest {
         Map<String, Integer> actualResultByVA = WordResultSorter.valueOf(VALUE_ASCENDING).getSortedWords(givenHashMap);
 
         //then
-        Assert.assertEquals(expectedResultByVA, actualResultByVA.toString());
+        Assert.assertEquals(expectedResultByVA, String.valueOf(actualResultByVA));
     }
 
     @Test
@@ -103,6 +103,6 @@ public class WordResultSorterTest {
         Map<String, Integer> actualResultByVD = WordResultSorter.valueOf(VALUE_DESCENDING).getSortedWords(givenHashMap);
 
         //then
-        Assert.assertEquals(expectedResultByVD, actualResultByVD.toString());
+        Assert.assertEquals(expectedResultByVD, String.valueOf(actualResultByVD));
     }
 }
