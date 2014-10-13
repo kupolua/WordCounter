@@ -223,6 +223,7 @@ public class WebFormTest {
             driver = new FirefoxDriver();
         }
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
+        driver.get(BASE_URL);
     }
 
     private boolean isMacOs() {
@@ -241,7 +242,7 @@ public class WebFormTest {
     @Test
     public void testEmptyUrlRequest() throws Exception {
         // given
-        driver.get(BASE_URL);
+//        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
@@ -260,7 +261,7 @@ public class WebFormTest {
     @Test
     public void testIncorrectUrl() throws Exception {
         // given
-        driver.get(BASE_URL);
+        // driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
@@ -282,7 +283,7 @@ public class WebFormTest {
     @Test
     public void testSortingKeyAscending() throws Exception {
         // given
-        driver.get(BASE_URL);
+//        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
