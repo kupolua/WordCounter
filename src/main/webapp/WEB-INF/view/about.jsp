@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="robots" content="noindex,nofollow"/>
 
-    <link rel="stylesheet" href="css/aboutus.css" type="text/css"/>
+    <link href="css/aboutus.css" rel="stylesheet" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
     <link href="font/OpenSans-Regular.ttf" rel="stylesheet" type='text/css'>
 </head>
@@ -17,16 +17,16 @@
         <img src="img/wc-6.png" alt="WordCounterLogo">
     </div>
     <div id="navi">
-            <ul>
-              <li><a href="/WordCounter"><spring:message code="about.home"/></a></li>
-              <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
-            </ul>
+        <ul>
+          <li><a href="/WordCounter"><spring:message code="about.home"/></a></li>
+          <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
+        </ul>
     </div>
-<div id="allAboutContent">
+    <div id="allAboutContent">
         <div id="aboutWCHead"><spring:message code="about.WCHeader"/></div>
         <div id="aboutText"><spring:message code="about.aboutWC"/></div>
         <div id="aboutUsHead"><spring:message code="about.UsHeader"/></div>
         <div id="aboutUsText"><spring:message code="about.aboutUs"/></div>
-</div>
+    </div>
 </body>
 </html>

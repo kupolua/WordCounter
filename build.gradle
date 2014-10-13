@@ -65,6 +65,7 @@ dependencies {
     compile 'org.eclipse.jetty:jetty-servlet:9.0.0.RC2'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'org.springframework:spring-webmvc:4.0.6.RELEASE'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     runtime 'javax.servlet:jstl:1.1.2'
     providedCompile 'javax.servlet:servlet-api:2.5'
     compileJava.options.encoding = 'UTF-8'

@@ -30,7 +30,7 @@ public class JsonResultPresentation implements ResultPresentation {
         for (Map.Entry<String, Integer> entryUnFilteredWords : unRefinedCountedWords.entrySet()) {
             List<String> countUnFilteredWordsWordResultResponse = new ArrayList<>();
             countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getKey());
-            countUnFilteredWordsWordResultResponse.add(String.valueOf(entryUnFilteredWords.getValue()));
+            countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getValue().toString());
             unFilteredCountedWords.add(countUnFilteredWordsWordResultResponse);
         }
 
@@ -41,20 +41,18 @@ public class JsonResultPresentation implements ResultPresentation {
 
         countedWordsListObj.addProperty("success", true);
         countedWordsListObj.add("unFilteredWords", unFilteredWords);
-
-        return String.valueOf(countedWordsListObj);
+        return countedWordsListObj.toString();
     }
 
     @Override
-    public String createErrorResponse(String errorMessageToUser) {
+    public String createErrorResponse(Throwable e) {
+        String errorMessage = "WordCounter Exception: ";
+        errorMessage += e.getMessage();
+
+        ErrorDataContainer errorDataContainer = new ErrorDataContainer(errorMessage);
+
         Gson gson = new Gson();
-        JsonObject errorMessageToUserObj = new JsonObject();
-
-        JsonElement errorMessageToUserJson = gson.toJsonTree(errorMessageToUser);
-
-        errorMessageToUserObj.addProperty("success", false);
-        errorMessageToUserObj.add("errorMessageToUser", errorMessageToUserJson);
-
-        return String.valueOf(errorMessageToUserObj);
+        String responseErrorMessage = gson.toJson(errorDataContainer);
+        return responseErrorMessage;
     }
 }

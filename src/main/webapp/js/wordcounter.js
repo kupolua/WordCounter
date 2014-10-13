@@ -52,7 +52,8 @@ $(document).ready(function() {
                 }
             },
             error: function(jqXHR){
-                $("#wordCounterResponse").html(jqXHR.responseText);
+                var errorMassage = jQuery.parseJSON(jqXHR.responseText);
+                $("#noWordCounter").html(errorMassage.respMessage);
             },
             beforeSend: function(){
                 $('#CountWords').attr("disabled", true);
