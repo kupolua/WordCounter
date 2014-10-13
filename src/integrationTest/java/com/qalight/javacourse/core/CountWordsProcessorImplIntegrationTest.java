@@ -37,7 +37,7 @@ public class CountWordsProcessorImplIntegrationTest {
     @Test(timeout = 120_000)
     public void testProcess_bigPdf() {
         // given
-        String input = "http://d23a3s5l1qjyz.cloudfront.net/wp-content/uploads/2012/09/King-James-Bible-KJV-Bible-PDF.pdf";
+        String input = "http://95.158.60.148:8008/kpl/King-James-Bible-KJV-Bible-PDF.pdf";
 
         // when
         Map<String, Integer> actual = processor.process(input);

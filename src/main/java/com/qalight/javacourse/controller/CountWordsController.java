@@ -73,12 +73,4 @@ public class CountWordsController {
         }
         return result;
     }
-
-    private String logAndCreateErrorResponse(String dataTypeResponse, Throwable e) {
-        String result;
-        ResultPresentationService resultPresentationService = new ResultPresentationService();
-        ResultPresentation resultPresentation = resultPresentationService.getResultPresentation(dataTypeResponse);
-        result = resultPresentation.createErrorResponse(e.getMessage());
-        return result;
-    }
 }
