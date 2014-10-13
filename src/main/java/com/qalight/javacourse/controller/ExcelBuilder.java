@@ -47,7 +47,8 @@ public class ExcelBuilder extends AbstractExcelView {
         if (USER_BROWSER_LOCALE.startsWith(LOCALE_RU)){
             wordsCell = HEAD_CELL_WORDS_RU;
             countCell = HEAD_CELL_COUNT_RU;
-        } else if (USER_BROWSER_LOCALE.startsWith(LOCALE_UKR)){
+        }
+        if (USER_BROWSER_LOCALE.startsWith(LOCALE_UKR)){
             wordsCell = HEAD_CELL_WORDS_UKR;
             countCell = HEAD_CELL_COUNT_UKR;
         }
