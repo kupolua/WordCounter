@@ -10,6 +10,12 @@ public class Assertions {
         }
     }
 
+    public static void assertObjectIsNotNull(Object obj) {
+        if (obj == null) {
+            throw new IllegalArgumentException("Object is null");
+        }
+    }
+
     public static boolean equalCollections(Collection<?> collection, Collection<?> anotherCollection){
         if (collection == null) {
             return (anotherCollection == null);

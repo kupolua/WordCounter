@@ -29,7 +29,7 @@ public class WordCounterServiceImpl implements WordCounterService {
 
     @Override
     public WordCounterResultContainer getWordCounterResult(CountWordsUserRequest clientRequest) {
-        checkParams(clientRequest.getTextCount()); // todo: check other type or remove and check all in CountWordsUserRequest
+        checkParams(clientRequest.getTextCount(), clientRequest.getSortingOrder());
 
         Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest.getTextCount());
 
@@ -47,8 +47,9 @@ public class WordCounterServiceImpl implements WordCounterService {
         return result;
     }
 
-    private static void checkParams(String userUrlsString) {
+    private static void checkParams(String userUrlsString, Object obj) {
         Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
+        Assertions.assertObjectIsNotNull(obj);
     }
 
 }
