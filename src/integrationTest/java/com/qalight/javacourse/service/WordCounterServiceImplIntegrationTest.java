@@ -17,7 +17,7 @@ public class WordCounterServiceImplIntegrationTest {
     @Autowired
     private WordCounterService wordCounterService;
 
-    //todo: create additional tests, use mock?
+    //todo: create additional tests
 
     @Test
     public void testGetWordCounterResult_singleParam() throws Exception {
