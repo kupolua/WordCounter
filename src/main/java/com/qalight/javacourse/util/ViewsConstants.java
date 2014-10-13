@@ -1,8 +1,5 @@
 package com.qalight.javacourse.util;
 
-/**
- * Created by box on 09.10.2014.
- */
 public class ViewsConstants {
     public static final int COLUMNS = 2;
     public static final int SPACING_BEFORE_TABLE = 10;
