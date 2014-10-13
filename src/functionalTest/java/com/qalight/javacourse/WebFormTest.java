@@ -19,9 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
@@ -56,7 +54,6 @@ public class WebFormTest {
     private static final String WORD_MARKER = "marker";
     private static final String ELEMENT_SHOW_FILTER = "#showFilter > a";
     private static final String IS_MODAL_WINDOW = "simplemodal-placeholder";
-    private static final String ELEMENT_ID_ABOUT_US = "aboutUsLink";
     private static final String IS_PAGE_ABOUT_US = "allAboutContent";
     private static final String JQUERY_ACTIVE = "return jQuery.active == 0";
     private static final String EXPECTED_PARALLEL_EXECUTION =
@@ -618,25 +615,17 @@ public class WebFormTest {
     }
 
     @Test
-    public void testLinkAboutUs() throws Exception {
+    public void testLinkAboutUs() {
         // given
+        final String elementIdAboutUs = "aboutUsLink";
         driver.get(BASE_URL);
 
         // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.id(elementIdAboutUs)).click();
 
         //then
-        if (isReady) {
-            driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
-            boolean isModalWindow = driver.getPageSource().contains(IS_MODAL_WINDOW);
-            assertTrue(isModalWindow);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        boolean isAboutDisplayed = driver.findElement(By.id("aboutUsHead")).isDisplayed();
+        assertTrue(isAboutDisplayed);
     }
 
     private final String getWordsForFilter(String... languages) {
