@@ -8,11 +8,52 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class WordResultSorterTest {
-
     private static final String KEY_ASCENDING = "KEY_ASCENDING";
     private static final String KEY_DESCENDING = "KEY_DESCENDING";
     private static final String VALUE_ASCENDING = "VALUE_ASCENDING";
     private static final String VALUE_DESCENDING = "VALUE_DESCENDING";
+
+    @Test
+    public void testGetOrderType_nullParam() {
+        // given
+        final String sortingOrder = null;
+
+        // when
+        WordResultSorter actualSortingType = WordResultSorter.getOrderType(sortingOrder);
+
+        // then
+        WordResultSorter expectedSortingType = WordResultSorter.VALUE_DESCENDING;
+
+        Assert.assertEquals(expectedSortingType, actualSortingType);
+    }
+
+    @Test
+    public void testGetOrderType_emptyParam() {
+        // given
+        final String sortingOrder = "";
+
+        // when
+        WordResultSorter actualSortingType = WordResultSorter.getOrderType(sortingOrder);
+
+        // then
+        WordResultSorter expectedSortingType = WordResultSorter.VALUE_DESCENDING;
+
+        Assert.assertEquals(expectedSortingType, actualSortingType);
+    }
+
+    @Test
+    public void testGetOrderType_properParam() {
+        // given
+        final String sortingOrder = "KEY_ASCENDING";
+
+        // when
+        WordResultSorter actualSortingType = WordResultSorter.getOrderType(sortingOrder);
+
+        // then
+        WordResultSorter expectedSortingType = WordResultSorter.KEY_ASCENDING;
+
+        Assert.assertEquals(expectedSortingType, actualSortingType);
+    }
 
     @Test
     public void testEnumeration() {
