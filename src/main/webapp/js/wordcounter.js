@@ -35,6 +35,7 @@ $(document).ready(function() {
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
         dataString = "textCount=" + encodeURIComponent(textCount);
+
         $.ajax({
             type: "POST",
             url: "./countWords",
