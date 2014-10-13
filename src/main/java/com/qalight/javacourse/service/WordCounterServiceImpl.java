@@ -1,5 +1,6 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.controller.CountWordsUserRequest;
 import com.qalight.javacourse.core.ConcurrentExecutor;
 import com.qalight.javacourse.core.WordResultSorter;
 import com.qalight.javacourse.util.Assertions;
@@ -15,33 +16,40 @@ public class WordCounterServiceImpl implements WordCounterService {
     private final RequestSplitter splitter;
     private final ConcurrentExecutor concurrentExecutor;
     private final CountersIntegrator integrator;
+    private final WordFilter filter;
 
     @Autowired
-    public WordCounterServiceImpl(RequestSplitter splitter, ConcurrentExecutor concurrentExecutor, CountersIntegrator integrator) {
+    public WordCounterServiceImpl(RequestSplitter splitter, ConcurrentExecutor concurrentExecutor,
+                                  CountersIntegrator integrator, WordFilter filter) {
         this.concurrentExecutor = concurrentExecutor;
         this.splitter = splitter;
         this.integrator = integrator;
+        this.filter = filter;
     }
 
     @Override
-    public WordCounterResultContainer getWordCounterResult(String clientRequest) {
-        checkParams(clientRequest);
+    public WordCounterResultContainer getWordCounterResult(CountWordsUserRequest clientRequest) {
+        checkParams(clientRequest.getTextCount(), clientRequest.getSortingOrder());
 
-        Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest);
+        Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest.getTextCount());
 
         List<Map<String, Integer>> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests);
 
-        Map<String, Integer> refinedCountedWords = integrator.integrateResults(wordCountResults);
+        Map<String, Integer> results = integrator.integrateResults(wordCountResults);
 
-        Map<String, Integer> sortedRefinedCountedWords = WordResultSorter.VALUE_DESCENDING.getSortedWords(refinedCountedWords);
+        Map<String, Integer> filteredResults = filter.removeUnimportantWords(results, clientRequest.isFilterRequired());
+
+        WordResultSorter sorter = clientRequest.getSortingOrder();
+        Map<String, Integer> sortedRefinedCountedWords = sorter.getSortedWords(filteredResults);
 
         WordCounterResultContainer result = new WordCounterResultContainer(sortedRefinedCountedWords);
 
         return result;
     }
 
-    private static void checkParams(String userUrlsString) {
+    private static void checkParams(String userUrlsString, Object obj) {
         Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
+        Assertions.assertObjectIsNotNull(obj);
     }
 
 }

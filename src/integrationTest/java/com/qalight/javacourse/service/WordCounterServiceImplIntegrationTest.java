@@ -1,7 +1,7 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.controller.CountWordsUserRequest;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,41 +11,117 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WordCounterServiceImplIntegrationTest {
+    private static final String KEY_ASCENDING = "KEY_ASCENDING";
+    private static final String TEXT_COUNT = "https://dl.dropboxusercontent.com/u/12495182/%D0%B7%D0%BE%D0%BA.rtf";
 
     @Autowired
     private WordCounterService wordCounterService;
 
     @Test
-    public void testGetWordCounterResult_okUrl() throws Exception {
+    public void testGetWordCounterResult_singleParamNotNullCheck() throws Exception {
         // given
-        final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT);
 
         // when
-        WordCounterResultContainer actualResult = wordCounterService.getWordCounterResult(HTML_TEST_PAGE);
+        WordCounterResultContainer actualResult = wordCounterService.getWordCounterResult(userRequest);
 
         // then
         Assert.assertTrue(actualResult != null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetWordCounterResult_emptyUrl_KeyAscSort_JsonResp()  throws Exception {
+    @Test
+    public void testGetWordCounterResult_fullParamNotNullCheck() throws Exception {
         // given
-        final String clientRequestEmptyUrl = "";
+        final String isFilterRequired = "true";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
 
         // when
-        wordCounterService.getWordCounterResult(clientRequestEmptyUrl);
+        WordCounterResultContainer actualResult = wordCounterService.getWordCounterResult(userRequest);
+
+        // then
+        Assert.assertTrue(actualResult != null);
+    }
+
+    @Test
+    public void testGetWordCounterResult_singleParam() throws Exception {
+        // given
+        final String expectedResult = "{a=7, three=3, two=2, one=1}";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT);
+
+        // when
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
+        final String actualResult = String.valueOf(result.getCountedResult());
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testGetWordCounterResult_fullParamSortingCheck() throws Exception {
+        // given
+        final String expectedResult = "{a=7, one=1, three=3, two=2}";
+        final String isFilterRequired = "false";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
+
+        // when
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
+        final String actualResult = String.valueOf(result.getCountedResult());
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testGetWordCounterResult_fullParamFilteringCheck() throws Exception {
+        // given
+        final String expectedResult = "{one=1, three=3, two=2}";
+        final String isFilterRequired = "true";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
+
+        // when
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
+        final String actualResult = String.valueOf(result.getCountedResult());
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testGetWordCounterResult_fullParamNullOrder() throws Exception {
+        // given
+        final String expectedResult = "{three=3, two=2, one=1}";
+        final String isFilterRequired = "true";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT, null, isFilterRequired);
+
+        // when
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
+        final String actualResult = String.valueOf(result.getCountedResult());
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetWordCounterResult_emptySingleParam()  throws Exception {
+        // given
+        final String emptyTextCount = "";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(emptyTextCount);
+
+        // when
+        wordCounterService.getWordCounterResult(userRequest);
 
         // then
         // expected exception
     }
 
     @Test(expected = RuntimeException.class)
-    public void testGetWordCounterResult_InvalidUrl_KeyAscSort_JsonResp() throws Exception{
+    public void testGetWordCounterResult_invalidSingleParam() throws Exception{
         // given
-        final String clientRequestInvalidUrl = "http://95.158.60.148:8008/kpl/testingPageINVALID.html";
+        final String invalidTextCount = "http://95.158.60.148:8008/kpl/testingPageINVALID.html";
+        CountWordsUserRequest userRequest = new CountWordsUserRequest(invalidTextCount);
 
         // when
-            wordCounterService.getWordCounterResult(clientRequestInvalidUrl);
+            wordCounterService.getWordCounterResult(userRequest);
 
         // then
         // expected exception

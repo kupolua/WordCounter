@@ -12,16 +12,16 @@ import java.util.Map;
 public class WordCounter {
     private static final Logger LOG = LoggerFactory.getLogger(WordCounter.class);
 
-//    public Map<String, Integer> countWords(List<String> refinedWords) {
-    public  Map<String, Integer> countWords(List<String> refinedWords) {
-        if (refinedWords == null) {
-            String msg = "refinedWords is NULL.";
+    // todo: extract interface
+    public  Map<String, Integer> countWords(List<String> words) {
+        if (words == null) {
+            String msg = "words is NULL.";
             LOG.error(msg);
             throw new IllegalArgumentException(msg);
         }
 
         Map<String, Integer> countedWords = new HashMap<>();
-        for (String eachWord : refinedWords) {
+        for (String eachWord : words) {
             Integer foundValue = countedWords.get(eachWord);
             if (foundValue == null) {
                 countedWords.put(eachWord, 1);
