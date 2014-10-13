@@ -121,8 +121,13 @@ function writeTable(countedWords, pageLength) {
         "order": [ 1, 'desc' ],
         "pageLength": pageLength,
         "columns": [
-            { "title": $("#wordsColumNameAnchor").text() },
-            { "title": $("#countColumNameAnchor").text() }
+            {
+                "title": $("#wordsColumNameAnchor").text(),
+                "width": "70%"},
+            {
+                "title": $("#countColumNameAnchor").text(),
+                "width": "30%"
+            }
         ]
     });
 }
