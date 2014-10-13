@@ -58,148 +58,148 @@ public class WebFormTest {
     private static final String JQUERY_ACTIVE = "return jQuery.active == 0";
     private static final String EXPECTED_PARALLEL_EXECUTION =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "ученики 1\n" +
-            "имя 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
     private static final String EXPECTED_ENTER_TWO_LINKS =
             "one 8\n" +
-            "ёлка 6\n" +
-            "two 6\n" +
-            "білка 6\n" +
-            "объем 6\n" +
-            "їжак 4\n" +
-            "объём 2\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 2\n" +
-            "ученики 2\n" +
-            "имя 2";
+                    "ёлка 6\n" +
+                    "two 6\n" +
+                    "білка 6\n" +
+                    "объем 6\n" +
+                    "їжак 4\n" +
+                    "объём 2\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 2\n" +
+                    "ученики 2\n" +
+                    "имя 2";
     private static final String EXPECTED_READING_PDF =
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE 1\n" +
-            "vkamenniy@gmail.com 1\n" +
-            "dbdbddbaqschromeijljjsourc 1\n" +
-            "ddbcdpatterncompiledb 1\n" +
-            "eidchromeessmieutf 1\n" +
-            "one 4\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "время 1";
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "dbdbddbaqschromeijljjsourc 1\n" +
+                    "ddbcdpatterncompiledb 1\n" +
+                    "eidchromeessmieutf 1\n" +
+                    "one 4\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "время 1";
     private static final String EXPECTED_INPUT_TEXT =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "дом 1\n" +
-            "друг 1\n" +
-            "єнот 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1";
     private static final String TEXT =
             "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" +
-            "\n" +
-            "ёлка і Ёлка та ёлКА: ОБЪЁМ объем обЪем, але, но объем сказал завет человек время, имя, ученики, дом, " +
-            "друг, народ, слово, \n" +
-            "\n" +
-            "Їжак їжак єнот білка БІЛКА БіЛкА ";
+                    "\n" +
+                    "ёлка і Ёлка та ёлКА: ОБЪЁМ объем обЪем, але, но объем сказал завет человек время, имя, ученики, дом, " +
+                    "друг, народ, слово, \n" +
+                    "\n" +
+                    "Їжак їжак єнот білка БІЛКА БіЛкА ";
     private static final String EXPECTED_SHOW_ENTRIES =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "ученики 1\n" +
-            "имя 1\n" +
-            "слово 1\n" +
-            "vkamenniy@gmail.com 1\n" +
-            "дом 1\n" +
-            "друг 1\n" +
-            "єнот 1\n" +
-            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern." +
-            "compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_" +
-            "sm=93&ie=UTF-8 1\n" +
-            "время 1\n" +
-            "человек 1\n" +
-            "народ 1\n" +
-            "завет 1\n" +
-            "сказал 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1\n" +
+                    "слово 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1\n" +
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern." +
+                    "compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_" +
+                    "sm=93&ie=UTF-8 1\n" +
+                    "время 1\n" +
+                    "человек 1\n" +
+                    "народ 1\n" +
+                    "завет 1\n" +
+                    "сказал 1";
     private static final String EXPECTED_PREVIOUS_RESPONSE =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "ученики 1\n" +
-            "имя 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
     private static final String EXPECTED_NEXT_RESPONSE =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "ученики 1\n" +
-            "имя 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
     private static final String EXPECTED_SEARCH_WORD = "білка 3";
     private static final String EXPECTED_SORTING_KEY_ASCENDING =
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +
                     "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
-            "vkamenniy@gmail.com 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
                     "a 1\n" +
-            "one 4\n" +
+                    "one 4\n" +
                     "r 1\n" +
                     "the 1\n" +
-            "two 3\n" +
+                    "two 3\n" +
                     "але 1\n" +
                     "білка 3";
     private static final String EXPECTED_SORTING_VALUE_ASCENDING =
             "объём 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "ученики 1\n" +
-            "имя 1\n" +
-            "слово 1\n" +
-            "vkamenniy@gmail.com 1\n" +
-            "дом 1\n" +
-            "друг 1\n" +
-            "єнот 1\n" +
-            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+" +
-            "Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=" +
-            "chrome&es_sm=93&ie=UTF-8 1";
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1\n" +
+                    "слово 1\n" +
+                    "vkamenniy@gmail.com 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1\n" +
+                    "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+" +
+                    "Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=" +
+                    "chrome&es_sm=93&ie=UTF-8 1";
     private static final String EXPECTED_SORTING_KEY_DESCENDING =
             "їжак 2\n" +
-            "єнот 1\n" +
-            "ёлка 3\n" +
-            "человек 1\n" +
-            "ученики 1\n" +
-            "слово 1\n" +
-            "сказал 1\n" +
-            "объём 1\n" +
-            "объем 3\n" +
-            "народ 1";
+                    "єнот 1\n" +
+                    "ёлка 3\n" +
+                    "человек 1\n" +
+                    "ученики 1\n" +
+                    "слово 1\n" +
+                    "сказал 1\n" +
+                    "объём 1\n" +
+                    "объем 3\n" +
+                    "народ 1";
     private static final String EXPECTED_SORTING_VALUE_DESCENDING =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "ученики 1\n" +
-            "имя 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
     private static final String EXPECTED_WORD_FILTER = "marker 1";
     private static final String EXPECTED_ENTER_TWO_LINKS_ONE_BY_ONE = "?";
 
