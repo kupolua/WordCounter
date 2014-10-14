@@ -40,6 +40,16 @@ public class CountWordsController {
         return jsonResult;
     }
 
+    @RequestMapping(value = "/countWordsRestStyle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public WordCounterResultContainer getResultRestStyle(@RequestParam String textCount)
+            throws InterruptedException, ExecutionException, TimeoutException {
+
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount);
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
+        return result;
+    }
+
     //todo: handle sorting & filtering params
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
     public ModelAndView getPdfResult(@RequestParam String textCount, @RequestParam String sortingOrder,
