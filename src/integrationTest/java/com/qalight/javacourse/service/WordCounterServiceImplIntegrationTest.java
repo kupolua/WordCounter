@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WordCounterServiceImplIntegrationTest {
     private static final String KEY_ASCENDING = "KEY_ASCENDING";
-    private static final String TEXT_COUNT = "https://dl.dropboxusercontent.com/u/12495182/%D0%B7%D0%BE%D0%BA.rtf";
+    private static final String TEXT_COUNT = "http://95.158.60.148:8008/kpl/test.rtf";
 
     @Autowired
     private WordCounterService wordCounterService;
