@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class RestHttpClientTest {
     private static final long SECOND = 1_000;
-    private static final long DEFAULT_TIMEOUT = 15 * SECOND;
+    private static final long DEFAULT_TIMEOUT = 30 * SECOND;
     private static final int PORT = 8080;
     private static final String PARAM_NAME = "textCount";
     private static final String SERVER_NAME = "http://localhost:";
