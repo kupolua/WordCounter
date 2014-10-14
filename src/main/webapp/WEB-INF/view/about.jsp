@@ -12,7 +12,7 @@
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
     <link href="font/OpenSans-Regular.ttf" rel="stylesheet" type='text/css'>
 </head>
-<body>
+<body id="aboutUS">
     <div id="logo">
         <img src="img/wc-6.png" alt="WordCounterLogo">
     </div>

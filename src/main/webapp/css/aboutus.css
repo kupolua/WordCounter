@@ -14,7 +14,6 @@ body {
 	}
 #navi ul {
 	list-style: none;
-	width: 800px;
 	margin: 0 auto;
 	padding: 0;
 	}
@@ -23,21 +22,22 @@ body {
 	font-size: 18px;
 	}
 #navi li a {
-	padding: 8px 15px;
+	padding: 2px 15px;
 	text-decoration: none;
 	font-weight: bold;
 	color: #3f3838;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
     -webkit-transition-property: color, background;
     -webkit-transition-duration: 0.5s, 0.5s;
+    border-bottom: 1px solid #ccc;
 	}
-
 #navi li a:hover {
-	color: #30b1d9;
-	background-color: #fff; }
-
+	background-color: #dddddd;
+	border-bottom: 1px solid #ccc;
+	}
+body#aboutUS a#aboutUsLink {
+    background-color: #dddddd;
+    border-bottom: 1px solid #ccc;
+}
 #allAboutContent {
     width:65%;
     margin:0 auto;
