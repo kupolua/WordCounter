@@ -202,15 +202,15 @@ public class WebFormTest {
     private static final String EXPECTED_WORD_FILTER = "marker 1";
     private static final String EXPECTED_ENTER_TWO_LINKS_ONE_BY_ONE =
             "one 4\n" +
-                    "ёлка 3\n" +
-                    "two 3\n" +
-                    "білка 3\n" +
-                    "объем 3\n" +
-                    "їжак 2\n" +
-                    "объём 1\n" +
-                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-                    "ученики 1\n" +
-                    "имя 1";
+            "ёлка 3\n" +
+            "two 3\n" +
+            "білка 3\n" +
+            "объем 3\n" +
+            "їжак 2\n" +
+            "объём 1\n" +
+            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+            "ученики 1\n" +
+            "имя 1";
 
     private @Value("${wordsEN}") String wordsEn;
     private @Value("${wordsRU}") String wordsRu;
@@ -226,7 +226,6 @@ public class WebFormTest {
             driver = new FirefoxDriver();
         }
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
-        driver.get(BASE_URL);
     }
 
     private boolean isMacOs() {
@@ -245,7 +244,7 @@ public class WebFormTest {
     @Test
     public void testEmptyUrlRequest() throws Exception {
         // given
-//        driver.get(BASE_URL);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
@@ -264,7 +263,7 @@ public class WebFormTest {
     @Test
     public void testIncorrectUrl() throws Exception {
         // given
-        // driver.get(BASE_URL);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
@@ -286,7 +285,7 @@ public class WebFormTest {
     @Test
     public void testSortingKeyAscending() throws Exception {
         // given
-//        driver.get(BASE_URL);
+        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
