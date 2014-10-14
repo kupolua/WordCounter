@@ -48,6 +48,10 @@ $(document).ready(function() {
                     countedWords = getCountedWords(dataResponse, isFilter);
                     setStatusFilterButton(isFilter);
                     displayResponseContainer();
+                    if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
+                        selectedRows = getSelectedRows();
+//                        alert("selectedRows " + selectedRows);
+                    }
                     writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
                 }
             },
@@ -128,10 +132,11 @@ function setTableContext(isFilter) {
     setStatusFilterButton(isFilter);
     dataTableDestroy();
     displayResponseContainer();
-    writeTable(countedWords, selectedRows.text());
+    writeTable(countedWords, selectedRows);
 }
 
 function writeTable(countedWords, pageLength) {
+//    alert("pageLength= " + pageLength + " countedWords= " + countedWords);
     $('#countedWords').dataTable( {
         "destroy": true,
         "data": countedWords,
@@ -186,10 +191,8 @@ function dataTableDestroy() {
 }
 
 function getSelectedRows() {
-    selectedRows = $("select[name] option:selected").val(function() {
-        return $(this).text();
-    });
-    return selectedRows;
+    var getSelectedRows = $("select[name] option:selected");
+    return getSelectedRows.val();
 }
 
 function setStatusFilterButton(isFilter) {
