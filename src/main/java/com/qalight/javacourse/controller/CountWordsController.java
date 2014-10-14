@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
 @Controller
 public class CountWordsController {
@@ -30,10 +28,8 @@ public class CountWordsController {
 
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getResult(@RequestParam String textCount) throws InterruptedException, ExecutionException, TimeoutException {
+    public String getResult(@RequestParam String textCount) throws Throwable {
         CountWordsUserRequest request = new CountWordsUserRequest(textCount);
-        //todo this must be deleted. Its here only for compare with old version.
-//        WordCounterResultContainer result = getResultAndCatchException(request);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
@@ -42,23 +38,21 @@ public class CountWordsController {
 
     @RequestMapping(value = "/countWordsRestStyle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public WordCounterResultContainer getResultRestStyle(@RequestParam String textCount)
-            throws InterruptedException, ExecutionException, TimeoutException {
-
+    public WordCounterResultContainer getResultRestStyle(@RequestParam String textCount) throws Throwable {
         CountWordsUserRequest request = new CountWordsUserRequest(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
         return result;
     }
 
-    //todo: handle sorting & filtering params
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
-    public ModelAndView getPdfResult(@RequestParam String textCount, @RequestParam String sortingOrder,
-                                     @RequestParam String isFilterWords) {
+    public ModelAndView getPdfResult(@RequestParam String textCount,
+                                     @RequestParam String sortingOrder,
+                                     @RequestParam String isFilterWords) throws  Throwable {
         final String viewName = "pdfView";
         final String modelName = "calculatedWords";
 
         CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
-        WordCounterResultContainer result = getResultAndCatchException(request);
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         Map<String, Integer> resultMap = result.getCountedResult();
         return new ModelAndView(viewName, modelName, resultMap);
@@ -67,25 +61,15 @@ public class CountWordsController {
     @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
     public ModelAndView getExcelResult(@RequestParam String textCount,
                                        @RequestParam String sortingOrder,
-                                       @RequestParam String isFilterWords) {
+                                       @RequestParam String isFilterWords) throws Throwable {
         final String viewName = "excelView";
         final String modelName = "calculatedWords";
 
         CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
-        WordCounterResultContainer resultContainer = getResultAndCatchException(request);
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
-        Map<String, Integer> resultMap = resultContainer.getCountedResult();
+        Map<String, Integer> resultMap = result.getCountedResult();
         return new ModelAndView(viewName, modelName, resultMap);
-    }
-
-    private WordCounterResultContainer getResultAndCatchException(CountWordsUserRequest request) {
-        WordCounterResultContainer result = null;
-        try {
-            result = wordCounterService.getWordCounterResult(request);
-        } catch (Throwable e) {
-            LOG.error("error while processing request: " + e.getMessage(), e);
-        }
-        return result;
     }
 
     @ExceptionHandler(Throwable.class)

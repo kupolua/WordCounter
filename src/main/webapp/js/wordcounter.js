@@ -52,8 +52,9 @@ $(document).ready(function() {
                 }
             },
             error: function(jqXHR){
+                hideResponseContainer();
                 var errorMassage = jQuery.parseJSON(jqXHR.responseText);
-                $("#noWordCounter").html(errorMassage.respMessage);
+                $("#messageCounter").html(errorMassage.respMessage);
             },
             beforeSend: function(){
                 $('#CountWords').attr("disabled", true);
@@ -208,9 +209,19 @@ function displayResponseContainer() {
     $("#showFilter").show();
     $("#saveAsPdf").show();
     $("#saveAsXls").show();
-    $("#buttonSaveAsPdf").hide(); //todo hide button. It will be use for ajax request
     $("#wordCounterResponse").show();
     $('#countedWords').show();
+    $("#messageCounter").hide();
+}
+function hideResponseContainer() {
+    $("#messageCounter").show();
+    $("#buttonGetUnFilterWords").hide();
+    $("#buttonGetFilterWords").hide();
+    $("#showFilter").hide();
+    $("#saveAsPdf").hide();
+    $("#saveAsXls").hide();
+    $("#wordCounterResponse").hide();
+    $('#countedWords').hide();
 }
 
 
