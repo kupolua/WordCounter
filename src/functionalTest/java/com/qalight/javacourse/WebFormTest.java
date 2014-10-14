@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WebFormTest {
-    private static final int WAIT_FOR_ELEMENT = 15;
+    private static final int WAIT_FOR_ELEMENT = 30;
     private static final int DEFAULT_WAIT_FOR_PAGE = 60;
     private static final int PORT = 8080;
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
