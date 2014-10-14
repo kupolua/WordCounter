@@ -50,7 +50,6 @@ $(document).ready(function() {
                     displayResponseContainer();
                     if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
                         selectedRows = getSelectedRows();
-//                        alert("selectedRows " + selectedRows);
                     }
                     writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
                 }
@@ -136,15 +135,20 @@ function setTableContext(isFilter) {
 }
 
 function writeTable(countedWords, pageLength) {
-//    alert("pageLength= " + pageLength + " countedWords= " + countedWords);
     $('#countedWords').dataTable( {
         "destroy": true,
         "data": countedWords,
         "order": [ 1, 'desc' ],
         "pageLength": pageLength,
         "columns": [
-            {"title": $("#wordsColumNameAnchor").text()},
-            {"title": $("#countColumNameAnchor").text()}
+            {
+                "title": $("#wordsColumNameAnchor").text(),
+                "width": "70%"
+            },
+            {
+                "title": $("#countColumNameAnchor").text(),
+                "width": "30%"
+            }
         ]
     });
 }
