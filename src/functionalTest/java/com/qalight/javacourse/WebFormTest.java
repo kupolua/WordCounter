@@ -2,7 +2,6 @@ package com.qalight.javacourse;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -201,17 +200,21 @@ public class WebFormTest {
             "ученики 1\n" +
             "имя 1";
     private static final String EXPECTED_WORD_FILTER = "marker 1";
-    private static final String EXPECTED_ENTER_TWO_LINKS_ONE_BY_ONE = "?";
+    private static final String EXPECTED_ENTER_TWO_LINKS_ONE_BY_ONE =
+            "one 4\n" +
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "http://habrahabr.ru/posts/top/weekly/ 1\n" +
+                    "ученики 1\n" +
+                    "имя 1";
 
-    private
-    @Value("${wordsEN}")
-    String WORDS_EN;
-    private
-    @Value("${wordsRU}")
-    String WORDS_RU;
-    private
-    @Value("${wordsUA}")
-    String WORDS_UA;
+    private @Value("${wordsEN}") String wordsEn;
+    private @Value("${wordsRU}") String wordsRu;
+    private @Value("${wordsUA}") String wordsUa;
     private WebDriver driver;
     private WebDriver driverSecondary;
 
@@ -535,7 +538,7 @@ public class WebFormTest {
     @Test
     public void testWordFilter() throws Exception {
         // given
-        String wordsForFilter = getWordsForFilter(WORDS_EN, WORDS_RU, WORDS_UA);
+        String wordsForFilter = getWordsForFilter(wordsEn, wordsRu, wordsUa);
         driver.get(BASE_URL);
 
         // when
@@ -638,7 +641,6 @@ public class WebFormTest {
         return String.valueOf(wordsForFilter);
     }
 
-    @Ignore //after fix bug WORDS-273 we can finish this test
     @Test
     public void testEnterTwoLinksOneByOne() throws Exception {
         // given
