@@ -4,8 +4,7 @@ import com.qalight.javacourse.util.Assertions;
 
 public enum SupportedHttpProtocol {
     Http("http://"),
-    Https("https://"),
-    Ftp("ftp://");
+    Https("https://");
 
     private final String text;
     private SupportedHttpProtocol(String text) {

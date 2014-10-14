@@ -65,6 +65,7 @@ dependencies {
     compile 'org.eclipse.jetty:jetty-servlet:9.0.0.RC2'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'org.springframework:spring-webmvc:4.0.6.RELEASE'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     runtime 'javax.servlet:jstl:1.1.2'
     providedCompile 'javax.servlet:servlet-api:2.5'
     compileJava.options.encoding = 'UTF-8'
@@ -78,6 +79,8 @@ dependencies {
     testCompile 'com.github.detro.ghostdriver:phantomjsdriver:1.1.0'
     testCompile 'org.springframework:spring-test:4.0.6.RELEASE'
     testCompile "org.mockito:mockito-all:1.9.5"
+    testCompile 'com.squareup.okhttp:okhttp:2.0.0'
+    testCompile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
     integrationTestCompile sourceSets.main.output
     integrationTestCompile configurations.testCompile
     integrationTestCompile sourceSets.test.output

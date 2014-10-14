@@ -33,6 +33,7 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
     }
 
     @Override
+    // todo: use Result Container instead of Map<String, Integer>
     public Map<String, Integer> process(String clientRequest) {
         LOG.debug(String.format("executing request {%s} in thread '%s'",
                 clientRequest, Thread.currentThread().getName()));

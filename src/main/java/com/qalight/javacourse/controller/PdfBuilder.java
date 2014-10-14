@@ -51,7 +51,8 @@ public class PdfBuilder extends AbstractPdfView {
         if (USER_BROWSER_LOCALE.startsWith(LOCALE_RU)){
             wordsCell = HEAD_CELL_WORDS_RU;
             countCell = HEAD_CELL_COUNT_RU;
-        } else if (USER_BROWSER_LOCALE.startsWith(LOCALE_UKR)){
+        }
+        if (USER_BROWSER_LOCALE.startsWith(LOCALE_UKR)){
             wordsCell = HEAD_CELL_WORDS_UKR;
             countCell = HEAD_CELL_COUNT_UKR;
         }
@@ -65,22 +66,26 @@ public class PdfBuilder extends AbstractPdfView {
         Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
             if (entry.getKey().startsWith(A_HREF_TAG)){
-                Chunk link = deleteTagAndGetChunk(entry);
+                Chunk link = getChunk(entry);
                 cell.setPhrase(new Phrase(link));
                 table.addCell(cell);
             } else {
                 cell.setPhrase(new Phrase(entry.getKey(), bodyFont));
                 table.addCell(cell);
             }
-            cell.setPhrase(new Phrase(entry.getValue().toString(), bodyFont));
+            cell.setPhrase(new Phrase(String.valueOf(entry.getValue()), bodyFont));
             table.addCell(cell);
         }
     }
 
-    private Chunk deleteTagAndGetChunk(Map.Entry<String, Integer> entry) {
-        String unTaggedLink = Jsoup.clean(entry.getKey(), Whitelist.simpleText());
+    private Chunk getChunk(Map.Entry<String, Integer> entry) {
+        String unTaggedLink = deleteTag(entry);
         Chunk link = new Chunk(unTaggedLink);
         link.setAnchor(unTaggedLink);
         return link;
+    }
+
+    private String deleteTag(Map.Entry<String, Integer> entry) {
+        return Jsoup.clean(entry.getKey(), Whitelist.simpleText());
     }
 }

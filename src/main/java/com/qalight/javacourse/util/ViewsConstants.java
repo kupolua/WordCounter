@@ -1,8 +1,5 @@
 package com.qalight.javacourse.util;
 
-/**
- * Created by box on 09.10.2014.
- */
 public class ViewsConstants {
     public static final int COLUMNS = 2;
     public static final int SPACING_BEFORE_TABLE = 10;
@@ -28,5 +25,4 @@ public class ViewsConstants {
     public static final String HEADER_VALUE_PDF = "attachment; filename=\"calculatedWords.pdf\"";
     public static final String HEADER_VALUE_XLS = "attachment; filename=\"calculatedWords.xls\"";
     public static final String SHEET_NAME = "Calculated Words";
-
 }
