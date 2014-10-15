@@ -28,15 +28,12 @@ body {
 	color: #3f3838;
     -webkit-transition-property: color, background;
     -webkit-transition-duration: 0.5s, 0.5s;
-    border-bottom: 1px solid #ccc;
 	}
 #navi li a:hover {
 	background-color: #dddddd;
-	border-bottom: 1px solid #ccc;
 	}
 body#aboutUS a#aboutUsLink {
     background-color: #dddddd;
-    border-bottom: 1px solid #ccc;
 }
 #allAboutContent {
     width:65%;
