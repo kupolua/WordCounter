@@ -5,6 +5,8 @@ var isFilterWords = 0;
 var textCount;
 var countedWords;
 var selectedRows = 10;
+var tableSortingFieldParam = 1;
+var tableSortingOrderParam = "desc";
 var opts;
 var target;
 
@@ -108,16 +110,20 @@ function getSortingOrder() {
 
     if(sortingField == 0) {
         sortingField = "KEY_";
+        tableSortingFieldParam = 0;
     }
     if(sortingField == 1) {
         sortingField = "VALUE_";
+        tableSortingFieldParam = 1;
     }
 
     if(sortingOrder == "ascending") {
         sortingOrder = "ASCENDING";
+        tableSortingOrderParam = "asc";
     }
     if(sortingOrder == "descending") {
         sortingOrder = "DESCENDING";
+        tableSortingOrderParam = "desc";
     }
 
     if(sortingField && sortingOrder) {
@@ -136,10 +142,11 @@ function setTableContext(isFilter) {
 }
 
 function writeTable(countedWords, pageLength) {
+    getSortingOrder();
     $('#countedWords').dataTable( {
         "destroy": true,
         "data": countedWords,
-        "order": [ 1, 'desc' ],
+        "order": [ parseInt(tableSortingFieldParam), tableSortingOrderParam ],
         "pageLength": parseInt(pageLength),
         "columns": [
             {
