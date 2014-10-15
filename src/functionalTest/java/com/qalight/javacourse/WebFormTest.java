@@ -142,16 +142,16 @@ public class WebFormTest {
             "ученики 1\n" +
             "имя 1";
     private static final String EXPECTED_NEXT_RESPONSE =
-            "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "http://habrahabr.ru/posts/top/weekly/ 1\n" +
-            "ученики 1\n" +
-            "имя 1";
+            "слово 1\n" +
+            "vkamenniy@gmail.com 1\n" +
+            "дом 1\n" +
+            "друг 1\n" +
+            "єнот 1\n" +
+            "https://www.google.com.ua/search?q=java+pattern+compile+split&oq=%D0%BE%D1%84%D0%BC%D1%84+Pattern.compile+%D1%8B%D0%B7%D0%B4%D1%88%D0%B5+&aqs=chrome.2.69i57j0l2.14141j0j7&sourceid=chrome&es_sm=93&ie=UTF-8 1\n" +
+            "время 1\n" +
+            "человек 1\n" +
+            "народ 1\n" +
+            "завет 1";
     private static final String EXPECTED_SEARCH_WORD = "білка 3";
     private static final String EXPECTED_SORTING_KEY_ASCENDING =
             "http://habrahabr.ru/posts/top/weekly/ 1\n" +

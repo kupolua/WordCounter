@@ -73,11 +73,13 @@ $(document).ready(function() {
     $("#buttonGetFilterWords").click(function(e){
         isFilter = true;
         setTableContext(isFilter);
+        writeTable(countedWords, selectedRows);
     });
 
     $("#buttonGetUnFilterWords").click(function(e){
         isFilter = false;
         setTableContext(isFilter);
+        writeTable(countedWords, selectedRows);
     });
 
     $("#getPdfByUrl").click(function(e){
@@ -131,7 +133,6 @@ function setTableContext(isFilter) {
     setStatusFilterButton(isFilter);
     dataTableDestroy();
     displayResponseContainer();
-    writeTable(countedWords, selectedRows);
 }
 
 function writeTable(countedWords, pageLength) {
@@ -139,7 +140,7 @@ function writeTable(countedWords, pageLength) {
         "destroy": true,
         "data": countedWords,
         "order": [ 1, 'desc' ],
-        "pageLength": pageLength,
+        "pageLength": parseInt(pageLength),
         "columns": [
             {
                 "title": $("#wordsColumNameAnchor").text(),
@@ -220,6 +221,7 @@ function displayResponseContainer() {
     $('#countedWords').show();
     $("#messageCounter").hide();
 }
+
 function hideResponseContainer() {
     $("#messageCounter").show();
     $("#buttonGetUnFilterWords").hide();
