@@ -59,7 +59,7 @@ $(document).ready(function() {
             error: function(jqXHR){
                 hideResponseContainer();
                 var errorMassage = jQuery.parseJSON(jqXHR.responseText);
-                $("#messageCounter").html(errorMassage.respMessage);
+                $("#messageCounter").html(errorMassage.respMessage).css("color", "red");
             },
             beforeSend: function(){
                 $('#CountWords').attr("disabled", true);
