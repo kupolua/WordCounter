@@ -3,7 +3,6 @@ var dataResponse;
 var isFilter = false;
 var isFilterWords = 0;
 var textCount;
-var textCount2;
 var countedWords;
 var selectedRows = 10;
 var tableSortingFieldParam = 1;
@@ -37,7 +36,6 @@ $(document).ready(function() {
         };
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
-        textCount2 = textCount;
         dataString = "textCount=" + encodeURIComponent(textCount);
 
         $.ajax({
@@ -111,7 +109,7 @@ function runSpinner(isFilter){
 
 function getLink(appPath) {
     var linkAppPath = appPath +
-        "textCount=" + textCount2 +
+        "textCount=" + decodeURIComponent(textCount) +
         "&sortingOrder=" + getSortingOrder() +
         "&isFilterWords=" + isFilterWords;
     return linkAppPath;

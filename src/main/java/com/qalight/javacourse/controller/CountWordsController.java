@@ -29,6 +29,7 @@ public class CountWordsController {
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getResult(@RequestParam String textCount) throws Throwable {
+        LOG.info("received text get result = " + textCount);
         CountWordsUserRequest request = new CountWordsUserRequest(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
