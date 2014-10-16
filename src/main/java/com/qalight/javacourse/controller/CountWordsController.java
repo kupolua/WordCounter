@@ -55,6 +55,7 @@ public class CountWordsController {
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         Map<String, Integer> resultMap = result.getCountedResult();
+        LOG.info("Controller: CountWordsController->getPdfResult() resultMap = " + resultMap);
         return new ModelAndView(viewName, modelName, resultMap);
     }
 
