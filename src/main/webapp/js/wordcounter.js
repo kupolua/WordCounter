@@ -31,7 +31,7 @@ $(document).ready(function() {
             hwaccel: false, // Whether to use hardware acceleration
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: 'auto', // Top position relative to parent
+            top: '150', // Top position relative to parent
             left: '50%' // Left position relative to parent
         };
         target = document.getElementById('spinnerAnchor');
@@ -74,14 +74,14 @@ $(document).ready(function() {
 
     $("#buttonGetFilterWords").click(function(e){
         isFilter = true;
-        var activSpinner = runSpinner(isFilter);
-        activSpinner.done(function(){ spinner.stop(target); });
+        setTableContext(isFilter);
+        writeTable(countedWords, selectedRows);
     });
 
     $("#buttonGetUnFilterWords").click(function(e){
         isFilter = false;
-        var activSpinner = runSpinner(isFilter);
-        activSpinner.done(function(){ spinner.stop(target); });
+        setTableContext(isFilter);
+        writeTable(countedWords, selectedRows);
     });
 
     $("#getPdfByUrl").click(function(e){
@@ -95,21 +95,9 @@ $(document).ready(function() {
     });
 });
 
-function runSpinner(isFilter){
-    var deferred = $.Deferred();
-    var activeTime = 10;
-    spinner = new Spinner(opts).spin(target);
-    setTimeout(function(){
-        setTableContext(isFilter);
-        writeTable(countedWords, selectedRows);
-        deferred.resolve();
-    }, activeTime);
-    return deferred;
-}
-
 function getLink(appPath) {
     var linkAppPath = appPath +
-        "textCount=" + decodeURIComponent(textCount) +
+        "textCount=" + encodeURIComponent(textCount) +
         "&sortingOrder=" + getSortingOrder() +
         "&isFilterWords=" + isFilterWords;
     return linkAppPath;

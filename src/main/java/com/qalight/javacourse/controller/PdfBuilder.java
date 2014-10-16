@@ -72,7 +72,6 @@ public class PdfBuilder extends AbstractPdfView {
 
     private void setResultCells(Map model, PdfPTable table, Font bodyFont, PdfPCell cell) {
         Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
-        LOG.info("Counted Words : PdfBuilder->setResultCells() calculatedWords= " + calculatedWords);
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
             if (entry.getKey().startsWith(A_HREF_TAG)){
                 Chunk link = getChunk(entry);

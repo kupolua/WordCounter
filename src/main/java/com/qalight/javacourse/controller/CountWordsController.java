@@ -29,7 +29,6 @@ public class CountWordsController {
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getResult(@RequestParam String textCount) throws Throwable {
-        LOG.info("received text get result = " + textCount);
         CountWordsUserRequest request = new CountWordsUserRequest(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
@@ -51,13 +50,11 @@ public class CountWordsController {
                                      @RequestParam String isFilterWords) throws  Throwable {
         final String viewName = "pdfView";
         final String modelName = "calculatedWords";
-        LOG.info("received text = " + textCount);
 
         CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         Map<String, Integer> resultMap = result.getCountedResult();
-        LOG.info("Controller: CountWordsController->getPdfResult() resultMap = " + resultMap);
         return new ModelAndView(viewName, modelName, resultMap);
     }
 
@@ -68,7 +65,7 @@ public class CountWordsController {
         final String viewName = "excelView";
         final String modelName = "calculatedWords";
 
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder+"a", isFilterWords);
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         Map<String, Integer> resultMap = result.getCountedResult();
