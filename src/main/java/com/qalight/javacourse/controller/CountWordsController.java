@@ -65,19 +65,29 @@ public class CountWordsController {
         final String viewName = "excelView";
         final String modelName = "calculatedWords";
 
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
+        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder+"a", isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         Map<String, Integer> resultMap = result.getCountedResult();
         return new ModelAndView(viewName, modelName, resultMap);
     }
 
-    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(value= HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleExceptions(IllegalArgumentException ex) {
+        return getErrorMessage(ex);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleExceptions(Throwable ex) {
+        return getErrorMessage(ex);
+    }
+
+    private String getErrorMessage(Throwable ex) {
         String errorMessage = resultPresentation.createErrorResponse(ex);
         LOG.error("Error while processing request: " + ex.getMessage(), ex);
         return errorMessage;
-    }
-}
+    }}
