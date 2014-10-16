@@ -50,6 +50,7 @@ public class CountWordsController {
                                      @RequestParam String isFilterWords) throws  Throwable {
         final String viewName = "pdfView";
         final String modelName = "calculatedWords";
+        LOG.info("received text = " + textCount);
 
         CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);

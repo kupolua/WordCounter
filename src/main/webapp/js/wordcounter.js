@@ -110,7 +110,7 @@ function runSpinner(isFilter){
 function getLink(appPath) {
     alert(textCount);
     var linkAppPath = appPath +
-        "textCount=" + encodeURIComponent(textCount) +
+        "textCount=" + textCount +
         "&sortingOrder=" + getSortingOrder() +
         "&isFilterWords=" + isFilterWords;
     return linkAppPath;
