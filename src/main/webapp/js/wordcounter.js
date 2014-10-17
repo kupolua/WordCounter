@@ -31,7 +31,7 @@ $(document).ready(function() {
             hwaccel: false, // Whether to use hardware acceleration
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: '150', // Top position relative to parent
+            top: 'auto', // Top position relative to parent
             left: '50%' // Left position relative to parent
         };
         target = document.getElementById('spinnerAnchor');
@@ -44,17 +44,14 @@ $(document).ready(function() {
             data: dataString,
             dataType: "json",
             success: function(data) {
-                //todo remove if when error spring hending
-                if(data.success){
-                    dataResponse = data.unFilteredWords;
-                    countedWords = getCountedWords(dataResponse, isFilter);
-                    setStatusFilterButton(isFilter);
-                    displayResponseContainer();
-                    if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
-                        selectedRows = getSelectedRows();
-                    }
-                    writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
+                dataResponse = data.unFilteredWords;
+                countedWords = getCountedWords(dataResponse, isFilter);
+                setStatusFilterButton(isFilter);
+                displayResponseContainer();
+                if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
+                    selectedRows = getSelectedRows();
                 }
+                writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
             },
             error: function(jqXHR){
                 hideResponseContainer();
@@ -74,33 +71,44 @@ $(document).ready(function() {
 
     $("#buttonGetFilterWords").click(function(e){
         isFilter = true;
-        setTableContext(isFilter);
-        writeTable(countedWords, selectedRows);
+        var activSpinner = runSpinner(isFilter);
+        activSpinner.done(function(){ spinner.stop(target); });
     });
 
     $("#buttonGetUnFilterWords").click(function(e){
         isFilter = false;
-        setTableContext(isFilter);
-        writeTable(countedWords, selectedRows);
+        var activSpinner = runSpinner(isFilter);
+        activSpinner.done(function(){ spinner.stop(target); });
     });
 
     $("#getPdfByUrl").click(function(e){
-        $("#getPdfByUrl").attr("href", getLink("downloadPDF?"));
+        $("#getPdfByUrl").attr("href", "downloadPDF?" + getParam());
         $("#getPdfByUrl").attr("target", "_blank");
     });
 
     $("#getXlsByUrl").click(function(e){
-        $("#getXlsByUrl").attr("href", getLink("downloadExcel?"));
+        $("#getXlsByUrl").attr("href", "downloadExcel?" + getParam());
         $("#getXlsByUrl").attr("target", "_blank");
     });
 });
 
-function getLink(appPath) {
-    var linkAppPath = appPath +
-        "textCount=" + encodeURIComponent(textCount) +
-        "&sortingOrder=" + getSortingOrder() +
-        "&isFilterWords=" + isFilterWords;
-    return linkAppPath;
+function runSpinner(isFilter){
+    var deferred = $.Deferred();
+    var activeTime = 200;
+    spinner = new Spinner(opts).spin(target);
+    setTimeout(function(){
+        setTableContext(isFilter);
+        writeTable(countedWords, selectedRows);
+        deferred.resolve();
+    }, activeTime);
+    return deferred;
+}
+
+function getParam() {
+    var param = "textCount=" + encodeURIComponent(textCount) +
+                      "&sortingOrder=" + getSortingOrder() +
+                      "&isFilterWords=" + isFilterWords;
+    return param;
 }
 
 function getSortingOrder() {

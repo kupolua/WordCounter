@@ -57,37 +57,37 @@ public class WebFormTest {
     private static final String JQUERY_ACTIVE = "return jQuery.active == 0";
     private static final String EXPECTED_PARALLEL_EXECUTION =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "ученики 1\n" +
-            "имя 1\n" +
-            "слово 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "ученики 1\n" +
+                    "і 1\n" +
+                    "але 1";
     private static final String EXPECTED_ENTER_TWO_LINKS =
             "one 8\n" +
-            "ёлка 6\n" +
-            "two 6\n" +
-            "білка 6\n" +
-            "объем 6\n" +
-            "їжак 4\n" +
-            "объём 2\n" +
-            "ученики 2\n" +
-                    "имя 2\n" +
-                    "слово 2";
+                    "ёлка 6\n" +
+                    "two 6\n" +
+                    "білка 6\n" +
+                    "объем 6\n" +
+                    "їжак 4\n" +
+                    "объём 2\n" +
+                    "ученики 2\n" +
+                    "і 2\n" +
+                    "але 2";
     private static final String EXPECTED_READING_PDF =
-            "dbdbddbaqschromeijljjsourc 1\n" +
-            "ddbcdpatterncompiledb 1\n" +
-            "eidchromeessmieutf 1\n" +
-            "one 4\n" +
-            "two 3\n" +
-            "білка 3\n" +
-                    "время 1\n" +
-                    "дом 1\n" +
-                    "друг 1\n" +
-            "завет 1";
+            "a 1\n" +
+                    "dbdbddbaqschromeijljjsourc 1\n" +
+                    "ddbcdpatterncompiledb 1\n" +
+                    "eidchromeessmieutf 1\n" +
+                    "one 4\n" +
+                    "the 1\n" +
+                    "two 3\n" +
+                    "але 1\n" +
+                    "білка 3\n" +
+                    "время 1";
     private static final String EXPECTED_INPUT_TEXT =
             "one 4\n" +
             "ёлка 3\n" +
@@ -95,10 +95,10 @@ public class WebFormTest {
             "білка 3\n" +
             "объем 3\n" +
             "їжак 2\n" +
+            "a 1\n" +
+            "но 1\n" +
             "объём 1\n" +
-            "дом 1\n" +
-            "друг 1\n" +
-            "єнот 1";
+            "дом 1";
     private static final String TEXT =
             "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" +
             "\n" +
@@ -108,100 +108,118 @@ public class WebFormTest {
             "Їжак їжак єнот білка БІЛКА БіЛкА ";
     private static final String EXPECTED_SHOW_ENTRIES =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "ученики 1\n" +
-            "имя 1\n" +
-            "слово 1\n" +
-            "дом 1\n" +
-            "друг 1\n" +
-            "єнот 1\n" +
-            "время 1\n" +
-            "человек 1\n" +
-            "народ 1\n" +
-            "завет 1\n" +
-            "сказал 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "ученики 1\n" +
+                    "і 1\n" +
+                    "але 1\n" +
+                    "имя 1\n" +
+                    "слово 1\n" +
+                    "a 1\n" +
+                    "но 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1\n" +
+                    "время 1\n" +
+                    "та 1\n" +
+                    "the 1\n" +
+                    "человек 1\n" +
+                    "народ 1\n" +
+                    "r 1\n" +
+                    "завет 1\n" +
+                    "сказал 1";
     private static final String EXPECTED_PREVIOUS_RESPONSE =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "ученики 1\n" +
-                    "имя 1\n" +
-                    "слово 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "ученики 1\n" +
+                    "і 1\n" +
+                    "але 1";
     private static final String EXPECTED_NEXT_RESPONSE =
-            "дом 1\n" +
-            "друг 1\n" +
-            "єнот 1\n" +
-            "время 1\n" +
-            "человек 1\n" +
-            "народ 1\n" +
-                    "завет 1\n" +
-            "сказал 1";
+            "имя 1\n" +
+                    "слово 1\n" +
+                    "a 1\n" +
+                    "но 1\n" +
+                    "дом 1\n" +
+                    "друг 1\n" +
+                    "єнот 1\n" +
+                    "время 1\n" +
+                    "та 1\n" +
+                    "the 1";
     private static final String EXPECTED_SEARCH_WORD = "білка 3";
     private static final String EXPECTED_SORTING_KEY_ASCENDING =
-                    "a 1\n" +
-            "one 4\n" +
+            "a 1\n" +
+                    "one 4\n" +
                     "r 1\n" +
                     "the 1\n" +
-            "two 3\n" +
+                    "two 3\n" +
                     "але 1\n" +
-                            "білка 3\n" +
-                            "время 1\n" +
-                            "дом 1\n" +
+                    "білка 3\n" +
+                    "время 1\n" +
+                    "дом 1\n" +
                     "друг 1";
     private static final String EXPECTED_SORTING_VALUE_ASCENDING =
             "объём 1\n" +
-            "ученики 1\n" +
-            "имя 1\n" +
-            "слово 1\n" +
-            "дом 1\n" +
-            "друг 1\n" +
-                    "єнот 1\n" +
-                    "время 1\n" +
-                    "человек 1\n" +
-                    "народ 1";
+                    "ученики 1\n" +
+                    "і 1\n" +
+                    "але 1\n" +
+                    "имя 1\n" +
+                    "слово 1\n" +
+                    "a 1\n" +
+                    "но 1\n" +
+                    "дом 1\n" +
+                    "друг 1";
     private static final String EXPECTED_SORTING_KEY_DESCENDING =
             "їжак 2\n" +
+            "і 1\n" +
             "єнот 1\n" +
             "ёлка 3\n" +
             "человек 1\n" +
             "ученики 1\n" +
+            "та 1\n" +
             "слово 1\n" +
             "сказал 1\n" +
-            "объём 1\n" +
-            "объем 3\n" +
-            "народ 1";
+            "объём 1";
     private static final String EXPECTED_SORTING_VALUE_DESCENDING =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "ученики 1\n" +
-                    "имя 1\n" +
-                    "слово 1";
-    private static final String EXPECTED_WORD_FILTER = "marker 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "ученики 1\n" +
+                    "і 1\n" +
+                    "але 1";
+    private static final String EXPECTED_WORD_FILTER = "в 3\n" +
+            "них 2\n" +
+            "те 2\n" +
+            "ж 2\n" +
+            "з 2\n" +
+            "й 2\n" +
+            "к 2\n" +
+            "то 2\n" +
+            "м 2\n" +
+            "н 2";
     private static final String EXPECTED_ENTER_TWO_LINKS_ONE_BY_ONE =
             "one 4\n" +
-            "ёлка 3\n" +
-            "two 3\n" +
-            "білка 3\n" +
-            "объем 3\n" +
-            "їжак 2\n" +
-            "объём 1\n" +
-            "ученики 1\n" +
-                    "имя 1\n" +
-            "слово 1";
+                    "ёлка 3\n" +
+                    "two 3\n" +
+                    "білка 3\n" +
+                    "объем 3\n" +
+                    "їжак 2\n" +
+                    "объём 1\n" +
+                    "ученики 1\n" +
+                    "і 1\n" +
+                    "але 1";
 
     private @Value("${wordsEN}") String wordsEn;
     private @Value("${wordsRU}") String wordsRu;
@@ -232,6 +250,7 @@ public class WebFormTest {
         driver.quit();
     }
 
+    //todo create tests for filter words driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
     @Test
     public void testEmptyUrlRequest() throws Exception {
         // given
@@ -309,7 +328,6 @@ public class WebFormTest {
 
         // then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             driver.findElement(By.className(ELEMENT_ID_SORTING_DESC)).click();
             String actualSortingValueAscending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SORTING_VALUE_ASCENDING, actualSortingValueAscending);
@@ -332,7 +350,6 @@ public class WebFormTest {
 
         // then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
             driver.findElement(By.className(ELEMENT_ID_SORTING_ASC)).click();
             String actualSortingKeyDescending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -356,7 +373,6 @@ public class WebFormTest {
 
         // then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             String actualSortingValueDescending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SORTING_VALUE_DESCENDING, actualSortingValueDescending);
         } else {
@@ -401,7 +417,6 @@ public class WebFormTest {
 
         // then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
             String actualNextResponse = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_NEXT_RESPONSE, actualNextResponse);
@@ -424,7 +439,6 @@ public class WebFormTest {
 
         // then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
             driver.findElement(By.id(ELEMENT_ID_LINK_PREV)).click();
 
@@ -449,7 +463,6 @@ public class WebFormTest {
 
         // then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             new Select(driver.findElement(By.name(ELEMENT_DATATABLES_LENGTH))).selectByVisibleText(DATATABLES_LENGTH);
             String actualShowEntries = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_SHOW_ENTRIES, actualShowEntries);
@@ -472,7 +485,6 @@ public class WebFormTest {
 
         // then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_INPUT_TEXT, actualInputText);
         } else {
@@ -494,7 +506,6 @@ public class WebFormTest {
 
         //then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
             String actualReadingPDF = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_READING_PDF, actualReadingPDF);
@@ -517,7 +528,6 @@ public class WebFormTest {
 
         //then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_ENTER_TWO_LINKS, actualEnterTwoLinks);
         } else {
@@ -540,7 +550,6 @@ public class WebFormTest {
 
         //then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_WORD_FILTER, actualEnterTwoLinks);
         } else {
@@ -578,7 +587,6 @@ public class WebFormTest {
 
         //then
         if (isReady && isReadySecondary) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             String actualParallelExecution = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
             assertEquals(EXPECTED_PARALLEL_EXECUTION, actualParallelExecution);
         } else {
@@ -645,7 +653,6 @@ public class WebFormTest {
 
         //then
         if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
             driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
             driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
             driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
