@@ -30,9 +30,9 @@ public class TextRefiner {
             }
         }
         words.removeAll(emailsUrlsList);
-        emailsUrlsList = refineUrls(emailsUrlsList);
+//        emailsUrlsList = refineUrls(emailsUrlsList); //todo: WORDS-314 If the text has a long link or word, the first column of the table is strongly stretched wide
         words = cleanWords(words);
-        words.addAll(emailsUrlsList);
+//        words.addAll(emailsUrlsList); //todo: WORDS-314 If the text has a long link or word, the first column of the table is strongly stretched wide
         LOG.debug("Text is refined.");
         return words;
     }
