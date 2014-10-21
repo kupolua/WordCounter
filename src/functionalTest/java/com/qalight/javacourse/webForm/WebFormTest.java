@@ -1,4 +1,4 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.webForm;
 
 import org.junit.After;
 import org.junit.Before;
