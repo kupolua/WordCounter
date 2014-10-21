@@ -46,7 +46,6 @@
 	}
 #navi ul {
 	list-style: none;
-	width: 800px;
 	margin: 0 auto;
 	padding: 0;
 	}
@@ -55,21 +54,19 @@
 	font-size: 18px;
 	}
 #navi li a {
-	padding: 8px 15px;
+	padding: 2px 15px;
 	text-decoration: none;
 	font-weight: bold;
 	color: #3f3838;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
     -webkit-transition-property: color, background;
     -webkit-transition-duration: 0.5s, 0.5s;
 	}
-
 #navi li a:hover {
-	color: #30b1d9;
-	background-color: #fff; }
-
+	background-color: #dddddd;
+	}
+body#home a#homeNav {
+    background-color: #dddddd;
+}
 #welcomeText {
     width: 65%;
     margin: 0 auto;
@@ -82,10 +79,12 @@
     font-size: 25px;
     font-weight:bold;
     text-align: center;
+    padding-bottom: 13px;
 }
 #p2 {
     font-size: 20px;
     text-align: left;
+    padding-bottom: 15px;
 }
 #headingText {
     width: 100%;
@@ -164,6 +163,10 @@ footer {
     color: #b7aeae;
     font-size: 12px;
     padding-bottom: 10px;
+}
+footer p {
+    font-weight: bold;
+    padding-top: 5px;
 }
 #wordCounterForm {
     text-align:left;

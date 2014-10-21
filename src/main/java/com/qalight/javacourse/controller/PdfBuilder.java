@@ -1,19 +1,27 @@
 package com.qalight.javacourse.controller;
 
-import static com.qalight.javacourse.util.ViewsConstants.*;
-import com.lowagie.text.*;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.Font;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+import static com.qalight.javacourse.util.ViewsConstants.*;
+
 public class PdfBuilder extends AbstractPdfView {
+    private static final Logger LOG = LoggerFactory.getLogger(CountWordsController.class);
 
     @Override
     protected void buildPdfDocument(Map model, Document document, PdfWriter writer,

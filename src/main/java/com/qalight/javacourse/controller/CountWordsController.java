@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
 
 @Controller
 public class CountWordsController {
@@ -44,40 +41,22 @@ public class CountWordsController {
         return result;
     }
 
-    @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
-    public ModelAndView getPdfResult(@RequestParam String textCount,
-                                     @RequestParam String sortingOrder,
-                                     @RequestParam String isFilterWords) throws  Throwable {
-        final String viewName = "pdfView";
-        final String modelName = "calculatedWords";
-
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
-        WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
-
-        Map<String, Integer> resultMap = result.getCountedResult();
-        return new ModelAndView(viewName, modelName, resultMap);
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(value= HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleExceptions(IllegalArgumentException ex) {
+        return getErrorMessage(ex);
     }
 
-    @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
-    public ModelAndView getExcelResult(@RequestParam String textCount,
-                                       @RequestParam String sortingOrder,
-                                       @RequestParam String isFilterWords) throws Throwable {
-        final String viewName = "excelView";
-        final String modelName = "calculatedWords";
-
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
-        WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
-
-        Map<String, Integer> resultMap = result.getCountedResult();
-        return new ModelAndView(viewName, modelName, resultMap);
-    }
-
-    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleExceptions(Throwable ex) {
+        return getErrorMessage(ex);
+    }
+
+    private String getErrorMessage(Throwable ex) {
         String errorMessage = resultPresentation.createErrorResponse(ex);
         LOG.error("Error while processing request: " + ex.getMessage(), ex);
         return errorMessage;
-    }
-}
+    }}

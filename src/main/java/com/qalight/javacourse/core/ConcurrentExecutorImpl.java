@@ -78,7 +78,7 @@ public class ConcurrentExecutorImpl implements ConcurrentExecutor{
             LOG.error(msg);
             throw new RuntimeException(msg, e);
         } catch (ExecutionException e) {
-            final String msg = String.format("Error during executing request: %s", e.getMessage());
+            final String msg = String.format("Error during executing request: %s", e.getCause().getMessage());
             LOG.error(msg);
             throw new RuntimeException(msg, e);
         } catch (TimeoutException e) {

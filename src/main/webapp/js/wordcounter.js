@@ -5,6 +5,8 @@ var isFilterWords = 0;
 var textCount;
 var countedWords;
 var selectedRows = 10;
+var tableSortingFieldParam = 1;
+var tableSortingOrderParam = "desc";
 var opts;
 var target;
 
@@ -29,7 +31,7 @@ $(document).ready(function() {
             hwaccel: false, // Whether to use hardware acceleration
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: '150', // Top position relative to parent
+            top: 'auto', // Top position relative to parent
             left: '50%' // Left position relative to parent
         };
         target = document.getElementById('spinnerAnchor');
@@ -42,19 +44,19 @@ $(document).ready(function() {
             data: dataString,
             dataType: "json",
             success: function(data) {
-                //todo remove if when error spring hending
-                if(data.success){
-                    dataResponse = data.unFilteredWords;
-                    countedWords = getCountedWords(dataResponse, isFilter);
-                    setStatusFilterButton(isFilter);
-                    displayResponseContainer();
-                    writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
+                dataResponse = data.unFilteredWords;
+                countedWords = getCountedWords(dataResponse, isFilter);
+                setStatusFilterButton(isFilter);
+                displayResponseContainer();
+                if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
+                    selectedRows = getSelectedRows();
                 }
+                writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
             },
             error: function(jqXHR){
                 hideResponseContainer();
                 var errorMassage = jQuery.parseJSON(jqXHR.responseText);
-                $("#messageCounter").html(errorMassage.respMessage);
+                $("#messageCounter").html(errorMassage.respMessage).css("color", "red");
             },
             beforeSend: function(){
                 $('#CountWords').attr("disabled", true);
@@ -69,31 +71,44 @@ $(document).ready(function() {
 
     $("#buttonGetFilterWords").click(function(e){
         isFilter = true;
-        setTableContext(isFilter);
+        var activSpinner = runSpinner(isFilter);
+        activSpinner.done(function(){ spinner.stop(target); });
     });
 
     $("#buttonGetUnFilterWords").click(function(e){
         isFilter = false;
-        setTableContext(isFilter);
+        var activSpinner = runSpinner(isFilter);
+        activSpinner.done(function(){ spinner.stop(target); });
     });
 
     $("#getPdfByUrl").click(function(e){
-        $("#getPdfByUrl").attr("href", getLink("downloadPDF?"));
+        $("#getPdfByUrl").attr("href", "downloadPDF?" + getParam());
         $("#getPdfByUrl").attr("target", "_blank");
     });
 
     $("#getXlsByUrl").click(function(e){
-        $("#getXlsByUrl").attr("href", getLink("downloadExcel?"));
+        $("#getXlsByUrl").attr("href", "downloadExcel?" + getParam());
         $("#getXlsByUrl").attr("target", "_blank");
     });
 });
 
-function getLink(appPath) {
-    var linkAppPath = appPath +
-        "textCount=" + encodeURIComponent(textCount) +
-        "&sortingOrder=" + getSortingOrder() +
-        "&isFilterWords=" + isFilterWords;
-    return linkAppPath;
+function runSpinner(isFilter){
+    var deferred = $.Deferred();
+    var activeTime = 200;
+    spinner = new Spinner(opts).spin(target);
+    setTimeout(function(){
+        setTableContext(isFilter);
+        writeTable(countedWords, selectedRows);
+        deferred.resolve();
+    }, activeTime);
+    return deferred;
+}
+
+function getParam() {
+    var param = "textCount=" + encodeURIComponent(textCount) +
+                      "&sortingOrder=" + getSortingOrder() +
+                      "&isFilterWords=" + isFilterWords;
+    return param;
 }
 
 function getSortingOrder() {
@@ -103,16 +118,20 @@ function getSortingOrder() {
 
     if(sortingField == 0) {
         sortingField = "KEY_";
+        tableSortingFieldParam = 0;
     }
     if(sortingField == 1) {
         sortingField = "VALUE_";
+        tableSortingFieldParam = 1;
     }
 
     if(sortingOrder == "ascending") {
         sortingOrder = "ASCENDING";
+        tableSortingOrderParam = "asc";
     }
     if(sortingOrder == "descending") {
         sortingOrder = "DESCENDING";
+        tableSortingOrderParam = "desc";
     }
 
     if(sortingField && sortingOrder) {
@@ -128,18 +147,24 @@ function setTableContext(isFilter) {
     setStatusFilterButton(isFilter);
     dataTableDestroy();
     displayResponseContainer();
-    writeTable(countedWords, selectedRows.text());
 }
 
 function writeTable(countedWords, pageLength) {
+    getSortingOrder();
     $('#countedWords').dataTable( {
         "destroy": true,
         "data": countedWords,
-        "order": [ 1, 'desc' ],
-        "pageLength": pageLength,
+        "order": [ parseInt(tableSortingFieldParam), tableSortingOrderParam ],
+        "pageLength": parseInt(pageLength),
         "columns": [
-            {"title": $("#wordsColumNameAnchor").text()},
-            {"title": $("#countColumNameAnchor").text()}
+            {
+                "title": $("#wordsColumNameAnchor").text(),
+                "width": "70%"
+            },
+            {
+                "title": $("#countColumNameAnchor").text(),
+                "width": "30%"
+            }
         ]
     });
 }
@@ -186,10 +211,8 @@ function dataTableDestroy() {
 }
 
 function getSelectedRows() {
-    selectedRows = $("select[name] option:selected").val(function() {
-        return $(this).text();
-    });
-    return selectedRows;
+    var getSelectedRows = $("select[name] option:selected");
+    return getSelectedRows.val();
 }
 
 function setStatusFilterButton(isFilter) {
@@ -213,6 +236,7 @@ function displayResponseContainer() {
     $('#countedWords').show();
     $("#messageCounter").hide();
 }
+
 function hideResponseContainer() {
     $("#messageCounter").show();
     $("#buttonGetUnFilterWords").hide();
@@ -223,5 +247,3 @@ function hideResponseContainer() {
     $("#wordCounterResponse").hide();
     $('#countedWords').hide();
 }
-
-
