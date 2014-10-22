@@ -1,23 +1,12 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.util.Assertions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-
-@RunWith(MockitoJUnitRunner.class)
 public class PlainTextTypeImplTest {
 
     private PlainTextTypeImpl plainTextType;
-    private String plainText = "some plain text";
-    private String httpLink = "http://defas.com.ua/java/testingPage.html";
-    private String httpsLink = "https://mail.google.com";
 
     @Before
     public void setUp() throws Exception {
@@ -27,6 +16,7 @@ public class PlainTextTypeImplTest {
     @Test
     public void testIsEligible_plainText() {
         //given
+        String plainText = "some plain text";
 
         //when
         boolean actualResult = plainTextType.isEligible(plainText);
@@ -38,6 +28,7 @@ public class PlainTextTypeImplTest {
     @Test
     public void testIsEligible_httpUrl() {
         //given
+        String httpLink = "http://defas.com.ua/java/testingPage.html";
 
         //when
         boolean actualResult = plainTextType.isEligible(httpLink);
@@ -49,6 +40,7 @@ public class PlainTextTypeImplTest {
     @Test
     public void testIsEligible_httpsUrl() {
         //given
+        String httpsLink = "https://mail.google.com";
 
         //when
         boolean actualResult = plainTextType.isEligible(httpsLink);
