@@ -19,7 +19,7 @@ public class ExportController {
         this.wordCounterService = wordCounterService;
     }
 
-    @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET, produces = "application/pdf;charset=UTF-8")
+    @RequestMapping(value = "/downloadPDF", method = RequestMethod.POST, produces = "application/pdf;charset=UTF-8")
     public ModelAndView getPdfResult(@RequestParam String textCount,
                                      @RequestParam String sortingOrder,
                                      @RequestParam String isFilterWords) throws  Throwable {
@@ -32,8 +32,7 @@ public class ExportController {
         Map<String, Integer> resultMap = result.getCountedResult();
         return new ModelAndView(viewName, modelName, resultMap);
     }
-
-    @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel;charset=UTF-8")
+    @RequestMapping(value = "/downloadExcel", method = RequestMethod.POST, produces = "application/vnd.ms-excel;charset=UTF-8")
     public ModelAndView getExcelResult(@RequestParam String textCount,
                                        @RequestParam String sortingOrder,
                                        @RequestParam String isFilterWords) throws Throwable {

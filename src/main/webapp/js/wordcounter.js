@@ -51,7 +51,7 @@ $(document).ready(function() {
                 if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
                     selectedRows = getSelectedRows();
                 }
-                writeTable(countedWords, selectedRows); //todo remove writeTable(). Use callback
+                writeTable(countedWords, selectedRows);
             },
             error: function(jqXHR){
                 hideResponseContainer();
@@ -81,16 +81,37 @@ $(document).ready(function() {
         activSpinner.done(function(){ spinner.stop(target); });
     });
 
-    $("#getPdfByUrl").click(function(e){
-        $("#getPdfByUrl").attr("href", "downloadPDF?" + getParam());
-        $("#getPdfByUrl").attr("target", "_blank");
+    $("#getPdf").click("image", "form.pdfDownloadForm", function (e) {
+        $.fileDownload($(this).prop('action'), {
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again.",
+            httpMethod: "POST",
+            data: $(this).serialize()
+        });
+        e.preventDefault();
     });
 
-    $("#getXlsByUrl").click(function(e){
-        $("#getXlsByUrl").attr("href", "downloadExcel?" + getParam());
-        $("#getXlsByUrl").attr("target", "_blank");
+    $("#getXls").click("image", "form.getXlsForm", function (e) {
+        $.fileDownload($(this).prop('action'), {
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again.",
+            httpMethod: "POST",
+            data: $(this).serialize()
+        });
     });
 });
+
+function setPdfFields() {
+    $("input:hidden[id='pdfTextCount']").attr("value", textCount);
+    $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
+    $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
+}
+
+function setXlsFields() {
+    $("input:hidden[id='xlsTextCount']").attr("value", textCount);
+    $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
+    $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
+}
 
 function runSpinner(isFilter){
     var deferred = $.Deferred();
@@ -102,13 +123,6 @@ function runSpinner(isFilter){
         deferred.resolve();
     }, activeTime);
     return deferred;
-}
-
-function getParam() {
-    var param = "textCount=" + encodeURIComponent(textCount) +
-                      "&sortingOrder=" + getSortingOrder() +
-                      "&isFilterWords=" + isFilterWords;
-    return param;
 }
 
 function getSortingOrder() {
