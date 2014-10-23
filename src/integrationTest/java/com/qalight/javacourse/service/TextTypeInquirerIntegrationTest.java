@@ -1,8 +1,6 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.util.ResponseHeaderGetter;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +17,10 @@ public class TextTypeInquirerIntegrationTest {
     @Test
     public void testInquireTextType_plainText() {
         //given
-        final String textHttpHeader = "plain_text_type";
+        final String input = "plain text type";
 
         //when
-        final ResponseHeaderGetter responseHeaderGetter = new ResponseHeaderGetter();
-        final String textType = responseHeaderGetter.getHttpHeader(textHttpHeader);
-        final TextType actualTextType = textTypeInquirer.inquireTextType(textType);
+        final TextType actualTextType = textTypeInquirer.inquireTextType(input);
 
         //then
         Assert.assertTrue(actualTextType instanceof PlainTextTypeImpl);
@@ -33,10 +29,10 @@ public class TextTypeInquirerIntegrationTest {
     @Test
     public void testInquireTextType_html() {
         //given
-        final String dataSourceLink = "http://defas.com.ua/java/testingPage.html";
+        final String input = "http://defas.com.ua/java/testingPage.html";
 
         //when
-        final TextType actualTextType = textTypeInquirer.inquireTextType(dataSourceLink);
+        final TextType actualTextType = textTypeInquirer.inquireTextType(input);
 
         //then
         Assert.assertTrue(actualTextType instanceof HtmlTextTypeImpl);
@@ -45,10 +41,10 @@ public class TextTypeInquirerIntegrationTest {
     @Test
     public void testInquireTextType_doc() {
         //given
-        final String dataSourceLink = "http://www.snee.com/xml/xslt/sample.doc";
+        final String input = "http://www.snee.com/xml/xslt/sample.doc";
 
         //when
-        final TextType actualTextType = textTypeInquirer.inquireTextType(dataSourceLink);
+        final TextType actualTextType = textTypeInquirer.inquireTextType(input);
 
         //then
         Assert.assertTrue(actualTextType instanceof DocTextTypeImpl);
@@ -57,10 +53,10 @@ public class TextTypeInquirerIntegrationTest {
     @Test
     public void testInquireTextType_pdf() {
         //given
-        final String dataSourceLink = "http://defas.com.ua/java/Policy_of_.UA.pdf";
+        final String input = "http://defas.com.ua/java/Policy_of_.UA.pdf";
 
         //when
-        final TextType actualTextType = textTypeInquirer.inquireTextType(dataSourceLink);
+        final TextType actualTextType = textTypeInquirer.inquireTextType(input);
 
         //then
         Assert.assertTrue(actualTextType instanceof PdfTextTypeImpl);
@@ -69,10 +65,10 @@ public class TextTypeInquirerIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInquireTextType_emptyUrl() {
         //given
-        final String dataSourceLink = "";
+        final String input = "";
 
         //when
-        textTypeInquirer.inquireTextType(dataSourceLink);
+        textTypeInquirer.inquireTextType(input);
 
         //then
         //expected exception
@@ -81,12 +77,11 @@ public class TextTypeInquirerIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInquireTextType_NullUrl() {
         //given
-        final String dataSourceLink = null;
+        final String input = null;
 
-        textTypeInquirer.inquireTextType(dataSourceLink);
+        textTypeInquirer.inquireTextType(input);
 
         //then
         //expected exception
     }
-
 }
