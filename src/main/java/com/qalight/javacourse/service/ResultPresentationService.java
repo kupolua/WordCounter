@@ -3,6 +3,7 @@ package com.qalight.javacourse.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,12 +11,14 @@ import java.util.Set;
 public class ResultPresentationService {
     private static final Logger LOG = LoggerFactory.getLogger(ResultPresentationService.class);
     private static Set<ResultPresentation> resultPresentations;
+
     static {
         resultPresentations = new HashSet<>();
         resultPresentations.add(new JsonResultPresentation());
     }
 
     public ResultPresentation getResultPresentation(String dataTypeResponse) {
+        // todo stkotok: Replace this line to Assertions.assertStringIsNotNullOrEmpty(dataTypeResponse)
         checkForNullOrEmpty(dataTypeResponse);
 
         ResultPresentation resultPresentation = null;
@@ -32,6 +35,7 @@ public class ResultPresentationService {
         return resultPresentation;
     }
 
+    // todo stkotok: Remove this method (see comment to 19 line)
     private void checkForNullOrEmpty(String dataTypeResponse) {
         if (dataTypeResponse == null) {
             LOG.warn("\"dataTypeResponse\" parameter is NULL.");

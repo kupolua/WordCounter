@@ -13,11 +13,6 @@ import java.net.URL;
 @Component
 public class DocToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DocToStringConverter.class);
-    private final Tika tika;
-
-    public DocToStringConverter() {
-        tika = new Tika();
-    }
 
     @Override
     public boolean isEligible(TextType documentType) {
@@ -30,6 +25,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userSourcesList) {
+        Tika tika = new Tika();
         URL url = createUrlObject(userSourcesList);
         String text;
         try {

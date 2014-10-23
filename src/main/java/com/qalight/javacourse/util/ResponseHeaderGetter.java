@@ -13,6 +13,7 @@ public class ResponseHeaderGetter {
     private static final Logger LOG = LoggerFactory.getLogger(ResponseHeaderGetter.class);
 
     public String getHttpHeader(String userRequestUrl) {
+        // todo stkotok: Replace this line to Assertions.assertStringIsNotNullOrEmpty(userRequestUrl)
         checkForNullOrEmpty(userRequestUrl);
 
         String textHttpHeader;
@@ -40,6 +41,7 @@ public class ResponseHeaderGetter {
         return httpHeader;
     }
 
+    // todo stkotok: Remove this method (see comment to 16 line)
     private void checkForNullOrEmpty(String userRequestUrl) {
         if (userRequestUrl == null) {
             LOG.error("\"userRequestUrl\"  parameter is NULL");

@@ -46,12 +46,19 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
     }
 
     private Document convertToStringWithOptions(String userUrl){
+        final String musicUrl = "music.com";
+        final String userAgentValue = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36";
+        final String uidCookieKey = "D_UID";
+        final String hidCookieKey = "D_HID";
+        final String uidCookieValue = "96DC1544-2BB7-3018-A58B-BBB6C494B28E";
+        final String hidCookieValue = "gDKdGwE5yRwSXim3uD1VCiLNZqkl9oXRq8Dbrpspdjg";
+
         Document html;
         try {
-            if (userUrl.contains("music.com")) {
-                html = Jsoup.connect(userUrl).userAgent("Chrome").cookie("D_UID", "24799FB2-C9DE-3AEE-ABDC-4743294DDF81").cookie("D_HID", "jtmc7OFTq50VP90CTlESts3p+VeWWjJMZkfMIIjZ+k4").get();
+            if (userUrl.contains(musicUrl)) {
+                html = Jsoup.connect(userUrl).userAgent(userAgentValue).cookie(uidCookieKey, uidCookieValue).cookie(hidCookieKey, hidCookieValue).get();
             } else {
-                html = Jsoup.connect(userUrl).userAgent("Chrome").get();
+                html = Jsoup.connect(userUrl).userAgent(userAgentValue).get();
             }
         } catch (IOException e) {
             LOG.error("Can't connect to " + userUrl, e);
