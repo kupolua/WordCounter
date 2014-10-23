@@ -36,7 +36,7 @@ public class CountingWordsFunctionalityTest {
         final String TEST_PAGE_ODT = "";
         final String TEST_PAGE_PPT = "";
         final String TEST_PAGE_PPTX = "";
-        final String TEST_PAGE_XLS = "";
+        final String TEST_PAGE_XLS = "http://www.econ.yale.edu/~shiller/data/ie_data.xls";
         final String TEST_PAGE_XLSX = "";
         final String TEST_PAGE_TXT = "";
         final String TEST_PAGE_PDF = "http://defas.com.ua/java/textForSeleniumTest.pdf";

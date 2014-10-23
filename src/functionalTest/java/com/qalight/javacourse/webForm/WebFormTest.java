@@ -1,21 +1,25 @@
 package com.qalight.javacourse.webForm;
 
+import org.apache.tika.Tika;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
@@ -23,12 +27,20 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class WebFormTest {
+    private static Tika documentConverter = new Tika();
     private static final int WAIT_FOR_ELEMENT = 15;
     private static final int DEFAULT_WAIT_FOR_PAGE = 60;
     private static final int PORT = 8080;
     private static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
     private static final String HTML_TEST_PAGE_SECONDARY = "https://dl.dropboxusercontent.com/u/12495182/textForSeleniumTestSecondary.pdf";
     private static final String INCORRECT_SYMBOL = "a";
+    private static final String COMPARE_FOLDER = "src/functionalTest/compare/";
+    private static final String EXPECTED_PDF = "expectedPdf.pdf";
+    private static final String ACTUAL_PDF = "calculatedWords.pdf";
+    private static final String BUTTON_PDF = "getPdf";
+    private static final String EXPECTED_XLS = "expectedXls.xls";
+    private static final String ACTUAL_XLS = "calculatedWords.xls";
+    private static final String BUTTON_XLS = "getXls";
     private static final String EXPECTED_EMPTY_RESULT = "";
     private static final String EXPECTED_INCORRECT_RESULT = "";
     private static final String PDF_TEST_PAGE = "http://defas.com.ua/java/textForSeleniumTest.pdf";
@@ -248,6 +260,65 @@ public class WebFormTest {
     @After
     public void tearDown() throws Exception {
         driver.quit();
+    }
+
+    @Test
+    public void testExportPdf() throws Exception {
+        // given
+        driver.get(BASE_URL);
+
+        File expectedPdfPath = new File(COMPARE_FOLDER + EXPECTED_PDF);
+        String expectedPdf = documentConverter.parseToString(expectedPdfPath);
+
+        // when
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        if (isReady) {
+            driver.findElement(By.id(BUTTON_PDF)).click();
+            checkAlert();
+
+            File actualPdfPath = new File(COMPARE_FOLDER + ACTUAL_PDF);
+            String actualPdf = documentConverter.parseToString(actualPdfPath);
+            actualPdfPath.delete();
+
+            assertEquals(expectedPdf, actualPdf);
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
+    }
+
+    @Test
+    public void testExportXls() throws Exception {
+        // given
+        driver.get(BASE_URL);
+        File expectedXlsPath = new File(COMPARE_FOLDER + EXPECTED_XLS);
+        String expectedXls = documentConverter.parseToString(expectedXlsPath);
+
+        // when
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        if (isReady) {
+            driver.findElement(By.id(BUTTON_XLS)).click();
+            checkAlert();
+
+            File actualXlsPath = new File(COMPARE_FOLDER + ACTUAL_XLS);
+            String actualXls = documentConverter.parseToString(actualXlsPath);
+            actualXlsPath.delete();
+
+            assertEquals(expectedXls, actualXls);
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
     }
 
     //todo create tests for filter words driver.findElement(By.id(BUTTON_ID_FILTER_WORDS)).click();
@@ -692,4 +763,13 @@ public class WebFormTest {
         }
         return jQcondition;
     }
-}
+    public void checkAlert() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 2);
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+        } catch (Exception e) {
+            //exception handling
+        }
+    }}
