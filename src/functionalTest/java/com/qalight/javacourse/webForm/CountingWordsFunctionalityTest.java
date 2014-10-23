@@ -19,7 +19,7 @@ public class CountingWordsFunctionalityTest {
     @Before
     public void setUp() {
         try {
-            driver = Util.setUp();
+            driver = Util.startWebDriver();
         } catch (Exception e) {
             LOG.info("Can't start WebDriver ", e);
         }

@@ -12,23 +12,10 @@ import static com.qalight.javacourse.webForm.util.Constants.*;
 
 public class Util {
 
-    public static WebDriver setUp() throws Exception {
-        WebDriver driver;
-        if (isMacOs()) {
-            driver = new SafariDriver();
-        } else {
-            driver = new FirefoxDriver();
-        }
+    public static WebDriver startWebDriver() {
+        WebDriver driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
         return driver;
-    }
-
-    private static boolean isMacOs() {
-        boolean result = false;
-        if (System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0) {
-            result = true;
-        }
-        return result;
     }
 
     public static boolean waitForJQueryProcessing(WebDriver driver, int timeOutInSeconds) {
