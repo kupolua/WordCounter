@@ -1,9 +1,7 @@
 package com.qalight.javacourse.webForm;
 
 import org.apache.tika.Tika;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -228,29 +226,17 @@ public class WebFormTest {
     private @Value("${wordsEN}") String wordsEn;
     private @Value("${wordsRU}") String wordsRu;
     private @Value("${wordsUA}") String wordsUa;
-    private WebDriver driver;
+    private static WebDriver driver;
     private WebDriver driverSecondary;
 
-    @Before
-    public void setUp() throws Exception {
-        if (isMacOs()) {
-            driver = new SafariDriver();
-        } else {
-            driver = new FirefoxDriver();
-        }
+    @BeforeClass
+    public static void init() {
+        driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
     }
 
-    private boolean isMacOs() {
-        boolean result = false;
-        if (System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0) {
-            result = true;
-        }
-        return result;
-    }
-
-    @After
-    public void tearDown() throws Exception {
+    @AfterClass
+    public static void tearDown() throws Exception {
         driver.quit();
     }
 
@@ -344,7 +330,6 @@ public class WebFormTest {
     public void testSortingKeyDescending() throws Exception {
         // given
         driver.get(BASE_URL);
-
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
@@ -564,11 +549,7 @@ public class WebFormTest {
     @Test
     public void testParallelExecution() throws Exception {
         // given
-        if (isMacOs()) {
-            driverSecondary = new SafariDriver();
-        } else {
-            driverSecondary = new FirefoxDriver();
-        }
+        driverSecondary = new FirefoxDriver();
         driverSecondary.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
 
         driver.get(BASE_URL);
