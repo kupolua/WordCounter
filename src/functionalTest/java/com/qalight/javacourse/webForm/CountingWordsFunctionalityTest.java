@@ -1,27 +1,28 @@
 package com.qalight.javacourse.webForm;
 
+import com.qalight.javacourse.webForm.util.Util;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
-
-import static com.qalight.javacourse.webForm.Util.*;
+import static com.qalight.javacourse.webForm.util.Constants.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class CountingWordsFunctionalityTest {
     private WebDriver driver;
+    private static final Logger LOG = LoggerFactory.getLogger(CountingWordsFunctionalityTest.class);
 
-    public void setUp() throws Exception {
-        if (isMacOs()) {
-            driver = new SafariDriver();
-        } else {
-            driver = new FirefoxDriver();
+    @Before
+    public void setUp() {
+        try {
+            driver = Util.setUp();
+        } catch (Exception e) {
+            LOG.info("Can't start WebDriver ", e);
         }
-        driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
     }
 
     @Test
