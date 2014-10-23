@@ -43,9 +43,6 @@ public class ExportingFunctionalityTest {
         // given
         driver.get(BASE_URL);
 
-        File expectedPdfPath = new File(COMPARE_FOLDER + EXPECTED_PDF);
-        String expectedPdf = documentConverter.parseToString(expectedPdfPath);
-
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
@@ -54,11 +51,18 @@ public class ExportingFunctionalityTest {
         boolean isReady = Util.waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
+
+       if (isReady) {
             driver.findElement(By.id(BUTTON_PDF)).click();
             checkAlert();
 
-            File actualPdfPath = new File(COMPARE_FOLDER + ACTUAL_PDF);
+            final String EXPECTED_PDF = "expectedPdf.pdf";
+            File expectedPdfPath = new File(PATH_RESOURCES + EXPECTED_PDF);
+            String expectedPdf = documentConverter.parseToString(expectedPdfPath);
+
+            final String ACTUAL_PDF = "calculatedWords.pdf";
+//            Thread.sleep(50000);
+            File actualPdfPath = new File(PATH_RESOURCES + ACTUAL_PDF);
             String actualPdf = documentConverter.parseToString(actualPdfPath);
             actualPdfPath.delete();
 
@@ -72,7 +76,7 @@ public class ExportingFunctionalityTest {
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);
-        File expectedXlsPath = new File(COMPARE_FOLDER + EXPECTED_XLS);
+        File expectedXlsPath = new File(PATH_RESOURCES + EXPECTED_XLS);
         String expectedXls = documentConverter.parseToString(expectedXlsPath);
 
         // when
@@ -87,7 +91,7 @@ public class ExportingFunctionalityTest {
             driver.findElement(By.id(BUTTON_XLS)).click();
             checkAlert();
 
-            File actualXlsPath = new File(COMPARE_FOLDER + ACTUAL_XLS);
+            File actualXlsPath = new File(PATH_RESOURCES + ACTUAL_XLS);
             String actualXls = documentConverter.parseToString(actualXlsPath);
             actualXlsPath.delete();
 

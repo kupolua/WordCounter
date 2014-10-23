@@ -3,6 +3,7 @@ package com.qalight.javacourse.webForm.util;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,9 +12,14 @@ import java.util.concurrent.TimeUnit;
 import static com.qalight.javacourse.webForm.util.Constants.*;
 
 public class Util {
-
+    private static WebDriver driver;
+    private static FirefoxProfile profile;
     public static WebDriver startWebDriver() {
-        WebDriver driver = new FirefoxDriver();
+        profile = new FirefoxProfile();
+        profile.setPreference("browser.download.dir", PATH_RESOURCES);
+        profile.setPreference("browser.download.folderList", 2);
+
+        driver = new FirefoxDriver(profile);
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
         return driver;
     }

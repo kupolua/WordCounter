@@ -10,9 +10,7 @@ public class Constants {
     public static final String RESPONSE_IS_NOT_READY = "Verify Failed: Response is not ready";
     public static final String BUTTON_ID_COUNT_WORDS = "CountWords";
     public static final String ELEMENT_ID_TEXT_AREA = "textCount";
-    public static final String COMPARE_FOLDER = "src/functionalTest/compare/";
-    public static final String EXPECTED_PDF = "expectedPdf.pdf";
-    public static final String ACTUAL_PDF = "calculatedWords.pdf";
+    public static final String PATH_RESOURCES = "src/functionalTest/resources/";
     public static final String BUTTON_PDF = "getPdf";
     public static final String EXPECTED_XLS = "expectedXls.xls";
     public static final String ACTUAL_XLS = "calculatedWords.xls";
