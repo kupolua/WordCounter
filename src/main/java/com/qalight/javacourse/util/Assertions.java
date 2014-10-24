@@ -13,4 +13,5 @@ public class Assertions {
             throw new IllegalArgumentException("Object is null");
         }
     }
+
 }
