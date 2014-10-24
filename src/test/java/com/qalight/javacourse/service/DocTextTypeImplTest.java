@@ -17,7 +17,7 @@ public class DocTextTypeImplTest {
     }
 
     @Test
-    public void testIsEligible_validTextUrls() throws Exception {
+    public void testIsEligible_validTexTypetUrls() throws Exception {
         // given
         final Set<String> expectedSet = new TreeSet(Arrays.asList(new String[]{
                 "http://defas.com.ua/java/textForTest.doc",
@@ -46,9 +46,21 @@ public class DocTextTypeImplTest {
     }
 
     @Test
-    public void testIsEligible_notValidTypeOfUrl() {
+    public void testIsEligible_notValidTextTypeOfUrl() {
         // given
         final String dataSourceLink = "http://defas.com.ua/java/textForTest.iso";
+
+        // when
+        boolean actualResult = docTextType.isEligible(dataSourceLink);
+
+        // then
+        Assert.assertFalse(actualResult);
+    }
+
+    @Test
+    public void testIsEligible_notValidTypeOfUrl() {
+        // given
+        final String dataSourceLink = "defas.com.ua/java/textForTest.pdf";
 
         // when
         boolean actualResult = docTextType.isEligible(dataSourceLink);
