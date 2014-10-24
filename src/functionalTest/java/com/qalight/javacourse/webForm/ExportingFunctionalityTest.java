@@ -8,12 +8,15 @@ import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import static com.qalight.javacourse.webForm.util.Constants.*;
 import static org.junit.Assert.assertEquals;
@@ -23,14 +26,20 @@ public class ExportingFunctionalityTest {
     private WebDriver driver;
     private static Tika documentConverter = new Tika();
     private static final Logger LOG = LoggerFactory.getLogger(ExportingFunctionalityTest.class);
+    private FirefoxProfile profile;
 
     @Before
-    public void setUp() {
-        try {
-            driver = Util.startWebDriver();
-        } catch (Exception e) {
-            LOG.info("Can't start WebDriver ", e);
-        }
+    public void startWebDriver() {
+//        profile = new FirefoxProfile();
+//        profile.setPreference("browser.download.folderList", 2);
+//        profile.setPreference("browser.download.dir", PATH_RESOURCES);
+//        profile.setPreference("browser.download.manager.showWhenStarting", false);
+//        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
+
+//        driver = new FirefoxDriver(profile);
+        driver = new SafariDriver();
+        driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
+        driver.get(BASE_URL);
     }
 
     @After
@@ -41,7 +50,7 @@ public class ExportingFunctionalityTest {
     @Test
     public void testExportPdf() throws Exception {
         // given
-        driver.get(BASE_URL);
+//        driver.get(BASE_URL);
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
@@ -61,7 +70,6 @@ public class ExportingFunctionalityTest {
             String expectedPdf = documentConverter.parseToString(expectedPdfPath);
 
             final String ACTUAL_PDF = "calculatedWords.pdf";
-//            Thread.sleep(50000);
             File actualPdfPath = new File(PATH_RESOURCES + ACTUAL_PDF);
             String actualPdf = documentConverter.parseToString(actualPdfPath);
             actualPdfPath.delete();
@@ -75,7 +83,7 @@ public class ExportingFunctionalityTest {
     @Test
     public void testExportXls() throws Exception {
         // given
-        driver.get(BASE_URL);
+//        driver.get(BASE_URL);
         File expectedXlsPath = new File(PATH_RESOURCES + EXPECTED_XLS);
         String expectedXls = documentConverter.parseToString(expectedXlsPath);
 

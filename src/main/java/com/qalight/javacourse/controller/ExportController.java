@@ -23,6 +23,7 @@ public class ExportController {
     public ModelAndView getPdfResult(@RequestParam String textCount,
                                      @RequestParam String sortingOrder,
                                      @RequestParam String isFilterWords) throws  Throwable {
+        System.out.println("sortingOrder " + sortingOrder + "\nisFilterWords " + isFilterWords + "\ntextCount " + textCount);
         final String viewName = "pdfView";
         final String modelName = "calculatedWords";
 

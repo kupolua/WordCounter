@@ -4,20 +4,23 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
-import static com.qalight.javacourse.webForm.util.Constants.*;
+
+import static com.qalight.javacourse.webForm.util.Constants.DEFAULT_WAIT_FOR_PAGE;
+import static com.qalight.javacourse.webForm.util.Constants.PATH_RESOURCES;
 
 public class Util {
     private static WebDriver driver;
     private static FirefoxProfile profile;
     public static WebDriver startWebDriver() {
         profile = new FirefoxProfile();
-        profile.setPreference("browser.download.dir", PATH_RESOURCES);
         profile.setPreference("browser.download.folderList", 2);
+        profile.setPreference("browser.download.dir", PATH_RESOURCES);
+        profile.setPreference("browser.download.manager.showWhenStarting",false);
+        profile.setPreference("browser.helperApps.neverAsk.saveToDisk","application/pdf");
 
         driver = new FirefoxDriver(profile);
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
