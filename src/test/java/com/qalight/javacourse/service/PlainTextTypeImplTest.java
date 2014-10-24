@@ -60,4 +60,16 @@ public class PlainTextTypeImplTest {
         //then
         // exception thrown
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsEligible_null() {
+        //given
+        final String url = null;
+
+        //when
+        boolean actualResult = plainTextType.isEligible(url);
+
+        //then
+        // exception thrown
+    }
 }
