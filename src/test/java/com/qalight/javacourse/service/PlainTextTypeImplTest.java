@@ -55,7 +55,7 @@ public class PlainTextTypeImplTest {
         final String url = " ";
 
         //when
-        boolean actualResult = plainTextType.isEligible(url);
+        plainTextType.isEligible(url);
 
         //then
         // exception thrown
@@ -67,7 +67,7 @@ public class PlainTextTypeImplTest {
         final String url = null;
 
         //when
-        boolean actualResult = plainTextType.isEligible(url);
+        plainTextType.isEligible(url);
 
         //then
         // exception thrown
