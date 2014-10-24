@@ -1,6 +1,6 @@
 package com.qalight.javacourse.core;
 
-import com.qalight.javacourse.util.Assertions;
+import com.qalight.javacourse.testutils.AssertionsForITTests;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +63,6 @@ public class ConcurrentExecutorImplIntegrationTest {
         expected.add(expectedResult2);
 
         assertEquals(3, actual.size());
-        assertTrue(Assertions.equalCollections(expected, actual));
+        assertTrue(AssertionsForITTests.equalCollections(expected, actual));
     }
 }

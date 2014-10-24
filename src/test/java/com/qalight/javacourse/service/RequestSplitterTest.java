@@ -1,5 +1,6 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.testutils.AssertionsForUnitTests;
 import com.qalight.javacourse.util.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class RequestSplitterTest {
 
         // then
         List<String> expected = Arrays.asList("http://one", "http://two", "http://three", "https://four");
-        assertTrue(Assertions.equalCollections(expected, actual));
+        assertTrue(AssertionsForUnitTests.equalCollections(expected, actual));
     }
 
     @Test
@@ -41,7 +42,7 @@ public class RequestSplitterTest {
 
         // then
         List<String> expected = Arrays.asList(someNonHttpText);
-        assertTrue(Assertions.equalCollections(expected, actual));
+        assertTrue(AssertionsForUnitTests.equalCollections(expected, actual));
     }
 
 
