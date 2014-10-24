@@ -1,30 +1,33 @@
 package com.qalight.javacourse.webForm.util;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.qalight.javacourse.webForm.util.Constants.DEFAULT_WAIT_FOR_PAGE;
-import static com.qalight.javacourse.webForm.util.Constants.PATH_RESOURCES;
+import static com.qalight.javacourse.webForm.util.Constants.*;
 
 public class Util {
     private static WebDriver driver;
-    private static FirefoxProfile profile;
-    public static WebDriver startWebDriver() {
-        profile = new FirefoxProfile();
-        profile.setPreference("browser.download.folderList", 2);
-        profile.setPreference("browser.download.dir", PATH_RESOURCES);
-        profile.setPreference("browser.download.manager.showWhenStarting",false);
-        profile.setPreference("browser.helperApps.neverAsk.saveToDisk","application/pdf");
 
-        driver = new FirefoxDriver(profile);
+    public static WebDriver getWebDriver() {
+        driver = new SafariDriver();
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
         return driver;
+    }
+
+    public static void quitWebDriver() {
+        driver.quit();
+    }
+
+    public static void putDataAndClickCountButton(WebDriver driver, String data) {
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(data);
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
     }
 
     public static boolean waitForJQueryProcessing(WebDriver driver, int timeOutInSeconds) {

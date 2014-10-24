@@ -1,69 +1,55 @@
 package com.qalight.javacourse.webForm;
 
-import com.qalight.javacourse.webForm.util.Util;
 import org.apache.tika.Tika;
-import org.junit.After;
-import org.junit.Before;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 import static com.qalight.javacourse.webForm.util.Constants.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static com.qalight.javacourse.webForm.util.Util.*;
 
 public class ExportingFunctionalityTest {
-    private WebDriver driver;
-    private static Tika documentConverter = new Tika();
-    private static final Logger LOG = LoggerFactory.getLogger(ExportingFunctionalityTest.class);
-    private FirefoxProfile profile;
+    private static WebDriver driver;
+    private static Tika documentConverter;
 
-    @Before
-    public void startWebDriver() {
-//        profile = new FirefoxProfile();
-//        profile.setPreference("browser.download.folderList", 2);
-//        profile.setPreference("browser.download.dir", PATH_RESOURCES);
-//        profile.setPreference("browser.download.manager.showWhenStarting", false);
-//        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
-
-//        driver = new FirefoxDriver(profile);
-        driver = new SafariDriver();
-        driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
-        driver.get(BASE_URL);
+    @BeforeClass
+    public static void init() {
+        driver = getWebDriver();
+        documentConverter = new Tika();
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterClass
+    public static void quitWebDriver() {
         driver.quit();
     }
 
     @Test
     public void testExportPdf() throws Exception {
         // given
-//        driver.get(BASE_URL);
+        driver.get(BASE_URL);
 
         // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
 
-        boolean isReady = Util.waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
 
        if (isReady) {
             driver.findElement(By.id(BUTTON_PDF)).click();
-            checkAlert();
+//            checkAlert();
+           Thread.sleep(2000);
 
             final String EXPECTED_PDF = "expectedPdf.pdf";
             File expectedPdfPath = new File(PATH_RESOURCES + EXPECTED_PDF);
@@ -83,21 +69,20 @@ public class ExportingFunctionalityTest {
     @Test
     public void testExportXls() throws Exception {
         // given
-//        driver.get(BASE_URL);
-        File expectedXlsPath = new File(PATH_RESOURCES + EXPECTED_XLS);
-        String expectedXls = documentConverter.parseToString(expectedXlsPath);
+        driver.get(BASE_URL);
 
         // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
 
-        boolean isReady = Util.waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
         if (isReady) {
             driver.findElement(By.id(BUTTON_XLS)).click();
-            checkAlert();
+//            checkAlert();
+            Thread.sleep(2000);
+            File expectedXlsPath = new File(PATH_RESOURCES + EXPECTED_XLS);
+            String expectedXls = documentConverter.parseToString(expectedXlsPath);
 
             File actualXlsPath = new File(PATH_RESOURCES + ACTUAL_XLS);
             String actualXls = documentConverter.parseToString(actualXlsPath);
@@ -109,14 +94,11 @@ public class ExportingFunctionalityTest {
         }
     }
 
-    public void checkAlert() {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, 2);
+    private void checkAlert() {
+            final int TIME_WAIT_SECONDS = 2;
+            WebDriverWait wait = new WebDriverWait(driver, TIME_WAIT_SECONDS);
             wait.until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
             alert.accept();
-        } catch (Exception e) {
-            //exception handling
-        }
     }
 }
