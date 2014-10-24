@@ -39,6 +39,4 @@ public class AssertionsTest {
         //then
         // no exception thrown
     }
-
-    //todo: stkotk: Add tests to method with class parameter, if Alex say Ok to this method
 }
