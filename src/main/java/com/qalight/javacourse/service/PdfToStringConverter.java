@@ -27,7 +27,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         PdfReader reader = null;
 
         try {
-            reader = new PdfReader(userUrl);
+            reader = getPdfReader(userUrl);
         } catch (IOException e) {
             String msg = "Can't connect to ";
             LOG.error(msg + userUrl, e);
@@ -40,13 +40,17 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         return getTextFromAllPages(reader);
     }
 
-    private String getTextFromAllPages(PdfReader reader) {
+    protected PdfReader getPdfReader(String userUrl) throws IOException {
+        return new PdfReader(userUrl);
+    }
+
+    protected String getTextFromAllPages(PdfReader reader) {
         StringJoiner joiner = new StringJoiner(" ");
 
         for (int i = 1; i <= reader.getNumberOfPages(); ++i) {
             String text = "";
             try {
-                final PdfTextExtractor pdfTextExtractor = new PdfTextExtractor(reader);
+                final PdfTextExtractor pdfTextExtractor = getPdfTextExtractor(reader);
                 text = pdfTextExtractor.getTextFromPage(i);
             } catch (Exception e) { // hard fix for StringIndexOutOfBoundsException in Pdf extract library
                 String msg = "Can't read text from page ";
@@ -55,6 +59,14 @@ public class PdfToStringConverter implements DocumentToStringConverter {
             joiner.add(text);
         }
 
+        return getString(joiner);
+    }
+
+    protected String getString(StringJoiner joiner) {
         return String.valueOf(joiner);
+    }
+
+    protected PdfTextExtractor getPdfTextExtractor(PdfReader reader) {
+        return new PdfTextExtractor(reader);
     }
 }
