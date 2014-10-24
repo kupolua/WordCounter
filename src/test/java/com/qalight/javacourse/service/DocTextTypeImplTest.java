@@ -46,7 +46,7 @@ public class DocTextTypeImplTest {
     }
 
     @Test
-    public void testIsEligible_notValidTextTypeOfUrl() {
+    public void testIsEligible_invalidTextTypeOfUrl() {
         // given
         final String dataSourceLink = "http://defas.com.ua/java/textForTest.iso";
 
@@ -58,7 +58,7 @@ public class DocTextTypeImplTest {
     }
 
     @Test
-    public void testIsEligible_notValidTypeOfUrl() {
+    public void testIsEligible_invalidTypeOfUrl() {
         // given
         final String dataSourceLink = "defas.com.ua/java/textForTest.pdf";
 
@@ -70,7 +70,7 @@ public class DocTextTypeImplTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_emptyUrl() {
+    public void testIsEligible_emptyRequest() {
         // given
         final String dataSourceLink = " ";
 
@@ -82,7 +82,7 @@ public class DocTextTypeImplTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_nullUrl() {
+    public void testIsEligible_nullRequest() {
         //given
         final String dataSourceLink = null;
 

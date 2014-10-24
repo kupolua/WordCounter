@@ -26,7 +26,7 @@ public class PlainTextTypeImplTest {
     }
 
     @Test
-    public void testIsEligible_httpUrl() {
+    public void testIsEligible_validHttpUrl() {
         //given
         String httpLink = "http://defas.com.ua/java/testingPage.html";
 
@@ -38,7 +38,7 @@ public class PlainTextTypeImplTest {
     }
 
     @Test
-    public void testIsEligible_httpsUrl() {
+    public void testIsEligible_validHttpsUrl() {
         //given
         String httpsLink = "https://mail.google.com";
 
@@ -50,7 +50,7 @@ public class PlainTextTypeImplTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_empty() {
+    public void testIsEligible_emptyRequest() {
         //given
         final String url = " ";
 
@@ -62,7 +62,7 @@ public class PlainTextTypeImplTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsEligible_null() {
+    public void testIsEligible_nullRequest() {
         //given
         final String url = null;
 
