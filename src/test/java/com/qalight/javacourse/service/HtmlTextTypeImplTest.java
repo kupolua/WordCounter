@@ -8,16 +8,28 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class DocTextTypeImplTest {
-    private DocTextTypeImpl docTextType;
+public class HtmlTextTypeImplTest {
+    private HtmlTextTypeImpl htmlTextType;
 
     @Before
     public void setUp() throws Exception {
-        docTextType = new DocTextTypeImpl();
+        htmlTextType = new HtmlTextTypeImpl();
     }
 
     @Test
-    public void testIsEligible_validTexTypesUrls() throws Exception {
+    public void testIsEligible_validUrlAndTextType() {
+        // given
+        final String validTypeUrl = "http://bbc.com";
+
+        // when
+        final boolean actualResult = htmlTextType.isEligible(validTypeUrl);
+
+        // then
+        Assert.assertTrue(actualResult);
+    }
+
+    @Test
+    public void testIsEligible_invalidTextTypesUrls() throws Exception {
         // given
         final Set<String> expectedSet = new TreeSet(Arrays.asList(new String[]{
                 "http://defas.com.ua/java/textForTest.doc",
@@ -25,18 +37,20 @@ public class DocTextTypeImplTest {
                 "http://defas.com.ua/java/textForTest.odp",
                 "http://defas.com.ua/java/textForTest.ods",
                 "http://defas.com.ua/java/textForTest.odt",
+                "http://defas.com.ua/java/textForTest.pdf",
                 "http://defas.com.ua/java/textForTest.ppt",
                 "http://defas.com.ua/java/textForTest.pptx",
                 "http://defas.com.ua/java/textForTest.rtf",
                 "http://defas.com.ua/java/textForTest.txt",
                 "http://defas.com.ua/java/textForTest.xls",
-                "http://defas.com.ua/java/textForTest.xlsx"
+                "http://defas.com.ua/java/textForTest.xlsx",
+                "some plain text here"
         }));
 
         // when
         Set<String> actualSet = new TreeSet<>();
         for (String validTextUrl : expectedSet) {
-            if (docTextType.isEligible(validTextUrl)) {
+            if (!htmlTextType.isEligible(validTextUrl)) {
                 actualSet.add(validTextUrl);
             }
         }
@@ -46,24 +60,12 @@ public class DocTextTypeImplTest {
     }
 
     @Test
-    public void testIsEligible_invalidTextTypeOfUrl() {
+    public void testIsEligible_invalidUrl() {
         // given
-        final String dataSourceLink = "http://defas.com.ua/java/textForTest.iso";
+        final String dataSourceLink = "bbc.com";
 
         // when
-        boolean actualResult = docTextType.isEligible(dataSourceLink);
-
-        // then
-        Assert.assertFalse(actualResult);
-    }
-
-    @Test
-    public void testIsEligible_invalidTypeOfUrl() {
-        // given
-        final String dataSourceLink = "defas.com.ua/java/textForTest.pdf";
-
-        // when
-        boolean actualResult = docTextType.isEligible(dataSourceLink);
+        boolean actualResult = htmlTextType.isEligible(dataSourceLink);
 
         // then
         Assert.assertFalse(actualResult);
@@ -75,7 +77,7 @@ public class DocTextTypeImplTest {
         final String dataSourceLink = " ";
 
         // when
-        docTextType.isEligible(dataSourceLink);
+        htmlTextType.isEligible(dataSourceLink);
 
         // then
         // exception thrown
@@ -87,7 +89,7 @@ public class DocTextTypeImplTest {
         final String dataSourceLink = null;
 
         //when
-        docTextType.isEligible(dataSourceLink);
+        htmlTextType.isEligible(dataSourceLink);
 
         //then
         // exception thrown
