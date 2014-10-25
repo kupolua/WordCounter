@@ -2,6 +2,7 @@ package com.qalight.javacourse.service;
 
 import static org.mockito.Mockito.*;
 
+import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,6 +20,8 @@ public class HtmlToStringConverterTest {
 
     @Mock
     private Document document;
+    @Mock
+    private HtmlToPlainText htmlToPlainText;
     @Spy
     private HtmlToStringConverter spyConverter;
 
@@ -54,34 +57,38 @@ public class HtmlToStringConverterTest {
     @Test
     public void convertToString() throws Exception{
         //given
-        final String input = "http://pdf-examples.com/example.html";
+        final String input = "http://html-examples.com/example.html";
         final String expected = "some text";
         doReturn(document).when(spyConverter).getDocument(anyString());
-        doReturn(expected).when(spyConverter).getPlainText(any(Document.class));
+        doReturn(htmlToPlainText).when(spyConverter).getHtmlToPlainText();
+        when(htmlToPlainText.getPlainText(any(Document.class))).thenReturn(expected);
 
         //when
         final String actual = spyConverter.convertToString(input);
 
         //then
-        verify(spyConverter, times(1)).getPlainText(any(Document.class));
+        verify(spyConverter, times(1)).getHtmlToPlainText();
         verify(spyConverter, times(1)).getDocument(anyString());
+        verify(htmlToPlainText, times(1)).getPlainText(any(Document.class));
         Assert.assertEquals(expected, actual);
     }
 
     @Test(expected = RuntimeException.class)
     public void convertToString_throwingException() throws Exception{
         //given
-        final String input = "http://pdf-examples.com/example.html";
+        final String input = "http://html-examples.com/example.html";
         final String expected = "some text";
         doThrow(new IOException("test")).when(spyConverter).getDocument(anyString());
-        doReturn(expected).when(spyConverter).getPlainText(any(Document.class));
+        doReturn(htmlToPlainText).when(spyConverter).getHtmlToPlainText();
+        when(htmlToPlainText.getPlainText(any(Document.class))).thenReturn(expected);
 
         //when
         final String actual = spyConverter.convertToString(input);
 
         //then
-        verify(spyConverter, never()).getPlainText(any(Document.class));
+        verify(spyConverter, times(1)).getHtmlToPlainText();
         verify(spyConverter, times(1)).getDocument(anyString());
-        Assert.assertEquals(expected, actual);
+        verify(htmlToPlainText, never()).getPlainText(any(Document.class));
+        // exception expected
     }
 }

@@ -86,8 +86,7 @@ public class PdfToStringConverterTest {
         //then
         verify(spyConverter, times(1)).getPdfReader(anyString());
         verify(spyConverter, never()).getTextFromAllPages(any(PdfReader.class));
-
-        Assert.assertEquals(expected, actual);
+        // exception expected
     }
 
     @Test

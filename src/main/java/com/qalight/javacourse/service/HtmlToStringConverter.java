@@ -26,6 +26,7 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userUrl) {
+        final HtmlToPlainText htmlToPlainText = getHtmlToPlainText();
         Document html;
         try {
             html = getDocument(userUrl);
@@ -35,12 +36,11 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
         }
         LOG.info("Connection to " + userUrl + " has been successfully established.");
 
-        return getPlainText(html);
+        return htmlToPlainText.getPlainText(html);
     }
 
-    protected String getPlainText(Document html) {
-        final HtmlToPlainText htmlToPlainText = new HtmlToPlainText();
-        return htmlToPlainText.getPlainText(html);
+    protected HtmlToPlainText getHtmlToPlainText() {
+        return new HtmlToPlainText();
     }
 
     protected Document getDocument(String userUrl) throws IOException {
