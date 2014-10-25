@@ -25,7 +25,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userSourcesList) {
-        Tika tika = new Tika();
+        final Tika tika = getTika();
         URL url = createUrlObject(userSourcesList);
         String text;
         try {
@@ -39,6 +39,10 @@ public class DocToStringConverter implements DocumentToStringConverter {
         }
 
         return text;
+    }
+
+    protected Tika getTika() {
+        return new Tika();
     }
 
     private URL createUrlObject(String userSourcesList) {
