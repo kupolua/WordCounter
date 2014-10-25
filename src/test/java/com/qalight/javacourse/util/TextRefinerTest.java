@@ -18,7 +18,7 @@ public class TextRefinerTest {
 
     @Test
     public void testRefineText() {
-        //given
+        // given
         final String givenText =
                 // handling lowercase/uppercase & clean pattern
                 "tHReE - two-two усіх—oNe&#160;:, thre/E!: ThrEE- -WWW, іІїЇєЄёЁґҐ " +
@@ -43,34 +43,34 @@ public class TextRefinerTest {
                         "exae", "f", "f", "g", "g", "h", "h", "i", "i", "j", "j", "k", "k", "l", "l", "m", "m", "n",
                         "n", "o", "p", "r");
 
-        //when
+        // when
         List<String> actualResult = refiner.refineText(givenText);
 
-        //then
+        // then
         Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyParameter() {
-        //given
+        // given
         final String givenText = " ";
 
-        //when
+        // when
         refiner.refineText(givenText);
 
-        //then
-        //expected exception
+        // then
+        // expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullParameter() {
-        //given
+        // given
         final String givenText = null;
 
-        //when
+        // when
         refiner.refineText(givenText);
 
-        //then
-        //expected exception
+        // then
+        // expected exception
     }
 }
