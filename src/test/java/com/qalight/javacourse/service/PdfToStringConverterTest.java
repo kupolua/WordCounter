@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
@@ -15,8 +17,11 @@ import java.util.StringJoiner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PdfToStringConverterTest {
-
     private PdfToStringConverter pdfToStringConverter;
+
+    @Mock private PdfReader mockedReader;
+    @Mock private PdfTextExtractor extractor;
+    @Spy PdfToStringConverter spyConverter;
 
     @Before
     public void setUp() {
@@ -52,17 +57,15 @@ public class PdfToStringConverterTest {
         //given
         final String input = "http://pdf-examples.com/example.pdf";
         final String expected = "example text";
-        PdfReader mockedReader = mock(PdfReader.class);
-        PdfToStringConverter spyConverter = spy(new PdfToStringConverter());
 
-        doReturn(mockedReader).when(spyConverter).getPdfReader(any(String.class));
+        doReturn(mockedReader).when(spyConverter).getPdfReader(anyString());
         doReturn(expected).when(spyConverter).getTextFromAllPages(any(PdfReader.class));
 
         //when
         final String actual = spyConverter.convertToString(input);
 
         //then
-        verify(spyConverter, times(1)).getPdfReader(any(String.class));
+        verify(spyConverter, times(1)).getPdfReader(anyString());
         verify(spyConverter, times(1)).getTextFromAllPages(any(PdfReader.class));
 
         Assert.assertEquals(expected, actual);
@@ -73,16 +76,15 @@ public class PdfToStringConverterTest {
         //given
         final String input = "pdf-examples.com/example.pdf";
         final String expected = "example text";
-        PdfToStringConverter spyConverter = spy(new PdfToStringConverter());
 
-        doThrow(new IOException()).when(spyConverter).getPdfReader(any(String.class));
+        doThrow(new IOException("test")).when(spyConverter).getPdfReader(anyString());
         doReturn(expected).when(spyConverter).getTextFromAllPages(any(PdfReader.class));
 
         //when
         final String actual = spyConverter.convertToString(input);
 
         //then
-        verify(spyConverter, times(1)).getPdfReader(any(String.class));
+        verify(spyConverter, times(1)).getPdfReader(anyString());
         verify(spyConverter, never()).getTextFromAllPages(any(PdfReader.class));
 
         Assert.assertEquals(expected, actual);
@@ -93,9 +95,6 @@ public class PdfToStringConverterTest {
         //given
         final String expected = "example text";
         final int numberOfPages = 1;
-        PdfReader mockedReader = mock(PdfReader.class);
-        PdfTextExtractor extractor = mock(PdfTextExtractor.class);
-        PdfToStringConverter spyConverter = spy(new PdfToStringConverter());
 
         when(mockedReader.getNumberOfPages()).thenReturn(numberOfPages);
         when(extractor.getTextFromPage(numberOfPages)).thenReturn(expected);
