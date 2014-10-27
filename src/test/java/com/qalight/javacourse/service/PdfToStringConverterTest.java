@@ -17,11 +17,10 @@ import java.util.StringJoiner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PdfToStringConverterTest {
-    private PdfToStringConverter pdfToStringConverter;
-
     @Mock private PdfReader mockedReader;
     @Mock private PdfTextExtractor extractor;
     @Spy PdfToStringConverter spyConverter;
+    private PdfToStringConverter pdfToStringConverter;
 
     @Before
     public void setUp() {
@@ -31,10 +30,10 @@ public class PdfToStringConverterTest {
     @Test
     public void testIsEligible() {
         //given
-        final TextType DOCUMENT_TYPE = new PdfTextTypeImpl();
+        final TextType docTextType = new PdfTextTypeImpl();
 
         //when
-        boolean actualResult = pdfToStringConverter.isEligible(DOCUMENT_TYPE);
+        boolean actualResult = pdfToStringConverter.isEligible(docTextType);
 
         //then
         Assert.assertTrue(actualResult);
@@ -43,10 +42,10 @@ public class PdfToStringConverterTest {
     @Test
     public void testIsNotEligible() {
         //given
-        final TextType DOCUMENT_TYPE = new DocTextTypeImpl();
+        final TextType docTextType = new DocTextTypeImpl();
 
         //when
-        boolean actualResult = pdfToStringConverter.isEligible(DOCUMENT_TYPE);
+        boolean actualResult = pdfToStringConverter.isEligible(docTextType);
 
         //then
         Assert.assertFalse(actualResult);

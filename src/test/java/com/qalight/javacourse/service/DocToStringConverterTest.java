@@ -19,12 +19,9 @@ import java.net.URL;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DocToStringConverterTest {
+    @Mock private Tika tika;
+    @Spy private DocToStringConverter spyConverter;
     private DocToStringConverter docToStringConverter;
-
-    @Mock
-    private Tika tika;
-    @Spy
-    private DocToStringConverter spyConverter;
 
     @Before
     public void setUp() throws Exception {
@@ -34,10 +31,10 @@ public class DocToStringConverterTest {
     @Test
     public void testIsEligible() {
         //given
-        final TextType DOCUMENT_TYPE = new DocTextTypeImpl();
+        final TextType docTextType = new DocTextTypeImpl();
 
         //when
-        boolean actualResult = docToStringConverter.isEligible(DOCUMENT_TYPE);
+        boolean actualResult = docToStringConverter.isEligible(docTextType);
 
         //then
         Assert.assertTrue(actualResult);
@@ -46,10 +43,10 @@ public class DocToStringConverterTest {
     @Test
     public void testIsNotEligible() {
         //given
-        final TextType DOCUMENT_TYPE = new PdfTextTypeImpl();
+        final TextType docTextType = new PdfTextTypeImpl();
 
         //when
-        boolean actualResult = docToStringConverter.isEligible(DOCUMENT_TYPE);
+        boolean actualResult = docToStringConverter.isEligible(docTextType);
 
         //then
         Assert.assertFalse(actualResult);

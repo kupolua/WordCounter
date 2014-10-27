@@ -16,14 +16,11 @@ import java.io.IOException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HtmlToStringConverterTest {
-    private HtmlToStringConverter converter;
 
-    @Mock
-    private Document document;
-    @Mock
-    private HtmlToPlainText htmlToPlainText;
-    @Spy
-    private HtmlToStringConverter spyConverter;
+    @Mock private Document document;
+    @Mock private HtmlToPlainText htmlToPlainText;
+    @Spy private HtmlToStringConverter spyConverter;
+    private HtmlToStringConverter converter;
 
     @Before
     public void setup() {
@@ -33,10 +30,10 @@ public class HtmlToStringConverterTest {
     @Test
     public void testIsEligible() {
         //given
-        final TextType DOCUMENT_TYPE = new HtmlTextTypeImpl();
+        final TextType docTextType = new HtmlTextTypeImpl();
 
         //when
-        boolean actualResult = converter.isEligible(DOCUMENT_TYPE);
+        boolean actualResult = converter.isEligible(docTextType);
 
         //then
         Assert.assertTrue(actualResult);
@@ -45,10 +42,10 @@ public class HtmlToStringConverterTest {
     @Test
     public void testIsNotEligible() {
         //given
-        final TextType DOCUMENT_TYPE = new PdfTextTypeImpl();
+        final TextType docTextType = new PdfTextTypeImpl();
 
         //when
-        boolean actualResult = converter.isEligible(DOCUMENT_TYPE);
+        boolean actualResult = converter.isEligible(docTextType);
 
         //then
         Assert.assertFalse(actualResult);
