@@ -27,14 +27,31 @@ public class ResultsPresentationFunctionalityTest {
     }
 
     @Test
+    public void testWordsByDefault() {
+        // given
+        driver.get(BASE_URL);
+
+        // when
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        if (isReady) {
+            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
+    }
+
+    @Test
     public void testShowEntries25() throws Exception {
         // given
         driver.get(BASE_URL);
 
         // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
 
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
