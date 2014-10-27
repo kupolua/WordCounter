@@ -1,10 +1,10 @@
-package com.qalight.javacourse.webForm.util;
+package com.qalight.javacourse.webForm.utils;
 
 public class Constants {
     public static final int WAIT_FOR_ELEMENT = 15;
     public static final int DEFAULT_WAIT_FOR_PAGE = 60;
     public static final int PORT = 8080;
-    public static final String HTML_TEST_PAGE = "http://defas.com.ua/java/pageForSeleniumTest.html";
+    public static final String HTML_TEST_PAGE = "http://defas.com.ua/java/textForTest.html";
     public static final String CONTEXT = "/WordCounter/";
     public static final String BASE_URL = "http://localhost:" + PORT + CONTEXT;
     public static final String RESPONSE_IS_NOT_READY = "Verify Failed: Response is not ready";
@@ -18,9 +18,5 @@ public class Constants {
     public static final String BUTTON_XLS = "getXls";
     public static final String EXPECTED_STANDARD_RESULT = "one 4\n" + "ёлка 3\n" +  "two 3\n" + "білка 3\n" + "объем 3\n" +
             "їжак 2\n" + "объём 1\n" + "ученики 1\n" + "і 1\n" + "але 1";
-    public static final String TEXT =
-            "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" + "https://www.google.com.ua/\n" + "http://" +
-            "habrahabr.ru/posts/top/weekly/\n" + "vkamenniy@gmail.com\n" + "ёлка і Ёлка та ёлКА: ОБЪЁМ объем обЪем, але," +
-            " но объем сказал завет человек время, имя, ученики, дом, друг, " + "народ, слово, \n" + "Їжак їжак єнот білка " +
-            "БІЛКА БіЛкА \n" + "R\n";
+    public static final String SEPARATOR = " ";
 }

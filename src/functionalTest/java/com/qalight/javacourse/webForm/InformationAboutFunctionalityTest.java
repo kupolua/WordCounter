@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static com.qalight.javacourse.webForm.util.Util.getWebDriver;
-import static com.qalight.javacourse.webForm.util.Constants.*;
+import static com.qalight.javacourse.webForm.utils.Util.getWebDriver;
+import static com.qalight.javacourse.webForm.utils.Constants.*;
 import static org.junit.Assert.assertTrue;
 
 public class InformationAboutFunctionalityTest {

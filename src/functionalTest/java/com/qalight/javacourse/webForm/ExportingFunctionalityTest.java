@@ -14,10 +14,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 
-import static com.qalight.javacourse.webForm.util.Constants.*;
+import static com.qalight.javacourse.webForm.utils.Constants.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static com.qalight.javacourse.webForm.util.Util.*;
+import static com.qalight.javacourse.webForm.utils.Util.*;
 
 public class ExportingFunctionalityTest {
     private static WebDriver driver;
@@ -34,7 +34,7 @@ public class ExportingFunctionalityTest {
         driver.quit();
     }
 
-    @Test
+//    @Test
     public void testExportPdf() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -66,7 +66,7 @@ public class ExportingFunctionalityTest {
         }
     }
 
-    @Test
+//    @Test
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);

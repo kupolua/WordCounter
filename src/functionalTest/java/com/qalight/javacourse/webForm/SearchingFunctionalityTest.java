@@ -8,8 +8,8 @@ import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static com.qalight.javacourse.webForm.util.Constants.*;
-import static com.qalight.javacourse.webForm.util.Util.*;
+import static com.qalight.javacourse.webForm.utils.Constants.*;
+import static com.qalight.javacourse.webForm.utils.Util.*;
 
 public class SearchingFunctionalityTest {
     private static WebDriver driver;

@@ -286,116 +286,6 @@ public class WebFormTest {
     }
 
     @Test
-    public void testSortingKeyAscending() throws Exception {
-        // given
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        //then
-        if (isReady) {
-            driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
-            String actualSortingKeyAscending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_SORTING_KEY_ASCENDING, actualSortingKeyAscending);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
-
-    @Test
-    public void testSortingValueAscending() throws Exception {
-        // given
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        // then
-        if (isReady) {
-            driver.findElement(By.className(ELEMENT_ID_SORTING_DESC)).click();
-            String actualSortingValueAscending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_SORTING_VALUE_ASCENDING, actualSortingValueAscending);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
-
-    @Test
-    public void testSortingKeyDescending() throws Exception {
-        // given
-        driver.get(BASE_URL);
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        // then
-        if (isReady) {
-            driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
-            driver.findElement(By.className(ELEMENT_ID_SORTING_ASC)).click();
-            String actualSortingKeyDescending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_SORTING_KEY_DESCENDING, actualSortingKeyDescending);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
-
-    @Test
-    public void testSortingValueDescending() throws Exception {
-        // given
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        // then
-        if (isReady) {
-            String actualSortingValueDescending = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_SORTING_VALUE_DESCENDING, actualSortingValueDescending);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
-
-    @Test
-    public void testSearchWord() throws Exception {
-        // given
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        // then
-        if (isReady) {
-            driver.findElement(By.cssSelector(ELEMENT_CSS_INPUT_SEARCH)).clear();
-            driver.findElement(By.cssSelector(ELEMENT_CSS_INPUT_SEARCH)).sendKeys(SEARCH_WORD);
-            String actualSearchWord = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_SEARCH_WORD, actualSearchWord);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
-
-    @Test
     public void testNextResponse() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -464,27 +354,6 @@ public class WebFormTest {
     }
 
     @Test
-    public void testInputText() throws Exception {
-        // given
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(TEXT);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_INPUT_TEXT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
-
-    @Test
     public void testReadingPDF() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -506,48 +375,6 @@ public class WebFormTest {
         }
     }
 
-    @Test
-    public void testEnterTwoLinks() throws Exception {
-        // given
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE + URL_SEPARATOR + PDF_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        //then
-        if (isReady) {
-            String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_ENTER_TWO_LINKS, actualEnterTwoLinks);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
-
-    @Test
-    public void testWordFilter() throws Exception {
-        // given
-        String wordsForFilter = getWordsForFilter(wordsEn, wordsRu, wordsUa);
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(WORD_MARKER + URL_SEPARATOR + wordsForFilter);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        //then
-        if (isReady) {
-            String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_WORD_FILTER, actualEnterTwoLinks);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
 
     @Test
     public void testParallelExecution() throws Exception {
@@ -582,50 +409,6 @@ public class WebFormTest {
         }
     }
 
-    @Test
-    public void testLinkShowFilter() throws Exception {
-        // given
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
-        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        //then
-        if (isReady) {
-            driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
-            boolean isModalWindow = driver.getPageSource().contains(IS_MODAL_WINDOW);
-            assertTrue(isModalWindow);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
-    }
-
-    @Test
-    public void testLinkAboutUs() {
-        // given
-        final String elementIdAboutUs = "aboutUsLink";
-        driver.get(BASE_URL);
-
-        // when
-        driver.findElement(By.id(elementIdAboutUs)).click();
-
-        //then
-        boolean isAboutDisplayed = driver.findElement(By.id("aboutUsHead")).isDisplayed();
-        assertTrue(isAboutDisplayed);
-    }
-
-    private final String getWordsForFilter(String... languages) {
-        StringBuilder wordsForFilter = new StringBuilder();
-        for (String language : languages) {
-            wordsForFilter.append(language);
-            wordsForFilter.append(" ");
-        }
-        return String.valueOf(wordsForFilter);
-    }
 
     @Test
     public void testEnterTwoLinksOneByOne() throws Exception {

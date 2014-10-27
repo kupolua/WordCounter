@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static com.qalight.javacourse.webForm.util.Constants.*;
-import static com.qalight.javacourse.webForm.util.Util.*;
+import static com.qalight.javacourse.webForm.utils.Constants.*;
+import static com.qalight.javacourse.webForm.utils.Util.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

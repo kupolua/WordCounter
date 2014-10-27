@@ -1,4 +1,4 @@
-package com.qalight.javacourse.webForm.util;
+package com.qalight.javacourse.webForm.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.qalight.javacourse.webForm.util.Constants.*;
+import static com.qalight.javacourse.webForm.utils.Constants.*;
 
 public class Util {
     private static WebDriver driver;
