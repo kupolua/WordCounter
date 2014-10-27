@@ -21,9 +21,12 @@ import static org.junit.Assert.fail;
 public class FilteringWordsFunctionalityTest {
     private static WebDriver driver;
 
+    private final String BUTTON_ID_FILTERING_WORDS = "buttonGetFilterWords";
+
     private @Value("${wordsEN}") String wordsEn;
     private @Value("${wordsRU}") String wordsRu;
     private @Value("${wordsUA}") String wordsUa;
+
     @BeforeClass
     public static void init() {
         driver = getWebDriver();
@@ -35,7 +38,7 @@ public class FilteringWordsFunctionalityTest {
     }
 
     @Test
-    public void testWordFilter() throws Exception {
+    public void testWordFilterWithoutFilteringWords() throws Exception {
         // given
         String wordsForFilter = getWordsForFilter(wordsEn, wordsRu, wordsUa);
         driver.get(BASE_URL);
@@ -49,7 +52,6 @@ public class FilteringWordsFunctionalityTest {
 
         //then
         if (isReady) {
-            final String BUTTON_ID_FILTERING_WORDS = "buttonGetFilterWords";
             driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
             final int WAIT_TIME = 2000;
             Thread.sleep(WAIT_TIME);
@@ -60,6 +62,36 @@ public class FilteringWordsFunctionalityTest {
             fail(RESPONSE_IS_NOT_READY);
         }
     }
+
+    @Test
+    public void testWordFilterWithFilteringWords() throws Exception {
+        // given
+        String wordsForFilter = getWordsForFilter(wordsEn, wordsRu, wordsUa);
+        driver.get(BASE_URL);
+
+        // when
+        final String WORD_MARKER = "marker";
+        putDataAndClickCountButton(driver, WORD_MARKER + SEPARATOR + wordsForFilter);
+
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        //then
+        if (isReady) {
+            driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
+            final int WAIT_TIME = 2000;
+            Thread.sleep(WAIT_TIME);
+            final String BUTTON_ID_UN_FILTERING_WORDS = "buttonGetUnFilterWords";
+            driver.findElement(By.id(BUTTON_ID_UN_FILTERING_WORDS)).click();
+            Thread.sleep(WAIT_TIME);
+            final String EXPECTED_WORD_FILTER = "в 3\n" + "них 2\n" + "те 2\n" + "ж 2\n" + "з 2\n" + "й 2\n" +
+                    "к 2\n" + "то 2\n" + "м 2\n" + "н 2";
+            String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+            assertEquals(EXPECTED_WORD_FILTER, actualEnterTwoLinks);
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
+    }
+
 
     @Test
     public void testLinkShowFilter() throws Exception {
@@ -82,7 +114,6 @@ public class FilteringWordsFunctionalityTest {
             fail(RESPONSE_IS_NOT_READY);
         }
     }
-
 
     private final String getWordsForFilter(String... languages) {
         StringBuilder wordsForFilter = new StringBuilder();
