@@ -49,7 +49,6 @@ public class FilteringWordsFunctionalityTest {
         final String WORD_MARKER = "marker";
         putDataAndClickCountButton(driver, WORD_MARKER + SEPARATOR + wordsForFilter);
 
-
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
@@ -110,6 +109,7 @@ public class FilteringWordsFunctionalityTest {
             final String ID_MODAL_WINDOW = "simplemodal-placeholder";
             driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
             boolean isModalWindow = driver.getPageSource().contains(ID_MODAL_WINDOW);
+
             assertTrue(isModalWindow);
         } else {
             fail(RESPONSE_IS_NOT_READY);
@@ -129,9 +129,11 @@ public class FilteringWordsFunctionalityTest {
         if (isReady) {
             driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
             Thread.sleep(WAIT_TIME);
+
             final String EXPECTED_RESULT = getWordsForFilter(wordsEn, wordsRu, wordsUa);
             final String ELEMENT_ID_FILTERING_WORDS = "wordsFilter";
             String actualResult = driver.findElement(By.id(ELEMENT_ID_FILTERING_WORDS)).getText();
+
             assertEquals(EXPECTED_RESULT, actualResult);
         } else {
             fail(RESPONSE_IS_NOT_READY);
