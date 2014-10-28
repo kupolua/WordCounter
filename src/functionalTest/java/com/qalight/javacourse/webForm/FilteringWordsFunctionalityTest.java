@@ -22,12 +22,12 @@ public class FilteringWordsFunctionalityTest {
     private static WebDriver driver;
 
     private final String BUTTON_ID_FILTERING_WORDS = "buttonGetFilterWords";
+    private final String ELEMENT_SHOW_FILTER = "#showFilter > a";
+    private final int WAIT_TIME = 2000;
 
     private @Value("${wordsEN}") String wordsEn;
     private @Value("${wordsRU}") String wordsRu;
     private @Value("${wordsUA}") String wordsUa;
-
-    private final int WAIT_TIME = 2000;
 
     @BeforeClass
     public static void init() {
@@ -38,7 +38,7 @@ public class FilteringWordsFunctionalityTest {
     public static void quitWebDriver() {
         driver.quit();
     }
-
+//todo: change Thread.sleep(WAIT_TIME) on better way
     @Test
     public void testWordFilterWithoutFilteringWords() throws Exception {
         // given
@@ -107,7 +107,6 @@ public class FilteringWordsFunctionalityTest {
 
         //then
         if (isReady) {
-            final String ELEMENT_SHOW_FILTER = "#showFilter > a";
             final String ID_MODAL_WINDOW = "simplemodal-placeholder";
             driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
             boolean isModalWindow = driver.getPageSource().contains(ID_MODAL_WINDOW);
@@ -116,28 +115,36 @@ public class FilteringWordsFunctionalityTest {
             fail(RESPONSE_IS_NOT_READY);
         }
     }
-//todo: find way how to get text from modal window
-//    @Test
-    public void testListFilteringWords() {
+
+    @Test
+    public void testListFilteringWords() throws Exception {
         // given
         driver.get(BASE_URL);
 
         // when
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
+        if (isReady) {
+            driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
+            Thread.sleep(WAIT_TIME);
             final String EXPECTED_RESULT = getWordsForFilter(wordsEn, wordsRu, wordsUa);
             final String ELEMENT_ID_FILTERING_WORDS = "wordsFilter";
             String actualResult = driver.findElement(By.id(ELEMENT_ID_FILTERING_WORDS)).getText();
-            System.out.println("actualResult: " + actualResult);
             assertEquals(EXPECTED_RESULT, actualResult);
-
+        } else {
+            fail(RESPONSE_IS_NOT_READY);
+        }
     }
 
     private final String getWordsForFilter(String... languages) {
         StringBuilder wordsForFilter = new StringBuilder();
-        for (String language : languages) {
-            wordsForFilter.append(language);
-            wordsForFilter.append(" ");
+        for (int i = 0; i < languages.length; i++) {
+            wordsForFilter.append(languages[i]);
+            if (i < (languages.length - 1)) {
+                wordsForFilter.append(" ");
+            }
         }
         return String.valueOf(wordsForFilter);
     }
