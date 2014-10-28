@@ -116,7 +116,7 @@ public class FilteringWordsFunctionalityTest {
             fail(RESPONSE_IS_NOT_READY);
         }
     }
-
+//todo: find way how to get text from modal window
 //    @Test
     public void testListFilteringWords() {
         // given
