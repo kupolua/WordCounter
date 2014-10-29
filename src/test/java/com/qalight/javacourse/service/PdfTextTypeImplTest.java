@@ -17,7 +17,7 @@ public class PdfTextTypeImplTest {
     @Test
     public void testIsEligible_validType() {
         // given
-        final String validTypeUrl = "http://defas.com.ua/java/textForTest.pdf";
+        final String validTypeUrl = "http:// defas.com.ua/java/textForTest.pdf";
 
         // when
         boolean actualResult = pdfTextType.isEligible(validTypeUrl);
@@ -29,7 +29,7 @@ public class PdfTextTypeImplTest {
     @Test
     public void testIsEligible_invalidType() {
         // given
-        final String invalidTypeUrl = "http://defas.com.ua/java/textForTest.doc";
+        final String invalidTypeUrl = "http:// defas.com.ua/java/textForTest.doc";
 
         // when
         boolean actualResult = pdfTextType.isEligible(invalidTypeUrl);
@@ -52,25 +52,25 @@ public class PdfTextTypeImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyRequest() {
-        //given
+        // given
         final String url = " ";
 
-        //when
+        // when
         pdfTextType.isEligible(url);
 
-        //then
+        // then
         // exception thrown
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullRequest() {
-        //given
+        // given
         final String url = null;
 
-        //when
+        // when
         pdfTextType.isEligible(url);
 
-        //then
+        // then
         // exception thrown
     }
 }

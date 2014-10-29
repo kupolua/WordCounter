@@ -49,9 +49,33 @@ public class PlainToStringConverterTest {
     }
 
     @Test
-    public void testConvertToString() {
+    public void testConvertToString_valid() {
         // given
         final String inputText = "В мире есть много интересных занятий.";
+
+        // when
+        String actualResult = plainToStringConverter.convertToString(inputText);
+
+        // then
+        Assert.assertEquals(inputText, actualResult);
+    }
+
+    @Test
+    public void testConvertToString_empty() {
+        // given
+        final String inputText = " ";
+
+        // when
+        String actualResult = plainToStringConverter.convertToString(inputText);
+
+        // then
+        Assert.assertEquals(inputText, actualResult);
+    }
+
+    @Test
+    public void testConvertToString_null() {
+        // given
+        final String inputText = null;
 
         // when
         String actualResult = plainToStringConverter.convertToString(inputText);
