@@ -20,19 +20,19 @@ public class TextTypeInquirer {
         textTypes.add(new PlainTextTypeImpl());
     }
 
-    public TextType inquireTextType(String dataSourceLink) {
-        Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
+    public TextType inquireTextType(String clientRequest) {
+        Assertions.assertStringIsNotNullOrEmpty(clientRequest);
         TextType textType = null;
         for (TextType sourceType : textTypes) {
-            if (sourceType.isEligible(dataSourceLink)) {
+            if (sourceType.isEligible(clientRequest)) {
                 textType = sourceType;
                 break;
             }
         }
         if(textType == null){
-            throw new IllegalArgumentException("Unknown text type at " + dataSourceLink + ".");
+            throw new IllegalArgumentException("Unknown text type at " + clientRequest + ".");
         }
-        LOG.debug("Document type of " + dataSourceLink + " identified successfully as " + textType + ".");
+        LOG.debug("Document type of " + clientRequest + " identified successfully as " + textType + ".");
         return textType;
     }
 }

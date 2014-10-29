@@ -1,6 +1,7 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.controller.CountWordsUserRequest;
+import com.qalight.javacourse.controller.CountWordsUserRequestImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,7 @@ public class WordCounterServiceImplIntegrationTest {
     @Test
     public void testGetWordCounterResult_singleParamNotNullCheck() throws Exception {
         // given
-        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(TEXT_COUNT);
 
         // when
         WordCounterResultContainer actualResult = wordCounterService.getWordCounterResult(userRequest);
@@ -33,7 +34,7 @@ public class WordCounterServiceImplIntegrationTest {
     public void testGetWordCounterResult_fullParamNotNullCheck() throws Exception {
         // given
         final String isFilterRequired = "true";
-        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
 
         // when
         WordCounterResultContainer actualResult = wordCounterService.getWordCounterResult(userRequest);
@@ -46,7 +47,7 @@ public class WordCounterServiceImplIntegrationTest {
     public void testGetWordCounterResult_singleParam() throws Exception {
         // given
         final String expectedResult = "{a=7, three=3, two=2, one=1}";
-        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(TEXT_COUNT);
 
         // when
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
@@ -61,7 +62,7 @@ public class WordCounterServiceImplIntegrationTest {
         // given
         final String expectedResult = "{a=7, one=1, three=3, two=2}";
         final String isFilterRequired = "false";
-        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
 
         // when
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
@@ -76,7 +77,7 @@ public class WordCounterServiceImplIntegrationTest {
         // given
         final String expectedResult = "{one=1, three=3, two=2}";
         final String isFilterRequired = "true";
-        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(TEXT_COUNT, KEY_ASCENDING, isFilterRequired);
 
         // when
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
@@ -91,7 +92,7 @@ public class WordCounterServiceImplIntegrationTest {
         // given
         final String expectedResult = "{three=3, two=2, one=1}";
         final String isFilterRequired = "true";
-        CountWordsUserRequest userRequest = new CountWordsUserRequest(TEXT_COUNT, null, isFilterRequired);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(TEXT_COUNT, null, isFilterRequired);
 
         // when
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
@@ -105,7 +106,7 @@ public class WordCounterServiceImplIntegrationTest {
     public void testGetWordCounterResult_emptySingleParam()  throws Exception {
         // given
         final String emptyTextCount = "";
-        CountWordsUserRequest userRequest = new CountWordsUserRequest(emptyTextCount);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(emptyTextCount);
 
         // when
         wordCounterService.getWordCounterResult(userRequest);
@@ -118,7 +119,7 @@ public class WordCounterServiceImplIntegrationTest {
     public void testGetWordCounterResult_invalidSingleParam() throws Exception{
         // given
         final String invalidTextCount = "http://95.158.60.148:8008/kpl/testingPageINVALID.html";
-        CountWordsUserRequest userRequest = new CountWordsUserRequest(invalidTextCount);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(invalidTextCount);
 
         // when
             wordCounterService.getWordCounterResult(userRequest);

@@ -15,8 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.io.IOException;
 import java.net.URL;
 
-
-
 @RunWith(MockitoJUnitRunner.class)
 public class DocToStringConverterTest {
     @Mock private Tika tika;

@@ -52,7 +52,7 @@ public class HtmlToStringConverterTest {
     }
 
     @Test
-    public void convertToString() throws Exception{
+    public void convertToString() throws Exception {
         //given
         final String input = "http://html-examples.com/example.html";
         final String expected = "some text";
@@ -71,7 +71,7 @@ public class HtmlToStringConverterTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void convertToString_throwingException() throws Exception{
+    public void convertToString_throwingException() throws Exception {
         //given
         final String input = "http://html-examples.com/example.html";
         final String expected = "some text";

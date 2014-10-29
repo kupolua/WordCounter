@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CountWordsTaskTest {
-    @Mock CountWordsProcessor wordsProcessor;
+    @Mock private CountWordsProcessor wordsProcessor;
 
     @Test
     public void testCall() throws Exception {

@@ -26,7 +26,7 @@ public class CountWordsController {
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getResult(@RequestParam String textCount) throws Throwable {
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount);
+        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
@@ -36,7 +36,7 @@ public class CountWordsController {
     @RequestMapping(value = "/countWordsRestStyle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public WordCounterResultContainer getResultRestStyle(@RequestParam String textCount) throws Throwable {
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount);
+        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
         return result;
     }

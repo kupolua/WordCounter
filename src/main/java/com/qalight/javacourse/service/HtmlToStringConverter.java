@@ -21,6 +21,7 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
         if (documentType instanceof HtmlTextTypeImpl) {
             isEligible = true;
         }
+
         return isEligible;
     }
 

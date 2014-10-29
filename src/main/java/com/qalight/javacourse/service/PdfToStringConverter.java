@@ -19,13 +19,13 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         if (documentType instanceof PdfTextTypeImpl) {
             isEligible = true;
         }
+
         return isEligible;
     }
 
     @Override
     public String convertToString(String userUrl) {
         PdfReader reader = null;
-
         try {
             reader = getPdfReader(userUrl);
         } catch (IOException e) {
@@ -46,8 +46,8 @@ public class PdfToStringConverter implements DocumentToStringConverter {
 
     protected String getTextFromAllPages(PdfReader reader) {
         StringJoiner joiner = new StringJoiner(" ");
-
-        for (int i = 1; i <= reader.getNumberOfPages(); ++i) {
+        final int numberOfPages = reader.getNumberOfPages();
+        for (int i = 1; i <= numberOfPages; ++i) {
             String text = "";
             try {
                 final PdfTextExtractor pdfTextExtractor = getPdfTextExtractor(reader);

@@ -33,7 +33,7 @@ public class PdfToStringConverterIntegrationTest {
         final String URL = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
 
         //when
-        pdfToStringConverter.convertToString(URL);
+        String actualResult = pdfToStringConverter.convertToString(URL);
 
         //then
         //expected exception

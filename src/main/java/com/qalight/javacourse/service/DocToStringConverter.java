@@ -20,6 +20,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
         if (documentType instanceof DocTextTypeImpl) {
             isEligible = true;
         }
+
         return isEligible;
     }
 
