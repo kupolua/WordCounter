@@ -15,61 +15,61 @@ public class PlainTextTypeImplTest {
 
     @Test
     public void testIsEligible_plainText() {
-        //given
+        // given
         String plainText = "some plain text";
 
-        //when
+        // when
         boolean actualResult = plainTextType.isEligible(plainText);
 
-        //then
+        // then
         Assert.assertTrue(actualResult);
     }
 
     @Test
     public void testIsEligible_validHttpUrl() {
-        //given
-        String httpLink = "http://defas.com.ua/java/testingPage.html";
+        // given
+        String httpLink = "http:// defas.com.ua/java/testingPage.html";
 
-        //when
+        // when
         boolean actualResult = plainTextType.isEligible(httpLink);
 
-        //then
+        // then
         Assert.assertFalse(actualResult);
     }
 
     @Test
     public void testIsEligible_validHttpsUrl() {
-        //given
-        String httpsLink = "https://mail.google.com";
+        // given
+        String httpsLink = "https:// mail.google.com";
 
-        //when
+        // when
         boolean actualResult = plainTextType.isEligible(httpsLink);
 
-        //then
+        // then
         Assert.assertFalse(actualResult);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyRequest() {
-        //given
+        // given
         final String url = " ";
 
-        //when
+        // when
         plainTextType.isEligible(url);
 
-        //then
+        // then
         // exception thrown
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullRequest() {
-        //given
+        // given
         final String url = null;
 
-        //when
+        // when
         plainTextType.isEligible(url);
 
-        //then
+        // then
         // exception thrown
     }
 }

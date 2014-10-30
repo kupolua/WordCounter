@@ -43,8 +43,7 @@ public class HtmlTextTypeImplTest {
                 "http://defas.com.ua/java/textForTest.rtf",
                 "http://defas.com.ua/java/textForTest.txt",
                 "http://defas.com.ua/java/textForTest.xls",
-                "http://defas.com.ua/java/textForTest.xlsx",
-                "some plain text here"
+                "http://defas.com.ua/java/textForTest.xlsx"
         }));
 
         // when
@@ -74,6 +73,18 @@ public class HtmlTextTypeImplTest {
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_emptyRequest() {
         // given
+        final String dataSourceLink = "";
+
+        // when
+        htmlTextType.isEligible(dataSourceLink);
+
+        // then
+        // exception thrown
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsEligible_whitespaceRequest() {
+        // given
         final String dataSourceLink = " ";
 
         // when
@@ -85,13 +96,13 @@ public class HtmlTextTypeImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIsEligible_nullRequest() {
-        //given
+        // given
         final String dataSourceLink = null;
 
-        //when
+        // when
         htmlTextType.isEligible(dataSourceLink);
 
-        //then
+        // then
         // exception thrown
     }
 }

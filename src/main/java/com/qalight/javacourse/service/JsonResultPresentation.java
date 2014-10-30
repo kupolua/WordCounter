@@ -3,6 +3,7 @@ package com.qalight.javacourse.service;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.qalight.javacourse.util.Assertions;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,11 +12,12 @@ import java.util.Map;
 
 @Component
 public class JsonResultPresentation implements ResultPresentation {
-    // todo: add checks for nulls and other validations for methods
     private static final String DATA_TYPES = "json";
 
     @Override
     public boolean isEligible(String dataTypeResponse) {
+        Assertions.assertStringIsNotNullOrEmpty(dataTypeResponse);
+
         boolean isEligible = false;
         if (dataTypeResponse.equals(DATA_TYPES)) {
             isEligible = true;
@@ -25,12 +27,14 @@ public class JsonResultPresentation implements ResultPresentation {
 
     @Override
     public String createResponse(Map<String, Integer> unRefinedCountedWords) {
+        Assertions.assertObjectIsNotNull(unRefinedCountedWords);
+
         List<List<String>> unFilteredCountedWords = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entryUnFilteredWords : unRefinedCountedWords.entrySet()) {
             List<String> countUnFilteredWordsWordResultResponse = new ArrayList<>();
             countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getKey());
-            countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getValue().toString());
+            countUnFilteredWordsWordResultResponse.add(String.valueOf(entryUnFilteredWords.getValue()));
             unFilteredCountedWords.add(countUnFilteredWordsWordResultResponse);
         }
 
@@ -46,6 +50,8 @@ public class JsonResultPresentation implements ResultPresentation {
 
     @Override
     public String createErrorResponse(Throwable e) {
+        Assertions.assertObjectIsNotNull(e);
+
         String errorMessage = "WordCounter Exception: ";
         errorMessage += e.getMessage();
 

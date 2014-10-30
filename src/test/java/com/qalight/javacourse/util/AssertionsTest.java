@@ -3,77 +3,75 @@ package com.qalight.javacourse.util;
 import org.junit.Test;
 
 public class AssertionsTest {
-
     @Test
-    public void testAssertStringIsNotNullOrEmpty_ok() throws Exception {
-        //given
+    public void testAssertStringIsNotNullOrEmpty_notNullNotEmpty() {
+        // given
         final String string = "some text in string";
 
-        //when
+        // when
         Assertions.assertStringIsNotNullOrEmpty(string);
 
-        //then
+        // then
         // no exception thrown
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAssertStringIsNotNullOrEmpty_null() throws Exception {
-        //given
+        // given
         final String nullString = null;
 
-        //when
+        // when
         Assertions.assertStringIsNotNullOrEmpty(nullString);
 
-        //then
-        //expected exception
+        // then
+        // expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAssertStringIsNotNullOrEmpty_empty() throws Exception {
-        //given
+        // given
         final String emptyString = "";
 
-        //when
+        // when
         Assertions.assertStringIsNotNullOrEmpty(emptyString);
 
-        //then
-        //expected exception
+        // then
+        // expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAssertStringIsNotNullOrEmpty_whitespace() throws Exception {
-        //given
+        // given
         final String emptyStringWithWhitespace = " ";
 
-        //when
+        // when
         Assertions.assertStringIsNotNullOrEmpty(emptyStringWithWhitespace);
 
-        //then
-        //expected exception
+        // then
+        // expected exception
     }
 
     @Test
     public void testAssertObjectIsNotNull_ObgIsNotNull() throws Exception {
-        //given
+        // given
         final Object object = "some text";
 
-        //when
+        // when
         Assertions.assertObjectIsNotNull(object);
 
-        //then
+        // then
         // no exception thrown
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAssertObjectIsNotNull_ObjIsNull() throws Exception {
-        //given
+        // given
         final Object object = null;
 
-        //when
+        // when
         Assertions.assertObjectIsNotNull(object);
 
-        //then
-        //expected exception
+        // then
+        // expected exception
     }
-
 }
