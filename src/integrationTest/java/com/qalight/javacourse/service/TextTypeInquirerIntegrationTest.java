@@ -68,7 +68,7 @@ public class TextTypeInquirerIntegrationTest {
         final String input = "";
 
         //when
-        textTypeInquirer.inquireTextType(input);
+        final TextType actual = textTypeInquirer.inquireTextType(input);
 
         //then
         //expected exception
@@ -79,7 +79,7 @@ public class TextTypeInquirerIntegrationTest {
         //given
         final String input = null;
 
-        textTypeInquirer.inquireTextType(input);
+        final TextType actual = textTypeInquirer.inquireTextType(input);
 
         //then
         //expected exception

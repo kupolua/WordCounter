@@ -12,12 +12,16 @@ import java.util.Set;
 public class TextTypeInquirer {
     private static final Logger LOG = LoggerFactory.getLogger(TextTypeInquirer.class);
     private static Set<TextType> textTypes;
-    static{
+    public TextTypeInquirer() {
         textTypes = new HashSet<>();
         textTypes.add(new HtmlTextTypeImpl());
         textTypes.add(new PdfTextTypeImpl());
         textTypes.add(new DocTextTypeImpl());
         textTypes.add(new PlainTextTypeImpl());
+    }
+
+    public static void setTextTypes(Set<TextType> textTypes) {
+        TextTypeInquirer.textTypes = textTypes;
     }
 
     public TextType inquireTextType(String clientRequest) {
@@ -28,9 +32,6 @@ public class TextTypeInquirer {
                 textType = sourceType;
                 break;
             }
-        }
-        if(textType == null){
-            throw new IllegalArgumentException("Unknown text type at " + clientRequest + ".");
         }
         LOG.debug("Document type of " + clientRequest + " identified successfully as " + textType + ".");
         return textType;
