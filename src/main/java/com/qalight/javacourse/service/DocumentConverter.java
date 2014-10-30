@@ -11,13 +11,16 @@ import java.util.Set;
 public class DocumentConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentConverter.class);
     private static Set<DocumentToStringConverter> documentToStringConverters;
-
-    static {
+    public DocumentConverter(){
         documentToStringConverters = new HashSet<>();
         documentToStringConverters.add(new HtmlToStringConverter());
         documentToStringConverters.add(new PdfToStringConverter());
         documentToStringConverters.add(new DocToStringConverter());
         documentToStringConverters.add(new PlainToStringConverter());
+    }
+
+    public static void setDocumentToStringConverters(Set<DocumentToStringConverter> documentToStringConverters) {
+        DocumentConverter.documentToStringConverters = documentToStringConverters;
     }
 
     public DocumentToStringConverter getDocumentConverter(TextType sourceType) {
