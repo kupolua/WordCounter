@@ -11,6 +11,10 @@ public class PdfTextTypeImpl implements TextType {
     @Override
     public boolean isEligible(String dataSourceLink) {
         Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
-        return SupportedHttpProtocol.isWebProtocol(dataSourceLink) && dataSourceLink.endsWith(TEXT_TYPE);
+        return isWebProtocol(dataSourceLink) && dataSourceLink.endsWith(TEXT_TYPE);
+    }
+
+    protected boolean isWebProtocol(String dataSourceLink) {
+        return SupportedHttpProtocol.isWebProtocol(dataSourceLink);
     }
 }

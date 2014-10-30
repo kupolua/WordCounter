@@ -98,8 +98,7 @@ public class TextRefinerTest {
         // given
         final String givenText = "-aaa -bbb- ccc- ddd-ddd";
 
-        final List<String> expectedResult =
-                Arrays.asList("aaa", "bbb", "ccc", "ddd-ddd");
+        final List<String> expectedResult = Arrays.asList("aaa", "bbb", "ccc", "ddd-ddd");
 
         // when
         final List<String> actualResult = refiner.refineText(givenText);

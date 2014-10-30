@@ -3,26 +3,42 @@ package com.qalight.javacourse.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Spy;
 
-import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+//import static org.mockito.Matchers.anyString;
+//import static org.mockito.Mockito.times;
+//import static org.mockito.Mockito.verify;
+//import static org.mockito.Mockito.when;
 
 public class PdfTextTypeImplTest {
-    PdfTextTypeImpl pdfTextType;
+    @Spy
+    @Mock
+    PdfTextTypeImpl mockPdfTextType;
+//    @Spy PdfTextTypeImpl spyPdfTextType;
 
     @Before
     public void setUp() throws Exception {
-        pdfTextType = new PdfTextTypeImpl();
+        mockPdfTextType = new PdfTextTypeImpl();
     }
 
     @Test
     public void testIsEligible_validType() {
         // given
         final String validTypeUrl = "http:// defas.com.ua/java/textForTest.pdf";
+        final boolean isWebProtocol = true;
+
+        doReturn(isWebProtocol).when(mockPdfTextType).isWebProtocol(anyString());
 
         // when
-        boolean actualResult = pdfTextType.isEligible(validTypeUrl);
+        boolean actualResult = mockPdfTextType.isEligible(validTypeUrl);
 
         // then
+        verify(mockPdfTextType, times(1)).isWebProtocol(anyString());
         Assert.assertTrue(actualResult);
     }
 
@@ -32,7 +48,7 @@ public class PdfTextTypeImplTest {
         final String invalidTypeUrl = "http:// defas.com.ua/java/textForTest.doc";
 
         // when
-        boolean actualResult = pdfTextType.isEligible(invalidTypeUrl);
+        boolean actualResult = mockPdfTextType.isEligible(invalidTypeUrl);
 
         // then
         Assert.assertFalse(actualResult);
@@ -44,7 +60,7 @@ public class PdfTextTypeImplTest {
         final String invalidUrl = "defas.com.ua/java/textForTest.pdf";
 
         // when
-        boolean actualResult = pdfTextType.isEligible(invalidUrl);
+        boolean actualResult = mockPdfTextType.isEligible(invalidUrl);
 
         // then
         Assert.assertFalse(actualResult);
@@ -56,7 +72,7 @@ public class PdfTextTypeImplTest {
         final String url = " ";
 
         // when
-        pdfTextType.isEligible(url);
+        mockPdfTextType.isEligible(url);
 
         // then
         // exception thrown
@@ -68,7 +84,7 @@ public class PdfTextTypeImplTest {
         final String url = null;
 
         // when
-        pdfTextType.isEligible(url);
+        mockPdfTextType.isEligible(url);
 
         // then
         // exception thrown
