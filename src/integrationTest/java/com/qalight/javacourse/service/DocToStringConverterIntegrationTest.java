@@ -1,6 +1,5 @@
 package com.qalight.javacourse.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +18,13 @@ public class DocToStringConverterIntegrationTest {
     @Test
     public void testConvertToString() {
         //given
-        final String URL = "http://www.snee.com/xml/xslt/sample.doc";
-
+        final String URL = "http://95.158.60.148:8008/kpl/test.rtf";
+        final String expectedResult = "one two two three three three a a a a a a a\n";
         //when
         String actualResult = docToStringConverter.convertToString(URL);
 
         //then
-        assertNotNull(actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test(expected = RuntimeException.class)
@@ -34,7 +33,7 @@ public class DocToStringConverterIntegrationTest {
         final String URL = "http://www.xmlfiles.com/examples/cd_ca22123talog";
 
         //when
-        docToStringConverter.convertToString(URL);
+        String actualResult = docToStringConverter.convertToString(URL);
 
         //then
         //expected exception
@@ -46,7 +45,7 @@ public class DocToStringConverterIntegrationTest {
         final String URL = "www.xmlfiles.com/examples/cd_ca22123talog";
 
         //when
-        docToStringConverter.convertToString(URL);
+        String actualResult = docToStringConverter.convertToString(URL);
 
         //then
         //expected exception
