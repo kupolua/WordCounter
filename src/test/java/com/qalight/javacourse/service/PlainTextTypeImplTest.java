@@ -1,51 +1,66 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+@RunWith(MockitoJUnitRunner.class)
 public class PlainTextTypeImplTest {
-
-    private PlainTextTypeImpl plainTextType;
-
-    @Before
-    public void setUp() throws Exception {
-        plainTextType = new PlainTextTypeImpl();
-    }
+    @Spy
+    private PlainTextTypeImpl spyPlainTextType;
 
     @Test
     public void testIsEligible_plainText() {
         // given
         String plainText = "some plain text";
 
+        doReturn(false).when(spyPlainTextType).isWebProtocol(anyString());
+
         // when
-        boolean actualResult = plainTextType.isEligible(plainText);
+        boolean actualResult = spyPlainTextType.isEligible(plainText);
 
         // then
+        verify(spyPlainTextType, times(1)).isEligible(anyString());
+        verify(spyPlainTextType, times(1)).isWebProtocol(anyString());
         Assert.assertTrue(actualResult);
     }
 
     @Test
     public void testIsEligible_validHttpUrl() {
         // given
-        String httpLink = "http:// defas.com.ua/java/testingPage.html";
+        String httpLink = "http://defas.com.ua/java/testingPage.html";
+
+        doReturn(true).when(spyPlainTextType).isWebProtocol(anyString());
 
         // when
-        boolean actualResult = plainTextType.isEligible(httpLink);
+        boolean actualResult = spyPlainTextType.isEligible(httpLink);
 
         // then
+        verify(spyPlainTextType, times(1)).isEligible(anyString());
+        verify(spyPlainTextType, times(1)).isWebProtocol(anyString());
         Assert.assertFalse(actualResult);
     }
 
     @Test
     public void testIsEligible_validHttpsUrl() {
         // given
-        String httpsLink = "https:// mail.google.com";
+        String httpsLink = "https://mail.google.com";
+
+        doReturn(true).when(spyPlainTextType).isWebProtocol(anyString());
 
         // when
-        boolean actualResult = plainTextType.isEligible(httpsLink);
+        boolean actualResult = spyPlainTextType.isEligible(httpsLink);
 
         // then
+        verify(spyPlainTextType, times(1)).isEligible(anyString());
+        verify(spyPlainTextType, times(1)).isWebProtocol(anyString());
         Assert.assertFalse(actualResult);
     }
 
@@ -55,7 +70,7 @@ public class PlainTextTypeImplTest {
         final String url = " ";
 
         // when
-        plainTextType.isEligible(url);
+        spyPlainTextType.isEligible(url);
 
         // then
         // exception thrown
@@ -67,7 +82,7 @@ public class PlainTextTypeImplTest {
         final String url = null;
 
         // when
-        plainTextType.isEligible(url);
+        spyPlainTextType.isEligible(url);
 
         // then
         // exception thrown

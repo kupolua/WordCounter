@@ -1,20 +1,24 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class DocTextTypeImplTest {
-    private DocTextTypeImpl docTextType;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-    @Before
-    public void setUp() throws Exception {
-        docTextType = new DocTextTypeImpl();
-    }
+@RunWith(MockitoJUnitRunner.class)
+public class DocTextTypeImplTest {
+    @Spy
+    private DocTextTypeImpl spyDocTextType;
 
     @Test
     public void testIsEligible_validTexTypesUrls() throws Exception {
@@ -33,15 +37,19 @@ public class DocTextTypeImplTest {
                 "http://defas.com.ua/java/textForTest.xlsx"
         }));
 
+        doReturn(true).when(spyDocTextType).isWebProtocol(anyString());
+
         // when
         Set<String> actualSet = new TreeSet<>();
         for (String validTextUrl : expectedSet) {
-            if (docTextType.isEligible(validTextUrl)) {
+            if (spyDocTextType.isEligible(validTextUrl)) {
                 actualSet.add(validTextUrl);
             }
         }
 
         // then
+        verify(spyDocTextType, times(11)).isEligible(anyString());
+        verify(spyDocTextType, times(11)).isWebProtocol(anyString());
         Assert.assertEquals(expectedSet, actualSet);
     }
 
@@ -50,10 +58,14 @@ public class DocTextTypeImplTest {
         // given
         final String dataSourceLink = "http://defas.com.ua/java/textForTest.iso";
 
+        doReturn(true).when(spyDocTextType).isWebProtocol(anyString());
+
         // when
-        boolean actualResult = docTextType.isEligible(dataSourceLink);
+        boolean actualResult = spyDocTextType.isEligible(dataSourceLink);
 
         // then
+        verify(spyDocTextType, times(1)).isEligible(anyString());
+        verify(spyDocTextType, times(1)).isWebProtocol(anyString());
         Assert.assertFalse(actualResult);
     }
 
@@ -62,10 +74,14 @@ public class DocTextTypeImplTest {
         // given
         final String dataSourceLink = "defas.com.ua/java/textForTest.pdf";
 
+        doReturn(false).when(spyDocTextType).isWebProtocol(anyString());
+
         // when
-        boolean actualResult = docTextType.isEligible(dataSourceLink);
+        boolean actualResult = spyDocTextType.isEligible(dataSourceLink);
 
         // then
+        verify(spyDocTextType, times(1)).isEligible(anyString());
+        verify(spyDocTextType, times(1)).isWebProtocol(anyString());
         Assert.assertFalse(actualResult);
     }
 
@@ -75,7 +91,7 @@ public class DocTextTypeImplTest {
         final String dataSourceLink = " ";
 
         // when
-        docTextType.isEligible(dataSourceLink);
+        spyDocTextType.isEligible(dataSourceLink);
 
         // then
         // exception thrown
@@ -87,7 +103,7 @@ public class DocTextTypeImplTest {
         final String dataSourceLink = null;
 
         //when
-        docTextType.isEligible(dataSourceLink);
+        spyDocTextType.isEligible(dataSourceLink);
 
         //then
         // exception thrown

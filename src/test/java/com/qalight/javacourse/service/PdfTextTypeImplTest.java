@@ -1,56 +1,48 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
+import org.junit.runner.RunWith;
 import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-//import static org.mockito.Matchers.anyString;
-//import static org.mockito.Mockito.times;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PdfTextTypeImplTest {
     @Spy
-    @Mock
-    PdfTextTypeImpl mockPdfTextType;
-//    @Spy PdfTextTypeImpl spyPdfTextType;
-
-    @Before
-    public void setUp() throws Exception {
-        mockPdfTextType = new PdfTextTypeImpl();
-    }
+    private PdfTextTypeImpl spyPdfTextType;
 
     @Test
     public void testIsEligible_validType() {
         // given
-        final String validTypeUrl = "http:// defas.com.ua/java/textForTest.pdf";
-        final boolean isWebProtocol = true;
+        final String validTypeUrl = "http://defas.com.ua/java/textForTest.pdf";
 
-        doReturn(isWebProtocol).when(mockPdfTextType).isWebProtocol(anyString());
+        doReturn(true).when(spyPdfTextType).isWebProtocol(anyString());
 
         // when
-        boolean actualResult = mockPdfTextType.isEligible(validTypeUrl);
+        boolean actualResult = spyPdfTextType.isEligible(validTypeUrl);
 
         // then
-        verify(mockPdfTextType, times(1)).isWebProtocol(anyString());
+        verify(spyPdfTextType, times(1)).isEligible(anyString());
+        verify(spyPdfTextType, times(1)).isWebProtocol(anyString());
         Assert.assertTrue(actualResult);
     }
 
     @Test
     public void testIsEligible_invalidType() {
         // given
-        final String invalidTypeUrl = "http:// defas.com.ua/java/textForTest.doc";
+        final String invalidTypeUrl = "http://defas.com.ua/java/textForTest.doc";
+
+        doReturn(true).when(spyPdfTextType).isWebProtocol(anyString());
 
         // when
-        boolean actualResult = mockPdfTextType.isEligible(invalidTypeUrl);
+        boolean actualResult = spyPdfTextType.isEligible(invalidTypeUrl);
 
         // then
+        verify(spyPdfTextType, times(1)).isEligible(anyString());
+        verify(spyPdfTextType, times(1)).isWebProtocol(anyString());
         Assert.assertFalse(actualResult);
     }
 
@@ -59,10 +51,14 @@ public class PdfTextTypeImplTest {
         // given
         final String invalidUrl = "defas.com.ua/java/textForTest.pdf";
 
+        doReturn(false).when(spyPdfTextType).isWebProtocol(anyString());
+
         // when
-        boolean actualResult = mockPdfTextType.isEligible(invalidUrl);
+        boolean actualResult = spyPdfTextType.isEligible(invalidUrl);
 
         // then
+        verify(spyPdfTextType, times(1)).isEligible(anyString());
+        verify(spyPdfTextType, times(1)).isWebProtocol(anyString());
         Assert.assertFalse(actualResult);
     }
 
@@ -72,9 +68,12 @@ public class PdfTextTypeImplTest {
         final String url = " ";
 
         // when
-        mockPdfTextType.isEligible(url);
+        spyPdfTextType.isEligible(url);
 
         // then
+        // todo: Why verify don't work?
+        verify(spyPdfTextType, times(3)).isEligible(anyString());
+        verify(spyPdfTextType, times(0)).isWebProtocol(anyString());
         // exception thrown
     }
 
@@ -84,7 +83,7 @@ public class PdfTextTypeImplTest {
         final String url = null;
 
         // when
-        mockPdfTextType.isEligible(url);
+        spyPdfTextType.isEligible(url);
 
         // then
         // exception thrown

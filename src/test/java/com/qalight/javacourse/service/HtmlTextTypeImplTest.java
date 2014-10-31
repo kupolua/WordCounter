@@ -3,33 +3,42 @@ package com.qalight.javacourse.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class HtmlTextTypeImplTest {
-    private HtmlTextTypeImpl htmlTextType;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-    @Before
-    public void setUp() throws Exception {
-        htmlTextType = new HtmlTextTypeImpl();
-    }
+@RunWith(MockitoJUnitRunner.class)
+public class HtmlTextTypeImplTest {
+    @Spy
+    private HtmlTextTypeImpl spyHtmlTextType;
 
     @Test
     public void testIsEligible_validUrlAndTextType() {
         // given
         final String validTypeUrl = "http://bbc.com";
 
+        doReturn(true).when(spyHtmlTextType).isWebProtocol(anyString());
+
         // when
-        final boolean actualResult = htmlTextType.isEligible(validTypeUrl);
+        final boolean actualResult = spyHtmlTextType.isEligible(validTypeUrl);
 
         // then
+        verify(spyHtmlTextType, times(1)).isEligible(anyString());
+        verify(spyHtmlTextType, times(1)).isWebProtocol(anyString());
         Assert.assertTrue(actualResult);
     }
 
     @Test
-    public void testIsEligible_invalidTextTypesUrls() throws Exception {
+    public void testIsEligible_invalidTextTypesUrls() {
         // given
         final Set<String> expectedSet = new TreeSet(Arrays.asList(new String[]{
                 "http://defas.com.ua/java/textForTest.doc",
@@ -46,15 +55,19 @@ public class HtmlTextTypeImplTest {
                 "http://defas.com.ua/java/textForTest.xlsx"
         }));
 
+        doReturn(true).when(spyHtmlTextType).isWebProtocol(anyString());
+
         // when
         Set<String> actualSet = new TreeSet<>();
         for (String validTextUrl : expectedSet) {
-            if (!htmlTextType.isEligible(validTextUrl)) {
+            if (!spyHtmlTextType.isEligible(validTextUrl)) {
                 actualSet.add(validTextUrl);
             }
         }
 
         // then
+        verify(spyHtmlTextType, times(12)).isEligible(anyString());
+        verify(spyHtmlTextType, times(12)).isWebProtocol(anyString());
         Assert.assertEquals(expectedSet, actualSet);
     }
 
@@ -63,10 +76,14 @@ public class HtmlTextTypeImplTest {
         // given
         final String dataSourceLink = "bbc.com";
 
+        doReturn(false).when(spyHtmlTextType).isWebProtocol(anyString());
+
         // when
-        boolean actualResult = htmlTextType.isEligible(dataSourceLink);
+        boolean actualResult = spyHtmlTextType.isEligible(dataSourceLink);
 
         // then
+        verify(spyHtmlTextType, times(1)).isEligible(anyString());
+        verify(spyHtmlTextType, times(1)).isWebProtocol(anyString());
         Assert.assertFalse(actualResult);
     }
 
@@ -76,7 +93,7 @@ public class HtmlTextTypeImplTest {
         final String dataSourceLink = "";
 
         // when
-        htmlTextType.isEligible(dataSourceLink);
+        spyHtmlTextType.isEligible(dataSourceLink);
 
         // then
         // exception thrown
@@ -88,7 +105,7 @@ public class HtmlTextTypeImplTest {
         final String dataSourceLink = " ";
 
         // when
-        htmlTextType.isEligible(dataSourceLink);
+        spyHtmlTextType.isEligible(dataSourceLink);
 
         // then
         // exception thrown
@@ -100,7 +117,7 @@ public class HtmlTextTypeImplTest {
         final String dataSourceLink = null;
 
         // when
-        htmlTextType.isEligible(dataSourceLink);
+        spyHtmlTextType.isEligible(dataSourceLink);
 
         // then
         // exception thrown

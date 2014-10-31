@@ -13,7 +13,7 @@ public class HtmlTextTypeImpl implements TextType {
     public boolean isEligible(String dataSourceLink) {
         Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
         boolean isEligible = false;
-        if (SupportedHttpProtocol.isWebProtocol(dataSourceLink)) {
+        if (isWebProtocol(dataSourceLink)) {
             isEligible = true;
             for (String type : TEXT_TYPES) {
                 if (dataSourceLink.endsWith(type)) {
@@ -23,5 +23,9 @@ public class HtmlTextTypeImpl implements TextType {
             }
         }
         return isEligible;
+    }
+
+    protected boolean isWebProtocol(String dataSourceLink) {
+        return SupportedHttpProtocol.isWebProtocol(dataSourceLink);
     }
 }
