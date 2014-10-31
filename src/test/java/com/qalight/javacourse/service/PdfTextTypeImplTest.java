@@ -71,9 +71,6 @@ public class PdfTextTypeImplTest {
         spyPdfTextType.isEligible(url);
 
         // then
-        // todo: Why verify don't work?
-        verify(spyPdfTextType, times(3)).isEligible(anyString());
-        verify(spyPdfTextType, times(0)).isWebProtocol(anyString());
         // exception thrown
     }
 

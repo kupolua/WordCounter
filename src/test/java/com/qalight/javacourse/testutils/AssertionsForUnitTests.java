@@ -7,6 +7,9 @@ public class AssertionsForUnitTests {
         if (collection == null) {
             return (anotherCollection == null);
         }
+        if (anotherCollection == null) {
+            return (collection == null);
+        }
         if (anotherCollection == collection) {
             return true;
         }
