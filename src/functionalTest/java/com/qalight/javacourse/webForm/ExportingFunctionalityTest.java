@@ -1,5 +1,6 @@
 package com.qalight.javacourse.webForm;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.tika.Tika;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -32,8 +33,8 @@ public class ExportingFunctionalityTest {
     public static void quitWebDriver() {
         driver.quit();
     }
-
-//    @Test
+    @Ignore
+    @Test
     public void testExportPdf() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -58,8 +59,8 @@ public class ExportingFunctionalityTest {
         // then
         assertEquals(expectedPdfResult, actualPdfResult);
     }
-
-//    @Test
+    @Ignore
+    @Test
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);
