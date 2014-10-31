@@ -26,7 +26,7 @@ public class CountWordsController {
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getResult(@RequestParam String textCount) throws Throwable {
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount);
+        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         String jsonResult = resultPresentation.createResponse(result.getCountedResult());
@@ -36,7 +36,7 @@ public class CountWordsController {
     @RequestMapping(value = "/countWordsRestStyle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public WordCounterResultContainer getResultRestStyle(@RequestParam String textCount) throws Throwable {
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount);
+        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
         return result;
     }
@@ -44,14 +44,14 @@ public class CountWordsController {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value= HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public String handleExceptions(IllegalArgumentException ex) {
+    public String handleIllegalArgumentExceptions(IllegalArgumentException ex) {
         return getErrorMessage(ex);
     }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public String handleExceptions(Throwable ex) {
+    public String handleRuntimeExceptions(RuntimeException ex) {
         return getErrorMessage(ex);
     }
 

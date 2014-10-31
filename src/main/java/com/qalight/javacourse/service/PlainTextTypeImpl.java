@@ -10,6 +10,10 @@ public class PlainTextTypeImpl implements TextType {
     @Override
     public boolean isEligible(String dataSourceLink) {
         Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
-        return !SupportedHttpProtocol.isWebProtocol(dataSourceLink);
+        return !isWebProtocol(dataSourceLink);
+    }
+
+    protected boolean isWebProtocol(String dataSourceLink) {
+        return SupportedHttpProtocol.isWebProtocol(dataSourceLink);
     }
 }

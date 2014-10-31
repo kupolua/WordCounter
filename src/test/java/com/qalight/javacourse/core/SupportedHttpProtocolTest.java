@@ -31,4 +31,27 @@ public class SupportedHttpProtocolTest {
         assertFalse(actual);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsWebProtocol_inputIsNull() throws Exception {
+        // given
+        String text = null;
+
+        // when
+        boolean actual = SupportedHttpProtocol.isWebProtocol(text);
+
+        // then
+        // expected exception
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsWebProtocol_inputIsEmpty() throws Exception {
+        // given
+        String text = "";
+
+        // when
+        boolean actual = SupportedHttpProtocol.isWebProtocol(text);
+
+        // then
+        // expected exception
+    }
 }

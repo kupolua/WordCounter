@@ -14,7 +14,7 @@ public enum SupportedHttpProtocol {
     public static boolean isWebProtocol(String str) {
         Assertions.assertStringIsNotNullOrEmpty(str);
         boolean result = false;
-        for (SupportedHttpProtocol protocol : SupportedHttpProtocol.values()){
+        for (SupportedHttpProtocol protocol : SupportedHttpProtocol.values()) {
             if (str.trim().startsWith(protocol.text)) {
                 result = true;
                 break;

@@ -1,7 +1,6 @@
 package com.qalight.javacourse.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,19 @@ public class PdfToStringConverterIntegrationTest {
         final String URL = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
 
         //when
-        pdfToStringConverter.convertToString(URL);
+        String actualResult = pdfToStringConverter.convertToString(URL);
+
+        //then
+        //expected exception
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testConvertToString_null() {
+        //given
+        final String URL = null;
+
+        //when
+        String actualResult = pdfToStringConverter.convertToString(URL);
 
         //then
         //expected exception

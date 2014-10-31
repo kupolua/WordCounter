@@ -27,7 +27,7 @@ public class ExportController {
         final String viewName = "pdfView";
         final String modelName = "calculatedWords";
 
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
+        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         Map<String, Integer> resultMap = result.getCountedResult();
@@ -40,7 +40,7 @@ public class ExportController {
         final String viewName = "excelView";
         final String modelName = "calculatedWords";
 
-        CountWordsUserRequest request = new CountWordsUserRequest(textCount, sortingOrder, isFilterWords);
+        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         Map<String, Integer> resultMap = result.getCountedResult();

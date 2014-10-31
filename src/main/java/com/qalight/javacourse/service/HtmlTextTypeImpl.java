@@ -6,13 +6,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HtmlTextTypeImpl implements TextType {
-    private static final String[] TEXT_TYPES = {".rtf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".ods", ".odp", ".pdf", ".txt"};
+    private static final String[] TEXT_TYPES =
+            {".rtf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".ods", ".odp", ".pdf", ".txt"};
 
     @Override
     public boolean isEligible(String dataSourceLink) {
         Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
         boolean isEligible = false;
-        if (SupportedHttpProtocol.isWebProtocol(dataSourceLink)) {
+        if (isWebProtocol(dataSourceLink)) {
             isEligible = true;
             for (String type : TEXT_TYPES) {
                 if (dataSourceLink.endsWith(type)) {
@@ -22,5 +23,9 @@ public class HtmlTextTypeImpl implements TextType {
             }
         }
         return isEligible;
+    }
+
+    protected boolean isWebProtocol(String dataSourceLink) {
+        return SupportedHttpProtocol.isWebProtocol(dataSourceLink);
     }
 }

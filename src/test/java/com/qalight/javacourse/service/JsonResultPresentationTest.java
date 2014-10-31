@@ -3,7 +3,9 @@ package com.qalight.javacourse.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JsonResultPresentationTest {
     private JsonResultPresentation jsonResultPresentation;
@@ -14,59 +16,123 @@ public class JsonResultPresentationTest {
     }
 
     @Test
-    public void isEligible_json() {
-        //given
-        final String TYPE = "json";
+    public void isEligible_validType() {
+        // given
+        final String type = "json";
 
-        //when
-        boolean actualResult = jsonResultPresentation.isEligible(TYPE);
+        // when
+        boolean actualResult = jsonResultPresentation.isEligible(type);
 
-        //then
+        // then
         Assert.assertTrue(actualResult);
     }
 
     @Test
-    public void isEligible_gif() {
-        //given
-        final String TYPE = "gif";
+    public void isEligible_invalidType() {
+        // given
+        final String type = "gif";
 
-        //when
-        boolean actualResult = jsonResultPresentation.isEligible(TYPE);
+        // when
+        boolean actualResult = jsonResultPresentation.isEligible(type);
 
-        //then
+        // then
         Assert.assertFalse(actualResult);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void isEligible_emptyType() {
+        // given
+        final String type = " ";
+
+        // when
+        jsonResultPresentation.isEligible(type);
+
+        // then
+        // exception expected
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void isEligible_nullType() {
+        // given
+        final String type = null;
+
+        // when
+        jsonResultPresentation.isEligible(type);
+
+        // then
+        // exception expected
+    }
+
     @Test
-    public void testCreateResponse() throws Exception {
-        //given
+    public void testCreateResponse_validMap() throws Exception {
+        // given
         final String expectedJsonResponse = "{\"success\":true,\"unFilteredWords\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]]}";
 
-        final Map<String, Integer> unFilteredCountedWords = new HashMap<>();
-        unFilteredCountedWords.put("Hello", 10);
-        unFilteredCountedWords.put("World", 7);
-        unFilteredCountedWords.put("Word", 13);
-        unFilteredCountedWords.put("Counter", 5);
-        unFilteredCountedWords.put("Project", 24);
+        final Map<String, Integer> unFilteredCountedWords = new HashMap<String, Integer>() {{
+            put("Hello", 10);
+            put("World", 7);
+            put("Word", 13);
+            put("Counter", 5);
+            put("Project", 24);
+        }};
 
-        //when
+        // when
         String actualJsonResponse = jsonResultPresentation.createResponse(unFilteredCountedWords);
 
-        //then
+        // then
         Assert.assertEquals(expectedJsonResponse, actualJsonResponse);
     }
 
-    //todo fix test
     @Test
-    public void testCreateErrorResponse() throws Exception {
-        //given
+    public void testCreateResponse_mapWithNullValues() throws Exception {
+        // given
+        final String expectedJsonResponse = "{\"success\":true,\"unFilteredWords\":[[null,\"null\"]]}";
+
+        final Map<String, Integer> unFilteredCountedWords = new HashMap<String, Integer>() {{
+            put(null, null);
+        }};
+
+        // when
+        String actualJsonResponse = jsonResultPresentation.createResponse(unFilteredCountedWords);
+
+        // then
+        Assert.assertEquals(expectedJsonResponse, actualJsonResponse);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateResponse_nullMap() {
+        // given
+        final Map<String, Integer> unFilteredCountedWords = null;
+
+        // when
+        jsonResultPresentation.createResponse(unFilteredCountedWords);
+
+        // then
+        // exception expected
+    }
+
+    @Test
+    public void testCreateErrorResponse_validError() {
+        // given
         String expectedJsonResponse = "{\"respMessage\":\"WordCounter Exception: results collection should not be null\"}";
 
-        //when
+        // when
         Throwable e = new IllegalArgumentException("results collection should not be null");
         String actualJsonResponse = jsonResultPresentation.createErrorResponse(e);
 
-        //then
+        // then
         Assert.assertEquals(expectedJsonResponse, actualJsonResponse);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateErrorResponse_nullThrowable() throws Exception {
+        // given
+        Throwable e = null;
+
+        // when
+        jsonResultPresentation.createErrorResponse(e);
+
+        // then
+        // Exception expected
     }
 }

@@ -13,7 +13,7 @@ public class DocTextTypeImpl implements TextType {
     public boolean isEligible(String dataSourceLink) {
         Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
         boolean isEligible = false;
-        if (SupportedHttpProtocol.isWebProtocol(dataSourceLink)) {
+        if (isWebProtocol(dataSourceLink)) {
             for (String type : TEXT_TYPES) {
                 if (dataSourceLink.endsWith(type)) {
                     isEligible = true;
@@ -22,5 +22,9 @@ public class DocTextTypeImpl implements TextType {
             }
         }
         return isEligible;
+    }
+
+    protected boolean isWebProtocol(String dataSourceLink) {
+        return SupportedHttpProtocol.isWebProtocol(dataSourceLink);
     }
 }

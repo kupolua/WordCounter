@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TextRefinerTest {
-
     private TextRefiner refiner;
 
     @Before
@@ -17,39 +16,119 @@ public class TextRefinerTest {
     }
 
     @Test
-    public void testRefineText() {
-        //given
-        String givenText = "eEe - two-two усіх—oNe&#160;:, thre/E!: three- -wwww,  ";
-        List<String> expected = Arrays.asList("eee", "two-two", "усіх", "one", "three", "three", "wwww");
+    public void testRefineText_handlingUppercaseAndCleanPattern() {
+        // given
+        final String givenText = "tHReE - two-two усіх—oNe&#160;:, thre/E!: ThrEE- -WWW, іІїЇєЄёЁґҐ";
 
-        //when
-        List<String> actual = refiner.refineText(givenText);
+        final List<String> expectedResult =
+                Arrays.asList("three", "two-two", "усіх", "one", "three", "three", "www", "ііїїєєёёґґ");
 
-        //then
-        Assert.assertEquals(expected, actual);
+        // when
+        final List<String> actualResult = refiner.refineText(givenText);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void testRefineText_handlingUrls() {
+        // given
+        final String givenText = "http://www.a.ua http://b.ua http://c.ua. http://d.ua, " +
+                "http://e.ua: https://www.f.ua www.g.ua http:/h.ua ftp://i.ua";
+
+        final List<String> expectedResult = Arrays.asList("httphua");
+
+        // when
+        final List<String> actualResult = refiner.refineText(givenText);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testRefineText_handlingEmails() {
+        // given
+        final String givenText = "someMail@a.ua some_Mail@b.ua so.me1Mail@c.ua 1some_Mail1@d.ua " +
+                "some.Mail@e.com.ua sOMe1Mail@f.ua sOMe1Mail@g.ua. sOMe1Mail@h.ua, sOMe1Mail@i.ua:";
+
+        final List<String> expectedResult =
+                Arrays.asList("somemailgua", "somemailhua", "somemailiua");
+
+        // when
+        final List<String> actualResult = refiner.refineText(givenText);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testRefineText_handlingJsoupTags() {
+        // given
+        final String givenText = "<http://www.i.ua>, <http://i.ua>/ aa<https://i.ua>. <www.i.ua>: " +
+                "<www.i.ua>text <someMail@g.ua> <some.Mail@h.ua> <ftp://g.ua>";
+
+        final List<String> expectedResult = Arrays.asList("aahttpsiua", "somemailgua", "somemailhua");
+
+        // when
+        final List<String> actualResult = refiner.refineText(givenText);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testRefineText_handlingWhitespacesSymbols() {
+        // given
+        final String givenText = "a&#8a b[<>]b c&nbsp;c d&#160;d e\\xA0e f&ensp;f g&#8194;g h&emsp;h " +
+                " i&#8195;i j&thinsp;j k&#8201;k l&zwnj;l m&#8204;m n—n";
+
+        final List<String> expectedResult =
+                Arrays.asList("a-a", "bb", "c", "c", "d", "d", "exae", "f", "f", "g", "g",
+                        "h", "h", "i", "i", "j", "j", "k", "k", "l", "l", "m", "m", "n", "n");
+
+        // when
+        final List<String> actualResult = refiner.refineText(givenText);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testRefineText_handlingHyphens() {
+        // given
+        final String givenText = "-aaa -bbb- ccc- ddd-ddd";
+
+        final List<String> expectedResult = Arrays.asList("aaa", "bbb", "ccc", "ddd-ddd");
+
+        // when
+        final List<String> actualResult = refiner.refineText(givenText);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
 
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyParameter() {
-        //given
-        final String TEXT = "";
+        // given
+        final String givenText = " ";
 
-        //when
-        refiner.refineText(TEXT);
+        // when
+        refiner.refineText(givenText);
 
-        //then
-        //expected exception
+        // then
+        // expected exception
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullParameter() {
-        //given
-        final String TEXT = null;
+        // given
+        final String givenText = null;
 
-        //when
-        refiner.refineText(TEXT);
+        // when
+        refiner.refineText(givenText);
 
-        //then
-        //expected exception
+        // then
+        // expected exception
     }
 }

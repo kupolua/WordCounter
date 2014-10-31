@@ -1,7 +1,6 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.util.Assertions;
-import com.qalight.javacourse.util.ResponseHeaderGetter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import java.util.Set;
 public class TextTypeInquirer {
     private static final Logger LOG = LoggerFactory.getLogger(TextTypeInquirer.class);
     private static Set<TextType> textTypes;
-    static{
+    public TextTypeInquirer() {
         textTypes = new HashSet<>();
         textTypes.add(new HtmlTextTypeImpl());
         textTypes.add(new PdfTextTypeImpl());
@@ -21,19 +20,20 @@ public class TextTypeInquirer {
         textTypes.add(new PlainTextTypeImpl());
     }
 
-    public TextType inquireTextType(String dataSourceLink) {
-        Assertions.assertStringIsNotNullOrEmpty(dataSourceLink);
+    public static void setTextTypes(Set<TextType> textTypes) {
+        TextTypeInquirer.textTypes = textTypes;
+    }
+
+    public TextType inquireTextType(String clientRequest) {
+        Assertions.assertStringIsNotNullOrEmpty(clientRequest);
         TextType textType = null;
         for (TextType sourceType : textTypes) {
-            if (sourceType.isEligible(dataSourceLink)) {
+            if (sourceType.isEligible(clientRequest)) {
                 textType = sourceType;
                 break;
             }
         }
-        if(textType == null){
-            throw new IllegalArgumentException("Unknown text type at " + dataSourceLink + ".");
-        }
-        LOG.debug("Document type of " + dataSourceLink + " identified successfully as " + textType + ".");
+        LOG.debug("Document type of " + clientRequest + " identified successfully as " + textType + ".");
         return textType;
     }
 }
