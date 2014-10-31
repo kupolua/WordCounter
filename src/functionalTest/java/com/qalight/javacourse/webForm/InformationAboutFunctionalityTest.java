@@ -26,16 +26,15 @@ public class InformationAboutFunctionalityTest {
     @Test
     public void testLinkAboutUs() {
         // given
-        final String elementIdAboutUs = "aboutUsLink";
         driver.get(BASE_URL);
+        final String elementIdAboutUs = "aboutUsLink";
+        final String elementIdAboutUsHead = "aboutUsHead";
 
         // when
         driver.findElement(By.id(elementIdAboutUs)).click();
 
         //then
-        // todo: 'then' must have only assertions. Move line 38 to 'when' block
-        final String ELEMENT_ID_ABOUT_US_HEAD = "aboutUsHead";
-        boolean isAboutDisplayed = driver.findElement(By.id(ELEMENT_ID_ABOUT_US_HEAD)).isDisplayed();
+        boolean isAboutDisplayed = driver.findElement(By.id(elementIdAboutUsHead)).isDisplayed();
         assertTrue(isAboutDisplayed);
     }
 }

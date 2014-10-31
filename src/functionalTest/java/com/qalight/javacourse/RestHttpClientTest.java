@@ -21,7 +21,7 @@ public class RestHttpClientTest {
     private OkHttpClient client;
 
     @Before
-    public void setup(){
+    public void setup() {
         client = new OkHttpClient();
     }
 
@@ -56,7 +56,7 @@ public class RestHttpClientTest {
         if (!response.isSuccessful()) {
             Assert.fail(createFailMessage(requestedValue));
         }
-        final WordCounterResponse expected = new WordCounterResponse(new HashMap<String, Integer>(){{
+        final WordCounterResponse expected = new WordCounterResponse(new HashMap<String, Integer>() {{
             put("Alex".toLowerCase(), 3);
             put("Mike".toLowerCase(), 1);
         }});
@@ -82,7 +82,7 @@ public class RestHttpClientTest {
         return request;
     }
 
-    static final class WordCounterResponse{
+    static final class WordCounterResponse {
         private final Map<String, Integer> countedResult;
 
         public WordCounterResponse() {

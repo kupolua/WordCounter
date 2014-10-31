@@ -23,6 +23,8 @@ public class ExportingFunctionalityTest {
     private static WebDriver driver;
     private static Tika documentConverter;
 
+    private final int waitTime = 2500;
+
     @BeforeClass
     public static void init() {
         driver = getWebDriver();
@@ -39,36 +41,28 @@ public class ExportingFunctionalityTest {
     public void testExportPdf() throws Exception {
         // given
         driver.get(BASE_URL);
+        final String expectedPdf = "expectedPdf.pdf";
+        final String actualPdf = "calculatedWords.pdf";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.id(BUTTON_PDF)).click();
+        //checkAlert();
+        //after fix checkAlert we delete next line
+        Thread.sleep(waitTime);
 
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        File expectedPdfPath = new File(PATH_RESOURCES + expectedPdf);
+        String expectedPdfResult = documentConverter.parseToString(expectedPdfPath);
+
+        File actualPdfPath = new File(PATH_RESOURCES + actualPdf);
+        String actualPdfResult = documentConverter.parseToString(actualPdfPath);
+        actualPdfPath.delete();
 
         // then
-        // todo: Actions must be performed in when
-        if (isReady) {
-            driver.findElement(By.id(BUTTON_PDF)).click();
-//            checkAlert();
-            // todo: Use Code -> Reformat code in all classes
-           Thread.sleep(2000);
-
-            final String EXPECTED_PDF = "expectedPdf.pdf";
-            File expectedPdfPath = new File(PATH_RESOURCES + EXPECTED_PDF);
-            String expectedPdf = documentConverter.parseToString(expectedPdfPath);
-
-            final String ACTUAL_PDF = "calculatedWords.pdf";
-            File actualPdfPath = new File(PATH_RESOURCES + ACTUAL_PDF);
-            String actualPdf = documentConverter.parseToString(actualPdfPath);
-            actualPdfPath.delete();
-
-            assertEquals(expectedPdf, actualPdf);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        assertEquals(expectedPdfResult, actualPdfResult);
     }
 
-    // todo: This test don't executing
     //    @Test
     public void testExportXls() throws Exception {
         // given
@@ -76,34 +70,26 @@ public class ExportingFunctionalityTest {
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.id(BUTTON_XLS)).click();
+        //checkAlert();
+        Thread.sleep(waitTime);
+        File expectedXlsPath = new File(PATH_RESOURCES + EXPECTED_XLS);
+        String expectedXls = documentConverter.parseToString(expectedXlsPath);
 
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        File actualXlsPath = new File(PATH_RESOURCES + ACTUAL_XLS);
+        String actualXls = documentConverter.parseToString(actualXlsPath);
+        actualXlsPath.delete();
 
         // then
-        // todo: Actions must be performed in when
-        if (isReady) {
-            driver.findElement(By.id(BUTTON_XLS)).click();
-//            checkAlert();
-            Thread.sleep(2000);
-            File expectedXlsPath = new File(PATH_RESOURCES + EXPECTED_XLS);
-            String expectedXls = documentConverter.parseToString(expectedXlsPath);
-
-            File actualXlsPath = new File(PATH_RESOURCES + ACTUAL_XLS);
-            String actualXls = documentConverter.parseToString(actualXlsPath);
-            actualXlsPath.delete();
-
-            assertEquals(expectedXls, actualXls);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        assertEquals(expectedXls, actualXls);
     }
 
-    // todo: This method is newer used
     private void checkAlert() {
-            final int TIME_WAIT_SECONDS = 2;
-            WebDriverWait wait = new WebDriverWait(driver, TIME_WAIT_SECONDS);
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            alert.accept();
+        final int timeWaitSeconds = 2;
+        WebDriverWait wait = new WebDriverWait(driver, timeWaitSeconds);
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
     }
 }

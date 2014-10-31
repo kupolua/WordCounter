@@ -20,11 +20,6 @@ public class Util {
         return driver;
     }
 
-    // todo: remove this method, because it newer used
-    public static void quitWebDriver() {
-        driver.quit();
-    }
-
     public static void putDataAndClickCountButton(WebDriver driver, String data) {
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(data);
@@ -32,7 +27,7 @@ public class Util {
     }
 
     public static boolean waitForJQueryProcessing(WebDriver driver, int timeOutInSeconds) {
-        final String JQUERY_ACTIVE = "return jQuery.active == 0";
+        final String jqueryActive = "return jQuery.active == 0";
         boolean jQcondition = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
@@ -42,10 +37,10 @@ public class Util {
 
                 @Override
                 public Boolean apply(WebDriver driverObject) {
-                    return (Boolean) ((JavascriptExecutor) driverObject).executeScript(JQUERY_ACTIVE);
+                    return (Boolean) ((JavascriptExecutor) driverObject).executeScript(jqueryActive);
                 }
             });
-            jQcondition = (Boolean) ((JavascriptExecutor) driver).executeScript(JQUERY_ACTIVE);
+            jQcondition = (Boolean) ((JavascriptExecutor) driver).executeScript(jqueryActive);
             driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
             return jQcondition;
         } catch (Exception e) {

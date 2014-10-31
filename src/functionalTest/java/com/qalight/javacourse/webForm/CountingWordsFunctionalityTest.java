@@ -8,14 +8,14 @@ import org.openqa.selenium.WebDriver;
 
 import static com.qalight.javacourse.webForm.utils.Constants.*;
 import static com.qalight.javacourse.webForm.utils.Util.*;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class CountingWordsFunctionalityTest {
     private static WebDriver driver;
-    // todo: refine final code style across all code in all functionl tests
-    private final String PDF_TEST_PAGE = "http://defas.com.ua/java/textForTest.pdf";
-    private final String DOC_TEST_PAGE = "http://defas.com.ua/java/textForTest.doc";
+
+    private final String pdfTestPage = "http://defas.com.ua/java/textForTest.pdf";
+    private final String docTestPage = "http://defas.com.ua/java/textForTest.doc";
 
     @BeforeClass
     public static void init() {
@@ -31,46 +31,34 @@ public class CountingWordsFunctionalityTest {
     public void testInputText() {
         // given
         driver.get(BASE_URL);
-        final String TEXT =  // todo: text below overflow line size limit
-                "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" + "https://www.google.com.ua/\n" + "http://" +
-                "habrahabr.ru/posts/top/weekly/\n" + "vkamenniy@gmail.com\n" + "ёлка і Ёлка та ёлКА: ОБЪЁМ объем обЪем, але," +
-                " но объем сказал завет человек время, имя, ученики, дом, друг, " + "народ, слово, \n" + "Їжак їжак єнот білка " +
-                "БІЛКА БіЛкА \n" + "R\n";
+        final String TEXT = "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" + "https://www.google." +
+                "com.ua/\n" + "http://" + "habrahabr.ru/posts/top/weekly/\n" + "vkamenniy@gmail.com\n" + "ёлка і Ёлка" +
+                " та ёлКА: ОБЪЁМ объем обЪем, але," + " но объем сказал завет человек время, имя, ученики, дом, друг," +
+                " " + "народ, слово, \n" + "Їжак їжак єнот білка " + "БІЛКА БіЛкА \n" + "R\n";
 
         // when
         putDataAndClickCountButton(driver, TEXT);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
     }
 
     @Test
     public void testEnterThreeLinks() {
         // given
         driver.get(BASE_URL);
+        final String expectedEnterThreeLinks = "one 12\n" + "ёлка 9\n" + "two 9\n" + "білка 9\n" + "объем 9\n" +
+                "їжак 6\n" + "объём 3\n" + "ученики 3\n" + "і 3\n" + "але 3";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE + SEPARATOR + PDF_TEST_PAGE + SEPARATOR + DOC_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE + SEPARATOR + pdfTestPage + SEPARATOR + docTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
-        if (isReady) {
-            // todo: move expected string to 'given' block
-            final String EXPECTED_ENTER_THREE_LINKS = "one 12\n" + "ёлка 9\n" + "two 9\n" + "білка 9\n" + "объем 9\n" +
-                    "їжак 6\n" + "объём 3\n" + "ученики 3\n" + "і 3\n" + "але 3";
-            String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_ENTER_THREE_LINKS, actualEnterThreeLinks);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks);
     }
 
     @Test
@@ -80,137 +68,101 @@ public class CountingWordsFunctionalityTest {
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputHTML = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputHTML);
     }
 
     @Test
     public void testReadingHTM() {
         // given
         driver.get(BASE_URL);
-        final String HTM_TEST_PAGE = "http://defas.com.ua/java/textForTest.htm";
+        final String htmTestPage = "http://defas.com.ua/java/textForTest.htm";
 
         // when
-        putDataAndClickCountButton(driver, HTM_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, htmTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputHTM = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputHTM);
     }
 
     @Test
     public void testReadingDOC() {
         // given
         driver.get(BASE_URL);
-        final String DOC_TEST_PAGE = "http://defas.com.ua/java/textForTest.doc";
+        final String docTestPage = "http://defas.com.ua/java/textForTest.doc";
 
         // when
-        putDataAndClickCountButton(driver, DOC_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, docTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputDOC = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputDOC);
     }
 
     @Test
     public void testReadingDOCX() {
         // given
         driver.get(BASE_URL);
-        final String DOCX_TEST_PAGE = "http://defas.com.ua/java/textForTest.docx";
+        final String docxTestPage = "http://defas.com.ua/java/textForTest.docx";
 
         // when
-        putDataAndClickCountButton(driver, DOCX_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, docxTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputDOCX = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputDOCX);
     }
 
     @Test
     public void testReadingODP() {
         // given
         driver.get(BASE_URL);
-        final String ODP_TEST_PAGE = "http://defas.com.ua/java/textForTest.odp";
+        final String odpTestPage = "http://defas.com.ua/java/textForTest.odp";
 
         // when
-        putDataAndClickCountButton(driver, ODP_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, odpTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputODP = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputODP);
     }
-
-    // todo: Why this test commented?
+//before this test we need fix bug in next sprint
 //    @Test
     public void testReadingODS() {
         // given
         driver.get(BASE_URL);
-        final String ODS_TEST_PAGE = "http://defas.com.ua/java/textForTest.ods";
+        final String odsTestPage = "http://defas.com.ua/java/textForTest.ods";
 
         // when
-        putDataAndClickCountButton(driver, ODS_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, odsTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputODS = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputODS);
     }
 
     @Test
     public void testReadingODT() {
         // given
         driver.get(BASE_URL);
-        final String ODT_TEST_PAGE = "http://defas.com.ua/java/textForTest.odt";
+        final String odtTestPage = "http://defas.com.ua/java/textForTest.odt";
 
         // when
-        putDataAndClickCountButton(driver, ODT_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, odtTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputODT = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputODT);
     }
 
     @Test
@@ -219,138 +171,103 @@ public class CountingWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, PDF_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, pdfTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputPDF = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputPDF);
     }
 
     @Test
     public void testReadingPPT() {
         // given
         driver.get(BASE_URL);
-        final String PPT_TEST_PAGE = "http://defas.com.ua/java/textForTest.ppt";
+        final String pptTestPage = "http://defas.com.ua/java/textForTest.ppt";
 
         // when
-        putDataAndClickCountButton(driver, PPT_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, pptTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputPPT = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputPPT);
     }
 
     @Test
     public void testReadingPPTX() {
         // given
         driver.get(BASE_URL);
-        final String PPTX_TEST_PAGE = "http://defas.com.ua/java/textForTest.pptx";
+        final String pptxTestPage = "http://defas.com.ua/java/textForTest.pptx";
 
         // when
-        putDataAndClickCountButton(driver, PPTX_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, pptxTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputPPTX = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputPPTX);
     }
 
     @Test
     public void testReadingRTF() {
         // given
         driver.get(BASE_URL);
-        final String RTF_TEST_PAGE = "http://defas.com.ua/java/textForTest.rtf";
+        final String rtfTestPage = "http://defas.com.ua/java/textForTest.rtf";
 
         // when
-        putDataAndClickCountButton(driver, RTF_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, rtfTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputRTF = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputRTF);
     }
 
     @Test
     public void testReadingTXT() {
         // given
         driver.get(BASE_URL);
-        final String TXT_TEST_PAGE = "http://defas.com.ua/java/textForTest.txt";
+        final String txtTestPage = "http://defas.com.ua/java/textForTest.txt";
 
         // when
-        putDataAndClickCountButton(driver, TXT_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, txtTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputTXT = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputTXT);
     }
 
-    // todo: Why this test commented?
+    //before this test we need fix bug in next sprint
     //    @Test
     public void testReadingXLS() {
         // given
         driver.get(BASE_URL);
-        final String XLS_TEST_PAGE = "http://defas.com.ua/java/textForTest.xls";
+        final String xlsTestPage = "http://defas.com.ua/java/textForTest.xls";
 
         // when
-        putDataAndClickCountButton(driver, XLS_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, xlsTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputXLS = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputXLS);
     }
 
-    // todo: Why this test commented?
+    //before this test we need fix bug in next sprint
     //    @Test
     public void testReadingXLSX() {
         // given
         driver.get(BASE_URL);
-        final String XLSX_TEST_PAGE = "http://defas.com.ua/java/textForTest.xlsx";
+        final String xlsxTestPage = "http://defas.com.ua/java/textForTest.xlsx";
 
         // when
-        putDataAndClickCountButton(driver, XLSX_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        putDataAndClickCountButton(driver, xlsxTestPage);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-        if (isReady) {
-            String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualInputXLSX = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualInputXLSX);
     }
 }

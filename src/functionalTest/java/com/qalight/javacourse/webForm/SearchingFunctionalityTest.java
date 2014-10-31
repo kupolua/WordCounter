@@ -3,18 +3,17 @@ package com.qalight.javacourse.webForm;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+
 import static com.qalight.javacourse.webForm.utils.Constants.*;
 import static com.qalight.javacourse.webForm.utils.Util.*;
 
 public class SearchingFunctionalityTest {
     private static WebDriver driver;
-
-    // todo: Class have only one method. @BeforeClass and @AfterClass is redundant
 
     @BeforeClass
     public static void init() {
@@ -30,25 +29,18 @@ public class SearchingFunctionalityTest {
     public void testSearchWord() throws Exception {
         // given
         driver.get(BASE_URL);
+        final String elementCssInputSearch = "input[type=\"search\"]";
+        final String searchWord = "білка";
+        final String expectedSearchWord = "білка 3";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.cssSelector(elementCssInputSearch)).clear();
+        driver.findElement(By.cssSelector(elementCssInputSearch)).sendKeys(searchWord);
 
         // then
-        // todo: Actions must be performed in when
-        if (isReady) {
-            final String ELEMENT_CSS_INPUT_SEARCH = "input[type=\"search\"]";
-            driver.findElement(By.cssSelector(ELEMENT_CSS_INPUT_SEARCH)).clear();
-            final String SEARCH_WORD = "білка";
-            driver.findElement(By.cssSelector(ELEMENT_CSS_INPUT_SEARCH)).sendKeys(SEARCH_WORD);
-
-            String actualSearchWord = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            final String EXPECTED_SEARCH_WORD = "білка 3";
-            assertEquals(EXPECTED_SEARCH_WORD, actualSearchWord);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualSearchWord = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedSearchWord, actualSearchWord);
     }
 }

@@ -14,16 +14,15 @@ import static com.qalight.javacourse.webForm.utils.Util.*;
 import static com.qalight.javacourse.webForm.utils.Constants.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class FilteringWordsFunctionalityTest {
     private static WebDriver driver;
 
-    private final String BUTTON_ID_FILTERING_WORDS = "buttonGetFilterWords";
-    private final String ELEMENT_SHOW_FILTER = "#showFilter > a";
-    private final int WAIT_TIME = 2000;
+    private final String buttonIdFilteringWords = "buttonGetFilterWords";
+    private final String elementShowFilter = "#showFilter > a";
+    private final int waitTime = 2000;
 
     private @Value("${wordsEN}") String wordsEn;
     private @Value("${wordsRU}") String wordsRu;
@@ -38,110 +37,83 @@ public class FilteringWordsFunctionalityTest {
     public static void quitWebDriver() {
         driver.quit();
     }
-//todo: change Thread.sleep(WAIT_TIME) on better way
+
+    //todo: change Thread.sleep(WAIT_TIME) on better way
     @Test
     public void testWordFilterWithoutFilteringWords() throws Exception {
         // given
-        String wordsForFilter = getWordsForFilter(wordsEn, wordsRu, wordsUa);
         driver.get(BASE_URL);
+        String wordsForFilter = getWordsForFilter(wordsEn, wordsRu, wordsUa);
+        final String expectedWordFilter = "marker 1";
 
         // when
         final String WORD_MARKER = "marker";
         putDataAndClickCountButton(driver, WORD_MARKER + SEPARATOR + wordsForFilter);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.id(buttonIdFilteringWords)).click();
+        Thread.sleep(waitTime);
 
         //then
-        // todo: Actions must be performed in when
-        if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
-            Thread.sleep(WAIT_TIME);
-
-            final String EXPECTED_WORD_FILTER = "marker 1";
-            String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_WORD_FILTER, actualEnterTwoLinks);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedWordFilter, actualEnterTwoLinks);
     }
 
     @Test
     public void testWordFilterWithFilteringWords() throws Exception {
         // given
-        String wordsForFilter = getWordsForFilter(wordsEn, wordsRu, wordsUa);
         driver.get(BASE_URL);
+        String wordsForFilter = getWordsForFilter(wordsEn, wordsRu, wordsUa);
+        final String wordMarker = "marker";
+        final String expectedWordFilter = "в 3\n" + "них 2\n" + "те 2\n" + "ж 2\n" + "з 2\n" + "й 2\n" +
+                "к 2\n" + "то 2\n" + "м 2\n" + "н 2";
+        final String buttonIdUnFilteringWords = "buttonGetUnFilterWords";
 
         // when
-        final String WORD_MARKER = "marker";
-        putDataAndClickCountButton(driver, WORD_MARKER + SEPARATOR + wordsForFilter);
+        putDataAndClickCountButton(driver, wordMarker + SEPARATOR + wordsForFilter);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.id(buttonIdFilteringWords)).click();
+        Thread.sleep(waitTime);
 
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.id(buttonIdUnFilteringWords)).click();
+        Thread.sleep(waitTime);
 
         //then
-        // todo: Actions must be performed in when
-        if (isReady) {
-            driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
-            Thread.sleep(WAIT_TIME);
-
-            final String BUTTON_ID_UN_FILTERING_WORDS = "buttonGetUnFilterWords";
-            driver.findElement(By.id(BUTTON_ID_UN_FILTERING_WORDS)).click();
-            Thread.sleep(WAIT_TIME);
-
-            final String EXPECTED_WORD_FILTER = "в 3\n" + "них 2\n" + "те 2\n" + "ж 2\n" + "з 2\n" + "й 2\n" +
-                    "к 2\n" + "то 2\n" + "м 2\n" + "н 2";
-            String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-            assertEquals(EXPECTED_WORD_FILTER, actualEnterTwoLinks);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedWordFilter, actualEnterTwoLinks);
     }
 
     @Test
     public void testLinkShowFilter() throws Exception {
         // given
         driver.get(BASE_URL);
+        final String idModalWindow = "simplemodal-placeholder";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE);
-
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.cssSelector(elementShowFilter)).click();
+        boolean isModalWindow = driver.getPageSource().contains(idModalWindow);
 
         //then
-        // todo: Actions must be performed in when
-        if (isReady) {
-            final String ID_MODAL_WINDOW = "simplemodal-placeholder";
-            driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
-            boolean isModalWindow = driver.getPageSource().contains(ID_MODAL_WINDOW);
-
-            assertTrue(isModalWindow);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        assertTrue(isModalWindow);
     }
 
     @Test
     public void testListFilteringWords() throws Exception {
         // given
         driver.get(BASE_URL);
+        final String expectedResult = getWordsForFilter(wordsEn, wordsRu, wordsUa);
+        final String elementIdFilteringWords = "wordsFilter";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE);
-        boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.cssSelector(elementShowFilter)).click();
+        Thread.sleep(waitTime);
 
         //then
-        // todo: Actions must be performed in when
-        if (isReady) {
-            driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
-            Thread.sleep(WAIT_TIME);
-
-            final String EXPECTED_RESULT = getWordsForFilter(wordsEn, wordsRu, wordsUa);
-            final String ELEMENT_ID_FILTERING_WORDS = "wordsFilter";
-            String actualResult = driver.findElement(By.id(ELEMENT_ID_FILTERING_WORDS)).getText();
-
-            assertEquals(EXPECTED_RESULT, actualResult);
-        } else {
-            fail(RESPONSE_IS_NOT_READY);
-        }
+        String actualResult = driver.findElement(By.id(elementIdFilteringWords)).getText();
+        assertEquals(expectedResult, actualResult);
     }
 
     private final String getWordsForFilter(String... languages) {
