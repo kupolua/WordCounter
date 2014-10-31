@@ -52,6 +52,7 @@ public class FilteringWordsFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
+        // todo: Actions must be performed in when
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
             Thread.sleep(WAIT_TIME);
@@ -77,6 +78,7 @@ public class FilteringWordsFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
+        // todo: Actions must be performed in when
         if (isReady) {
             driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
             Thread.sleep(WAIT_TIME);
@@ -105,6 +107,7 @@ public class FilteringWordsFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
+        // todo: Actions must be performed in when
         if (isReady) {
             final String ID_MODAL_WINDOW = "simplemodal-placeholder";
             driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
@@ -126,6 +129,7 @@ public class FilteringWordsFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
+        // todo: Actions must be performed in when
         if (isReady) {
             driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
             Thread.sleep(WAIT_TIME);

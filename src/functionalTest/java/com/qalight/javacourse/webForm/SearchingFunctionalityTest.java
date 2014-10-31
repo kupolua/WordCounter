@@ -14,6 +14,8 @@ import static com.qalight.javacourse.webForm.utils.Util.*;
 public class SearchingFunctionalityTest {
     private static WebDriver driver;
 
+    // todo: Class have only one method. @BeforeClass and @AfterClass is redundant
+
     @BeforeClass
     public static void init() {
         driver = getWebDriver();
@@ -35,6 +37,7 @@ public class SearchingFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
+        // todo: Actions must be performed in when
         if (isReady) {
             final String ELEMENT_CSS_INPUT_SEARCH = "input[type=\"search\"]";
             driver.findElement(By.cssSelector(ELEMENT_CSS_INPUT_SEARCH)).clear();

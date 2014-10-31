@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+// todo: Refine import
 import org.openqa.selenium.safari.SafariDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -37,7 +38,7 @@ public class DifferentFunctionalityTest {
         // given
         driver.get(BASE_URL);
 
-        // when
+        // when // todo: Unify style in 42-43 and 61 lines and same occasions
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
@@ -83,6 +84,7 @@ public class DifferentFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
+        // todo: Actions must be performed in when
         if (isReady) {
             driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
             final String EXPECTED_NEXT_RESPONSE = "имя 1\n" + "слово 1\n" + "a 1\n" + "но 1\n" + "дом 1\n" + "друг 1\n" +
@@ -104,6 +106,7 @@ public class DifferentFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
+        // todo: Actions must be performed in when
         if (isReady) {
             final String ELEMENT_ID_LINK_PREV = "countedWords_previous";
             driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
@@ -132,6 +135,7 @@ public class DifferentFunctionalityTest {
 
         driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
         driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE_SECONDARY);
+
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
         driverSecondary.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
 
@@ -148,7 +152,6 @@ public class DifferentFunctionalityTest {
             fail(RESPONSE_IS_NOT_READY);
         }
     }
-
 
     @Test
     public void testEnterTwoLinksOneByOne() {
@@ -178,5 +181,4 @@ public class DifferentFunctionalityTest {
             fail(RESPONSE_IS_NOT_READY);
         }
     }
-
 }

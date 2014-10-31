@@ -33,6 +33,7 @@ public class InformationAboutFunctionalityTest {
         driver.findElement(By.id(elementIdAboutUs)).click();
 
         //then
+        // todo: 'then' must have only assertions. Move line 38 to 'when' block
         final String ELEMENT_ID_ABOUT_US_HEAD = "aboutUsHead";
         boolean isAboutDisplayed = driver.findElement(By.id(ELEMENT_ID_ABOUT_US_HEAD)).isDisplayed();
         assertTrue(isAboutDisplayed);

@@ -34,6 +34,7 @@ public class ExportingFunctionalityTest {
         driver.quit();
     }
 
+    // todo: This test don't executing
 //    @Test
     public void testExportPdf() throws Exception {
         // given
@@ -45,10 +46,11 @@ public class ExportingFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
-
-       if (isReady) {
+        // todo: Actions must be performed in when
+        if (isReady) {
             driver.findElement(By.id(BUTTON_PDF)).click();
 //            checkAlert();
+            // todo: Use Code -> Reformat code in all classes
            Thread.sleep(2000);
 
             final String EXPECTED_PDF = "expectedPdf.pdf";
@@ -66,7 +68,8 @@ public class ExportingFunctionalityTest {
         }
     }
 
-//    @Test
+    // todo: This test don't executing
+    //    @Test
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -77,6 +80,7 @@ public class ExportingFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
+        // todo: Actions must be performed in when
         if (isReady) {
             driver.findElement(By.id(BUTTON_XLS)).click();
 //            checkAlert();
@@ -94,6 +98,7 @@ public class ExportingFunctionalityTest {
         }
     }
 
+    // todo: This method is newer used
     private void checkAlert() {
             final int TIME_WAIT_SECONDS = 2;
             WebDriverWait wait = new WebDriverWait(driver, TIME_WAIT_SECONDS);

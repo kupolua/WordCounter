@@ -36,8 +36,9 @@ public class SortingFunctionalityTest {
         putDataAndClickCountButton(driver, HTML_TEST_PAGE);
 
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
+        // todo: Replace '//' to '// '. See https://google-styleguide.googlecode.com/svn/trunk/javaguide.html#s4.6.2-horizontal-whitespace
         //then
+        // todo: Actions must be performed in when
         if (isReady) {
             driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
             final String EXPECTED_SORTING_KEY_ASCENDING = "a 1\n" + "one 4\n" + "r 1\n" + "the 1\n" + "two 3\n" +
@@ -60,6 +61,7 @@ public class SortingFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
+        // todo: Actions must be performed in when
         if (isReady) {
             driver.findElement(By.className(ELEMENT_ID_SORTING_DESC)).click();
             final String EXPECTED_SORTING_VALUE_ASCENDING = "объём 1\n" + "ученики 1\n" + "і 1\n" + "але 1\n" +
@@ -81,6 +83,7 @@ public class SortingFunctionalityTest {
         boolean isReady = waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
+        // todo: Actions must be performed in when
         if (isReady) {
             driver.findElement(By.className(ELEMENT_ID_SORTING)).click();
             driver.findElement(By.className(ELEMENT_ID_SORTING_ASC)).click();

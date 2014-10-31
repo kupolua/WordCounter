@@ -20,6 +20,7 @@ public class Util {
         return driver;
     }
 
+    // todo: remove this method, because it newer used
     public static void quitWebDriver() {
         driver.quit();
     }
@@ -36,6 +37,7 @@ public class Util {
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             new WebDriverWait(driver, timeOutInSeconds) {
+                // todo: replace this with lambda expression
             }.until(new ExpectedCondition<Boolean>() {
 
                 @Override
