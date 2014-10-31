@@ -1,11 +1,9 @@
 package com.qalight.javacourse.webForm;
 
 import org.apache.tika.Tika;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,9 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 
 import static com.qalight.javacourse.webForm.utils.Constants.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static com.qalight.javacourse.webForm.utils.Util.*;
+import static org.junit.Assert.assertEquals;
 
 public class ExportingFunctionalityTest {
     private static WebDriver driver;
@@ -36,8 +33,7 @@ public class ExportingFunctionalityTest {
         driver.quit();
     }
 
-    // todo: This test don't executing
-//    @Test
+    @Test
     public void testExportPdf() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -49,7 +45,7 @@ public class ExportingFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(BUTTON_PDF)).click();
         //checkAlert();
-        //after fix checkAlert we delete next line
+        //todo after fix checkAlert we delete next line
         Thread.sleep(waitTime);
 
         File expectedPdfPath = new File(PATH_RESOURCES + expectedPdf);
@@ -63,7 +59,7 @@ public class ExportingFunctionalityTest {
         assertEquals(expectedPdfResult, actualPdfResult);
     }
 
-    //    @Test
+    @Test
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -73,6 +69,7 @@ public class ExportingFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(BUTTON_XLS)).click();
         //checkAlert();
+        //todo after fix checkAlert we delete next line
         Thread.sleep(waitTime);
         File expectedXlsPath = new File(PATH_RESOURCES + EXPECTED_XLS);
         String expectedXls = documentConverter.parseToString(expectedXlsPath);
