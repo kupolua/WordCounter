@@ -2,7 +2,7 @@ package com.qalight.javacourse.webForm.utils;
 
 public class Constants {
     public static final int WAIT_FOR_ELEMENT = 20;
-    public static final int DEFAULT_WAIT_FOR_PAGE = 60;
+    public static final int DEFAULT_WAIT_FOR_PAGE = 90;
     public static final int PORT = 8080;
     public static final String HTML_TEST_PAGE = "http://defas.com.ua/java/textForTest.html";
     public static final String CONTEXT = "/WordCounter/";

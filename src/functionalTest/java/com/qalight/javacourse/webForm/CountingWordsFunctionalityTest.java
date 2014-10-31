@@ -16,6 +16,7 @@ public class CountingWordsFunctionalityTest {
 
     private final String pdfTestPage = "http://defas.com.ua/java/textForTest.pdf";
     private final String docTestPage = "http://defas.com.ua/java/textForTest.doc";
+    private final int waitTime = 2500;
 
     @BeforeClass
     public static void init() {
@@ -28,9 +29,11 @@ public class CountingWordsFunctionalityTest {
     }
 
     @Test
-    public void testInputText() {
+    public void testInputText() throws InterruptedException {
         // given
+        Thread.sleep(waitTime);
         driver.get(BASE_URL);
+
         final String TEXT = "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" + "https://www.google." +
                 "com.ua/\n" + "http://" + "habrahabr.ru/posts/top/weekly/\n" + "vkamenniy@gmail.com\n" + "ёлка і Ёлка" +
                 " та ёлКА: ОБЪЁМ объем обЪем, але," + " но объем сказал завет человек время, имя, ученики, дом, друг," +

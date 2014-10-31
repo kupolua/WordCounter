@@ -22,7 +22,7 @@ public class FilteringWordsFunctionalityTest {
 
     private final String buttonIdFilteringWords = "buttonGetFilterWords";
     private final String elementShowFilter = "#showFilter > a";
-    private final int waitTime = 2000;
+    private final int waitTime = 5000;
 
     private @Value("${wordsEN}") String wordsEn;
     private @Value("${wordsRU}") String wordsRu;
