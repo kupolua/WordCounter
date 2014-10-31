@@ -33,7 +33,7 @@ public class ExportingFunctionalityTest {
         driver.quit();
     }
 
-    @Test
+//    @Test
     public void testExportPdf() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -59,7 +59,7 @@ public class ExportingFunctionalityTest {
         assertEquals(expectedPdfResult, actualPdfResult);
     }
 
-    @Test
+//    @Test
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);

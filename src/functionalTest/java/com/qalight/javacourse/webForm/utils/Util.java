@@ -3,7 +3,7 @@ package com.qalight.javacourse.webForm.utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,7 +15,7 @@ public class Util {
     private static WebDriver driver;
 
     public static WebDriver getWebDriver() {
-        driver = new SafariDriver();
+        driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
         return driver;
     }
