@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class DocToStringConverterIntegrationTest {
-
     @Autowired
     private DocToStringConverter docToStringConverter;
 
@@ -20,6 +19,7 @@ public class DocToStringConverterIntegrationTest {
         //given
         final String URL = "http://95.158.60.148:8008/kpl/test.rtf";
         final String expectedResult = "one two two three three three a a a a a a a\n";
+
         //when
         String actualResult = docToStringConverter.convertToString(URL);
 

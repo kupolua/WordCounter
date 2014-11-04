@@ -96,10 +96,10 @@ public class DocumentConverterTest {
     @Test(expected = RuntimeException.class)
     public void testNonExistingType() {
         // given
-        final TextType NON_EXISTING_TYPE = dataSourceLink -> true;
+        final TextType nonExistingType = dataSourceLink -> true;
 
         //when
-        final DocumentToStringConverter actual = converter.getDocumentConverter(NON_EXISTING_TYPE);
+        final DocumentToStringConverter actual = converter.getDocumentConverter(nonExistingType);
 
         //then
         //expected exception

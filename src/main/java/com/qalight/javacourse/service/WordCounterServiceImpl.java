@@ -55,5 +55,4 @@ public class WordCounterServiceImpl implements WordCounterService {
         Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
         Assertions.assertObjectIsNotNull(obj);
     }
-
 }

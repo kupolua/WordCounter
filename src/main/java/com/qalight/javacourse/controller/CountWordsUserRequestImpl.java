@@ -1,6 +1,5 @@
 package com.qalight.javacourse.controller;
 
-
 import com.qalight.javacourse.core.WordResultSorter;
 
 public final class CountWordsUserRequestImpl implements CountWordsUserRequest {
