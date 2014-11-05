@@ -14,6 +14,9 @@ repositories {
 }
 
 sourceSets {
+    acceptanceTest {
+        java.srcDir file('src/acceptanceTest/java')
+    }
     integrationTest {
         java.srcDir file('src/integrationTest/java')
     }
@@ -48,9 +51,25 @@ task functionalTest(type: Test) {
 }
 check.dependsOn functionalTest
 
-task nonFunctionalTest(dependsOn: ['test', 'integrationTest'])
+task acceptanceTest(type: Test) {
+    testClassesDir = sourceSets.acceptanceTest.output.classesDir
+    classpath = sourceSets.acceptanceTest.runtimeClasspath
+    doFirst {
+        jettyRun.httpPort = 8080
+        jettyRun.daemon = true
+        jettyRun.execute()
+    }
+    doLast {
+        jettyStop.stopPort = 8091
+        jettyStop.stopKey = 'stopKey'
+        jettyStop.execute()
+    }
+}
+check.dependsOn acceptanceTest
 
-task testAll (dependsOn: ['nonFunctionalTest', 'functionalTest'])
+task nonAcceptanceTest(dependsOn: ['test', 'integrationTest', 'functionalTest'])
+
+task testAll (dependsOn: ['nonAcceptanceTest', 'acceptanceTest'])
 
 dependencies {
     compile 'org.apache.tika:tika-core:1.5'
@@ -88,6 +107,10 @@ dependencies {
     functionalTestCompile configurations.testCompile
     functionalTestCompile sourceSets.test.output
     functionalTestCompile configurations.testRuntime
+    acceptanceTestCompile sourceSets.main.output
+    acceptanceTestCompile configurations.testCompile
+    acceptanceTestCompile sourceSets.test.output
+    acceptanceTestCompile configurations.testRuntime
 }
 
 // fixing http://issues.gradle.org/browse/GRADLE-1682
