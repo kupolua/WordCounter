@@ -39,16 +39,12 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         Map<String, Integer> filteredResults = filter.removeUnimportantWords(results, clientRequest.isFilterRequired());
 
-        Map<String, Integer> sortedRefinedCountedWords = getSortedWords(clientRequest, filteredResults);
+        WordResultSorter sorter = clientRequest.getSortingOrder();
+        Map<String, Integer> sortedRefinedCountedWords = sorter.getSortedWords(filteredResults);
 
         WordCounterResultContainer result = new WordCounterResultContainerImpl(sortedRefinedCountedWords);
 
         return result;
-    }
-
-    protected Map<String, Integer> getSortedWords(CountWordsUserRequest clientRequest, Map<String, Integer> filteredResults) {
-        WordResultSorter sorter = clientRequest.getSortingOrder();
-        return sorter.getSortedWords(filteredResults);
     }
 
     private static void checkParams(String userUrlsString, Object obj) {
