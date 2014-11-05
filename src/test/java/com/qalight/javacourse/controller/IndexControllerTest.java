@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class IndexControllerTest {
-
     @InjectMocks
     private IndexController indexController;
     private MockMvc mockMvc;
