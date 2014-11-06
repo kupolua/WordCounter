@@ -1,8 +1,7 @@
 package com.qalight.javacourse.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +32,7 @@ public class AboutControllerTest {
     public void testAbout() throws Exception {
         mockMvc.perform(get("/about"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("about"));
+                .andExpect(view().name("about"))
+                .andExpect(forwardedUrl("/WEB-INF/view/about.jsp"));
     }
 }
