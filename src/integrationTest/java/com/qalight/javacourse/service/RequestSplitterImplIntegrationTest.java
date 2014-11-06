@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
-public class RequestSplitterImplTest {
+public class RequestSplitterImplIntegrationTest {
     @Autowired
     RequestSplitter splitter;
 

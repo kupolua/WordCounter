@@ -5,26 +5,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 public class AboutControllerTest {
+    private static final String VERSION_FIELD_NAME = "version";
+    private static final String VERSION_FIELD_VALUE = "0.6";
 
-    @InjectMocks
-    private AboutController aboutController;
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
+        AboutController controller = new AboutController();
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/view/");
         viewResolver.setSuffix(".jsp");
 
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(aboutController)
+        ReflectionTestUtils.setField(controller, VERSION_FIELD_NAME, VERSION_FIELD_VALUE, String.class);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setViewResolvers(viewResolver).build();
     }
 
@@ -33,6 +33,7 @@ public class AboutControllerTest {
         mockMvc.perform(get("/about"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("about"))
-                .andExpect(forwardedUrl("/WEB-INF/view/about.jsp"));
+                .andExpect(forwardedUrl("/WEB-INF/view/about.jsp"))
+                .andExpect(model().attribute(VERSION_FIELD_NAME, VERSION_FIELD_VALUE));
     }
 }
