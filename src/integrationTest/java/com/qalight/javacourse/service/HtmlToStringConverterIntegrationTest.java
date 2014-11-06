@@ -29,7 +29,7 @@ public class HtmlToStringConverterIntegrationTest {
     @Test
     public void testConvertToString_https() {
         //given
-        final String URL = "https://www.textnow.com";
+        final String URL = "https://www.google.com.ua/";
 
         //when
         String actualResult = converter.convertToString(URL);
