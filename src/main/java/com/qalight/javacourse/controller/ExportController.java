@@ -32,6 +32,7 @@ public class ExportController {
         Map<String, Integer> resultMap = result.getCountedResult();
         return new ModelAndView(viewName, modelName, resultMap);
     }
+
     @RequestMapping(value = "/downloadExcel", method = RequestMethod.POST, produces = "application/vnd.ms-excel;charset=UTF-8")
     public ModelAndView getExcelResult(@RequestParam String textCount,
                                        @RequestParam String sortingOrder,

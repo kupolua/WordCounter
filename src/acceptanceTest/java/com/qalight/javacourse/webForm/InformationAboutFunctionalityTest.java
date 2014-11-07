@@ -33,7 +33,7 @@ public class InformationAboutFunctionalityTest {
         // when
         driver.findElement(By.id(elementIdAboutUs)).click();
 
-        //then
+        // then
         boolean isAboutDisplayed = driver.findElement(By.id(elementIdAboutUsHead)).isDisplayed();
         assertTrue(isAboutDisplayed);
     }

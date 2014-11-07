@@ -123,7 +123,7 @@ public class DifferentFunctionalityTest {
 
         driverSecondary.quit();
 
-        //then
+        // then
         String actualParallelExecution = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(EXPECTED_STANDARD_RESULT, actualParallelExecution);
     }
@@ -141,7 +141,7 @@ public class DifferentFunctionalityTest {
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        //then
+        // then
         String actualEnterTwoLinksOneByOne = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(EXPECTED_STANDARD_RESULT, actualEnterTwoLinksOneByOne);
     }

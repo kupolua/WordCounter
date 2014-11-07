@@ -53,7 +53,7 @@ public class FilteringWordsFunctionalityTest {
         driver.findElement(By.id(buttonIdFilteringWords)).click();
         Thread.sleep(waitTime);
 
-        //then
+        // then
         String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(expectedWordFilter, actualEnterTwoLinks);
     }
@@ -77,7 +77,7 @@ public class FilteringWordsFunctionalityTest {
         driver.findElement(By.id(buttonIdUnFilteringWords)).click();
         Thread.sleep(waitTime);
 
-        //then
+        // then
         String actualEnterTwoLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(expectedWordFilter, actualEnterTwoLinks);
     }
@@ -94,7 +94,7 @@ public class FilteringWordsFunctionalityTest {
         driver.findElement(By.cssSelector(elementShowFilter)).click();
         boolean isModalWindow = driver.getPageSource().contains(idModalWindow);
 
-        //then
+        // then
         assertTrue(isModalWindow);
     }
 
@@ -111,7 +111,7 @@ public class FilteringWordsFunctionalityTest {
         driver.findElement(By.cssSelector(elementShowFilter)).click();
         Thread.sleep(waitTime);
 
-        //then
+        // then
         String actualResult = driver.findElement(By.id(elementIdFilteringWords)).getText();
         assertEquals(expectedResult, actualResult);
     }
@@ -126,6 +126,5 @@ public class FilteringWordsFunctionalityTest {
         }
         return String.valueOf(wordsForFilter);
     }
-
 }
 
