@@ -19,6 +19,8 @@ public class TextTypeInquirerTest {
     @Mock private PdfTextTypeImpl pdfType;
     @Mock private DocTextTypeImpl docType;
     @Mock private PlainTextTypeImpl plainType;
+    @Mock private XlsTextTypeImpl xlsType;
+    @Mock private XlsxTextTypeImpl xlsxType;
     private TextTypeInquirer inquirer;
     private Set<TextType> textTypes;
 
@@ -30,6 +32,8 @@ public class TextTypeInquirerTest {
         textTypes.add(pdfType);
         textTypes.add(docType);
         textTypes.add(plainType);
+        textTypes.add(xlsType);
+        textTypes.add(xlsxType);
 
         TextTypeInquirer.setTextTypes(textTypes);
     }
@@ -88,6 +92,34 @@ public class TextTypeInquirerTest {
         //then
         verify(docType, times(1)).isEligible(clientRequest);
         assertTrue(actual instanceof DocTextTypeImpl);
+    }
+
+    @Test
+    public void testInquireTextType_xls() throws Exception {
+        //given
+        final String clientRequest = "http://xls.com/some.xls";
+        when(xlsType.isEligible(clientRequest)).thenReturn(true);
+
+        //when
+        final TextType actual = inquirer.inquireTextType(clientRequest);
+
+        //then
+        verify(xlsType, times(1)).isEligible(clientRequest);
+        assertTrue(actual instanceof XlsTextTypeImpl);
+    }
+
+    @Test
+    public void testInquireTextType_xlsx() throws Exception {
+        //given
+        final String clientRequest = "http://xlsx.com/some.xlsx";
+        when(xlsxType.isEligible(clientRequest)).thenReturn(true);
+
+        //when
+        final TextType actual = inquirer.inquireTextType(clientRequest);
+
+        //then
+        verify(xlsxType, times(1)).isEligible(clientRequest);
+        assertTrue(actual instanceof XlsxTextTypeImpl);
     }
 
     @Test(expected = IllegalArgumentException.class)

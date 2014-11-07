@@ -9,19 +9,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
-public class PdfToStringConverterIntegrationTest {
-
+public class XlsToStringConverterIntegrationTest {
     @Autowired
-    private PdfToStringConverter pdfToStringConverter;
+    private XlsToStringConverter xlsToStringConverter;
 
     @Test
     public void testConvertToString() {
         //given
-        final String url = "https://dl.dropboxusercontent.com/u/12495182/tests/words.pdf";
-        final String expected = "Words Count\nsimply 1\nput 1";
+        final String url = "https://dl.dropboxusercontent.com/u/12495182/tests/fewWords.xls";
+        final String expected = "один\nдва\nдва\nтри три, три\n";
 
         //when
-        String actualResult = pdfToStringConverter.convertToString(url);
+        String actualResult = xlsToStringConverter.convertToString(url);
 
         //then
         Assert.assertEquals(expected, actualResult);
@@ -30,10 +29,10 @@ public class PdfToStringConverterIntegrationTest {
     @Test(expected = RuntimeException.class)
     public void testConvertToString_badUrl() {
         //given
-        final String url = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
+        final String url = "https://dl.dropboxusercontent.com/u/12495182/tests/few_BAD_URL_Words.xls";
 
         //when
-        String actualResult = pdfToStringConverter.convertToString(url);
+        String actualResult = xlsToStringConverter.convertToString(url);
 
         //then
         //expected exception
@@ -45,7 +44,7 @@ public class PdfToStringConverterIntegrationTest {
         final String url = null;
 
         //when
-        String actualResult = pdfToStringConverter.convertToString(url);
+        String actualResult = xlsToStringConverter.convertToString(url);
 
         //then
         //expected exception
@@ -57,7 +56,7 @@ public class PdfToStringConverterIntegrationTest {
         final String url = "";
 
         //when
-        String actualResult = pdfToStringConverter.convertToString(url);
+        String actualResult = xlsToStringConverter.convertToString(url);
 
         //then
         //expected exception

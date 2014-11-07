@@ -18,10 +18,15 @@ public class DocumentConverterTest {
     @Mock private PdfTextTypeImpl pdfType;
     @Mock private DocTextTypeImpl docType;
     @Mock private PlainTextTypeImpl plainType;
+    @Mock private XlsTextTypeImpl xlsType;
+    @Mock private XlsxTextTypeImpl xlsxType;
     @Mock private HtmlToStringConverter htmlConverter;
     @Mock private PdfToStringConverter pdfConverter;
     @Mock private DocToStringConverter docConverter;
     @Mock private PlainToStringConverter plainConverter;
+    @Mock private XlsToStringConverter xlsConverter;
+    @Mock private XlsxToStringConverter xlsxConverter;
+
     private DocumentConverter converter;
     private Set<DocumentToStringConverter> documentToStringConverters;
 
@@ -33,6 +38,8 @@ public class DocumentConverterTest {
         documentToStringConverters.add(pdfConverter);
         documentToStringConverters.add(docConverter);
         documentToStringConverters.add(plainConverter);
+        documentToStringConverters.add(xlsConverter);
+        documentToStringConverters.add(xlsxConverter);
 
         DocumentConverter.setDocumentToStringConverters(documentToStringConverters);
     }
@@ -91,6 +98,34 @@ public class DocumentConverterTest {
         //then
         verify(plainConverter, times(1)).isEligible(type);
         Assert.assertTrue(actual instanceof PlainToStringConverter);
+    }
+
+    @Test
+    public void testGetDocumentConverter_xls() {
+        //given
+        final TextType type = xlsType;
+        when(xlsConverter.isEligible(type)).thenReturn(true);
+
+        //when
+        final DocumentToStringConverter actual = converter.getDocumentConverter(type);
+
+        //then
+        verify(xlsConverter, times(1)).isEligible(type);
+        Assert.assertTrue(actual instanceof XlsToStringConverter);
+    }
+
+    @Test
+    public void testGetDocumentConverter_xlsx() {
+        //given
+        final TextType type = xlsxType;
+        when(xlsxConverter.isEligible(type)).thenReturn(true);
+
+        //when
+        final DocumentToStringConverter actual = converter.getDocumentConverter(type);
+
+        //then
+        verify(xlsxConverter, times(1)).isEligible(type);
+        Assert.assertTrue(actual instanceof XlsxToStringConverter);
     }
 
     @Test(expected = RuntimeException.class)

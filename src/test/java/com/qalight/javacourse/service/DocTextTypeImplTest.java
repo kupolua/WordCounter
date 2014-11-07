@@ -32,9 +32,7 @@ public class DocTextTypeImplTest {
                 "http://defas.com.ua/java/textForTest.ppt",
                 "http://defas.com.ua/java/textForTest.pptx",
                 "http://defas.com.ua/java/textForTest.rtf",
-                "http://defas.com.ua/java/textForTest.txt",
-                "http://defas.com.ua/java/textForTest.xls",
-                "http://defas.com.ua/java/textForTest.xlsx"
+                "http://defas.com.ua/java/textForTest.txt"
         }));
 
         doReturn(true).when(spyDocTextType).isWebProtocol(anyString());
@@ -48,8 +46,8 @@ public class DocTextTypeImplTest {
         }
 
         // then
-        verify(spyDocTextType, times(11)).isEligible(anyString());
-        verify(spyDocTextType, times(11)).isWebProtocol(anyString());
+        verify(spyDocTextType, times(9)).isEligible(anyString());
+        verify(spyDocTextType, times(9)).isWebProtocol(anyString());
         Assert.assertEquals(expectedSet, actualSet);
     }
 

@@ -9,18 +9,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
-public class PdfTextTypeImplIntegrationTest {
+public class XlsxTextTypeImplIntegrationTest {
     @Autowired
-    private PdfTextTypeImpl pdfTextType;
+    XlsxTextTypeImpl xlsxTextType;
 
     @Test
     public void testIsEligible_okType() {
         // given
-        final String url = "https://dl.dropboxusercontent.com/u/12495182/About%20us.pdf";
+        final String url = "https://dl.dropboxusercontent.com/u/12495182/About%20us.xlsx";
         final boolean expectedResult = true;
 
         //when
-        final boolean actualResult = pdfTextType.isEligible(url);
+        final boolean actualResult = xlsxTextType.isEligible(url);
 
         //then
         Assert.assertEquals(expectedResult, actualResult);
@@ -33,7 +33,7 @@ public class PdfTextTypeImplIntegrationTest {
         final boolean expectedResult = false;
 
         //when
-        final boolean actualResult = pdfTextType.isEligible(url);
+        final boolean actualResult = xlsxTextType.isEligible(url);
 
         //then
         Assert.assertEquals(expectedResult, actualResult);
@@ -45,7 +45,7 @@ public class PdfTextTypeImplIntegrationTest {
         final String url = "";
 
         //when
-        pdfTextType.isEligible(url);
+        xlsxTextType.isEligible(url);
 
         //then
         //expected exception
@@ -57,7 +57,7 @@ public class PdfTextTypeImplIntegrationTest {
         final String textHttpHeader = null;
 
         // when
-        pdfTextType.isEligible(textHttpHeader);
+        xlsxTextType.isEligible(textHttpHeader);
 
         //then
         //expected exception

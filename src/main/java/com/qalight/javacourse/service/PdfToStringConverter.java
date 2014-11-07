@@ -2,6 +2,7 @@ package com.qalight.javacourse.service;
 
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
+import com.qalight.javacourse.util.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userUrl) {
+        Assertions.assertStringIsNotNullOrEmpty(userUrl);
         PdfReader reader = null;
         try {
             reader = getPdfReader(userUrl);

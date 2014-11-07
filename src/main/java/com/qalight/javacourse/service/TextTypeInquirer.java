@@ -18,6 +18,8 @@ public class TextTypeInquirer {
         textTypes.add(new PdfTextTypeImpl());
         textTypes.add(new DocTextTypeImpl());
         textTypes.add(new PlainTextTypeImpl());
+        textTypes.add(new XlsTextTypeImpl());
+        textTypes.add(new XlsxTextTypeImpl());
     }
 
     public static void setTextTypes(Set<TextType> textTypes) {

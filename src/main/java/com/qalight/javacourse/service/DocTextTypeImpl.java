@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DocTextTypeImpl implements TextType {
     private static final String[] TEXT_TYPES =
-            {".rtf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".ods", ".odp", ".txt"};
+            {".rtf", ".doc", ".docx", ".ppt", ".pptx", ".odt", ".ods", ".odp", ".txt"};
 
     @Override
     public boolean isEligible(String dataSourceLink) {

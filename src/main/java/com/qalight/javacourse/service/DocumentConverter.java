@@ -17,6 +17,8 @@ public class DocumentConverter {
         documentToStringConverters.add(new PdfToStringConverter());
         documentToStringConverters.add(new DocToStringConverter());
         documentToStringConverters.add(new PlainToStringConverter());
+        documentToStringConverters.add(new XlsToStringConverter());
+        documentToStringConverters.add(new XlsxToStringConverter());
     }
 
     public static void setDocumentToStringConverters(Set<DocumentToStringConverter> documentToStringConverters) {
