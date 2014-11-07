@@ -1,32 +1,31 @@
 package com.qalight.javacourse.controller;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import com.qalight.javacourse.service.WordCounterResultContainer;
-import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.qalight.javacourse.service.WordCounterService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ExportControllerTest {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/test_spring_config.xml")
+public class ExportControllerIntegrationTest {
     private static final String TEXT_COUNT_PARAM_NAME = "textCount";
     private static final String SORTING_ORDER_PARAM_NAME = "sortingOrder";
     private static final String IS_FILTER_WORDS_PARAM_NAME = "isFilterWords";
 
-    @Mock private WordCounterService wordCounterService;
-    private WordCounterResultContainer result;
+    @Autowired
+    WordCounterService wordCounterService;
     private MockMvc mockMvc;
     private Map<String, Integer> expectedResult;
 
@@ -35,15 +34,13 @@ public class ExportControllerTest {
         expectedResult = new HashMap<>();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
-        result = new WordCounterResultContainerImpl(expectedResult);
+
         ExportController exportController = new ExportController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(exportController).alwaysExpect(status().isOk()).build();
     }
 
     @Test
     public void testGetPdfResult() throws Exception {
-        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
-
         mockMvc.perform(post("/downloadPDF")
                 .param(TEXT_COUNT_PARAM_NAME, "one two two")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
@@ -52,14 +49,10 @@ public class ExportControllerTest {
                 .andExpect(model().attributeExists("calculatedWords"))
                 .andExpect(view().name("pdfView"))
                 .andExpect(model().attribute("calculatedWords", expectedResult));
-
-        verify(wordCounterService).getWordCounterResult(any(CountWordsUserRequest.class));
     }
 
     @Test
     public void testGetExcelResult() throws Exception {
-        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
-
         mockMvc.perform(post("/downloadExcel")
                 .param(TEXT_COUNT_PARAM_NAME, "one two two")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
@@ -68,14 +61,11 @@ public class ExportControllerTest {
                 .andExpect(model().attributeExists("calculatedWords"))
                 .andExpect(view().name("excelView"))
                 .andExpect(model().attribute("calculatedWords", expectedResult));
-
-        verify(wordCounterService).getWordCounterResult(any(CountWordsUserRequest.class));
     }
 
     @Test
-    public void testHandleException() throws Exception {
-        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
-                .thenThrow(new IllegalArgumentException("test"));
+    public void testHandleIllegalArgumentException() throws Exception {
+        final String errorMsg = "Request is null or empty";
 
         mockMvc.perform(post("/downloadExcel")
                 .param(TEXT_COUNT_PARAM_NAME, "")
@@ -84,8 +74,20 @@ public class ExportControllerTest {
                 .andExpect(forwardedUrl("error"))
                 .andExpect(model().attributeExists("exception"))
                 .andExpect(view().name("error"))
-                .andExpect(model().attribute("exception", "test"));
+                .andExpect(model().attribute("exception", errorMsg));
+    }
 
-        verify(wordCounterService).getWordCounterResult(any(CountWordsUserRequest.class));
+    @Test
+    public void testHandleRuntimeException() throws Exception {
+        final String errorMsg = "Error during executing request: Can't connect to: http://gooagle.ua";
+
+        mockMvc.perform(post("/downloadExcel")
+                .param(TEXT_COUNT_PARAM_NAME, "http://gooagle.ua")
+                .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
+                .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
+                .andExpect(forwardedUrl("error"))
+                .andExpect(model().attributeExists("exception"))
+                .andExpect(view().name("error"))
+                .andExpect(model() .attribute("exception", errorMsg));
     }
 }
