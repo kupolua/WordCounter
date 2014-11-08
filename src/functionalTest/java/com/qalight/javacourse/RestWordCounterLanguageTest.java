@@ -162,7 +162,7 @@ public class RestWordCounterLanguageTest {
                 .build();
         return request;
     }
-
+    //todo refactor method name
     private String getResponseBody(Response response) throws IOException {
         final Pattern pattern = Pattern.compile("<div id=\"p1\">(.+?)</div>");
 

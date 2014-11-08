@@ -18,8 +18,8 @@ public class RestExportXlsTest {
     private static final String PARAM_IS_FILTER_WORDS = "isFilterWords";
     private static final String SERVER_NAME = "http://localhost:";
     private static final String CONTEXT = "/WordCounter/";
-    private static final String COUNT_REQUEST = "downloadPDF";
-    private static final String MEDIA_TYPE = "application/pdf;charset=UTF-8";
+    private static final String COUNT_REQUEST = "downloadExcel";
+    private static final String MEDIA_TYPE = "application/vnd.ms-excel;charset=UTF-8";
     private static final String LANGUAGE_TYPE = "ru-RU,en;q=0.5";
     private static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT + COUNT_REQUEST;
     private static final String PATH_RESOURCES = "src/functionalTest/resources/";
@@ -36,7 +36,9 @@ public class RestExportXlsTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testExportXls() throws Exception {
         // given
-        final String requestedTextCount = "one one one one ёлка ёлка ёлка two two two білка білка білка объем объем объем їжак їжак объём ученики і але имя слово a но дом друг єнот время та the человек народ r завет сказал";
+        final String requestedTextCount = "one one one one ёлка ёлка ёлка two two two білка білка білка объем объем" +
+                " объем їжак їжак объём ученики і але имя слово a но дом друг єнот время та the человек народ r завет" +
+                " сказал";
         final String requestedSortingOrder = "VALUE_DESCENDING";
         final String requestedIsFilterWords = "false";
         Request request = buildRequestWithParamValue(requestedTextCount, requestedSortingOrder, requestedIsFilterWords);
@@ -49,12 +51,12 @@ public class RestExportXlsTest {
             Assert.fail(createFailMessage(requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File xls = new File(PATH_RESOURCES + EXPECTED_XLS);
-        String expectedXls = removeEmpyLines(documentConverter.parseToString(xls));
+        String expectedXls = documentConverter.parseToString(xls);
 
         InputStream expXls = response.body().byteStream();
-        String actualXls = removeEmpyLines(documentConverter.parseToString(expXls));
+        String actualXls = documentConverter.parseToString(expXls);
 
-        Assert.assertEquals(expectedXls, "CalculatedWords" + actualXls);
+        Assert.assertEquals(expectedXls, actualXls);
     }
 
     private String createFailMessage(String requestedTextCount, String requestedSortingOrder,
@@ -77,9 +79,5 @@ public class RestExportXlsTest {
                 .post(formBody)
                 .build();
         return request;
-    }
-
-    private String removeEmpyLines(String text) {
-        return text.replaceAll("\\s+", "");
     }
 }

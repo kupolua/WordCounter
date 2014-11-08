@@ -36,7 +36,9 @@ public class RestExportPdfTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testExportPdf() throws Exception {
         // given
-        final String requestedTextCount = "one one one one ёлка ёлка ёлка two two two білка білка білка объем объем объем їжак їжак объём ученики і але имя слово a но дом друг єнот время та the человек народ r завет сказал";
+        final String requestedTextCount = "one one one one ёлка ёлка ёлка two two two білка білка білка объем объем" +
+                " объем їжак їжак объём ученики і але имя слово a но дом друг єнот время та the человек народ r завет" +
+                " сказал";
         final String requestedSortingOrder = "VALUE_DESCENDING";
         final String requestedIsFilterWords = "false";
         Request request = buildRequestWithParamValue(requestedTextCount, requestedSortingOrder, requestedIsFilterWords);
@@ -51,8 +53,8 @@ public class RestExportPdfTest {
         File pdf = new File(PATH_RESOURCES + EXPECTED_PDF);
         String expectedPdf = documentConverter.parseToString(pdf);
 
-        InputStream expPdf = response.body().byteStream();
-        String actualPdf = documentConverter.parseToString(expPdf);
+        InputStream inputPdf = response.body().byteStream();
+        String actualPdf = documentConverter.parseToString(inputPdf);
 
         Assert.assertEquals(expectedPdf, actualPdf);
     }
