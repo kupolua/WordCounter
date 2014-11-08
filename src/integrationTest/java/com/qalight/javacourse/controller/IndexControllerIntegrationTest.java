@@ -22,9 +22,9 @@ public class IndexControllerIntegrationTest {
     private @Value("${wordsEN}") String wordsEn;
     private @Value("${wordsRU}") String wordsRu;
     private @Value("${wordsUA}") String wordsUa;
+    private @Autowired IndexController indexController;
     private String filterField;
     private MockMvc mockMvc;
-    @Autowired private IndexController indexController;
 
     @Before
     public void setUp() throws Exception {
