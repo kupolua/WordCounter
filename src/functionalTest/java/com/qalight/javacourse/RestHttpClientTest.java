@@ -9,13 +9,9 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.qalight.javacourse.Constants.*;
+
 public class RestHttpClientTest {
-    private static final long SECOND = 1_000;
-    private static final long DEFAULT_TIMEOUT = 30 * SECOND;
-    private static final int PORT = 8080;
-    private static final String PARAM_NAME = "textCount";
-    private static final String SERVER_NAME = "http://localhost:";
-    private static final String CONTEXT = "/WordCounter/";
     private static final String COUNT_REQUEST = "countWordsRestStyle";
     private static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT + COUNT_REQUEST;
     private OkHttpClient client;
@@ -73,7 +69,7 @@ public class RestHttpClientTest {
 
     public Request buildRequestWithParamValue(String requestedValue) {
         RequestBody formBody = new FormEncodingBuilder()
-                .add(PARAM_NAME, requestedValue)
+                .add(PARAM_TEXT_COUNT, requestedValue)
                 .build();
         final Request request = new Request.Builder()
                 .url(COUNT_URL)
