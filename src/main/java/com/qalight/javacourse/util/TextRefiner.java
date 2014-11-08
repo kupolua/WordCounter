@@ -79,9 +79,10 @@ public class TextRefiner {
 
             word = CLEAN_PATTERN.matcher(word).replaceAll("");
 
-            Matcher matcher = HYPHEN_PATTERN.matcher(word);
+            Matcher matcher = HYPHEN_AND_APOSROFE_PATTERN.matcher(word);
             if (matcher.matches()) {
                 word = word.replaceAll("-", "");
+                word = word.replaceAll("'", "");
             }
 
             words.set(i, word);

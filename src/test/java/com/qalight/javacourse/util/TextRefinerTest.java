@@ -94,11 +94,11 @@ public class TextRefinerTest {
     }
 
     @Test
-    public void testRefineText_handlingHyphens() {
+    public void testRefineText_handlingHyphensAndApostrophes() {
         // given
-        final String givenText = "-aaa -bbb- ccc- ddd-ddd";
+        final String givenText = "-aaa -bbb- ccc- ddd-ddd 'eee fff'fff fff'f ggg'";
 
-        final List<String> expectedResult = Arrays.asList("aaa", "bbb", "ccc", "ddd-ddd");
+        final List<String> expectedResult = Arrays.asList("aaa", "bbb", "ccc", "ddd-ddd", "eee", "fff'fff", "fff'f", "ggg'");
 
         // when
         final List<String> actualResult = refiner.refineText(givenText);
