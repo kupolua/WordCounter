@@ -26,14 +26,13 @@ public class DocumentConverterTest {
     @Mock private PlainToStringConverter plainConverter;
     @Mock private XlsToStringConverter xlsConverter;
     @Mock private XlsxToStringConverter xlsxConverter;
-
     private DocumentConverter converter;
-    private Set<DocumentToStringConverter> documentToStringConverters;
 
     @Before
     public void setup() {
         converter = new DocumentConverter();
-        documentToStringConverters = new HashSet<>();
+
+        Set<DocumentToStringConverter> documentToStringConverters = new HashSet<>();
         documentToStringConverters.add(htmlConverter);
         documentToStringConverters.add(pdfConverter);
         documentToStringConverters.add(docConverter);
