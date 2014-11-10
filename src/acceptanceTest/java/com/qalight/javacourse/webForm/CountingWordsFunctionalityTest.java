@@ -5,6 +5,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.util.concurrent.TimeUnit;
 
 import static com.qalight.javacourse.webForm.utils.Constants.*;
 import static com.qalight.javacourse.webForm.utils.Util.*;
@@ -46,6 +49,57 @@ public class CountingWordsFunctionalityTest {
         // then
         String actualInputText = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(EXPECTED_STANDARD_RESULT, actualInputText);
+    }
+
+    @Test
+    public void testEmptyRequest() {
+        // given
+        driver.get(BASE_URL);
+        String expectedResult = "Request is null or empty";
+        String emptyString = " ";
+
+        // when
+        putDataAndClickCountButton(driver, emptyString);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.id(ELEMENT_ID_MESSAGE)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testIncorrectUrl() {
+        // given
+        driver.get(BASE_URL);
+        final String incorrectSymbol = "a";
+        final String expectedResult = "Error during executing request: Can't connect to: " +
+                "http://defas.com.ua/java/textForTest.htmla";
+
+        // when
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE + incorrectSymbol);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.id(ELEMENT_ID_MESSAGE)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testImproperInput() {
+        // given
+        driver.get(BASE_URL);
+        final String improperInput = "kris@gmail.com www.google.com %/*\\^# 0";
+        final String expectedResult = "Error during executing request: " +
+                "System cannot count entered text {kris@gmail.com www.google.com %/*\\^# 0}. " +
+                "Did you forget to add 'http://' to the link or entered not readable text?";
+
+        // when
+        putDataAndClickCountButton(driver, improperInput);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.id(ELEMENT_ID_MESSAGE)).getText();
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -272,5 +326,55 @@ public class CountingWordsFunctionalityTest {
         // then
         String actualInputXLSX = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(EXPECTED_STANDARD_RESULT, actualInputXLSX);
+    }
+
+    @Test
+    public void testParallelExecution() throws Exception {
+        // given
+        WebDriver driverSecondary = new FirefoxDriver();
+        driverSecondary.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
+
+        driver.get(BASE_URL);
+        driverSecondary.get(BASE_URL);
+        //todo change link
+        final String htmlTestPageSecondary = "https://dl.dropboxusercontent.com/u/12495182/" +
+                "textForSeleniumTestSecondary.pdf";
+
+        // when
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(HTML_TEST_PAGE);
+
+        driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
+        driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(htmlTestPageSecondary);
+
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+        driverSecondary.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        waitForJQueryProcessing(driverSecondary, WAIT_FOR_ELEMENT);
+
+        driverSecondary.quit();
+
+        // then
+        String actualParallelExecution = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualParallelExecution);
+    }
+
+    @Test
+    public void testEnterTwoLinksOneByOne() {
+        // given
+        driver.get(BASE_URL);
+
+        // when
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualEnterTwoLinksOneByOne = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualEnterTwoLinksOneByOne);
     }
 }

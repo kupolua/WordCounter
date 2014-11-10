@@ -17,6 +17,7 @@ public class ResultsPresentationFunctionalityTest {
     private static WebDriver driver;
 
     private final String elementDataTablesLength = "countedWords_length";
+    private final String elementIdLinkNext = "countedWords_next";
     private final String dataTablesLength100 = "100";
     private final String HtmlTestPagePresentation = "http://defas.com.ua/java/textForTestShowEntries.html";
     private final String expectedByDefault = "и 3\n" + "java 2\n" + "новая 2\n" + "в 2\n" + "время 2\n" + "версия 2\n" +
@@ -138,5 +139,39 @@ public class ResultsPresentationFunctionalityTest {
         // then
         String actualShowEntries = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(expectedByDefault, actualShowEntries);
+    }
+
+    @Test
+    public void testNextResponse() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedNextResponse = "имя 1\n" + "слово 1\n" + "a 1\n" + "но 1\n" + "дом 1\n" + "друг 1\n" +
+                "єнот 1\n" + "время 1\n" + "та 1\n" + "the 1";
+
+        // when
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.id(elementIdLinkNext)).click();
+
+        // then
+        String actualNextResponse = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedNextResponse, actualNextResponse);
+    }
+
+    @Test
+    public void testPreviousResponse() {
+        // given
+        driver.get(BASE_URL);
+        final String ELEMENT_ID_LINK_PREV = "countedWords_previous";
+
+        // when
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.id(elementIdLinkNext)).click();
+        driver.findElement(By.id(ELEMENT_ID_LINK_PREV)).click();
+
+        // then
+        String actualPreviousResponse = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(EXPECTED_STANDARD_RESULT, actualPreviousResponse);
     }
 }

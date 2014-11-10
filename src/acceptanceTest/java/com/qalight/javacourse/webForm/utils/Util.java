@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,6 +17,14 @@ public class Util {
 
     public static WebDriver getWebDriver() {
         driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
+        return driver;
+    }
+
+    public static WebDriver getWebDriver(String localization) {
+        FirefoxProfile profile = new FirefoxProfile();
+        profile.setPreference("intl.accept_languages", localization);
+        driver = new FirefoxDriver(profile);
         driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_FOR_PAGE, TimeUnit.SECONDS);
         return driver;
     }
