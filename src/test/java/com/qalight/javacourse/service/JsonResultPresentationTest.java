@@ -16,54 +16,6 @@ public class JsonResultPresentationTest {
     }
 
     @Test
-    public void isEligible_validType() {
-        // given
-        final String type = "json";
-
-        // when
-        boolean actualResult = jsonResultPresentation.isEligible(type);
-
-        // then
-        Assert.assertTrue(actualResult);
-    }
-
-    @Test
-    public void isEligible_invalidType() {
-        // given
-        final String type = "gif";
-
-        // when
-        boolean actualResult = jsonResultPresentation.isEligible(type);
-
-        // then
-        Assert.assertFalse(actualResult);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void isEligible_emptyType() {
-        // given
-        final String type = " ";
-
-        // when
-        jsonResultPresentation.isEligible(type);
-
-        // then
-        // exception expected
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void isEligible_nullType() {
-        // given
-        final String type = null;
-
-        // when
-        jsonResultPresentation.isEligible(type);
-
-        // then
-        // exception expected
-    }
-
-    @Test
     public void testCreateResponse_validMap() throws Exception {
         // given
         final String expectedJsonResponse = "{\"success\":true,\"unFilteredWords\":[[\"Project\",\"24\"],[\"Word\",\"13\"],[\"Counter\",\"5\"],[\"Hello\",\"10\"],[\"World\",\"7\"]]}";
@@ -114,10 +66,10 @@ public class JsonResultPresentationTest {
     @Test
     public void testCreateErrorResponse_validError() {
         // given
-        String expectedJsonResponse = "{\"respMessage\":\"WordCounter Exception: results collection should not be null\"}";
+        String expectedJsonResponse = "{\"respMessage\":\"Results collection should not be null\"}";
 
         // when
-        Throwable e = new IllegalArgumentException("results collection should not be null");
+        Throwable e = new IllegalArgumentException("Results collection should not be null");
         String actualJsonResponse = jsonResultPresentation.createErrorResponse(e);
 
         // then

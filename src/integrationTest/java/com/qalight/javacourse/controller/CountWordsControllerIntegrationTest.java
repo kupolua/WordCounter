@@ -87,8 +87,8 @@ public class CountWordsControllerIntegrationTest {
     public void testHandleIllegalArgumentExceptions() throws Exception {
         // given
         final String givenText = "";
-        final String expectedBody = "{\"respMessage\":\"WordCounter Exception: Request is null or empty\"}";
-        final String expectedRespMessage = "WordCounter Exception: Request is null or empty";
+        final String expectedBody = "{\"respMessage\":\"Request is null or empty\"}";
+        final String expectedRespMessage = "Request is null or empty";
 
         // when
         mockMvc.perform(post("/countWords").param("textCount", givenText))

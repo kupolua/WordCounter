@@ -15,10 +15,10 @@ import static com.qalight.javacourse.util.TextRefinerConstants.*;
 public class TextRefiner {
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
 
-    public List<String> refineText(String unrefinedPlainText) {
-        Assertions.assertStringIsNotNullOrEmpty(unrefinedPlainText);
+    public List<String> refineText(String clientRequest) {
+        Assertions.assertStringIsNotNullOrEmpty(clientRequest);
 
-        List<String> unrefinedWords = asSplitList(unrefinedPlainText);
+        List<String> unrefinedWords = asSplitList(clientRequest);
         List<String> words = new ArrayList<>(unrefinedWords);
 
         List<String> emailsUrlsList = new ArrayList<>();
@@ -33,6 +33,7 @@ public class TextRefiner {
 //        emailsUrlsList = refineUrls(emailsUrlsList); //todo: WORDS-314 If the text has a long link or word, the first column of the table is strongly stretched wide
         words = cleanWords(words);
 //        words.addAll(emailsUrlsList); //todo: WORDS-314 If the text has a long link or word, the first column of the table is strongly stretched wide
+        Assertions.assertListIsNotEmpty(words, clientRequest);
         LOG.debug("Text is refined.");
         return words;
     }

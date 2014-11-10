@@ -11,26 +11,17 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class JsonResultPresentation implements ResultPresentation {
-    private static final String DATA_TYPES = "json";
+public class JsonResultPresentation {
+    private Gson gson;
 
-    @Override
-    public boolean isEligible(String dataTypeResponse) {
-        Assertions.assertStringIsNotNullOrEmpty(dataTypeResponse);
-
-        boolean isEligible = false;
-        if (dataTypeResponse.equals(DATA_TYPES)) {
-            isEligible = true;
-        }
-        return isEligible;
+    public JsonResultPresentation(){
+        gson = new Gson();
     }
 
-    @Override
     public String createResponse(Map<String, Integer> unRefinedCountedWords) {
         Assertions.assertObjectIsNotNull(unRefinedCountedWords);
 
         List<List<String>> unFilteredCountedWords = new ArrayList<>();
-
         for (Map.Entry<String, Integer> entryUnFilteredWords : unRefinedCountedWords.entrySet()) {
             List<String> countUnFilteredWordsWordResultResponse = new ArrayList<>();
             countUnFilteredWordsWordResultResponse.add(entryUnFilteredWords.getKey());
@@ -38,26 +29,16 @@ public class JsonResultPresentation implements ResultPresentation {
             unFilteredCountedWords.add(countUnFilteredWordsWordResultResponse);
         }
 
-        Gson gson = new Gson();
-        JsonObject countedWordsListObj = new JsonObject();
-
         JsonElement unFilteredWords = gson.toJsonTree(unFilteredCountedWords);
-
+        JsonObject countedWordsListObj = new JsonObject();
         countedWordsListObj.addProperty("success", true);
         countedWordsListObj.add("unFilteredWords", unFilteredWords);
         return countedWordsListObj.toString();
     }
 
-    @Override
     public String createErrorResponse(Throwable e) {
         Assertions.assertObjectIsNotNull(e);
-
-        String errorMessage = "WordCounter Exception: ";
-        errorMessage += e.getMessage();
-
-        ErrorDataContainer errorDataContainer = new ErrorDataContainer(errorMessage);
-
-        Gson gson = new Gson();
+        ErrorDataContainer errorDataContainer = new ErrorDataContainer(e.getMessage());
         String responseErrorMessage = gson.toJson(errorDataContainer);
         return responseErrorMessage;
     }

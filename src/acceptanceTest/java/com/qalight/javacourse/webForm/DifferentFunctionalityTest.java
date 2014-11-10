@@ -34,7 +34,7 @@ public class DifferentFunctionalityTest {
     public void testEmptyUrlRequest() {
         // given
         driver.get(BASE_URL);
-        String expectedResult = "WordCounter Exception: Request is null or empty";
+        String expectedResult = "Request is null or empty";
 
         // when
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
@@ -50,11 +50,28 @@ public class DifferentFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String INCORRECT_SYMBOL = "a";
-        final String expectedResult = "WordCounter Exception: Error during executing request: Can't connect to: " +
+        final String expectedResult = "Error during executing request: Can't connect to: " +
                 "http://defas.com.ua/java/textForTest.htmla";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE + INCORRECT_SYMBOL);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.id(ELEMENT_ID_MESSAGE)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testImproperInput() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedResult = "Error during executing request: " +
+                "System cannot count entered text {kris@gmail.com www.google.com %/*\\^# 0}. " +
+                "Did you forget to add 'http://' to the link or entered not readable text?";
+
+        // when
+        putDataAndClickCountButton(driver, IMPROPER_INPUT);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then

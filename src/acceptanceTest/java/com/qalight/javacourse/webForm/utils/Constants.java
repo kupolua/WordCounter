@@ -5,6 +5,7 @@ public class Constants {
     public static final int DEFAULT_WAIT_FOR_PAGE = 90;
     public static final int PORT = 8080;
     public static final String HTML_TEST_PAGE = "http://defas.com.ua/java/textForTest.html";
+    public static final String IMPROPER_INPUT = "kris@gmail.com www.google.com %/*\\^# 0";
     public static final String CONTEXT = "/WordCounter/";
     public static final String BASE_URL = "http://localhost:" + PORT + CONTEXT;
     public static final String BUTTON_ID_COUNT_WORDS = "CountWords";

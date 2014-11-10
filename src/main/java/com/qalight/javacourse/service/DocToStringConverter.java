@@ -38,7 +38,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
             LOG.error("Can't extract text from <" + userSourcesList + ">.", e);
             throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ", e);
         }
-
+        LOG.info("Connection to " + userSourcesList + " has been successfully established.");
         return text;
     }
 
