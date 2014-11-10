@@ -40,6 +40,54 @@ public class RestHttpClientTest {
     }
 
     @Test(timeout = DEFAULT_TIMEOUT)
+    public void testInputEmptyString() throws Exception {
+        // given
+        final String requestedValue = "";
+        Request request = buildRequestWithParamValue(requestedValue);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        final String expected = "{\"respMessage\":\"Request is null or empty\"}";
+        final String actual = response.body().string();
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testInputBrokenLink() throws Exception {
+        // given
+        final String requestedValue = "http://broken-guugol.com/";
+        Request request = buildRequestWithParamValue(requestedValue);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        final String expected = "{\"respMessage\":\"Error during executing request: " +
+                "Can\\u0027t connect to: http://broken-guugol.com/\"}";
+        final String actual = response.body().string();
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testImproperInputString() throws Exception {
+        // given
+        final String requestedValue = "kris@gmail.com www.google.com %/*\\^# 0";
+        Request request = buildRequestWithParamValue(requestedValue);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        final String expected = "{\"respMessage\":\"Error during executing request: " +
+                "System cannot count entered text {kris@gmail.com www.google.com %/*\\\\^# 0}. " +
+                "Did you forget to add \\u0027http://\\u0027 to the link or entered not readable text?\"}";
+        final String actual = response.body().string();
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
     public void testSimpleInputString_ResponseObject() throws Exception {
         // given
         final String requestedValue = "Alex Mike Alex, Alex";
