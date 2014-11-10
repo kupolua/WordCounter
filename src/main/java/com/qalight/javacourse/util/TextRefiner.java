@@ -15,12 +15,21 @@ import static com.qalight.javacourse.util.TextRefinerConstants.*;
 public class TextRefiner {
     private static final Logger LOG = LoggerFactory.getLogger(TextRefiner.class);
 
-    public List<String> refineText(String clientRequest) {
-        Assertions.assertStringIsNotNullOrEmpty(clientRequest);
+    public List<String> refineText(String unrefinedPlainText) {
+        Assertions.assertStringIsNotNullOrEmpty(unrefinedPlainText);
 
-        List<String> unrefinedWords = asSplitList(clientRequest);
-        List<String> words = new ArrayList<>(unrefinedWords);
+        List<String> words = asSplitList(unrefinedPlainText);
 
+        words = removeUrlsAndEmails(words);
+
+        words = cleanWords(words);
+
+        Assertions.assertListIsNotEmpty(words, unrefinedPlainText);
+        LOG.debug("Text is refined.");
+        return words;
+    }
+
+    private List<String> removeUrlsAndEmails(List<String> words) {
         List<String> emailsUrlsList = new ArrayList<>();
         for (String word : words) {
             Matcher emailMatcher = EMAIL_PATTERN.matcher(word.toLowerCase());
@@ -30,41 +39,12 @@ public class TextRefiner {
             }
         }
         words.removeAll(emailsUrlsList);
-//        emailsUrlsList = refineUrls(emailsUrlsList); //todo: WORDS-314 If the text has a long link or word, the first column of the table is strongly stretched wide
-        words = cleanWords(words);
-//        words.addAll(emailsUrlsList); //todo: WORDS-314 If the text has a long link or word, the first column of the table is strongly stretched wide
-        Assertions.assertListIsNotEmpty(words, clientRequest);
-        LOG.debug("Text is refined.");
         return words;
     }
 
     private static List<String> asSplitList(String unrefinedPlainText) {
-        return Arrays.asList(WHITESPACES_PATTERN.split(unrefinedPlainText));
-    }
-
-    private List<String> refineUrls(List<String> emailsUrlsList) {
-        for (int i = 0; i < emailsUrlsList.size(); i++) {
-            String emailOrUrl = emailsUrlsList.get(i);
-            String cleanUrl = emailOrUrl;
-
-            if (emailOrUrl.contains("<") || emailOrUrl.contains(">")) {
-                cleanUrl = emailOrUrl.replaceAll(JSOUP_TAGS, "");
-            }
-
-            Matcher urlMatcher = URL_PATTERN.matcher(emailOrUrl.toLowerCase());
-            String refinedEmailOrUrl = null;
-            if (urlMatcher.matches()) {
-                refinedEmailOrUrl = "<a href=\"" + cleanUrl + "\">" + cleanUrl + "</a>";
-            }
-
-            Matcher emailMatcher = EMAIL_PATTERN.matcher(emailOrUrl.toLowerCase());
-            if (emailMatcher.matches()) {
-                refinedEmailOrUrl = "<a href=\"mailto:" + cleanUrl + "\">" + cleanUrl + "</a>";
-            }
-
-            emailsUrlsList.set(i, refinedEmailOrUrl);
-        }
-        return emailsUrlsList;
+        List<String> lockedWords = Arrays.asList(WHITESPACES_PATTERN.split(unrefinedPlainText));
+        return new ArrayList<>(lockedWords);
     }
 
     private List<String> cleanWords(List<String> words) {

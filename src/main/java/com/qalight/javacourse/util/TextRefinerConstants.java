@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 public class TextRefinerConstants {
     public static final String NON_BREAKING_HYPHEN = "&#8";
-    public static final String JSOUP_TAGS = "[<>]";
     public static final String NON_BREAKING_SPACE_CHARACTER_ENTITY = "&nbsp;";
     public static final String NON_BREAKING_SPACE_NUMERIC_ENTITY = "&#160;";
     public static final String NON_BREAKING_SPACE_LATIN_1 = "\\xA0";
