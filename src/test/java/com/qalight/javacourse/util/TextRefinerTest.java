@@ -18,7 +18,7 @@ public class TextRefinerTest {
     @Test
     public void testRefineText_handlingUppercaseAndCleanPattern() {
         // given
-        final String givenText = "tHReE - two-two усіх—oNe&#160;:, thre/E!: ThrEE- -WWW, іІїЇєЄёЁґҐ";
+        final String givenText = "tHReE - two-two усіх—oNe&#160;:, thre/E!: ThrEE- -WWW, іІїЇєЄёЁґҐ ";
 
         final List<String> expectedResult =
                 Arrays.asList("three", "two-two", "усіх", "one", "three", "three", "www", "ііїїєєёёґґ");
