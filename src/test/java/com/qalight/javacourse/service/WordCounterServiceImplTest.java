@@ -23,6 +23,7 @@ public class WordCounterServiceImplTest {
     @Mock private WordFilter filter;
     @Mock private WordResultSorter sorter;
     @Mock private CountWordsUserRequest clientRequest;
+    @Mock private ThreadResultContainer threadContainer;
     private Map<String, Integer> expectedResult;
 
     @Before
@@ -30,20 +31,23 @@ public class WordCounterServiceImplTest {
         expectedResult = new HashMap<>();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
+
+        when(clientRequest.getSortingOrder()).thenReturn(sorter);
+        when(splitter.getSplitRequests(anyString())).thenReturn(new HashSet<>());
+        when(concurrentExecutor.countAsynchronously(anyCollection())).thenReturn(new ArrayList<>());
+        when(integrator.integrateResults(anyList())).thenReturn(threadContainer);
+        when(filter.removeUnimportantWords(anyMap(), anyBoolean())).thenReturn(new HashMap<>());
     }
 
     @Test
     public void testGetWordCounterResult() throws Exception {
         //given
         final String input = "one two two,";
+        final List expectedErrorList = Collections.emptyList();
 
         when(clientRequest.getTextCount()).thenReturn(input);
-        when(clientRequest.getSortingOrder()).thenReturn(sorter);
-        when(splitter.getSplitRequests(anyString())).thenReturn(new HashSet<>());
-        when(concurrentExecutor.countAsynchronously(anyCollection())).thenReturn(new ArrayList<>());
-        when(integrator.integrateResults(anyList())).thenReturn(new HashMap<>());
-        when(filter.removeUnimportantWords(anyMap(), anyBoolean())).thenReturn(new HashMap<>());
         when(sorter.getSortedWords(anyMap())).thenReturn(expectedResult);
+        when(threadContainer.getErrorsList()).thenReturn(expectedErrorList);
 
         WordCounterService counterService = new WordCounterServiceImpl(splitter, concurrentExecutor, integrator, filter);
 
@@ -60,6 +64,7 @@ public class WordCounterServiceImplTest {
         verify(sorter).getSortedWords(anyMap());
 
         Assert.assertEquals(expectedResult, actual.getCountedResult());
+        Assert.assertEquals(expectedErrorList, actual.getErrors());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -68,11 +73,6 @@ public class WordCounterServiceImplTest {
         final String input = null;
 
         when(clientRequest.getTextCount()).thenReturn(input);
-        when(clientRequest.getSortingOrder()).thenReturn(sorter);
-        when(splitter.getSplitRequests(anyString())).thenReturn(new HashSet<>());
-        when(concurrentExecutor.countAsynchronously(anyCollection())).thenReturn(new ArrayList<>());
-        when(integrator.integrateResults(anyList())).thenReturn(new HashMap<>());
-        when(filter.removeUnimportantWords(anyMap(), anyBoolean())).thenReturn(new HashMap<>());
         when(sorter.getSortedWords(anyMap())).thenReturn(expectedResult);
 
         WordCounterService counterService = new WordCounterServiceImpl(splitter, concurrentExecutor, integrator, filter);
@@ -91,11 +91,6 @@ public class WordCounterServiceImplTest {
         final String input = "";
 
         when(clientRequest.getTextCount()).thenReturn(input);
-        when(clientRequest.getSortingOrder()).thenReturn(sorter);
-        when(splitter.getSplitRequests(anyString())).thenReturn(new HashSet<>());
-        when(concurrentExecutor.countAsynchronously(anyCollection())).thenReturn(new ArrayList<>());
-        when(integrator.integrateResults(anyList())).thenReturn(new HashMap<>());
-        when(filter.removeUnimportantWords(anyMap(), anyBoolean())).thenReturn(new HashMap<>());
         when(sorter.getSortedWords(anyMap())).thenReturn(expectedResult);
 
         WordCounterService counterService = new WordCounterServiceImpl(splitter, concurrentExecutor, integrator, filter);
@@ -108,18 +103,17 @@ public class WordCounterServiceImplTest {
         verifyNoMoreInteractions();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testGetWordCounterResult_invalidParam() throws Exception {
         //given
         final String input = "http://95.158.60.148:8008/kpl/testingPageINVALID.html";
 
+        final List expectedErrorList = Arrays.asList("Error has occurred.");
+        final Map<String, Integer> expectedEmptyMap = Collections.emptyMap();
+
         when(clientRequest.getTextCount()).thenReturn(input);
-        when(clientRequest.getSortingOrder()).thenReturn(sorter);
-        when(splitter.getSplitRequests(anyString())).thenReturn(new HashSet<>());
-        when(concurrentExecutor.countAsynchronously(anyCollection())).thenThrow(new RuntimeException("test"));
-        when(integrator.integrateResults(anyList())).thenReturn(new HashMap<>());
-        when(filter.removeUnimportantWords(anyMap(), anyBoolean())).thenReturn(new HashMap<>());
-        when(sorter.getSortedWords(anyMap())).thenReturn(expectedResult);
+        when(sorter.getSortedWords(anyMap())).thenReturn(expectedEmptyMap);
+        when(threadContainer.getErrorsList()).thenReturn(expectedErrorList);
 
         WordCounterService counterService = new WordCounterServiceImpl(splitter, concurrentExecutor, integrator, filter);
 
@@ -128,9 +122,15 @@ public class WordCounterServiceImplTest {
 
         //then
         verify(clientRequest, times(2)).getTextCount();
-        verify(clientRequest).getSortingOrder();
+        verify(clientRequest, times(2)).getSortingOrder();
         verify(splitter).getSplitRequests(anyString());
         verify(concurrentExecutor).countAsynchronously(anyCollection());
-        verifyNoMoreInteractions();
+        verify(integrator).integrateResults(anyList());
+        verify(filter).removeUnimportantWords(anyMap(), anyBoolean());
+        verify(sorter).getSortedWords(anyMap());
+        verify(threadContainer).getErrorsList();
+
+        Assert.assertEquals(expectedEmptyMap, actual.getCountedResult());
+        Assert.assertEquals(expectedErrorList, actual.getErrors());
     }
 }

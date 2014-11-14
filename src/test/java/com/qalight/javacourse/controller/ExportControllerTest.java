@@ -3,6 +3,7 @@ package com.qalight.javacourse.controller;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.qalight.javacourse.service.WordCounterResultContainer;
@@ -16,7 +17,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,10 +35,11 @@ public class ExportControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        expectedResult = new HashMap<>();
+        List expectedErrorList = Collections.emptyList();
+        expectedResult = new HashMap();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
-        result = new WordCounterResultContainerImpl(expectedResult);
+        result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList);
         ExportController exportController = new ExportController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(exportController).alwaysExpect(status().isOk()).build();
     }
@@ -51,7 +55,7 @@ public class ExportControllerTest {
                 .andExpect(forwardedUrl("pdfView"))
                 .andExpect(model().attributeExists("calculatedWords"))
                 .andExpect(view().name("pdfView"))
-                .andExpect(model().attribute("calculatedWords", expectedResult));
+                .andExpect(model().attribute("calculatedWords", expectedResult)).andDo(print());
 
         verify(wordCounterService).getWordCounterResult(any(CountWordsUserRequest.class));
     }

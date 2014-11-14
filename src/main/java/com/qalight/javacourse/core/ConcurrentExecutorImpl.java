@@ -1,5 +1,6 @@
 package com.qalight.javacourse.core;
 
+import com.qalight.javacourse.service.ThreadResultContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.*;
 
 @Component
@@ -41,10 +41,10 @@ public class ConcurrentExecutorImpl implements ConcurrentExecutor{
     }
 
     @Override
-    public List<Map<String, Integer>> countAsynchronously(Collection<String> splitterRequests) {
+    public List<ThreadResultContainer> countAsynchronously(Collection<String> splitterRequests) {
         Collection<CountWordsTask> tasks = createTasks(splitterRequests);
-        Collection<Future<Map<String, Integer>>> futures = createFutures(tasks);
-        List<Map<String, Integer>> result = waitForAllResults(futures);
+        Collection<Future<ThreadResultContainer>> futures = createFutures(tasks);
+        List<ThreadResultContainer> result = waitForAllResults(futures);
         return result;
     }
 
@@ -57,20 +57,20 @@ public class ConcurrentExecutorImpl implements ConcurrentExecutor{
         return result;
     }
 
-    private Collection<Future<Map<String, Integer>>> createFutures(Collection<CountWordsTask> tasks) {
-        List<Future<Map<String, Integer>>> result = new ArrayList<>(tasks.size());
+    private Collection<Future<ThreadResultContainer>> createFutures(Collection<CountWordsTask> tasks) {
+        List<Future<ThreadResultContainer>> result = new ArrayList<>(tasks.size());
         for (CountWordsTask task: tasks) {
-            Future<Map<String, Integer>> future = executorService.submit(task);
+            Future<ThreadResultContainer> future = executorService.submit(task);
             result.add(future);
         }
         return result;
     }
 
-    private List<Map<String, Integer>> waitForAllResults(Collection<Future<Map<String, Integer>>> futures) {
-        List<Map<String, Integer>> result = new ArrayList<>(futures.size());
+    private List<ThreadResultContainer> waitForAllResults(Collection<Future<ThreadResultContainer>> futures) {
+        List<ThreadResultContainer> result = new ArrayList<>(futures.size());
         try {
-            for (Future<Map<String, Integer>> future : futures) {
-                Map<String, Integer> eachResult = future.get(processingTimeout, TimeUnit.SECONDS);
+            for (Future<ThreadResultContainer> future : futures) {
+                ThreadResultContainer eachResult = future.get(processingTimeout, TimeUnit.SECONDS);
                 result.add(eachResult);
             }
         } catch (InterruptedException e) {

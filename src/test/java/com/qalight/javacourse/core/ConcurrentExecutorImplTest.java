@@ -1,5 +1,6 @@
 package com.qalight.javacourse.core;
 
+import com.qalight.javacourse.service.ThreadResultContainer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,13 +23,14 @@ public class ConcurrentExecutorImplTest {
     private static final int DEFAULT_MAX_POOL_SIZE = 3;
     private static final ThreadFactory THREAD_FACTORY = Executors.defaultThreadFactory();
     private CountWordsProcessor defaultProcessor;
-    private Map<String, Integer> defaultExpectedResult;
+    private ThreadResultContainer defaultExpectedResult;
     private ConcurrentExecutor executor;
 
     @Before
     public void setUp() throws Exception {
-        defaultExpectedResult = new HashMap<>();
-        defaultExpectedResult.put("word", 10);
+        Map<String, Integer> expectedMap = new HashMap<>();
+        expectedMap.put("word", 10);
+        defaultExpectedResult = new ThreadResultContainer(expectedMap);
 
         defaultProcessor = mock(CountWordsProcessor.class);
         when(defaultProcessor.process(any(String.class))).thenReturn(defaultExpectedResult);
@@ -45,7 +47,7 @@ public class ConcurrentExecutorImplTest {
         input.add("word");
 
         // when
-        List<Map<String, Integer>> actual = executor.countAsynchronously(input);
+        List<ThreadResultContainer> actual = executor.countAsynchronously(input);
 
         // then
         verify(defaultProcessor, times(1)).process(any(String.class));
@@ -63,7 +65,7 @@ public class ConcurrentExecutorImplTest {
         input.add("word");
 
         // when
-        List<Map<String, Integer>> actual = executor.countAsynchronously(input);
+        List<ThreadResultContainer> actual = executor.countAsynchronously(input);
 
         // then
         verify(defaultProcessor, times(1)).process(any(String.class));
@@ -81,7 +83,7 @@ public class ConcurrentExecutorImplTest {
         input.add("http://three");
 
         // when
-        List<Map<String, Integer>> actual = executor.countAsynchronously(input);
+        List<ThreadResultContainer> actual = executor.countAsynchronously(input);
 
         // then
         verify(defaultProcessor, times(3)).process(any(String.class));
@@ -103,7 +105,7 @@ public class ConcurrentExecutorImplTest {
         CountWordsProcessor longRunningProcessor = mock(CountWordsProcessor.class);
         when(longRunningProcessor.process(any(String.class))).thenAnswer(invocation -> {
             Thread.sleep(runningTimeMillis);
-            return defaultExpectedResult;
+            return defaultExpectedResult.getCountedResult();
         });
 
         executor = new ConcurrentExecutorImpl(
@@ -132,7 +134,7 @@ public class ConcurrentExecutorImplTest {
         CountWordsProcessor longRunningProcessor = mock(CountWordsProcessor.class);
         when(defaultProcessor.process(any(String.class))).thenAnswer(invocation -> {
             Thread.sleep(runningSeconds);
-            return defaultExpectedResult;
+            return defaultExpectedResult.getCountedResult();
         });
 
         executor = new ConcurrentExecutorImpl(

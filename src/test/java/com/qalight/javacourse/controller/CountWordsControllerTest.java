@@ -3,7 +3,6 @@ package com.qalight.javacourse.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.core.Is.*;
 
 import com.qalight.javacourse.service.JsonResultPresentation;
 import com.qalight.javacourse.service.WordCounterResultContainer;
@@ -17,8 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CountWordsControllerTest {
@@ -28,40 +26,21 @@ public class CountWordsControllerTest {
     @Mock private JsonResultPresentation resultPresentation;
     private WordCounterResultContainer result;
     private MockMvc mockMvc;
-    private Map<String, Integer> expectedResult;
 
     @Before
     public void setUp() throws Exception {
-        expectedResult = new HashMap();
+        List expectedErrorList = Collections.emptyList();
+        Map<String, Integer>  expectedResult = new HashMap();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
-        result = new WordCounterResultContainerImpl(expectedResult);
+        result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList);
         CountWordsController controller = new CountWordsController(wordCounterService, resultPresentation);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
-    public void testGetResult() throws Exception {
-        final String expectedBody = "{\"success\":true,\"unFilteredWords\":[[\"two\",\"2\"],[\"one\",\"1\"]]}";
-
-        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
-        when(resultPresentation.createResponse(anyMap())).thenReturn(expectedBody);
-
-        mockMvc.perform(post("/countWords")
-                .param("textCount", "one two two"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(CONTENT_TYPE))
-                .andExpect(jsonPath("success", is(true)))
-                .andExpect(jsonPath("unFilteredWords").exists())
-                .andExpect(content().string(expectedBody));
-
-        verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));
-        verify(resultPresentation, times(1)).createResponse(anyMap());
-    }
-
-    @Test
-    public void testGetResultRestStyle() throws Exception {
-        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2}}";
+    public void testGetResultRestStyleWithoutError() throws Exception {
+        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]}";
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
@@ -69,7 +48,24 @@ public class CountWordsControllerTest {
                 .param("textCount", "one two two"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
-                .andExpect(jsonPath("countedResult", is(expectedResult)))
+                .andExpect(content().string(expectedBody));
+
+        verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));
+    }
+
+    @Test
+    public void testGetResultRestStyleWithError() throws Exception {
+        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]}";
+        final Map<String, Integer> expectedEmptyMap = Collections.emptyMap();
+        final List expectedErrorList = Arrays.asList("Error has occurred.", "ERROR!!!");
+        result = new WordCounterResultContainerImpl(expectedEmptyMap, expectedErrorList);
+
+        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
+
+        mockMvc.perform(post("/countWordsRestStyle")
+                .param("textCount", "http://some-nonexistent-site.com"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(CONTENT_TYPE))
                 .andExpect(content().string(expectedBody));
 
         verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));

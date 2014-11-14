@@ -1,5 +1,6 @@
 package com.qalight.javacourse.core;
 
+import com.qalight.javacourse.service.ThreadResultContainer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,13 @@ public class CountWordsProcessorImplIntegrationTest {
         String input = "one, two,  two";
 
         // when
-        Map<String, Integer> actual = processor.process(input);
+        ThreadResultContainer actual = processor.process(input);
 
         // then
         Map<String, Integer> expected = new HashMap<>();
         expected.put("one", 1);
         expected.put("two", 2);
-        assertEquals(expected, actual);
+        assertEquals(expected, actual.getCountedResult());
     }
 
     @Test(timeout = 120_000)
@@ -40,10 +41,10 @@ public class CountWordsProcessorImplIntegrationTest {
         String input = "http://95.158.60.148:8008/kpl/King-James-Bible-KJV-Bible-PDF.pdf";
 
         // when
-        Map<String, Integer> actual = processor.process(input);
+        ThreadResultContainer actual = processor.process(input);
 
 
         // then
-        assertTrue(actual.size() > 100);
+        assertTrue(actual.getCountedResult().size() > 100);
     }
 }

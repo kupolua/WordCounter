@@ -39,7 +39,7 @@ public class CountWordsProcessorImplTest {
                 textTypeInquirer, documentConverter, wordCounter, textRefiner);
 
         // when
-        final Map<String, Integer> actual = processor.process(inputText);
+        final ThreadResultContainer actual = processor.process(inputText);
 
         // then
         verify(textTypeInquirer, times(1)).inquireTextType(any(String.class));
@@ -47,6 +47,6 @@ public class CountWordsProcessorImplTest {
         verify(wordCounter, times(1)).countWords(any(List.class));
         verify(textRefiner, times(1)).refineText(any(String.class));
 
-        assertEquals(expectedResult, actual);
+        assertEquals(expectedResult, actual.getCountedResult());
     }
 }

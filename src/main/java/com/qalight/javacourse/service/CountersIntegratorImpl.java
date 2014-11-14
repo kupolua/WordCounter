@@ -1,7 +1,9 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.util.Assertions;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,23 +11,35 @@ import java.util.Map;
 @Component
 public class CountersIntegratorImpl implements CountersIntegrator {
     @Override
-    public Map<String, Integer> integrateResults(List<Map<String, Integer>> results) {
-        if (results == null) {
-            throw new IllegalArgumentException("results collection should not be null");
-        }
+    public ThreadResultContainer integrateResults(List<ThreadResultContainer> results) {
+        Assertions.assertObjectIsNotNull(results);
 
-        Map<String, Integer> result = new HashMap<>(results.size());
-        for (Map<String, Integer> eachResultMap : results){
-            for (Map.Entry<String, Integer> eachEntry : eachResultMap.entrySet()) {
-                Integer count = result.get(eachEntry.getKey());
-                if (count == null){
-                    result.put(eachEntry.getKey(), eachEntry.getValue());
-                } else {
-                    int sum = count + eachEntry.getValue();
-                    result.put(eachEntry.getKey(), sum);
-                }
+        Map<String, Integer> resultMap = new HashMap<>(results.size());
+        List<String> errorsList = new ArrayList<>();
+        for (ThreadResultContainer eachContainer : results){
+            addError(errorsList, eachContainer);
+            addResults(resultMap, eachContainer);
+        }
+        return new ThreadResultContainer(resultMap, errorsList);
+    }
+
+    private void addResults(Map<String, Integer> resultMap, ThreadResultContainer eachContainer) {
+        Map<String, Integer> eachResultMap = eachContainer.getCountedResult();
+        for (Map.Entry<String, Integer> eachEntry : eachResultMap.entrySet()) {
+            Integer count = resultMap.get(eachEntry.getKey());
+            if (count == null){
+                resultMap.put(eachEntry.getKey(), eachEntry.getValue());
+            } else {
+                int sum = count + eachEntry.getValue();
+                resultMap.put(eachEntry.getKey(), sum);
             }
         }
-        return result;
+    }
+
+    private void addError(List<String> errorsList, ThreadResultContainer eachContainer) {
+        String error = eachContainer.getError();
+        if (error != null){
+            errorsList.add(error);
+        }
     }
 }

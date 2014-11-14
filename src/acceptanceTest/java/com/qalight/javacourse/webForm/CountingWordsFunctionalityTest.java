@@ -2,6 +2,7 @@ package com.qalight.javacourse.webForm;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -67,6 +68,7 @@ public class CountingWordsFunctionalityTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Ignore
     @Test
     public void testIncorrectUrl() {
         // given
@@ -84,6 +86,7 @@ public class CountingWordsFunctionalityTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Ignore
     @Test
     public void testImproperInput() {
         // given

@@ -1,5 +1,6 @@
 package com.qalight.javacourse.core;
 
+import com.qalight.javacourse.service.ThreadResultContainer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -26,16 +27,17 @@ public class CountWordsTaskTest {
         final Map<String, Integer> expectedResult = new HashMap<>();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
-        when(wordsProcessor.process(anyString())).thenReturn(expectedResult);
+        ThreadResultContainer container = new ThreadResultContainer(expectedResult);
+        when(wordsProcessor.process(anyString())).thenReturn(container);
 
         CountWordsTask wordsTask = new CountWordsTask(clientRequest, wordsProcessor);
 
         //when
-        final Map<String, Integer> actualResult = wordsTask.call();
+        final ThreadResultContainer actualResult = wordsTask.call();
 
         //then
         verify(wordsProcessor, times(1)).process(anyString());
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult.getCountedResult());
     }
 }

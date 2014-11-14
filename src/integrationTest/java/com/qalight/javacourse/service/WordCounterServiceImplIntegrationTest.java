@@ -118,34 +118,6 @@ public class WordCounterServiceImplIntegrationTest {
         // expected exception
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testGetWordCounterResult_invalidSingleParam() throws Exception {
-        // given
-        final String invalidTextCount = "http://95.158.60.148:8008/kpl/testingPageINVALID.html";
-        final CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(invalidTextCount);
-
-        // when
-        final WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
-
-        // then
-        // expected exception
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void testGetWordCounterResult_invalidFullParam() throws Exception {
-        // given
-        final String invalidTextCount = "http://95.158.60.148:8008/kpl/testingPageINVALID.html";
-        final String isFilterRequired = "true";
-        final CountWordsUserRequest userRequest =
-                new CountWordsUserRequestImpl(invalidTextCount, KEY_ASCENDING, isFilterRequired);
-
-        // when
-        final WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
-
-        // then
-        // expected exception
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testGetWordCounterResult_nullSingleParam()  throws Exception {
         // given

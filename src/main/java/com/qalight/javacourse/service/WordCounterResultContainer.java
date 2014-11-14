@@ -1,10 +1,9 @@
 package com.qalight.javacourse.service;
 
+import java.util.List;
 import java.util.Map;
 
-/**
- * Created by box on 28.10.2014.
- */
 public interface WordCounterResultContainer {
     Map<String, Integer> getCountedResult();
+    List getErrors();
 }

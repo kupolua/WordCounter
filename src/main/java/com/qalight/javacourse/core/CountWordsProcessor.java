@@ -1,7 +1,7 @@
 package com.qalight.javacourse.core;
 
-import java.util.Map;
+import com.qalight.javacourse.service.ThreadResultContainer;
 
 public interface CountWordsProcessor {
-    public Map<String, Integer> process(String clientRequest);
+    public ThreadResultContainer process(String clientRequest);
 }

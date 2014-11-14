@@ -76,18 +76,4 @@ public class ExportControllerIntegrationTest {
                 .andExpect(view().name("error"))
                 .andExpect(model().attribute("exception", errorMsg));
     }
-
-    @Test
-    public void testHandleRuntimeException() throws Exception {
-        final String errorMsg = "Error during executing request: Can't connect to: http://gooagle.ua";
-
-        mockMvc.perform(post("/downloadExcel")
-                .param(TEXT_COUNT_PARAM_NAME, "http://gooagle.ua")
-                .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
-                .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
-                .andExpect(forwardedUrl("error"))
-                .andExpect(model().attributeExists("exception"))
-                .andExpect(view().name("error"))
-                .andExpect(model() .attribute("exception", errorMsg));
-    }
 }

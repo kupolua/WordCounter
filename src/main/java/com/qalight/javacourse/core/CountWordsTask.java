@@ -1,9 +1,10 @@
 package com.qalight.javacourse.core;
 
-import java.util.Map;
+import com.qalight.javacourse.service.ThreadResultContainer;
+
 import java.util.concurrent.Callable;
 
-public class CountWordsTask implements Callable<Map<String, Integer>> {
+public class CountWordsTask implements Callable<ThreadResultContainer> {
     private final String clientRequest;
     private final CountWordsProcessor wordsProcessor;
 
@@ -13,7 +14,7 @@ public class CountWordsTask implements Callable<Map<String, Integer>> {
     }
 
     @Override
-    public Map<String, Integer> call() throws Exception {
+    public ThreadResultContainer call() throws Exception {
         return wordsProcessor.process(clientRequest);
     }
 }
