@@ -22,6 +22,7 @@ public class ResultsPresentationFunctionalityTest {
     private final String HtmlTestPagePresentation = "http://defas.com.ua/java/textForTestShowEntries.html";
     private final String expectedByDefault = "и 3\n" + "java 2\n" + "новая 2\n" + "в 2\n" + "время 2\n" + "версия 2\n" +
             "swing 2\n" + "версии 2\n" + "будет 2\n" + "старт 2";
+    private final String elementIdLinkPrev = "countedWords_previous";
 
     @BeforeClass
     public static void init() {
@@ -94,6 +95,37 @@ public class ResultsPresentationFunctionalityTest {
     }
 
     @Test
+    public void testShowEntries50_withNextAndPreviousPage() throws Exception {
+        // given
+        driver.get(BASE_URL);
+        final String ruAlphabetLink = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
+        final String enAlphabetLink = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
+        final String dataTablesLength50 = "50";
+        final String expectedResult50 = "а 2\n" + "б 2\n" + "в 2\n" + "г 2\n" + "е 2\n" + "з 2\n" + "и 2\n" +
+                "й 2\n" + "к 2\n" + "л 2\n" + "м 2\n" + "н 2\n" + "о 2\n" + "п 2\n" + "с 2\n" + "т 2\n" + "у 2\n" +
+                "ф 2\n" + "х 2\n" + "ц 2\n" + "ч 2\n" + "ш 2\n" + "щ 2\n" + "ъ 2\n" + "ы 2\n" + "ь 2\n" + "э 2\n" +
+                "ю 2\n" + "a 2\n" + "b 2\n" + "c 2\n" + "d 2\n" + "e 2\n" + "f 2\n" + "g 2\n" + "h 2\n" + "i 2\n" +
+                "j 2\n" + "k 2\n" + "l 2\n" + "m 2\n" + "n 2\n" + "p 2\n" + "q 2\n" + "s 2\n" + "u 2\n" + "v 2\n" +
+                "w 2\n" + "x 2\n" + "y 2";
+        final String expectedResult8 = "д 1\n" + "ж 1\n" + "р 1\n" + "я 1\n" + "o 1\n" + "r 1\n" + "t 1\n" + "z 1";
+
+        // when
+        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        new Select(driver.findElement(By.name(elementDataTablesLength))).selectByVisibleText(dataTablesLength50);
+
+        driver.findElement(By.id(elementIdLinkNext)).click();
+        String actualResult8 = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+
+        driver.findElement(By.id(elementIdLinkPrev)).click();
+        String actualResult50 = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+
+        // then
+        assertEquals(expectedResult8, actualResult8);
+        assertEquals(expectedResult50, actualResult50);
+    }
+
+    @Test
     public void testShowEntries100() throws Exception {
         // given
         driver.get(BASE_URL);
@@ -162,13 +194,12 @@ public class ResultsPresentationFunctionalityTest {
     public void testPreviousResponse() {
         // given
         driver.get(BASE_URL);
-        final String ELEMENT_ID_LINK_PREV = "countedWords_previous";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(elementIdLinkNext)).click();
-        driver.findElement(By.id(ELEMENT_ID_LINK_PREV)).click();
+        driver.findElement(By.id(elementIdLinkPrev)).click();
 
         // then
         String actualPreviousResponse = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
