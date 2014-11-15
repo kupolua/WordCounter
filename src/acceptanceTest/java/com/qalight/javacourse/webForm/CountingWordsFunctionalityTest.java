@@ -234,12 +234,78 @@ public class CountingWordsFunctionalityTest {
     @Test
     public void testEnterThreeLinks() {
         // given
+        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
+                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
+        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String expectedEnterThreeLinks = "test 3\n" + "думи 2\n" + "a 1\n" + "мої 1\n" + "santa-monica 1\n" +
+                "people 1\n" + "nice 1";
+
         driver.get(BASE_URL);
-        final String expectedEnterThreeLinks = "one 12\n" + "ёлка 9\n" + "two 9\n" + "білка 9\n" + "объем 9\n" +
-                "їжак 6\n" + "объём 3\n" + "ученики 3\n" + "і 3\n" + "але 3";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE + SEPARATOR + pdfTestPage + SEPARATOR + docTestPage);
+        putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        //then
+        String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks);
+    }
+    @Ignore
+    @Test
+    public void testEnterThreeLinks_withBrokenHtmlLink() {
+        // given
+        final String htmlPageLatin = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
+        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
+                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
+        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String expectedEnterThreeLinks = "";
+
+        driver.get(BASE_URL);
+
+        // when
+        putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        //then
+        String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks);
+    }
+
+    @Ignore
+    @Test
+    public void testEnterThreeLinks_withNoReadableTextInPdf() {
+        // given
+        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
+        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
+        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String expectedEnterThreeLinks = "";
+
+        driver.get(BASE_URL);
+
+        // when
+        putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        //then
+        String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks);
+    }
+
+    @Ignore
+    @Test
+    public void testEnterThreeLinks_withBrokenTxtLink() {
+        // given
+        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
+        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
+                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx ";
+        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
+        final String expectedEnterThreeLinks = "";
+
+        driver.get(BASE_URL);
+
+        // when
+        putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
