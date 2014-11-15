@@ -1,5 +1,6 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.util.Assertions;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.slf4j.Logger;
@@ -26,11 +27,12 @@ public class DocToStringConverter implements DocumentToStringConverter {
 
     @Override
     public String convertToString(String userSourcesList) {
+        Assertions.assertStringIsNotNullOrEmpty(userSourcesList);
         final Tika tika = getTika();
         URL url = createUrlObject(userSourcesList);
-        String text;
+        String extractedText;
         try {
-            text = tika.parseToString(url);
+            extractedText = tika.parseToString(url);
         } catch (IOException e) {
             LOG.error("I/O operation has been failed or interrupted while processing <" + userSourcesList + ">.", e);
             throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ", e);
@@ -39,7 +41,8 @@ public class DocToStringConverter implements DocumentToStringConverter {
             throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ", e);
         }
         LOG.info("Connection to " + userSourcesList + " has been successfully established.");
-        return text;
+        Assertions.assertStringIsNotNullOrEmpty(extractedText, userSourcesList);
+        return extractedText;
     }
 
     protected Tika getTika() {

@@ -9,6 +9,13 @@ public class Assertions {
         }
     }
 
+    public static void assertStringIsNotNullOrEmpty(String str, String clientRequest) {
+        if (str == null || str.trim().length() < 1) {
+            throw new IllegalArgumentException("System cannot count entered text {" + clientRequest +"}. " +
+                    "Did you forget to add 'http://' to the link or entered not readable text?");
+        }
+    }
+
     public static void assertObjectIsNotNull(Object obj) {
         if (obj == null) {
             throw new IllegalArgumentException("Object is null");

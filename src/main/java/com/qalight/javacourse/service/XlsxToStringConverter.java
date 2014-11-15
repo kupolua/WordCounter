@@ -39,7 +39,7 @@ public class XlsxToStringConverter implements DocumentToStringConverter {
         } finally {
             closeInputStream(stream);
         }
-
+        Assertions.assertStringIsNotNullOrEmpty(extractedText, userSourcesList);
         return extractedText;
     }
 

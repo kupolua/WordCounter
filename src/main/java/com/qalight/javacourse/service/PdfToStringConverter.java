@@ -25,21 +25,22 @@ public class PdfToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public String convertToString(String userUrl) {
-        Assertions.assertStringIsNotNullOrEmpty(userUrl);
+    public String convertToString(String userSourcesList) {
+        Assertions.assertStringIsNotNullOrEmpty(userSourcesList);
         PdfReader reader = null;
         try {
-            reader = getPdfReader(userUrl);
+            reader = getPdfReader(userSourcesList);
         } catch (IOException e) {
             String msg = "Can't connect to ";
-            LOG.error(msg + userUrl, e);
-            throw new RuntimeException(msg + userUrl, e);
+            LOG.error(msg + userSourcesList, e);
+            throw new RuntimeException(msg + userSourcesList, e);
         } finally {
             if (reader != null) reader.close();
         }
-        LOG.info("Connection to " + userUrl + " has been successfully established.");
-
-        return getTextFromAllPages(reader);
+        LOG.info("Connection to " + userSourcesList + " has been successfully established.");
+        String extractedText = getTextFromAllPages(reader);
+        Assertions.assertStringIsNotNullOrEmpty(extractedText, userSourcesList);
+        return extractedText;
     }
 
     protected PdfReader getPdfReader(String userUrl) throws IOException {

@@ -1,5 +1,6 @@
 package com.qalight.javacourse.service;
 
+import com.qalight.javacourse.util.Assertions;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
@@ -26,18 +27,20 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public String convertToString(String userUrl) {
+    public String convertToString(String userSourcesList) {
+        Assertions.assertStringIsNotNullOrEmpty(userSourcesList);
         final HtmlToPlainText htmlToPlainText = getHtmlToPlainText();
         Document html;
         try {
-            html = getDocument(userUrl);
+            html = getDocument(userSourcesList);
         } catch (IOException e) {
-            LOG.error("Can't connect to " + userUrl, e);
-            throw new RuntimeException("Can't connect to: " + userUrl, e);
+            LOG.error("Can't connect to " + userSourcesList, e);
+            throw new RuntimeException("Can't connect to: " + userSourcesList, e);
         }
-        LOG.info("Connection to " + userUrl + " has been successfully established.");
-
-        return htmlToPlainText.getPlainText(html);
+        LOG.info("Connection to " + userSourcesList + " has been successfully established.");
+        String extractedText = htmlToPlainText.getPlainText(html);
+        Assertions.assertStringIsNotNullOrEmpty(extractedText, userSourcesList);
+        return extractedText;
     }
 
     protected HtmlToPlainText getHtmlToPlainText() {
