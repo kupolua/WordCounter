@@ -33,6 +33,132 @@ public class CountingWordsFunctionalityTest {
     }
 
     @Test
+    public void countWordInWebPageViaUrl_cyrillic() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedResult = "аэросъемка 2\nдымарь 2\nнет 1\nщеголь 1\nон 1";
+
+        // when
+        putDataAndClickCountButton(driver, "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html");
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void countWordInWebPageViaUrl_latin() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedResult = "test 3\na 1\nsanta-monica 1";
+
+        // when
+        putDataAndClickCountButton(driver, "http://kupol.in.ua/wordcounter/testData/page_latin.html");
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Ignore
+    @Test
+    public void countWordInWebPageViaUrl_noTextOnPage() {
+        // given
+        driver.get(BASE_URL);
+        String expectedResult = "Error during executing request: Can't connect to: " +
+                "http://kupol.in.ua/wordcounter/testData/page_no_text.html";
+
+        // when
+        putDataAndClickCountButton(driver, "http://kupol.in.ua/wordcounter/testData/page_no_text.html");
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.id(ELEMENT_ID_MESSAGE)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Ignore
+    @Test
+    public void countWordInWebPageViaUrl_invalidLink() {
+        // given
+        driver.get(BASE_URL);
+        String expectedResult = "Error during executing request: Can't connect to: " +
+                "http://kupol...in.ua/wordcounter/testData/page_no_text.html";
+
+        // when
+        putDataAndClickCountButton(driver, "http://kupol...in.ua/wordcounter/testData/page_no_text.html");
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.id(ELEMENT_ID_MESSAGE)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void countWordInDocumentViaUrl_cyrillic_Pptx() {
+        // given
+        driver.get(BASE_URL);
+        String expectedResult = "думи 2\nмої 1";
+
+        // when
+        putDataAndClickCountButton(driver,
+                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx");
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void countWordInDocumentViaUrl_lettersAndNumbers_Txt() {
+        // given
+        driver.get(BASE_URL);
+        String expectedResult = "people 1\nnice 1";
+
+        // when
+        putDataAndClickCountButton(driver, "http://kupol.in.ua/wordcounter/testData/letters+numbers.txt");
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void countWordInDocumentViaUrl_1500Words_Pdf() {
+        // given
+        driver.get(BASE_URL);
+        String expectedResult = "word 665\nтексте 507\nмінімум 253\nв 75";
+
+        // when
+        putDataAndClickCountButton(driver, "https://dl.dropboxusercontent.com/u/18408157/Test_data/1500_words.pdf");
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Ignore
+    @Test
+    public void countWordInDocumentViaUrl_noTextInFile_Pdf() {
+        // given
+        driver.get(BASE_URL);
+        String expectedResult = "Error during executing request: Request is null or empty";
+
+        // when
+        putDataAndClickCountButton(driver, "https://dl.dropboxusercontent.com/u/18408157/Test_data/Pdf_no_text.pdf");
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.id(ELEMENT_ID_MESSAGE)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void testInputText() throws InterruptedException {
         // given
         Thread.sleep(waitTime);
@@ -339,9 +465,9 @@ public class CountingWordsFunctionalityTest {
 
         driver.get(BASE_URL);
         driverSecondary.get(BASE_URL);
-        //todo change link
-        final String htmlTestPageSecondary = "https://dl.dropboxusercontent.com/u/12495182/" +
-                "textForSeleniumTestSecondary.pdf";
+
+        final String htmlTestPageSecondary =
+                "http://kupol.in.ua/wordcounter/testData/textForSeleniumTestSecondary.pdf";
 
         // when
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
