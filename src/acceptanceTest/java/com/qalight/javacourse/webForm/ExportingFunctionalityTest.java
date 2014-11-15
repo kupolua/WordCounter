@@ -22,8 +22,8 @@ public class ExportingFunctionalityTest {
 
     @BeforeClass
     public static void init() {
-        final String pathWindowsOs = "C:\\";
-        final String pathMacOs = "/Users/";
+        final String pathWindowsOs = System.getProperty("user.dir") + "\\src\\acceptanceTest\\resources\\";
+        final String pathMacOs =  System.getProperty("user.dir") + "/src/acceptanceTest/resources/";
         //todo add path when os is linux or other
         if (isMacOs()){
             pathResources = pathMacOs;
