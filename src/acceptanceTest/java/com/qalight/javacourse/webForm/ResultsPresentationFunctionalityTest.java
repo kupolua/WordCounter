@@ -23,6 +23,9 @@ public class ResultsPresentationFunctionalityTest {
     private final String expectedByDefault = "и 3\n" + "java 2\n" + "новая 2\n" + "в 2\n" + "время 2\n" + "версия 2\n" +
             "swing 2\n" + "версии 2\n" + "будет 2\n" + "старт 2";
     private final String elementIdLinkPrev = "countedWords_previous";
+    private final String ruAlphabetLink = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
+    private final String enAlphabetLink = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
+    private final String xPathLastPage = "//*[@id=\"countedWords_paginate\"]/ul/li[7]/a";
 
     @BeforeClass
     public static void init() {
@@ -98,8 +101,6 @@ public class ResultsPresentationFunctionalityTest {
     public void testShowEntries50_withNextAndPreviousPage() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String ruAlphabetLink = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
-        final String enAlphabetLink = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
         final String dataTablesLength50 = "50";
         final String expectedResult50 = "а 2\n" + "б 2\n" + "в 2\n" + "г 2\n" + "е 2\n" + "з 2\n" + "и 2\n" +
                 "й 2\n" + "к 2\n" + "л 2\n" + "м 2\n" + "н 2\n" + "о 2\n" + "п 2\n" + "с 2\n" + "т 2\n" + "у 2\n" +
@@ -174,35 +175,72 @@ public class ResultsPresentationFunctionalityTest {
     }
 
     @Test
-    public void testNextResponse() {
+    public void testNextPage() {
         // given
         driver.get(BASE_URL);
-        final String expectedNextResponse = "имя 1\n" + "слово 1\n" + "a 1\n" + "но 1\n" + "дом 1\n" + "друг 1\n" +
-                "єнот 1\n" + "время 1\n" + "та 1\n" + "the 1";
+        final String expectedResult = "м 2\n" + "н 2\n" + "о 2\n" + "п 2\n" + "с 2\n" + "т 2\n" + "у 2\n" + "ф 2\n" +
+                "х 2\n" + "ц 2";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(elementIdLinkNext)).click();
 
         // then
-        String actualNextResponse = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-        assertEquals(expectedNextResponse, actualNextResponse);
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void testPreviousResponse() {
+    public void testPreviousPage() {
         // given
         driver.get(BASE_URL);
+        final String expectedResult = "а 2\n" + "б 2\n" + "в 2\n" + "г 2\n" + "е 2\n" + "з 2\n" + "и 2\n" + "й 2\n" +
+                "к 2\n" + "л 2";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(elementIdLinkNext)).click();
         driver.findElement(By.id(elementIdLinkPrev)).click();
 
         // then
-        String actualPreviousResponse = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-        assertEquals(EXPECTED_STANDARD_RESULT, actualPreviousResponse);
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testLastPage() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedResult = "д 1\n" + "ж 1\n" + "р 1\n" + "я 1\n" + "o 1\n" + "r 1\n" + "t 1\n" + "z 1";
+
+        // when
+        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.xpath(xPathLastPage)).click();
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testFirstPage() {
+        // given
+        driver.get(BASE_URL);
+        final String xPathFirstPage = "//*[@id=\"countedWords_paginate\"]/ul/li[2]/a";
+        final String expectedResult = "а 2\n" + "б 2\n" + "в 2\n" + "г 2\n" + "е 2\n" + "з 2\n" + "и 2\n" + "й 2\n" +
+                "к 2\n" + "л 2";
+
+        // when
+        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        driver.findElement(By.xpath(xPathLastPage)).click();
+        driver.findElement(By.xpath(xPathFirstPage)).click();
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
     }
 }
