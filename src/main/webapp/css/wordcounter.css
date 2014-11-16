@@ -1,4 +1,86 @@
 /* INDEX */
+
+.spoiler_desc {
+    background: #ffffff;
+    padding: 10px 5px;
+    border-radius: 0 0 5px 5px;
+    margin-top: 22px;
+}
+.spoiler_desc p {
+    cursor: text;
+    color: #050302;
+}
+.spoiler_close {
+    display: none;
+    text-align: left;
+    padding-top: 3px;
+    padding-left: 10px;
+    width: 100%;
+    height: 22px;
+    background: url(../img/minus.png) 4px  60% no-repeat;
+    border-radius: 5px 5px 0 0;
+    text-indent: 10px;
+    cursor: default;
+    border-bottom: 1px dotted #050302;
+    position: absolute;
+    top: 0px;
+    left: 0;
+}
+.spoiler_close:hover { background: url(../img/minus.png) 4px  60% no-repeat; }
+.spoiler_open:before {
+    text-align: left;
+    padding-top: 3px;
+    padding-left: 50px;
+    border-bottom: 1px dotted #050302;
+    cursor: default;
+    text-indent: 10px;
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+    height: 22px;
+    background: url(../img/plus.png) 4px  60% no-repeat;
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0;
+}
+.spoiler_open:hover:before { background: url(../img/plus.png) 4px  60% no-repeat; }
+.spoiler_open {
+    text-align: left;
+    margin: 5px 10px 25px 15px;
+    height: 23px;
+    width: 100%;
+    outline: none;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: height 0.3s ease;
+    -moz-transition: height 0.3s ease;
+    -ms-transition: height 0.3s ease;
+    -o-transition: height 0.3s ease;
+    transition: height 0.3s ease;
+}
+.spoiler_title {
+    display: none;
+    text-align: left;
+    padding-top: 3px;
+    padding-left: 10px;
+    width: 100%;
+    height: 22px;
+    background: url(../img/plus.png) 4px  60% no-repeat;
+    border-radius: 5px 5px 0 0;
+    text-indent: 10px;
+    cursor: default;
+    border-bottom: 1px dotted #050302;
+    position: absolute;
+    top: 0px;
+    left: 0;
+}
+.spoiler_open:focus { height: 150px; }
+.spoiler_open:focus .spoiler_close { display: block; }
+.spoiler_open:focus .spoiler_title { display: none; }
+.spoiler_open:focus:before { display: none; }
+.spoiler_title { display: block; }
+
 .filterButton div:nth-child(1){
     float: left;
 }
@@ -17,7 +99,15 @@
     padding-top: 15px;
     float: left;
 }
+#errorsContainer {
+    border: 0;
+    background: #ffffff;
+    color: #ff511d;;
+}
 
+#errorsSpoiler {
+    display: none;
+}
 #consolidateFilter {
     display: none;
 }

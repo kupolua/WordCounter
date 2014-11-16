@@ -9,6 +9,9 @@ var tableSortingFieldParam = 1;
 var tableSortingOrderParam = "desc";
 var opts;
 var target;
+var dataErrors;
+var errorsMessage = "";
+var isErrors = false;
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
@@ -40,17 +43,19 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "./countWords",
+            url: "./countWordsRestStyle",
             data: dataString,
             dataType: "json",
             success: function(data) {
-                dataResponse = data.unFilteredWords;
+                dataResponse = data.countedResult;
+                dataErrors = data.errors;
                 countedWords = getCountedWords(dataResponse, isFilter);
                 setStatusFilterButton(isFilter);
                 displayResponseContainer();
                 if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
                     selectedRows = getSelectedRows();
                 }
+                showErrors(dataErrors);
                 writeTable(countedWords, selectedRows);
             },
             error: function(jqXHR){
@@ -185,8 +190,6 @@ function writeTable(countedWords, pageLength) {
 
 function getCountedWords(unFilteredWords, isFilter) {
     var index;
-    var unFilteredWordsLength = unFilteredWords.length;
-    var filterLength = 0;
     var countedWordsTable = [];
     var isFound = false;
     var isFilteredWord = 0;
@@ -195,12 +198,12 @@ function getCountedWords(unFilteredWords, isFilter) {
         var wordsFilter = $('#wordsFilter').text().split(' ');
     }
 
-    for(i = 0; i < unFilteredWordsLength; i++){
+    $.each( unFilteredWords, function( key, value ) {
         if(!isFilter) {
             countedWordsTable[isFilteredWord] = [];
             isFound = true;
         } else {
-            index = wordsFilter.indexOf(unFilteredWords[i][0]);
+            index = wordsFilter.indexOf(key);
             if (index < 0) {
                 countedWordsTable[isFilteredWord] = [];
                 isFound = true;
@@ -209,13 +212,11 @@ function getCountedWords(unFilteredWords, isFilter) {
             }
         }
         if(isFound) {
-            filterLength = unFilteredWords[i].length;
-            for(j = 0; j < filterLength; j++) {
-                countedWordsTable[isFilteredWord][j] = unFilteredWords[i][j];
-            }
+            countedWordsTable[isFilteredWord][0] = key;
+            countedWordsTable[isFilteredWord][1] = value;
             isFilteredWord++;
         }
-    }
+    });
     return countedWordsTable;
 }
 
@@ -249,6 +250,7 @@ function displayResponseContainer() {
     $("#wordCounterResponse").show();
     $('#countedWords').show();
     $("#messageCounter").hide();
+    $('#errorsContainer').text('');
 }
 
 function hideResponseContainer() {
@@ -260,4 +262,23 @@ function hideResponseContainer() {
     $("#saveAsXls").hide();
     $("#wordCounterResponse").hide();
     $('#countedWords').hide();
+    $('#errorsSpoiler').hide();
+}
+
+function showErrors(dataErrors) {
+    if (dataErrors == "") {
+        isErrors = false;
+    } else {
+        $.each(dataErrors, function (key, value) {
+            errorsMessage += value + '\n\n';
+            isErrors = true;
+        });
+    }
+    if (isErrors){
+        $('#errorsSpoiler').show();
+        $('#errorsContainer').append(errorsMessage);
+        errorsMessage = '';
+    } else {
+        $('#errorsSpoiler').hide();
+    }
 }
