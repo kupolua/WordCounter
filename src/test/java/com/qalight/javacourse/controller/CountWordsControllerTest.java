@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.*;
 
-import com.qalight.javacourse.service.JsonResultPresentation;
 import com.qalight.javacourse.service.WordCounterResultContainer;
 import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.qalight.javacourse.service.WordCounterService;
@@ -23,7 +22,6 @@ public class CountWordsControllerTest {
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
 
     @Mock private WordCounterService wordCounterService;
-    @Mock private JsonResultPresentation resultPresentation;
     private WordCounterResultContainer result;
     private MockMvc mockMvc;
 
@@ -34,7 +32,7 @@ public class CountWordsControllerTest {
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
         result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList);
-        CountWordsController controller = new CountWordsController(wordCounterService, resultPresentation);
+        CountWordsController controller = new CountWordsController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 

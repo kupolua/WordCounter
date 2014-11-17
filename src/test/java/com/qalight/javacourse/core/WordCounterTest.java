@@ -10,7 +10,7 @@ public class WordCounterTest {
 
     @Before
     public void setup() {
-        counter = new WordCounter();
+        counter = new WordCounterImpl();
     }
 
     @Test

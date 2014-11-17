@@ -1,7 +1,6 @@
 package com.qalight.javacourse.controller;
 
 import com.qalight.javacourse.service.ErrorDataContainer;
-import com.qalight.javacourse.service.JsonResultPresentation;
 import com.qalight.javacourse.service.WordCounterResultContainer;
 import com.qalight.javacourse.service.WordCounterService;
 import org.slf4j.Logger;
@@ -16,22 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class CountWordsController {
     private static final Logger LOG = LoggerFactory.getLogger(CountWordsController.class);
     private final WordCounterService wordCounterService;
-    private final JsonResultPresentation resultPresentation;
 
     @Autowired
-    public CountWordsController(@Qualifier("wordCounterService") WordCounterService wordCounterService, JsonResultPresentation resultPresentation) {
+    public CountWordsController(@Qualifier("wordCounterService") WordCounterService wordCounterService) {
         this.wordCounterService = wordCounterService;
-        this.resultPresentation = resultPresentation;
-    }
-
-    @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public String getResult(@RequestParam String textCount) throws Throwable {
-        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount);
-        WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
-
-        String jsonResult = resultPresentation.createResponse(result.getCountedResult());
-        return jsonResult;
     }
 
     @RequestMapping(value = "/countWordsRestStyle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -60,4 +47,5 @@ public class CountWordsController {
         ErrorDataContainer errorContainer = new ErrorDataContainer(ex.getMessage());
         LOG.error("Error while processing request: " + ex.getMessage(), ex);
         return errorContainer;
-    }}
+    }
+}
