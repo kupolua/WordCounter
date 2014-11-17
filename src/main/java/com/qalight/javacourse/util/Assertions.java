@@ -11,8 +11,8 @@ public class Assertions {
 
     public static void assertStringIsNotNullOrEmpty(String str, String clientRequest) {
         if (str == null || str.trim().length() < 1) {
-            throw new IllegalArgumentException("System cannot count entered text {" + clientRequest +"}. " +
-                    "Did you forget to add 'http://' to the link or entered not readable text?");
+            throw new IllegalArgumentException("System cannot count text in the source as it is empty or " +
+                    "contains non-readable content or symbols: " + clientRequest);
         }
     }
 
