@@ -41,16 +41,15 @@ public class InformationAboutFunctionalityTest {
         assertTrue(isAboutDisplayed);
     }
 
-    @Ignore
     @Test
     public void openAboutProjectPage_fromLinkInText() throws InterruptedException {
         // given
         driver.get(BASE_URL);
         final String elementIdAboutUsText = "aboutText";
-        String aboutUsLink = "find out more...";
+        String aboutUsCssSelector = "#welcomeText > a";
 
         // when
-        driver.findElement(By.linkText(aboutUsLink)).click();
+        driver.findElement(By.cssSelector(aboutUsCssSelector)).click();
         Thread.sleep(waitTime);
 
         // then

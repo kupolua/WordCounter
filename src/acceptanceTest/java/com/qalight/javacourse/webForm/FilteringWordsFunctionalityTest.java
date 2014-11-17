@@ -36,13 +36,12 @@ public class FilteringWordsFunctionalityTest {
 
     //todo: change Thread.sleep(WAIT_TIME) on better way
 
-    @Ignore
     @Test
     public void testFilterWords_latin_html() throws Exception {
         // given
         driver.get(BASE_URL);
         final String inputHtmlUrl = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
-        final String expectedResult = "test 3\na 1\nsanta-monica 1";
+        final String expectedResult = "test 3\nsanta-monica 1";
 
         // when
         putDataAndClickCountButton(driver, inputHtmlUrl);
