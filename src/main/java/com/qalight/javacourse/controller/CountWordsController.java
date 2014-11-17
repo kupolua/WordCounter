@@ -1,5 +1,6 @@
 package com.qalight.javacourse.controller;
 
+import com.qalight.javacourse.service.ErrorDataContainer;
 import com.qalight.javacourse.service.JsonResultPresentation;
 import com.qalight.javacourse.service.WordCounterResultContainer;
 import com.qalight.javacourse.service.WordCounterService;
@@ -44,19 +45,19 @@ public class CountWordsController {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value= HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public String handleIllegalArgumentExceptions(IllegalArgumentException ex) {
+    public ErrorDataContainer handleIllegalArgumentExceptions(IllegalArgumentException ex) {
         return getErrorMessage(ex);
     }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public String handleRuntimeExceptions(RuntimeException ex) {
+    public ErrorDataContainer handleRuntimeExceptions(RuntimeException ex) {
         return getErrorMessage(ex);
     }
 
-    private String getErrorMessage(Throwable ex) {
-        String errorMessage = resultPresentation.createErrorResponse(ex);
+    private ErrorDataContainer getErrorMessage(Throwable ex) {
+        ErrorDataContainer errorContainer = new ErrorDataContainer(ex.getMessage());
         LOG.error("Error while processing request: " + ex.getMessage(), ex);
-        return errorMessage;
+        return errorContainer;
     }}

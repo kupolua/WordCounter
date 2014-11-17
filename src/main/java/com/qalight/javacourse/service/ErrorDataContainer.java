@@ -6,4 +6,8 @@ public class ErrorDataContainer {
     public ErrorDataContainer(String message) {
         this.respMessage = message;
     }
+
+    public String getRespMessage() {
+        return respMessage;
+    }
 }
