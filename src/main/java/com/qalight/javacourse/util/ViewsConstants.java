@@ -24,6 +24,6 @@ public class ViewsConstants {
     public static final String HEADER_VALUE_PDF = "attachment; filename=\"calculatedWords.pdf\"";
     public static final String HEADER_VALUE_XLS = "attachment; filename=\"calculatedWords.xls\"";
     public static final String WORDS_SHEET_NAME = "Calculated Words";
-    public static final String ERROR_WORD = "Error(s)";
+    public static final String ERROR_WORD = "Error(s):";
     public static final String DASH = "- ";
 }

@@ -17,37 +17,56 @@ import java.util.Map;
 
 import static com.qalight.javacourse.util.ViewsConstants.*;
 
-//todo: refactor exception handling
 public class PdfBuilder extends AbstractPdfView {
     private static final Logger LOG = LoggerFactory.getLogger(PdfBuilder.class);
 
     @Override
     protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
-                                    HttpServletRequest request, HttpServletResponse response) throws Exception {
-        setExportFileName(response);
+                                    HttpServletRequest request, HttpServletResponse response)  {
+        try {
+            setExportFileName(response);
 
-        PdfPTable table = new PdfPTable(COLUMNS);
-        table.setWidthPercentage(WIDTH_PERCENTAGE);
-        table.setWidths(new float[] {WIDTH_TABLE_ONE, WIDTH_TABLE_TWO});
-        table.setSpacingBefore(SPACING_BEFORE_TABLE);
+            PdfPTable table = getPdfPTable();
 
-        PdfPCell cell = new PdfPCell();
-        cell.setPadding(PADDING);
+            PdfPCell cell = getPdfPCell();
 
-        setHeadCells(table, cell, request);
+            setHeadCells(table, cell, request);
 
-        setResultCells(model, table, cell);
+            setResultCells(table, cell ,model);
 
-        addErrorsIntoDocumentIfExists(document, model);
+            addErrorsIntoDocumentIfExists(document, model);
 
-        document.add(table);
+            document.add(table);
+        } catch (DocumentException e) {
+            final String msg = "An error has occurred while creating a document.";
+            LOG.error(msg, e);
+            createErrorPdfResponse(document, msg);
+        } catch (IOException e) {
+            final String msg = "An error has occurred while reading a font.";
+            LOG.error(msg, e);
+            createErrorPdfResponse(document, msg);
+        }
     }
 
     private void setExportFileName(HttpServletResponse response) {
         response.setHeader(RESPONSE_HEADER_NAME, HEADER_VALUE_PDF);
     }
 
-    private void setHeadCells(PdfPTable table, PdfPCell cell, HttpServletRequest request) {
+    private PdfPTable getPdfPTable() throws DocumentException {
+        PdfPTable table = new PdfPTable(COLUMNS);
+        table.setWidthPercentage(WIDTH_PERCENTAGE);
+        table.setWidths(new float[] {WIDTH_TABLE_ONE, WIDTH_TABLE_TWO});
+        table.setSpacingBefore(SPACING_BEFORE_TABLE);
+        return table;
+    }
+
+    private PdfPCell getPdfPCell() {
+        PdfPCell cell = new PdfPCell();
+        cell.setPadding(PADDING);
+        return cell;
+    }
+
+    private void setHeadCells(PdfPTable table, PdfPCell cell, HttpServletRequest request) throws IOException, DocumentException {
         final String userBrowserLocale = request.getHeader(REQUEST_HEADER_NAME);
         Font font = getArialBoldItalicFont();
         String wordsCell = HEAD_CELL_WORDS_EN;
@@ -66,7 +85,12 @@ public class PdfBuilder extends AbstractPdfView {
         table.addCell(cell);
     }
 
-    private void setResultCells(Map model, PdfPTable table, PdfPCell cell) {
+    private Font getArialBoldItalicFont() throws IOException, DocumentException {
+        BaseFont unicodeArialBold = BaseFont.createFont(FONT_ARIAL_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        return new Font(unicodeArialBold);
+    }
+
+    private void setResultCells(PdfPTable table, PdfPCell cell, Map model) throws IOException, DocumentException {
         Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
         Font font = getArialNormalFont();
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
@@ -77,7 +101,12 @@ public class PdfBuilder extends AbstractPdfView {
         }
     }
 
-    private void addErrorsIntoDocumentIfExists(Document document, Map model) throws DocumentException {
+    private Font getArialNormalFont() throws IOException, DocumentException {
+        BaseFont unicodeArial = BaseFont.createFont(FONT_ARIAL_NORMAL, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        return new Font(unicodeArial);
+    }
+
+    private void addErrorsIntoDocumentIfExists(Document document, Map model) throws DocumentException, IOException {
         List<String> errorList = (List<String>) model.get("errorList");
         if (!errorList.isEmpty()){
             Font font = getArialNormalFont();
@@ -90,37 +119,22 @@ public class PdfBuilder extends AbstractPdfView {
         }
     }
 
-    private Font getArialBoldItalicFont() {
-        BaseFont unicodeArialBold = null;
-        try {
-            unicodeArialBold = BaseFont.createFont(FONT_ARIAL_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        } catch (DocumentException e) {
-            LOG.error("An error has occurred while creating a font.", e);
-        } catch (IOException e) {
-            final String msg = String.format("An error has occurred while reading a font from %s", e);
-            LOG.error(msg);
-        }
-        return new Font(unicodeArialBold);
-    }
-
-    private Font getArialNormalFont() {
-        BaseFont unicodeArial = null;
-        try {
-            unicodeArial = BaseFont.createFont(FONT_ARIAL_NORMAL, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        } catch (DocumentException e) {
-            LOG.error("An error has occurred while creating a font.", e);
-        } catch (IOException e) {
-            final String msg = String.format("An error has occurred while reading a font from %s", e);
-            LOG.error(msg);
-        }
-        return new Font(unicodeArial);
-    }
-
     private void setRedColorForFont(Font font) {
         font.setColor(255, 0, 0);
     }
 
     private void setFontSize(Font font) {
         font.setSize(8.0f);
+    }
+
+    private void createErrorPdfResponse(Document document, String msg) {
+        try {
+            Font font = new Font();
+            setRedColorForFont(font);
+            document.add(new Paragraph(ERROR_WORD, font));
+            document.add(new Paragraph(msg, font));
+        } catch (DocumentException e) {
+            LOG.error("An error has occurred while creating a document.", e);
+        }
     }
 }

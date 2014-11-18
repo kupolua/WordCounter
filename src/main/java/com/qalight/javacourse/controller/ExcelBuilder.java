@@ -18,7 +18,7 @@ public class ExcelBuilder extends AbstractExcelView {
 
     @Override
     protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook,
-                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                      HttpServletRequest request, HttpServletResponse response) {
         createErrorSheetIfErrorExist(model, workbook);
         HSSFSheet wordsSheet = getWordsSheet(workbook);
 
