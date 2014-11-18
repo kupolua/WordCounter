@@ -1,4 +1,4 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.old;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.qalight.javacourse.Constants.*;
+import static com.qalight.javacourse.utils.Constants.*;
 
 public class RestWordCounterLanguageTest {
     private static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT;

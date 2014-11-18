@@ -1,4 +1,4 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.utils;
 
 public class Constants {
     public static final long SECOND = 1_000;
@@ -9,5 +9,7 @@ public class Constants {
     public static final String PARAM_IS_FILTER_WORDS = "isFilterWords";
     public static final String SERVER_NAME = "http://localhost:";
     public static final String CONTEXT = "/WordCounter/";
+    public static final String COUNT_REQUEST = "countWordsRestStyle";
+    public static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT + COUNT_REQUEST;
     public static final String PATH_RESOURCES = "src/functionalTest/resources/";
 }

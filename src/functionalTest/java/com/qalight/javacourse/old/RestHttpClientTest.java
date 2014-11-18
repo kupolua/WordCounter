@@ -1,9 +1,8 @@
-package com.qalight.javacourse;
+package com.qalight.javacourse.old;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.squareup.okhttp.*;
-import org.apache.commons.collections.map.LinkedMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,11 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.qalight.javacourse.Constants.*;
+import static com.qalight.javacourse.utils.Constants.*;
 
 public class RestHttpClientTest {
-    private static final String COUNT_REQUEST = "countWordsRestStyle";
-    private static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT + COUNT_REQUEST;
+
     private OkHttpClient client;
 
     @Before
