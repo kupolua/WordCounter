@@ -17,12 +17,13 @@ public class ViewsConstants {
     public static final String HEAD_CELL_WORDS_UKR = "Слово";
     public static final String HEAD_CELL_COUNT_UKR = "Кiлькiсть";
     public static final String MODEL_NAME = "calculatedWords";
-    public static final String A_HREF_TAG = "<a href=";
     public static final String LOCALE_UKR = "uk";
     public static final String LOCALE_RU = "ru";
     public static final String RESPONSE_HEADER_NAME = "Content-Disposition";
     public static final String REQUEST_HEADER_NAME = "Accept-Language";
     public static final String HEADER_VALUE_PDF = "attachment; filename=\"calculatedWords.pdf\"";
     public static final String HEADER_VALUE_XLS = "attachment; filename=\"calculatedWords.xls\"";
-    public static final String SHEET_NAME = "Calculated Words";
+    public static final String WORDS_SHEET_NAME = "Calculated Words";
+    public static final String ERROR_WORD = "Error(s)";
+    public static final String DASH = "- ";
 }

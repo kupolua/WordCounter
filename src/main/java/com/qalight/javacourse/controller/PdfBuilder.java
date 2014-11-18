@@ -48,15 +48,15 @@ public class PdfBuilder extends AbstractPdfView {
     }
 
     private void setHeadCells(PdfPTable table, PdfPCell cell, HttpServletRequest request) {
-        final String USER_BROWSER_LOCALE = request.getHeader(REQUEST_HEADER_NAME);
+        final String userBrowserLocale = request.getHeader(REQUEST_HEADER_NAME);
         Font font = getArialBoldItalicFont();
         String wordsCell = HEAD_CELL_WORDS_EN;
         String countCell = HEAD_CELL_COUNT_EN;
-        if (USER_BROWSER_LOCALE.startsWith(LOCALE_RU)){
+        if (userBrowserLocale.startsWith(LOCALE_RU)){
             wordsCell = HEAD_CELL_WORDS_RU;
             countCell = HEAD_CELL_COUNT_RU;
         }
-        if (USER_BROWSER_LOCALE.startsWith(LOCALE_UKR)){
+        if (userBrowserLocale.startsWith(LOCALE_UKR)){
             wordsCell = HEAD_CELL_WORDS_UKR;
             countCell = HEAD_CELL_COUNT_UKR;
         }
@@ -78,16 +78,14 @@ public class PdfBuilder extends AbstractPdfView {
     }
 
     private void addErrorsIntoDocumentIfExists(Document document, Map model) throws DocumentException {
-        final String error = "Error(s):";
-        final String dash = "- ";
         List<String> errorList = (List<String>) model.get("errorList");
         if (!errorList.isEmpty()){
             Font font = getArialNormalFont();
             setRedColorForFont(font);
             setFontSize(font);
-            document.add(new Paragraph(error, font));
+            document.add(new Paragraph(ERROR_WORD, font));
             for(String eachError : errorList){
-                document.add(new Paragraph(dash + eachError, font));
+                document.add(new Paragraph(DASH + eachError, font));
             }
         }
     }
