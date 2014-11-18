@@ -1,30 +1,28 @@
 package com.qalight.javacourse.controller;
 
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.Font;
-import com.lowagie.text.Phrase;
+import com.lowagie.text.*;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import static com.qalight.javacourse.util.ViewsConstants.*;
 
+//todo: refactor exception handling
 public class PdfBuilder extends AbstractPdfView {
-    private static final Logger LOG = LoggerFactory.getLogger(CountWordsController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PdfBuilder.class);
 
     @Override
-    protected void buildPdfDocument(Map model, Document document, PdfWriter writer,
+    protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
                                     HttpServletRequest request, HttpServletResponse response) throws Exception {
         setExportFileName(response);
 
@@ -33,17 +31,14 @@ public class PdfBuilder extends AbstractPdfView {
         table.setWidths(new float[] {WIDTH_TABLE_ONE, WIDTH_TABLE_TWO});
         table.setSpacingBefore(SPACING_BEFORE_TABLE);
 
-        BaseFont unicodeArialBold = BaseFont.createFont(FONT_ARIAL_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        Font headFont = new Font(unicodeArialBold);
-        BaseFont unicodeArial = BaseFont.createFont(FONT_ARIAL_NORMAL, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        Font bodyFont = new Font(unicodeArial);
-
         PdfPCell cell = new PdfPCell();
         cell.setPadding(PADDING);
 
-        setHeadCells(table, headFont, cell, request);
+        setHeadCells(table, cell, request);
 
-        setResultCells(model, table, bodyFont, cell);
+        setResultCells(model, table, cell);
+
+        addErrorsIntoDocumentIfExists(document, model);
 
         document.add(table);
     }
@@ -52,8 +47,9 @@ public class PdfBuilder extends AbstractPdfView {
         response.setHeader(RESPONSE_HEADER_NAME, HEADER_VALUE_PDF);
     }
 
-    private void setHeadCells(PdfPTable table, Font headFont, PdfPCell cell, HttpServletRequest request) {
+    private void setHeadCells(PdfPTable table, PdfPCell cell, HttpServletRequest request) {
         final String USER_BROWSER_LOCALE = request.getHeader(REQUEST_HEADER_NAME);
+        Font font = getArialBoldItalicFont();
         String wordsCell = HEAD_CELL_WORDS_EN;
         String countCell = HEAD_CELL_COUNT_EN;
         if (USER_BROWSER_LOCALE.startsWith(LOCALE_RU)){
@@ -64,36 +60,69 @@ public class PdfBuilder extends AbstractPdfView {
             wordsCell = HEAD_CELL_WORDS_UKR;
             countCell = HEAD_CELL_COUNT_UKR;
         }
-        cell.setPhrase(new Phrase(wordsCell, headFont));
+        cell.setPhrase(new Phrase(wordsCell, font));
         table.addCell(cell);
-        cell.setPhrase(new Phrase(countCell, headFont));
+        cell.setPhrase(new Phrase(countCell, font));
         table.addCell(cell);
     }
 
-    private void setResultCells(Map model, PdfPTable table, Font bodyFont, PdfPCell cell) {
+    private void setResultCells(Map model, PdfPTable table, PdfPCell cell) {
         Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
+        Font font = getArialNormalFont();
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
-            if (entry.getKey().startsWith(A_HREF_TAG)){
-                Chunk link = getChunk(entry);
-                cell.setPhrase(new Phrase(link));
-                table.addCell(cell);
-            } else {
-                cell.setPhrase(new Phrase(entry.getKey(), bodyFont));
-                table.addCell(cell);
-            }
-            cell.setPhrase(new Phrase(String.valueOf(entry.getValue()), bodyFont));
+            cell.setPhrase(new Phrase(entry.getKey(), font));
+            table.addCell(cell);
+            cell.setPhrase(new Phrase(String.valueOf(entry.getValue()), font));
             table.addCell(cell);
         }
     }
 
-    private Chunk getChunk(Map.Entry<String, Integer> entry) {
-        String unTaggedLink = deleteTag(entry);
-        Chunk link = new Chunk(unTaggedLink);
-        link.setAnchor(unTaggedLink);
-        return link;
+    private void addErrorsIntoDocumentIfExists(Document document, Map model) throws DocumentException {
+        final String error = "Error(s):";
+        final String dash = "- ";
+        List<String> errorList = (List<String>) model.get("errorList");
+        if (!errorList.isEmpty()){
+            Font font = getArialNormalFont();
+            setRedColorForFont(font);
+            setFontSize(font);
+            document.add(new Paragraph(error, font));
+            for(String eachError : errorList){
+                document.add(new Paragraph(dash + eachError, font));
+            }
+        }
     }
 
-    private String deleteTag(Map.Entry<String, Integer> entry) {
-        return Jsoup.clean(entry.getKey(), Whitelist.simpleText());
+    private Font getArialBoldItalicFont() {
+        BaseFont unicodeArialBold = null;
+        try {
+            unicodeArialBold = BaseFont.createFont(FONT_ARIAL_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        } catch (DocumentException e) {
+            LOG.error("An error has occurred while creating a font.", e);
+        } catch (IOException e) {
+            final String msg = String.format("An error has occurred while reading a font from %s", e);
+            LOG.error(msg);
+        }
+        return new Font(unicodeArialBold);
+    }
+
+    private Font getArialNormalFont() {
+        BaseFont unicodeArial = null;
+        try {
+            unicodeArial = BaseFont.createFont(FONT_ARIAL_NORMAL, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        } catch (DocumentException e) {
+            LOG.error("An error has occurred while creating a font.", e);
+        } catch (IOException e) {
+            final String msg = String.format("An error has occurred while reading a font from %s", e);
+            LOG.error(msg);
+        }
+        return new Font(unicodeArial);
+    }
+
+    private void setRedColorForFont(Font font) {
+        font.setColor(255, 0, 0);
+    }
+
+    private void setFontSize(Font font) {
+        font.setSize(8.0f);
     }
 }

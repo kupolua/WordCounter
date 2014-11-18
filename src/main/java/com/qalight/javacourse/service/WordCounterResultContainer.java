@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface WordCounterResultContainer {
     Map<String, Integer> getCountedResult();
-    List getErrors();
+    List<String> getErrors();
 }

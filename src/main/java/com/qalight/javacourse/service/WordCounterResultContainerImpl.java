@@ -5,11 +5,11 @@ import java.util.Map;
 
 public final class WordCounterResultContainerImpl implements WordCounterResultContainer {
     private Map<String, Integer> countedResult;
-    private List errors;
+    private List<String> errors;
 
-    public WordCounterResultContainerImpl() {};
+    public WordCounterResultContainerImpl() {}
 
-    public WordCounterResultContainerImpl(Map<String, Integer> countedResult, List errors){
+    public WordCounterResultContainerImpl(Map<String, Integer> countedResult, List<String> errors){
         this.countedResult = countedResult;
         this.errors = errors;
     }
@@ -20,7 +20,7 @@ public final class WordCounterResultContainerImpl implements WordCounterResultCo
     }
 
     @Override
-    public List getErrors() {
+    public List<String> getErrors() {
         return errors;
     }
 

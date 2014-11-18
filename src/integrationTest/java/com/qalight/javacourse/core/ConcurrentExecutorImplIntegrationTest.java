@@ -39,7 +39,7 @@ public class ConcurrentExecutorImplIntegrationTest {
     @Test
     public void testCountAsynchronously_multipleInput(){
         // given
-        List<String> input = new ArrayList<>();
+        Set<String> input = new LinkedHashSet<>();
         input.add("word word, word");
         input.add("hello hello");
         input.add("jump");

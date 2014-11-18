@@ -32,8 +32,7 @@ public class ExcelBuilder extends AbstractExcelView {
 
         setExcelHeader(excelSheet, request, style);
 
-        Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
-        setExcelRows(excelSheet, calculatedWords, workbook);
+        setExcelRows(model, excelSheet, workbook);
     }
 
     private void setExportFileName(HttpServletResponse response) {
@@ -59,7 +58,8 @@ public class ExcelBuilder extends AbstractExcelView {
         excelHeader.getCell(1).setCellStyle(style);
     }
 
-    private void setExcelRows(HSSFSheet excelSheet, Map<String, Integer> calculatedWords, HSSFWorkbook workbook){
+    private void setExcelRows(Map model, HSSFSheet excelSheet, HSSFWorkbook workbook){
+        Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
         CellStyle style = workbook.createCellStyle();
         style.setAlignment(CellStyle.ALIGN_LEFT);
         int record = 1;
