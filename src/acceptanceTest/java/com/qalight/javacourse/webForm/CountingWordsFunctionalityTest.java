@@ -48,6 +48,70 @@ public class CountingWordsFunctionalityTest {
     }
 
     @Test
+    public void countWordsPlainText_conditionOne() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedResult = "аэросъемка 2\nдымарь 2";
+        final String text = "аэросъемка, АЭРОСЪЕМКА, дЫмаРь, дымарь";
+
+        // when
+        putDataAndClickCountButton(driver, text);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void countWordsPlainText_conditionTwo() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedResult = "під'їзд 2\nй 1\nєнот 1\nґедзь 1";
+        final String text = "Під'їзд, ПІД'ЇЗД, ґедзь, єнот, й";
+
+        // when
+        putDataAndClickCountButton(driver, text);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void countWordsPlainText_conditionThree() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedResult = "sweet 2\nlady 1\nloving 1\nwife 1";
+        final String text = "SWEET sweet lady loving wife";
+
+        // when
+        putDataAndClickCountButton(driver, text);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void countWordsPlainText_conditionFour() {
+        // given
+        driver.get(BASE_URL);
+        final String expectedResult = "mad 1\nмін 1\nрыжий 1";
+        final String text = "рыжий%%%%%% 148MAD мін@";
+
+        // when
+        putDataAndClickCountButton(driver, text);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        // then
+        String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void countWordInWebPageViaUrl_latin() {
         // given
         driver.get(BASE_URL);
