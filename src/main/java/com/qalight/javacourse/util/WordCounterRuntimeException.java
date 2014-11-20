@@ -3,11 +3,11 @@ package com.qalight.javacourse.util;
 public class WordCounterRuntimeException extends RuntimeException {
     private ErrorCode errorCode;
     private String clientRequest;
-    //todo is WordCounterRuntimeException(ErrorCode errorCode) dead-code?
+
     public WordCounterRuntimeException(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
-    //todo is WordCounterRuntimeException(ErrorCode errorCode) dead-code?
+
     public WordCounterRuntimeException(ErrorCode errorCode, String clientRequest) {
         this.errorCode = errorCode;
         this.clientRequest = clientRequest;
