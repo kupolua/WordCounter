@@ -107,12 +107,14 @@ $(document).ready(function() {
 });
 
 function setPdfFields() {
+//    $("spoiler_close").click();
     $("input:hidden[id='pdfTextCount']").attr("value", textCount);
     $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
 }
 
 function setXlsFields() {
+//    $("spoiler_close").click();
     $("input:hidden[id='xlsTextCount']").attr("value", textCount);
     $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
@@ -124,6 +126,7 @@ function runSpinner(isFilter){
     spinner = new Spinner(opts).spin(target);
     setTimeout(function(){
         setTableContext(isFilter);
+        showErrors(dataErrors);
         writeTable(countedWords, selectedRows);
         deferred.resolve();
     }, activeTime);
