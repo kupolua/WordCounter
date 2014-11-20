@@ -28,6 +28,7 @@ public class ExportControllerTest {
     private static final String TEXT_COUNT_PARAM_NAME = "textCount";
     private static final String SORTING_ORDER_PARAM_NAME = "sortingOrder";
     private static final String IS_FILTER_WORDS_PARAM_NAME = "isFilterWords";
+    private static final String CALCULATED_WORDS = "calculatedWords";
 
     @Mock private WordCounterService wordCounterService;
     private WordCounterResultContainer result;
@@ -44,7 +45,7 @@ public class ExportControllerTest {
         ExportController exportController = new ExportController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(exportController).alwaysExpect(status().isOk()).build();
     }
-    //todo use given, when, then
+
     @Test
     public void testGetPdfResult() throws Exception {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
@@ -53,12 +54,10 @@ public class ExportControllerTest {
                 .param(TEXT_COUNT_PARAM_NAME, "one two two")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
-                //todo move pdfView to constant
                 .andExpect(forwardedUrl("pdfView"))
-                //todo move calculatedWords to constant
-                .andExpect(model().attributeExists("calculatedWords"))
+                .andExpect(model().attributeExists(CALCULATED_WORDS))
                 .andExpect(view().name("pdfView"))
-                .andExpect(model().attribute("calculatedWords", expectedResult)).andDo(print());
+                .andExpect(model().attribute(CALCULATED_WORDS, expectedResult));
 
         verify(wordCounterService).getWordCounterResult(any(CountWordsUserRequest.class));
     }
@@ -71,12 +70,10 @@ public class ExportControllerTest {
                 .param(TEXT_COUNT_PARAM_NAME, "one two two")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
-                //todo move excelView to constant
                 .andExpect(forwardedUrl("excelView"))
-                //todo move calculatedWords to constant
-                .andExpect(model().attributeExists("calculatedWords"))
+                .andExpect(model().attributeExists(CALCULATED_WORDS))
                 .andExpect(view().name("excelView"))
-                .andExpect(model().attribute("calculatedWords", expectedResult));
+                .andExpect(model().attribute(CALCULATED_WORDS, expectedResult));
 
         verify(wordCounterService).getWordCounterResult(any(CountWordsUserRequest.class));
     }
@@ -90,9 +87,7 @@ public class ExportControllerTest {
                 .param(TEXT_COUNT_PARAM_NAME, "")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
-                //todo move error to constant
                 .andExpect(forwardedUrl("error"))
-                //todo move exception to constant
                 .andExpect(model().attributeExists("exception"))
                 .andExpect(view().name("error"))
                 .andExpect(model().attribute("exception", "test"));
