@@ -19,4 +19,8 @@ public class Util {
                 .build();
         return request;
     }
+
+    public static String createFailMessage(String countUrl, String requestedValue) {
+        return "cannot get response from " + countUrl + " with request: " + requestedValue;
+    }
 }
