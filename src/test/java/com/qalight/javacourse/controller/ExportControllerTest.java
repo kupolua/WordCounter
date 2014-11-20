@@ -1,11 +1,5 @@
 package com.qalight.javacourse.controller;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import com.qalight.javacourse.service.WordCounterResultContainer;
 import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.qalight.javacourse.service.WordCounterService;
@@ -22,11 +16,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ExportControllerTest {
     private static final String TEXT_COUNT_PARAM_NAME = "textCount";
     private static final String SORTING_ORDER_PARAM_NAME = "sortingOrder";
     private static final String IS_FILTER_WORDS_PARAM_NAME = "isFilterWords";
+    private static final String CALCULATED_WORDS = "calculatedWords";
 
     @Mock private WordCounterService wordCounterService;
     private WordCounterResultContainer result;
@@ -53,9 +55,9 @@ public class ExportControllerTest {
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
                 .andExpect(forwardedUrl("pdfView"))
-                .andExpect(model().attributeExists("calculatedWords"))
+                .andExpect(model().attributeExists(CALCULATED_WORDS))
                 .andExpect(view().name("pdfView"))
-                .andExpect(model().attribute("calculatedWords", expectedResult)).andDo(print());
+                .andExpect(model().attribute(CALCULATED_WORDS, expectedResult));
 
         verify(wordCounterService).getWordCounterResult(any(CountWordsUserRequest.class));
     }
@@ -69,9 +71,9 @@ public class ExportControllerTest {
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
                 .andExpect(forwardedUrl("excelView"))
-                .andExpect(model().attributeExists("calculatedWords"))
+                .andExpect(model().attributeExists(CALCULATED_WORDS))
                 .andExpect(view().name("excelView"))
-                .andExpect(model().attribute("calculatedWords", expectedResult));
+                .andExpect(model().attribute(CALCULATED_WORDS, expectedResult));
 
         verify(wordCounterService).getWordCounterResult(any(CountWordsUserRequest.class));
     }

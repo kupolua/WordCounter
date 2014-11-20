@@ -57,7 +57,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
             try {
                 final PdfTextExtractor pdfTextExtractor = getPdfTextExtractor(reader);
                 text = pdfTextExtractor.getTextFromPage(i);
-            } catch (Exception e) { // hard fix for StringIndexOutOfBoundsException in Pdf extract library
+            } catch (Exception e) { // todo hard fix for StringIndexOutOfBoundsException in Pdf extract library
                 String msg = "Can't read text from page ";
                 LOG.warn(msg + i, e);
             }

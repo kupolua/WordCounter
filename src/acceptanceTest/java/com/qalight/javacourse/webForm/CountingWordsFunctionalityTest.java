@@ -450,7 +450,7 @@ public class CountingWordsFunctionalityTest {
         String actualInputODP = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(EXPECTED_STANDARD_RESULT, actualInputODP);
     }
-//before this test we need fix bug in next sprint
+//todo before this test we need fix bug in next sprint
 //    @Test
     public void testReadingODS() {
         // given
@@ -555,7 +555,7 @@ public class CountingWordsFunctionalityTest {
         assertEquals(EXPECTED_STANDARD_RESULT, actualInputTXT);
     }
 
-    //before this test we need fix bug in next sprint
+    //todo before this test we need fix bug in next sprint
     //    @Test
     public void testReadingXLS() {
         // given
@@ -571,7 +571,7 @@ public class CountingWordsFunctionalityTest {
         assertEquals(EXPECTED_STANDARD_RESULT, actualInputXLS);
     }
 
-    //before this test we need fix bug in next sprint
+    //todo before this test we need fix bug in next sprint
     //    @Test
     public void testReadingXLSX() {
         // given

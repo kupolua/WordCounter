@@ -23,7 +23,7 @@ public class Assertions {
         }
     }
 
-    public static void assertListIsNotEmpty(List list, String clientRequest){
+    public static void assertListIsNotEmpty(List list){
         if (list.isEmpty()) {
            throw new WordCounterArgumentException(CANNOT_COUNT_TEXT);
         }

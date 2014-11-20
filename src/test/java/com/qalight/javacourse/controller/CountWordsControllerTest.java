@@ -1,9 +1,5 @@
 package com.qalight.javacourse.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.mockito.Mockito.*;
-
 import com.qalight.javacourse.service.WordCounterResultContainer;
 import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.qalight.javacourse.service.WordCounterService;
@@ -17,9 +13,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.*;
 
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(MockitoJUnitRunner.class)
 public class CountWordsControllerTest {
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
+    private static final String COUNT_WORDS_REST_STYLE = "/countWordsRestStyle";
 
     @Mock private WordCounterService wordCounterService;
     private WordCounterResultContainer result;
@@ -42,7 +44,7 @@ public class CountWordsControllerTest {
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
-        mockMvc.perform(post("/countWordsRestStyle")
+        mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
                 .param("textCount", "one two two"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
@@ -60,7 +62,7 @@ public class CountWordsControllerTest {
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
-        mockMvc.perform(post("/countWordsRestStyle")
+        mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
                 .param("textCount", "http://some-nonexistent-site.com"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
@@ -74,7 +76,7 @@ public class CountWordsControllerTest {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
                 .thenThrow(new IllegalArgumentException("test"));
 
-        mockMvc.perform(post("/countWordsRestStyle")
+        mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
                 .param("textCount", ""))
                 .andExpect(status().isBadRequest());
 
@@ -86,7 +88,7 @@ public class CountWordsControllerTest {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
                 .thenThrow(new RuntimeException("test"));
 
-        mockMvc.perform(post("/countWordsRestStyle")
+        mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
                 .param("textCount", "http://some-nonexistent-site.com"))
                 .andExpect(status().isInternalServerError());
 
