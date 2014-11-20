@@ -12,6 +12,7 @@ public class Constants {
     public static final String COUNT_REQUEST_REST_STYLE = "countWordsRestStyle";
     public static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT + COUNT_REQUEST_REST_STYLE;
     public static final String PATH_RESOURCES = "src/functionalTest/resources/";
+    public static final String SEPARATOR = " ";
     public static final String KEY_ASCENDING = "KEY_ASCENDING";
     public static final String KEY_DESCENDING = "KEY_DESCENDING";
     public static final String VALUE_ASCENDING = "VALUE_ASCENDING";
