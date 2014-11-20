@@ -1,6 +1,8 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.util.Assertions;
+import com.qalight.javacourse.util.ErrorCodeImpl;
+import com.qalight.javacourse.util.WordCounterRuntimeException;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.slf4j.Logger;
@@ -35,7 +37,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
             extractedText = tika.parseToString(url);
         } catch (IOException e) {
             LOG.error("I/O operation has been failed or interrupted while processing <" + userSourcesList + ">.", e);
-            throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ", e);
+            throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userSourcesList, e);
         } catch (TikaException e) {
             LOG.error("Can't extract text from <" + userSourcesList + ">.", e);
             throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ", e);

@@ -65,7 +65,7 @@ public class ExportControllerIntegrationTest {
 
     @Test
     public void testHandleIllegalArgumentException() throws Exception {
-        final String errorMsg = "Request is null or empty";
+        final String errorMsg = "Request is empty.";
 
         mockMvc.perform(post("/downloadExcel")
                 .param(TEXT_COUNT_PARAM_NAME, "")

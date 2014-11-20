@@ -1,6 +1,7 @@
 package com.qalight.javacourse.controller;
 
 import com.qalight.javacourse.service.ErrorDataContainer;
+import com.qalight.javacourse.util.ErrorMessenger;
 import com.qalight.javacourse.service.WordCounterResultContainer;
 import com.qalight.javacourse.service.WordCounterService;
 import org.slf4j.Logger;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 @Controller
 public class CountWordsController {
@@ -23,9 +27,11 @@ public class CountWordsController {
 
     @RequestMapping(value = "/countWordsRestStyle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public WordCounterResultContainer getResultRestStyle(@RequestParam String textCount) throws Throwable {
-        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount);
-        WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
+    public WordCounterResultContainer getResultRestStyle(@RequestParam String textCount, HttpServletRequest servletRequest) throws Throwable {
+        Locale userLocale = servletRequest.getLocale();
+        ErrorMessenger.setLocale(userLocale);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount);
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
         return result;
     }
 

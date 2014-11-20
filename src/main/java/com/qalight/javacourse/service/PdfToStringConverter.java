@@ -3,6 +3,8 @@ package com.qalight.javacourse.service;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
 import com.qalight.javacourse.util.Assertions;
+import com.qalight.javacourse.util.ErrorCodeImpl;
+import com.qalight.javacourse.util.WordCounterRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -33,7 +35,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         } catch (IOException e) {
             String msg = "Can't connect to ";
             LOG.error(msg + userSourcesList, e);
-            throw new RuntimeException(msg + userSourcesList, e);
+            throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userSourcesList, e);
         } finally {
             if (reader != null) reader.close();
         }

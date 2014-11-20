@@ -1,6 +1,8 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.util.Assertions;
+import com.qalight.javacourse.util.ErrorCodeImpl;
+import com.qalight.javacourse.util.WordCounterRuntimeException;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
@@ -35,7 +37,7 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
             html = getDocument(userSourcesList);
         } catch (IOException e) {
             LOG.error("Can't connect to " + userSourcesList, e);
-            throw new RuntimeException("Can't connect to: " + userSourcesList, e);
+            throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userSourcesList, e);
         }
         LOG.info("Connection to " + userSourcesList + " has been successfully established.");
         String extractedText = htmlToPlainText.getPlainText(html);

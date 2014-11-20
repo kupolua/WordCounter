@@ -182,7 +182,7 @@ public class CountingWordsFunctionalityTest {
     public void testEmptyRequest() {
         // given
         driver.get(BASE_URL);
-        String expectedResult = "Request is null or empty";
+        String expectedResult = "Пустой запрос.";
         String emptyString = " ";
 
         // when

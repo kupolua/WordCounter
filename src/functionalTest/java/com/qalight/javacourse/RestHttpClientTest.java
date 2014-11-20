@@ -3,7 +3,6 @@ package com.qalight.javacourse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.squareup.okhttp.*;
-import org.apache.commons.collections.map.LinkedMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -44,53 +43,6 @@ public class RestHttpClientTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test(timeout = DEFAULT_TIMEOUT)
-    public void testInputEmptyString() throws Exception {
-        // given
-        final String requestedValue = "";
-        Request request = buildRequestWithParamValue(requestedValue);
-
-        // when
-        Response response = client.newCall(request).execute();
-
-        // then
-        final String expected = "{\"respMessage\":\"Request is null or empty\"}";
-        final String actual = response.body().string();
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test(timeout = DEFAULT_TIMEOUT)
-    public void testInputBrokenLink() throws Exception {
-        // given
-        final String requestedValue = "http://broken-guugol.com/";
-        Request request = buildRequestWithParamValue(requestedValue);
-
-        // when
-        Response response = client.newCall(request).execute();
-
-        // then
-        final String expected = "{\"countedResult\":{},\"errors\":[\"Can't connect to: http://broken-guugol.com/\"]}";
-        final String actual = response.body().string();
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test(timeout = DEFAULT_TIMEOUT)
-    public void testImproperInputString() throws Exception {
-        // given
-        final String requestedValue = "kris@gmail.com www.google.com %/*\\^# 0";
-        Request request = buildRequestWithParamValue(requestedValue);
-
-        // when
-        Response response = client.newCall(request).execute();
-
-        // then
-        final String expected = "{\"countedResult\":{},\"errors\":[\"System cannot count entered text " +
-                "{kris@gmail.com www.google.com %/*\\\\^# 0}. Did you forget to add 'http://' to the link or entered " +
-                "not readable text?\"]}";
-        final String actual = response.body().string();
-        Assert.assertEquals(expected, actual);
-    }
-
     @Ignore
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testSimpleInputString_ResponseObject() throws Exception {
@@ -124,7 +76,7 @@ public class RestHttpClientTest {
                 "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
         final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
         final String separator = " ";
-        final String errorMassage = "Can't connect to: http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
+        final String errorMassage = "Не удается подключится к удаленному серверу по ссылке:http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
         final String requestedValue = htmlPageBroken + separator + pptxLink + separator + txtLink;
 
         Request request = buildRequestWithParamValue(requestedValue);
