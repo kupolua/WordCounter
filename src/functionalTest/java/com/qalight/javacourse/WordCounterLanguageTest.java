@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import static com.qalight.javacourse.Constants.*;
 
-public class RestWordCounterLanguageTest {
+public class WordCounterLanguageTest {
     private static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT;
     private OkHttpClient client;
 
@@ -39,7 +39,6 @@ public class RestWordCounterLanguageTest {
         }
 
         String actual = getResponseBody(response);
-
         Assert.assertEquals(expected, actual);
     }
 
@@ -60,7 +59,6 @@ public class RestWordCounterLanguageTest {
         }
 
         String actual = getResponseBody(response);
-
         Assert.assertEquals(expected, actual);
     }
 
@@ -81,7 +79,6 @@ public class RestWordCounterLanguageTest {
         }
 
         String actual = getResponseBody(response);
-
         Assert.assertEquals(expected, actual);
     }
 
@@ -102,7 +99,6 @@ public class RestWordCounterLanguageTest {
         }
 
         String actual = getResponseBody(response);
-
         Assert.assertEquals(expected, actual);
     }
 
@@ -124,7 +120,6 @@ public class RestWordCounterLanguageTest {
         }
 
         String actual = response.header("Content-Language");
-
         Assert.assertEquals(expected, actual);
     }
 
@@ -147,7 +142,6 @@ public class RestWordCounterLanguageTest {
         }
 
         String actual = response.header("Content-Language");
-
         Assert.assertEquals(expected, actual);
     }
 
