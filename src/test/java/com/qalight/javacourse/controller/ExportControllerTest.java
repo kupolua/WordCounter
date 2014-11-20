@@ -1,11 +1,5 @@
 package com.qalight.javacourse.controller;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import com.qalight.javacourse.service.WordCounterResultContainer;
 import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.qalight.javacourse.service.WordCounterService;
@@ -21,6 +15,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ExportControllerTest {
@@ -43,7 +44,7 @@ public class ExportControllerTest {
         ExportController exportController = new ExportController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(exportController).alwaysExpect(status().isOk()).build();
     }
-
+    //todo use given, when, then
     @Test
     public void testGetPdfResult() throws Exception {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
@@ -52,7 +53,9 @@ public class ExportControllerTest {
                 .param(TEXT_COUNT_PARAM_NAME, "one two two")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
+                //todo move pdfView to constant
                 .andExpect(forwardedUrl("pdfView"))
+                //todo move calculatedWords to constant
                 .andExpect(model().attributeExists("calculatedWords"))
                 .andExpect(view().name("pdfView"))
                 .andExpect(model().attribute("calculatedWords", expectedResult)).andDo(print());
@@ -68,7 +71,9 @@ public class ExportControllerTest {
                 .param(TEXT_COUNT_PARAM_NAME, "one two two")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
+                //todo move excelView to constant
                 .andExpect(forwardedUrl("excelView"))
+                //todo move calculatedWords to constant
                 .andExpect(model().attributeExists("calculatedWords"))
                 .andExpect(view().name("excelView"))
                 .andExpect(model().attribute("calculatedWords", expectedResult));
@@ -85,7 +90,9 @@ public class ExportControllerTest {
                 .param(TEXT_COUNT_PARAM_NAME, "")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false"))
+                //todo move error to constant
                 .andExpect(forwardedUrl("error"))
+                //todo move exception to constant
                 .andExpect(model().attributeExists("exception"))
                 .andExpect(view().name("error"))
                 .andExpect(model().attribute("exception", "test"));

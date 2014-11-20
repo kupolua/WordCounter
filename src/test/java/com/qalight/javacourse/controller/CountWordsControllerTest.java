@@ -1,9 +1,5 @@
 package com.qalight.javacourse.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.mockito.Mockito.*;
-
 import com.qalight.javacourse.service.WordCounterResultContainer;
 import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.qalight.javacourse.service.WordCounterService;
@@ -16,6 +12,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.*;
+
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CountWordsControllerTest {
@@ -35,7 +36,7 @@ public class CountWordsControllerTest {
         CountWordsController controller = new CountWordsController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
-
+    //todo use given, when, then
     @Test
     public void testGetResultRestStyleWithoutError() throws Exception {
         final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]}";
@@ -73,7 +74,7 @@ public class CountWordsControllerTest {
     public void testHandleIllegalArgumentExceptions() throws Exception {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
                 .thenThrow(new IllegalArgumentException("test"));
-
+        //todo move countWordsRestStyle to constant
         mockMvc.perform(post("/countWordsRestStyle")
                 .param("textCount", ""))
                 .andExpect(status().isBadRequest());

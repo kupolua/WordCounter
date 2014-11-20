@@ -22,7 +22,7 @@ public class Assertions {
             throw new IllegalArgumentException("Object is null");
         }
     }
-
+    //todo variable clientRequest is dead-code?
     public static void assertListIsNotEmpty(List list, String clientRequest){
         if (list.isEmpty()) {
            throw new WordCounterArgumentException(CANNOT_COUNT_TEXT);
