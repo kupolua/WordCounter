@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,8 +28,8 @@ public class CountWordsControllerIntegrationTest {
     public void testGetResultRestStyle_withError() throws Exception {
         // given
         final String givenText = "https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf";
-        final String expectedBody = "{\"countedResult\":{}," +
-                "\"errors\":[\"Can't connect to https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"]}";
+        final String expectedBody = "{\"countedResult\":{},\"errors\":" +
+                "[\"Cannot connect to the source:https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"]}";
 
         // when
         mockMvc.perform(post("/countWordsRestStyle")
@@ -62,13 +61,13 @@ public class CountWordsControllerIntegrationTest {
     public void testHandleIllegalArgumentExceptions() throws Exception {
         // given
         final String givenText = "";
-        final String expectedBody = "{\"respMessage\":\"Request is null or empty\"}";
+        final String expectedBody = "{\"respMessage\":\"Request is empty.\"}";
 
         // when
         mockMvc.perform(post("/countWordsRestStyle").param("textCount", givenText))
 
         // then
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(expectedBody)).andDo(print());
+                .andExpect(content().string(expectedBody));
     }
 }

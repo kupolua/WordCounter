@@ -1,6 +1,8 @@
 package com.qalight.javacourse.service;
 
 import com.qalight.javacourse.util.Assertions;
+import com.qalight.javacourse.util.ErrorCodeImpl;
+import com.qalight.javacourse.util.WordCounterRuntimeException;
 import org.apache.poi.xssf.extractor.XSSFExcelExtractor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -58,7 +60,7 @@ public class XlsxToStringConverter implements DocumentToStringConverter {
             stream = url.openStream();
         } catch (IOException e) {
             LOG.error("Cannot open a stream " + userSourcesList, e);
-            throw new RuntimeException("Cannot open a stream" + userSourcesList, e);
+            throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userSourcesList, e);
         }
 
         return stream;

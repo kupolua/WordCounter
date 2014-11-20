@@ -25,12 +25,11 @@ public class ExportController {
                                      @RequestParam String sortingOrder,
                                      @RequestParam String isFilterWords) throws  Throwable {
         final String viewName = "pdfView";
-        final String modelName = "calculatedWords";
 
         CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
-        ModelAndView modelAndView = getModelAndView(viewName, modelName, result);
+        ModelAndView modelAndView = getModelAndView(viewName, result);
         return modelAndView;
     }
 
@@ -39,19 +38,18 @@ public class ExportController {
                                        @RequestParam String sortingOrder,
                                        @RequestParam String isFilterWords) throws Throwable {
         final String viewName = "excelView";
-        final String modelName = "calculatedWords";
 
         CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
-        ModelAndView modelAndView = getModelAndView(viewName, modelName, result);
+        ModelAndView modelAndView = getModelAndView(viewName, result);
         return modelAndView;
     }
 
-    private ModelAndView getModelAndView(String viewName, String modelName, WordCounterResultContainer result) {
+    private ModelAndView getModelAndView(String viewName, WordCounterResultContainer result) {
         Map<String, Integer> resultMap = result.getCountedResult();
         List<String> errorList = result.getErrors();
-        ModelAndView modelAndView = new ModelAndView(viewName, modelName, resultMap);
+        ModelAndView modelAndView = new ModelAndView(viewName, "calculatedWords", resultMap);
         modelAndView.addObject("errorList", errorList);
         return modelAndView;
     }
