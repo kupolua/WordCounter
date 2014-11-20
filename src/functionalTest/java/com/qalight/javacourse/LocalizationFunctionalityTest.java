@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.qalight.javacourse.Constants.*;
+import static com.qalight.javacourse.utils.Constants.*;
 
-public class WordCounterLanguageTest {
-    private static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT;
+public class LocalizationFunctionalityTest {
+    private static final String COUNT_URL_LOCALIZATION = SERVER_NAME + PORT + CONTEXT;
     private OkHttpClient client;
 
     @Before
@@ -39,6 +39,7 @@ public class WordCounterLanguageTest {
         }
 
         String actual = getResponseBody(response);
+
         Assert.assertEquals(expected, actual);
     }
 
@@ -59,6 +60,7 @@ public class WordCounterLanguageTest {
         }
 
         String actual = getResponseBody(response);
+
         Assert.assertEquals(expected, actual);
     }
 
@@ -79,6 +81,7 @@ public class WordCounterLanguageTest {
         }
 
         String actual = getResponseBody(response);
+
         Assert.assertEquals(expected, actual);
     }
 
@@ -99,6 +102,7 @@ public class WordCounterLanguageTest {
         }
 
         String actual = getResponseBody(response);
+
         Assert.assertEquals(expected, actual);
     }
 
@@ -120,6 +124,7 @@ public class WordCounterLanguageTest {
         }
 
         String actual = response.header("Content-Language");
+
         Assert.assertEquals(expected, actual);
     }
 
@@ -142,17 +147,18 @@ public class WordCounterLanguageTest {
         }
 
         String actual = response.header("Content-Language");
+
         Assert.assertEquals(expected, actual);
     }
 
     private String createFailMessage() {
-        return "cannot get response from " + COUNT_URL;
+        return "cannot get response from " + COUNT_URL_LOCALIZATION;
     }
 
     public Request buildRequestWithParamValue(String languageType) {
         final Request request = new Request.Builder()
                 .header("Accept-Language", languageType)
-                .url(COUNT_URL)
+                .url(COUNT_URL_LOCALIZATION)
                 .build();
         return request;
     }
