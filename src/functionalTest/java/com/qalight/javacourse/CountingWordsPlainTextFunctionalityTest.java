@@ -1,11 +1,11 @@
 package com.qalight.javacourse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qalight.javacourse.service.ErrorDataContainer;
 import com.qalight.javacourse.service.WordCounterResultContainerImpl;
 import com.squareup.okhttp.*;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,10 +18,12 @@ import static com.qalight.javacourse.utils.Constants.*;
 
 public class CountingWordsPlainTextFunctionalityTest {
     private OkHttpClient client;
+    private ObjectMapper objectMapper;
 
     @Before
     public void setup() {
         client = new OkHttpClient();
+        objectMapper = new ObjectMapper();
     }
 
     @Test(timeout = DEFAULT_TIMEOUT)
@@ -29,9 +31,8 @@ public class CountingWordsPlainTextFunctionalityTest {
         // given
         final String textRequest = "аэросъемка, АЭРОСЪЕМКА, дЫмаРь, дымарь";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest);
         Response response = client.newCall(request).execute();
 
         // then
@@ -49,7 +50,6 @@ public class CountingWordsPlainTextFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -60,9 +60,8 @@ public class CountingWordsPlainTextFunctionalityTest {
         // given
         final String textRequest = "Під'їзд, ПІД'ЇЗД, ґедзь, єнот, й";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest);
         Response response = client.newCall(request).execute();
 
         // then
@@ -82,7 +81,6 @@ public class CountingWordsPlainTextFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -93,9 +91,8 @@ public class CountingWordsPlainTextFunctionalityTest {
         // given
         final String textRequest = "SWEET sweet lady loving wife";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest);
         Response response = client.newCall(request).execute();
 
         // then
@@ -115,7 +112,6 @@ public class CountingWordsPlainTextFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -124,11 +120,11 @@ public class CountingWordsPlainTextFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_email() throws Exception {
         // given
+        final String languageParam = LANGUAGE_TYPE_DEFAULT_EN;
         final String textRequest = "kris@gmail.com";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest, languageParam);
         Response response = client.newCall(request).execute();
 
         // then
@@ -145,20 +141,19 @@ public class CountingWordsPlainTextFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test(timeout = DEFAULT_TIMEOUT)
-    public void testCountWordsInPlainText_urlLikeText() throws Exception {
+    public void testCountWordsInPlainText_urlWithoutHttp() throws Exception {
         // given
+        final String languageParam = LANGUAGE_TYPE_RU;
         final String textRequest = "www.google.com";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest, languageParam);
         Response response = client.newCall(request).execute();
 
         // then
@@ -169,13 +164,13 @@ public class CountingWordsPlainTextFunctionalityTest {
         final Map<String, Integer> expectedCountedWords = new HashMap<>();
 
         List<String> expectedError = new ArrayList<String>() {{
-            add("System cannot count entered text. Did you forget to add 'http://' to the link or entered not readable text?");
+            add("Система не может обработать введенный текст. Пожалуйста, проверьте, " +
+                "не забыли ли Вы добавить 'http://' префикс к ссылке или ввели нечитаемый текст.");
         }};
 
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -184,11 +179,11 @@ public class CountingWordsPlainTextFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_trashSymbols() throws Exception {
         // given
+        final String languageParam = LANGUAGE_TYPE_UA;
         final String textRequest = "%/*\\^#";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest, languageParam);
         Response response = client.newCall(request).execute();
 
         // then
@@ -199,13 +194,13 @@ public class CountingWordsPlainTextFunctionalityTest {
         final Map<String, Integer> expectedCountedWords = new HashMap<>();
 
         List<String> expectedError = new ArrayList<String>() {{
-            add("System cannot count entered text. Did you forget to add 'http://' to the link or entered not readable text?");
+            add("Система не взмозі обробити введений текст. Будь ласка, перевірте, чи ви " +
+                "не забули додати 'http://' префікс до посилання або ввели нечитабельний текст.");
         }};
 
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -216,9 +211,8 @@ public class CountingWordsPlainTextFunctionalityTest {
         // given
         final String textRequest = "рыжий%%%%%% 148MAD мін@";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest);
         Response response = client.newCall(request).execute();
 
         // then
@@ -237,7 +231,6 @@ public class CountingWordsPlainTextFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -246,11 +239,11 @@ public class CountingWordsPlainTextFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_numbers() throws Exception {
         // given
+        final String languageParam = LANGUAGE_TYPE_ES;
         final String textRequest = "0";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest, languageParam);
         Response response = client.newCall(request).execute();
 
         // then
@@ -267,36 +260,27 @@ public class CountingWordsPlainTextFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
     }
 
-    @Ignore  // todo: Сделать этот тест после того, как будет готова локализация ошибок
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWords_emptyRequest() throws Exception {
         // given
         final String textRequest = "";
 
-        Request request = buildRequestWithParamValue(textRequest);
-
         // when
+        Request request = buildRequestWithParamValue(textRequest);
         Response response = client.newCall(request).execute();
-        System.out.println(response.toString());
 
         // then
-        final Map<String, Integer> expectedCountedWords = new HashMap<>();
+        String expectedError = "Request is empty.";
 
-        List<String> expectedError = new ArrayList<String>() {{
-            add("Request is empty.");
-        }};
-
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final ErrorDataContainer expected = new ErrorDataContainer(expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
+        final ErrorDataContainer actual = objectMapper.readValue(resultStr, ErrorDataContainer.class);
 
         Assert.assertEquals(expected, actual);
     }
@@ -311,6 +295,18 @@ public class CountingWordsPlainTextFunctionalityTest {
                 .build();
         final Request request = new Request.Builder()
                 .header("Accept-Language", LANGUAGE_TYPE_DEFAULT_EN)
+                .url(COUNT_URL)
+                .post(formBody)
+                .build();
+        return request;
+    }
+
+    public Request buildRequestWithParamValue(String requestedValue, String languageParam) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add(PARAM_TEXT_COUNT, requestedValue)
+                .build();
+        final Request request = new Request.Builder()
+                .header(PARAM_LANGUAGE, languageParam)
                 .url(COUNT_URL)
                 .post(formBody)
                 .build();

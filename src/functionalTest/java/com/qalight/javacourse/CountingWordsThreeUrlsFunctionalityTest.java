@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +17,12 @@ import static com.qalight.javacourse.utils.Util.*;
 
 public class CountingWordsThreeUrlsFunctionalityTest {
     private OkHttpClient client;
+    private ObjectMapper objectMapper;
 
     @Before
     public void setup() {
         client = new OkHttpClient();
+        objectMapper = new ObjectMapper();
     }
 
     @Test
@@ -56,7 +57,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -93,7 +93,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -131,7 +130,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -168,7 +166,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);

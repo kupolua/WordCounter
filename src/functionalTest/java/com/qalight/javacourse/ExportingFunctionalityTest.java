@@ -20,7 +20,7 @@ public class ExportingFunctionalityTest {
     private static final String MEDIA_TYPE_XLS = "application/vnd.ms-excel;charset=UTF-8";
     private static final String EXPECTED_PDF = "expectedPdf.pdf";
     private static final String EXPECTED_XLS = "expectedXls.xls";
-    private static final String LANGUAGE_TYPE = "ru-RU,en;q=0.5";
+    private static final String LANGUAGE_TYPE = LANGUAGE_TYPE_RU;
 
     private OkHttpClient client;
     private Tika documentConverter;
@@ -39,16 +39,20 @@ public class ExportingFunctionalityTest {
                 " сказал";
         final String requestedSortingOrder = "VALUE_DESCENDING";
         final String requestedIsFilterWords = "false";
-        Request request = buildRequestWithParamValue(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
-                requestedIsFilterWords, MEDIA_TYPE_PDF);
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_PDF,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_PDF);
 
         // when
         Response response = client.newCall(request).execute();
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
-                    requestedIsFilterWords));
+            Assert.fail(createFailMessage(
+                    COUNT_URL_PDF, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File pdf = new File(PATH_RESOURCES + EXPECTED_PDF);
         String expectedPdf = documentConverter.parseToString(pdf);
@@ -67,16 +71,20 @@ public class ExportingFunctionalityTest {
                 " сказал";
         final String requestedSortingOrder = "VALUE_DESCENDING";
         final String requestedIsFilterWords = "false";
-        Request request = buildRequestWithParamValue(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
-                requestedIsFilterWords, MEDIA_TYPE_XLS);
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_XLS,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_XLS);
 
         // when
         Response response = client.newCall(request).execute();
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
-                    requestedIsFilterWords));
+            Assert.fail(createFailMessage(
+                    COUNT_URL_XLS, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File xls = new File(PATH_RESOURCES + EXPECTED_XLS);
         String expectedXls = documentConverter.parseToString(xls);
@@ -95,16 +103,20 @@ public class ExportingFunctionalityTest {
         final String requestedIsFilterWords = "true";
         final String expectedPdfFiltering = "expectedPdfFiltering.pdf";
 
-        Request request = buildRequestWithParamValue(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
-                requestedIsFilterWords, MEDIA_TYPE_PDF);
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_PDF,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_PDF);
 
         // when
         Response response = client.newCall(request).execute();
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
-                    requestedIsFilterWords));
+            Assert.fail(createFailMessage(
+                    COUNT_URL_PDF, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File pdf = new File(PATH_RESOURCES + expectedPdfFiltering);
         String expectedPdf = documentConverter.parseToString(pdf);
@@ -123,16 +135,20 @@ public class ExportingFunctionalityTest {
         final String requestedIsFilterWords = "true";
         final String expectedXlsFiltering = "expectedXlsFiltering.xls";
 
-        Request request = buildRequestWithParamValue(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
-                requestedIsFilterWords, MEDIA_TYPE_XLS);
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_XLS,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_XLS);
 
         // when
         Response response = client.newCall(request).execute();
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
-                    requestedIsFilterWords));
+            Assert.fail(createFailMessage(
+                    COUNT_URL_XLS, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File xls = new File(PATH_RESOURCES + expectedXlsFiltering);
         String expected = documentConverter.parseToString(xls);
@@ -151,16 +167,20 @@ public class ExportingFunctionalityTest {
         final String requestedIsFilterWords = "false";
         final String expectedPdfFiltering = "expectedPdfKeyAscending.pdf";
 
-        Request request = buildRequestWithParamValue(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
-                requestedIsFilterWords, MEDIA_TYPE_PDF);
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_PDF,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_PDF);
 
         // when
         Response response = client.newCall(request).execute();
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
-                    requestedIsFilterWords));
+            Assert.fail(createFailMessage(
+                    COUNT_URL_PDF, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File pdf = new File(PATH_RESOURCES + expectedPdfFiltering);
         String expectedPdf = documentConverter.parseToString(pdf);
@@ -179,16 +199,20 @@ public class ExportingFunctionalityTest {
         final String requestedIsFilterWords = "false";
         final String expectedXls = "expectedXlsSorting.xls";
 
-        Request request = buildRequestWithParamValue(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
-                requestedIsFilterWords, MEDIA_TYPE_XLS);
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_XLS,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_XLS);
 
         // when
         Response response = client.newCall(request).execute();
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
-                    requestedIsFilterWords));
+            Assert.fail(createFailMessage(
+                    COUNT_URL_XLS, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File xls = new File(PATH_RESOURCES + expectedXls);
         String expected = documentConverter.parseToString(xls);
@@ -207,16 +231,20 @@ public class ExportingFunctionalityTest {
         final String requestedIsFilterWords = "true";
         final String expectedPdfFiltering = "expectedPdfFilteringAndSorting.pdf";
 
-        Request request = buildRequestWithParamValue(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
-                requestedIsFilterWords, MEDIA_TYPE_PDF);
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_PDF,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_PDF);
 
         // when
         Response response = client.newCall(request).execute();
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
-                    requestedIsFilterWords));
+            Assert.fail(createFailMessage(
+                    COUNT_URL_PDF, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File pdf = new File(PATH_RESOURCES + expectedPdfFiltering);
         String expectedPdf = documentConverter.parseToString(pdf);
@@ -235,16 +263,20 @@ public class ExportingFunctionalityTest {
         final String requestedIsFilterWords = "true";
         final String expectedXls = "expectedXlsFilteringAndSorting.xls";
 
-        Request request = buildRequestWithParamValue(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
-                requestedIsFilterWords, MEDIA_TYPE_XLS);
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_XLS,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_XLS);
 
         // when
         Response response = client.newCall(request).execute();
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
-                    requestedIsFilterWords));
+            Assert.fail(createFailMessage(
+                    COUNT_URL_XLS, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
         }
         File xls = new File(PATH_RESOURCES + expectedXls);
         String expected = documentConverter.parseToString(xls);
@@ -255,14 +287,19 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    private String createFailMessage(String countUrl, String requestedTextCount, String requestedSortingOrder,
+    private String createFailMessage(String countUrl,
+                                     String requestedTextCount,
+                                     String requestedSortingOrder,
                                      String requestedIsFilterWords) {
         return "cannot get response from " + countUrl + " with request: " + requestedTextCount + " sorting by: " +
                 requestedSortingOrder + " filtered is" + requestedIsFilterWords;
     }
 
-    public Request buildRequestWithParamValue(String countUrl, String requestedTextCount, String requestedSortingOrder,
-                                              String requestedIsFilterWords, String mediaType) {
+    public Request buildRequestWithParamValue(String countUrl,
+                                              String requestedTextCount,
+                                              String requestedSortingOrder,
+                                              String requestedIsFilterWords,
+                                              String mediaType) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add(PARAM_TEXT_COUNT, requestedTextCount)
                 .add(PARAM_SORTING_ORDER, requestedSortingOrder)
@@ -270,7 +307,7 @@ public class ExportingFunctionalityTest {
                 .build();
         final Request request = new Request.Builder()
                 .header("Content-Type", mediaType)
-                .header("Accept-Language", LANGUAGE_TYPE)
+                .header(PARAM_LANGUAGE, LANGUAGE_TYPE)
                 .url(countUrl)
                 .post(formBody)
                 .build();

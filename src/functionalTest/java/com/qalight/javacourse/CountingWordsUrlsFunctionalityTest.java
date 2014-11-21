@@ -16,10 +16,12 @@ import static com.qalight.javacourse.utils.Constants.*;
 
 public class CountingWordsUrlsFunctionalityTest {
     private OkHttpClient client;
+    private ObjectMapper objectMapper;
 
     @Before
     public void setup() {
         client = new OkHttpClient();
+        objectMapper = new ObjectMapper();
     }
 
     @Test(timeout = DEFAULT_TIMEOUT)
@@ -27,9 +29,8 @@ public class CountingWordsUrlsFunctionalityTest {
         // given
         final String cyrillicPage = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
 
-        Request request = buildRequestWithParamValue(cyrillicPage);
-
         // when
+        Request request = buildRequestWithParamValue(cyrillicPage);
         Response response = client.newCall(request).execute();
 
         // then
@@ -50,7 +51,6 @@ public class CountingWordsUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -61,9 +61,8 @@ public class CountingWordsUrlsFunctionalityTest {
         // given
         final String cyrillicPage = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
 
-        Request request = buildRequestWithParamValue(cyrillicPage);
-
         // when
+        Request request = buildRequestWithParamValue(cyrillicPage);
         Response response = client.newCall(request).execute();
 
         // then
@@ -82,7 +81,63 @@ public class CountingWordsUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
+        final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testCountWordsInDocumentViaUrl_noText() throws Exception {
+        // given
+        final String htmlNoText = "http://kupol.in.ua/wordcounter/testData/no_text.html";
+
+        // when
+        Request request = buildRequestWithParamValue(htmlNoText);
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(htmlNoText));
+        }
+
+        final Map<String, Integer> expectedCountedWords = new HashMap<>();
+
+        List<String> expectedError = new ArrayList<String>() {{
+            add("System cannot count entered text. Did you forget to add " +
+                    "'http://' to the link or entered not readable text?");
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+
+        final String resultStr = response.body().string();
+        final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testCountWordsInDocumentViaUrl_invalidLink() throws Exception {
+        // given
+        final String invalidLink = "http://kupol...in.ua/wordcounter/testData/no_text.html";
+
+        // when
+        Request request = buildRequestWithParamValue(invalidLink);
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(invalidLink));
+        }
+
+        final Map<String, Integer> expectedCountedWords = new HashMap<>();
+
+        List<String> expectedError = new ArrayList<String>() {{
+            add("Cannot connect to the source:http://kupol...in.ua/wordcounter/testData/no_text.html");
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+
+        final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -94,9 +149,8 @@ public class CountingWordsUrlsFunctionalityTest {
         final String pptxUrl =
                 "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
 
-        Request request = buildRequestWithParamValue(pptxUrl);
-
         // when
+        Request request = buildRequestWithParamValue(pptxUrl);
         Response response = client.newCall(request).execute();
 
         // then
@@ -114,68 +168,6 @@ public class CountingWordsUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test(timeout = DEFAULT_TIMEOUT)
-    public void testCountWordsInDocumentViaUrl_noText() throws Exception {
-        // given
-        final String htmlNoText = "http://kupol.in.ua/wordcounter/testData/no_text.html";
-
-        Request request = buildRequestWithParamValue(htmlNoText);
-
-        // when
-        Response response = client.newCall(request).execute();
-
-        // then
-        if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(htmlNoText));
-        }
-
-        final Map<String, Integer> expectedCountedWords = new HashMap<>();
-
-        List<String> expectedError = new ArrayList<String>() {{
-            add("System cannot count entered text. Did you forget to add 'http://' to the link or entered not readable" +
-                    " text?");
-        }};
-
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
-
-        final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test(timeout = DEFAULT_TIMEOUT)
-    public void testCountWordsInDocumentViaUrl_invalidLink() throws Exception {
-        // given
-        final String invalidLink = "http://kupol...in.ua/wordcounter/testData/no_text.html";
-
-        Request request = buildRequestWithParamValue(invalidLink);
-
-        // when
-        Response response = client.newCall(request).execute();
-
-        // then
-        if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(invalidLink));
-        }
-
-        final Map<String, Integer> expectedCountedWords = new HashMap<>();
-
-        List<String> expectedError = new ArrayList<String>() {{
-            add("Cannot connect to the source:http://kupol...in.ua/wordcounter/testData/no_text.html");
-        }};
-
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
-
-        final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -186,9 +178,8 @@ public class CountingWordsUrlsFunctionalityTest {
         // given
         final String txtUrl = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
 
-        Request request = buildRequestWithParamValue(txtUrl);
-
         // when
+        Request request = buildRequestWithParamValue(txtUrl);
         Response response = client.newCall(request).execute();
 
         // then
@@ -206,7 +197,6 @@ public class CountingWordsUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -217,9 +207,8 @@ public class CountingWordsUrlsFunctionalityTest {
         // given
         final String pdfUrl = "http://kupol.in.ua/wordcounter/testData/1500_words.pdf";
 
-        Request request = buildRequestWithParamValue(pdfUrl);
-
         // when
+        Request request = buildRequestWithParamValue(pdfUrl);
         Response response = client.newCall(request).execute();
 
         // then
@@ -239,7 +228,6 @@ public class CountingWordsUrlsFunctionalityTest {
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
@@ -250,9 +238,8 @@ public class CountingWordsUrlsFunctionalityTest {
         // given
         final String pdfUrl = "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
 
-        Request request = buildRequestWithParamValue(pdfUrl);
-
         // when
+        Request request = buildRequestWithParamValue(pdfUrl);
         Response response = client.newCall(request).execute();
 
         // then
@@ -263,14 +250,13 @@ public class CountingWordsUrlsFunctionalityTest {
         final Map<String, Integer> expectedCountedWords = new HashMap<>();
 
         List<String> expectedError = new ArrayList<String>() {{
-            add("System cannot count text in the source as it is empty or contains non-readable content or symbols:" +
+            add("System cannot count text in the source as it is empty or contains non-readable content or symbols: >" +
                     "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf");
         }};
 
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
 
         final String resultStr = response.body().string();
-        final ObjectMapper objectMapper = new ObjectMapper();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
 
         Assert.assertEquals(expected, actual);
