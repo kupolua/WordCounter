@@ -69,7 +69,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
                 "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
         final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
-        final String errorMassage = "Cannot connect to the source:http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
+        final String errorMassage = "Cannot connect to the source: >http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
         final String requestedValue = htmlPageBroken + SEPARATOR + pptxLink + SEPARATOR + txtLink;
 
         Request request = buildRequestWithParamValue(requestedValue);
@@ -105,7 +105,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final String pptxLink = "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
         final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
         final String errorMassage = "System cannot count text in the source as it is empty or contains non-readable" +
-                " content or symbols:http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
+                " content or symbols: >http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
         final String requestedValue = htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink;
 
         Request request = buildRequestWithParamValue(requestedValue);
@@ -142,8 +142,8 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
                 "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx ";
         final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
-        final String errorMassageConnect = "Cannot connect to the source:http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
-        final String errorMassageDocument = "Cannot connect to the source:http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
+        final String errorMassageConnect = "Cannot connect to the source: >http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
+        final String errorMassageDocument = "Cannot connect to the source: >http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
         final String requestedValue = htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink;
 
         Request request = buildRequestWithParamValue(requestedValue);

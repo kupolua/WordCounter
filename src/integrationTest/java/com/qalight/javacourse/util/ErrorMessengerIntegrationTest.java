@@ -18,7 +18,7 @@ public class ErrorMessengerIntegrationTest {
         String actualMsg = ErrorMessenger.getErrorMsg(code);
 
         //then
-        final String expectedMsg = "Cannot connect to the source:";
+        final String expectedMsg = "Cannot connect to the source: >";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -33,7 +33,7 @@ public class ErrorMessengerIntegrationTest {
         String actualMsg = ErrorMessenger.getErrorMsg(code);
 
         //then
-        final String expectedMsg = "Cannot connect to the source:";
+        final String expectedMsg = "Cannot connect to the source: >";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -48,7 +48,7 @@ public class ErrorMessengerIntegrationTest {
         String actualMsg = ErrorMessenger.getErrorMsg(code);
 
         //then
-        final String expectedMsg = "Cannot connect to the source:";
+        final String expectedMsg = "Cannot connect to the source: >";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -63,7 +63,7 @@ public class ErrorMessengerIntegrationTest {
         String actualMsg = ErrorMessenger.getErrorMsg(code);
 
         //then
-        final String expectedMsg = "Не удается подключится к удаленному серверу по ссылке:";
+        final String expectedMsg = "Не удается подключится к удаленному серверу по ссылке: >";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -78,7 +78,7 @@ public class ErrorMessengerIntegrationTest {
         String actualMsg = ErrorMessenger.getErrorMsg(code);
 
         //then
-        final String expectedMsg = "Неможливо з'єднатись з віддаленим сервером за посиланням:";
+        final String expectedMsg = "Неможливо з'єднатись з віддаленим сервером за посиланням: >";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -109,8 +109,8 @@ public class ErrorMessengerIntegrationTest {
         String actualMsg = ErrorMessenger.getErrorMsg(code);
 
         //then
-        final String expectedMsg = "Система не может обработать введенный текст. Пожалуйста, проверьте, не забыли ли " +
-                "Вы добавить 'http://' префикс к ссылке или ввели нечитаемый текст.";
+        final String expectedMsg = "Система не может обработать введенный текст. Пожалуйста, проверьте, " +
+                "не забыли ли Вы добавить 'http://' префикс к ссылке или ввели нечитаемый текст.";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -125,8 +125,8 @@ public class ErrorMessengerIntegrationTest {
         String actualMsg = ErrorMessenger.getErrorMsg(code);
 
         //then
-        final String expectedMsg = "Система не взмозі обробити введений текст. Будь ласка, перевірте, чи ви не забули додати " +
-                "'http://' префікс до посилання або ввели нечитабельний текст.";
+        final String expectedMsg = "Система не взмозі обробити введений текст. Будь ласка, перевірте, " +
+                "чи ви не забули додати 'http://' префікс до посилання або ввели нечитабельний текст.";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -187,7 +187,7 @@ public class ErrorMessengerIntegrationTest {
 
         //then
         final String expectedMsg = "System cannot count text in the source as it is empty or " +
-                "contains non-readable content or symbols:";
+                "contains non-readable content or symbols: >";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -203,7 +203,7 @@ public class ErrorMessengerIntegrationTest {
 
         //then
         final String expectedMsg = "Система не может посчитать слова в источнике по ссылке, " +
-                "так как в нем содержится нечитаемый текст или специальные символы:";
+                "так как в нем содержится нечитаемый текст или специальные символы: >";
 
         assertEquals(expectedMsg, actualMsg);
     }
@@ -218,8 +218,8 @@ public class ErrorMessengerIntegrationTest {
         String actualMsg = ErrorMessenger.getErrorMsg(code);
 
         //then
-        final String expectedMsg = "Система не взмозі порахувати слова в джерелі за посиланням, адже він містить " +
-                "нечитабельний текст або спеціальні символи:";
+        final String expectedMsg = "Система не взмозі порахувати слова в джерелі за посиланням, " +
+                "адже він містить нечитабельний текст або спеціальні символи: >";
 
         assertEquals(expectedMsg, actualMsg);
     }

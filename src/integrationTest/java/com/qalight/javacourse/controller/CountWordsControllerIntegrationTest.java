@@ -29,7 +29,7 @@ public class CountWordsControllerIntegrationTest {
         // given
         final String givenText = "https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf";
         final String expectedBody = "{\"countedResult\":{},\"errors\":" +
-                "[\"Cannot connect to the source:https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"]}";
+                "[\"Cannot connect to the source: >https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"]}";
 
         // when
         mockMvc.perform(post("/countWordsRestStyle")

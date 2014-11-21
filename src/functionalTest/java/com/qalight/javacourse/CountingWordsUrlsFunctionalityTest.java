@@ -132,7 +132,7 @@ public class CountingWordsUrlsFunctionalityTest {
         final Map<String, Integer> expectedCountedWords = new HashMap<>();
 
         List<String> expectedError = new ArrayList<String>() {{
-            add("Cannot connect to the source:http://kupol...in.ua/wordcounter/testData/no_text.html");
+            add("Cannot connect to the source: >http://kupol...in.ua/wordcounter/testData/no_text.html");
         }};
 
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
