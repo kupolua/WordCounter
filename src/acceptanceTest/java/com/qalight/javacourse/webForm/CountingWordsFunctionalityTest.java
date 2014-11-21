@@ -17,14 +17,14 @@ import static org.junit.Assert.assertEquals;
 
 public class CountingWordsFunctionalityTest {
     private static WebDriver driver;
+    private static final String LOCALIZATION_EN = "en";
 
     private final String pdfTestPage = "http://defas.com.ua/java/textForTest.pdf";
-    private final String docTestPage = "http://defas.com.ua/java/textForTest.doc";
     private final int waitTime = 2500;
 
     @BeforeClass
     public static void init() {
-        driver = getWebDriver();
+        driver = getWebDriver(LOCALIZATION_EN);
     }
 
     @AfterClass
@@ -246,7 +246,7 @@ public class CountingWordsFunctionalityTest {
     public void testEmptyRequest() {
         // given
         driver.get(BASE_URL);
-        String expectedResult = "Пустой запрос.";
+        String expectedResult = "Request is empty.";
         String emptyString = " ";
 
         // when
@@ -315,15 +315,17 @@ public class CountingWordsFunctionalityTest {
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks);
     }
-    @Ignore
+
     @Test
-    public void testEnterThreeLinks_withBrokenHtmlLink() {
+    public void testEnterThreeLinks_withBrokenHtmlLink() throws Exception {
         // given
         final String htmlPageLatin = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
         final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
                 "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
         final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
-        final String expectedEnterThreeLinks = "";
+        final String expectedEnterThreeLinks = "думи 2\n" + "people 1\n" + "мої 1\n" + "nice 1";
+        String expectedErrorMassage = "Cannot connect to the source:http://kupol....in.ua/wordcounter/testData/" +
+                "test_page_latin.html";
 
         driver.get(BASE_URL);
 
@@ -331,19 +333,26 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
+        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        Thread.sleep(TIME_WAIT_SPOILER);
+
         //then
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        String actualErrorMassage = driver.findElement(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)).getText();
+
         assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks);
+        assertEquals(expectedErrorMassage, actualErrorMassage);
     }
 
-    @Ignore
     @Test
-    public void testEnterThreeLinks_withNoReadableTextInPdf() {
+    public void testEnterThreeLinks_withNoReadableTextInPdf() throws Exception {
         // given
-        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
+        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
         final String pptxLink = "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
         final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
-        final String expectedEnterThreeLinks = "";
+        final String expectedEnterThreeLinks = "test 3\n" + "a 1\n" + "santa-monica 1\n" + "people 1\n" + "nice 1";
+        String expectedErrorMassage = "System cannot count text in the source as it is empty or contains non-readable" +
+                " content or symbols:http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
 
         driver.get(BASE_URL);
 
@@ -351,9 +360,15 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
+        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        Thread.sleep(TIME_WAIT_SPOILER);
+
         //then
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
+        String actualErrorMassage = driver.findElement(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)).getText();
+
         assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks);
+        assertEquals(expectedErrorMassage, actualErrorMassage);
     }
 
     @Ignore

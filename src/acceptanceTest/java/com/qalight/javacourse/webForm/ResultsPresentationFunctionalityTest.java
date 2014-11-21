@@ -12,6 +12,7 @@ import static com.qalight.javacourse.webForm.utils.Constants.*;
 import static com.qalight.javacourse.webForm.utils.Util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class ResultsPresentationFunctionalityTest {
     private static WebDriver driver;
@@ -26,6 +27,9 @@ public class ResultsPresentationFunctionalityTest {
     private final String ruAlphabetLink = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
     private final String enAlphabetLink = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
     private final String xPathLastPage = "//*[@id=\"countedWords_paginate\"]/ul/li[7]/a";
+    private final String elementIdErrorSpoiler = "errorsSpoiler";
+    private final String elementClassSpoilerClose = "spoiler_close";
+    private String elementCssErrorContainer = "#errorsContainer";
 
     @BeforeClass
     public static void init() {
@@ -242,5 +246,43 @@ public class ResultsPresentationFunctionalityTest {
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testSpoiler_close() throws Exception {
+        // given
+        final String htmlBrokenPageLatin = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
+        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+
+        driver.get(BASE_URL);
+
+        // when
+        putDataAndClickCountButton(driver, htmlBrokenPageLatin + SEPARATOR + txtLink);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        Thread.sleep(TIME_WAIT_SPOILER);
+        driver.findElement(By.className(elementClassSpoilerClose)).click();
+        Thread.sleep(TIME_WAIT_SPOILER);
+
+        //then
+        final boolean isSpoilerOpen = driver.findElement(By.cssSelector(elementCssErrorContainer)).isDisplayed();
+        assertFalse(isSpoilerOpen);
+    }
+
+    @Test
+    public void testSpoiler_notUse() throws Exception {
+        // given
+        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+
+        driver.get(BASE_URL);
+
+        // when
+        putDataAndClickCountButton(driver, txtLink);
+        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
+        //then
+        final boolean isSpoilerUse = driver.findElement(By.id(elementIdErrorSpoiler)).isDisplayed();
+        assertFalse(isSpoilerUse);
     }
 }
