@@ -23,4 +23,5 @@ public class Constants {
     public static final String KEY_ASCENDING = "KEY_ASCENDING";
     public static final String KEY_DESCENDING = "KEY_DESCENDING";
     public static final String VALUE_ASCENDING = "VALUE_ASCENDING";
+    public static final String VALUE_DESCENDING = "VALUE_DESCENDING";
 }
