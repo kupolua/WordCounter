@@ -15,7 +15,7 @@ import static com.qalight.javacourse.utils.Constants.*;
 
 public class InformationAboutFunctionalityTest {
     private static final String ABOUT = "about";
-    private static final String COUNT_URL_ABOUT = SERVER_NAME + PORT + CONTEXT + ABOUT;
+    private static final String URL_ABOUT = SERVER_NAME + PORT + CONTEXT + ABOUT;
     private OkHttpClient client;
 
     @Before
@@ -43,10 +43,14 @@ public class InformationAboutFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
+    private String createFailMessage() {
+        return "Cannot get response from " + URL_ABOUT;
+    }
+
     public Request buildRequestWithParamValue() {
         final Request request = new Request.Builder()
-                .header("Accept-Language", LANGUAGE_TYPE_DEFAULT_EN)
-                .url(COUNT_URL_ABOUT)
+                .header(PARAM_LANGUAGE, LANGUAGE_DEFAULT_EN)
+                .url(URL_ABOUT)
                 .build();
         return request;
     }
@@ -59,9 +63,5 @@ public class InformationAboutFunctionalityTest {
         matcher.find();
         String actual = matcher.group(1);
         return actual;
-    }
-
-    private String createFailMessage() {
-        return "cannot get response from " + COUNT_URL_ABOUT;
     }
 }

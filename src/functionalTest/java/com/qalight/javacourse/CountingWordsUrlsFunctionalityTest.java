@@ -262,8 +262,8 @@ public class CountingWordsUrlsFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    private String createFailMessage(String requestedValue) {
-        return "cannot get response from " + COUNT_URL + " with request: " + requestedValue;
+    public static String createFailMessage(String requestedValue) {
+        return "Cannot get response from " + COUNT_URL + " with request: " + requestedValue;
     }
 
     public Request buildRequestWithParamValue(String requestedValue) {
@@ -271,7 +271,7 @@ public class CountingWordsUrlsFunctionalityTest {
                 .add(PARAM_TEXT_COUNT, requestedValue)
                 .build();
         final Request request = new Request.Builder()
-                .header("Accept-Language", LANGUAGE_TYPE_DEFAULT_EN)
+                .header(PARAM_LANGUAGE, LANGUAGE_DEFAULT_EN)
                 .url(COUNT_URL)
                 .post(formBody)
                 .build();

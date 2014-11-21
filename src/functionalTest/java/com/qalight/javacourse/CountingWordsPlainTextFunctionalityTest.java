@@ -15,7 +15,6 @@ import java.util.Map;
 
 import static com.qalight.javacourse.utils.Constants.*;
 
-
 public class CountingWordsPlainTextFunctionalityTest {
     private OkHttpClient client;
     private ObjectMapper objectMapper;
@@ -120,7 +119,7 @@ public class CountingWordsPlainTextFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_email() throws Exception {
         // given
-        final String languageParam = LANGUAGE_TYPE_DEFAULT_EN;
+        final String languageParam = LANGUAGE_DEFAULT_EN;
         final String textRequest = "kris@gmail.com";
 
         // when
@@ -149,7 +148,7 @@ public class CountingWordsPlainTextFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_urlWithoutHttp() throws Exception {
         // given
-        final String languageParam = LANGUAGE_TYPE_RU;
+        final String languageParam = LANGUAGE_RU;
         final String textRequest = "www.google.com";
 
         // when
@@ -179,7 +178,7 @@ public class CountingWordsPlainTextFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_trashSymbols() throws Exception {
         // given
-        final String languageParam = LANGUAGE_TYPE_UA;
+        final String languageParam = LANGUAGE_UA;
         final String textRequest = "%/*\\^#";
 
         // when
@@ -239,7 +238,7 @@ public class CountingWordsPlainTextFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_numbers() throws Exception {
         // given
-        final String languageParam = LANGUAGE_TYPE_ES;
+        final String languageParam = LANGUAGE_ES;
         final String textRequest = "0";
 
         // when
@@ -285,8 +284,8 @@ public class CountingWordsPlainTextFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    private String createFailMessage(String requestedValue) {
-        return "cannot get response from " + COUNT_URL + " with request: " + requestedValue;
+    public static String createFailMessage(String requestedValue) {
+        return "Cannot get response from " + COUNT_URL + " with request: " + requestedValue;
     }
 
     public Request buildRequestWithParamValue(String requestedValue) {
@@ -294,7 +293,7 @@ public class CountingWordsPlainTextFunctionalityTest {
                 .add(PARAM_TEXT_COUNT, requestedValue)
                 .build();
         final Request request = new Request.Builder()
-                .header("Accept-Language", LANGUAGE_TYPE_DEFAULT_EN)
+                .header(PARAM_LANGUAGE, LANGUAGE_DEFAULT_EN)
                 .url(COUNT_URL)
                 .post(formBody)
                 .build();

@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.qalight.javacourse.utils.Constants.*;
-import static com.qalight.javacourse.utils.Util.*;
 
 public class CountingWordsThreeUrlsFunctionalityTest {
     private OkHttpClient client;
@@ -41,17 +40,18 @@ public class CountingWordsThreeUrlsFunctionalityTest {
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL, requestedValue));
+            Assert.fail(createFailMessage(requestedValue));
         }
 
-        Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>(){{
+        Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>() {{
             put("test", 3);
             put("думи", 2);
             put("a", 1);
             put("мої", 1);
             put("santa-monica", 1);
             put("people", 1);
-            put("nice", 1);}};
+            put("nice", 1);
+        }};
 
         List<String> expectedError = new ArrayList<>();
         final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
@@ -79,14 +79,15 @@ public class CountingWordsThreeUrlsFunctionalityTest {
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL, requestedValue));
+            Assert.fail(createFailMessage(requestedValue));
         }
 
-        Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>(){{
-                put("думи", 2);
-                put("people", 1);
-                put("мої", 1);
-                put("nice", 1);}};
+        Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>() {{
+            put("думи", 2);
+            put("people", 1);
+            put("мої", 1);
+            put("nice", 1);
+        }};
 
         List<String> expectedError = new ArrayList<>();
         expectedError.add(errorMassage);
@@ -115,15 +116,16 @@ public class CountingWordsThreeUrlsFunctionalityTest {
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL, requestedValue));
+            Assert.fail(createFailMessage(requestedValue));
         }
 
-        Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>(){{
+        Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>() {{
             put("test", 3);
             put("a", 1);
             put("santa-monica", 1);
             put("people", 1);
-            put("nice", 1);}};
+            put("nice", 1);
+        }};
 
         List<String> expectedError = new ArrayList<>();
         expectedError.add(errorMassage);
@@ -153,12 +155,13 @@ public class CountingWordsThreeUrlsFunctionalityTest {
 
         // then
         if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(COUNT_URL, requestedValue));
+            Assert.fail(createFailMessage(requestedValue));
         }
 
-        Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>(){{
+        Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>() {{
             put("думи", 2);
-            put("мої", 1);}};
+            put("мої", 1);
+        }};
 
         List<String> expectedError = new ArrayList<>();
         expectedError.add(errorMassageConnect);
@@ -171,12 +174,16 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
+    public static String createFailMessage(String requestedValue) {
+        return "Cannot get response from " + COUNT_URL + " with request: " + requestedValue;
+    }
+
     public Request buildRequestWithParamValue(String requestedValue) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add(PARAM_TEXT_COUNT, requestedValue)
                 .build();
         final Request request = new Request.Builder()
-                .header("Accept-Language", LANGUAGE_TYPE_DEFAULT_EN)
+                .header(PARAM_LANGUAGE, LANGUAGE_DEFAULT_EN)
                 .url(COUNT_URL)
                 .post(formBody)
                 .build();

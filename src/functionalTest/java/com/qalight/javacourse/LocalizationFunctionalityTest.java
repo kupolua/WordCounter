@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 import static com.qalight.javacourse.utils.Constants.*;
 
 public class LocalizationFunctionalityTest {
-    private static final String COUNT_URL_LOCALIZATION = SERVER_NAME + PORT + CONTEXT;
+    private static final String URL_HOME_PAGE = SERVER_NAME + PORT + CONTEXT;
     private OkHttpClient client;
 
     @Before
@@ -25,7 +25,7 @@ public class LocalizationFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testLanguage_textEN() throws Exception {
         // given
-        final String languageType = "en-EN,en;q=0.5";
+        final String languageType = LANGUAGE_DEFAULT_EN;
         final String expected = "Get the most frequently used words in one click!";
 
         Request request = buildRequestWithParamValue(languageType);
@@ -38,7 +38,7 @@ public class LocalizationFunctionalityTest {
             Assert.fail(createFailMessage());
         }
 
-        String actual = getResponseBody(response);
+        String actual = getTextMarkerFromResponseBody(response);
 
         Assert.assertEquals(expected, actual);
     }
@@ -46,7 +46,7 @@ public class LocalizationFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testLanguage_textRU() throws Exception {
         // given
-        final String languageType = "ru-RU,en;q=0.5";
+        final String languageType = LANGUAGE_RU;
         final String expected = "Получите список наиболее часто используемых слов в один миг!";
 
         Request request = buildRequestWithParamValue(languageType);
@@ -59,7 +59,7 @@ public class LocalizationFunctionalityTest {
             Assert.fail(createFailMessage());
         }
 
-        String actual = getResponseBody(response);
+        String actual = getTextMarkerFromResponseBody(response);
 
         Assert.assertEquals(expected, actual);
     }
@@ -67,7 +67,7 @@ public class LocalizationFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testLanguage_textUA() throws Exception {
         // given
-        final String languageType = "uk,ru;q=0.8,en-US;q=0.6,en;q=0.4";
+        final String languageType = LANGUAGE_UA;
         final String expected = "Отримайте перелік слів, що найчастіше зустрічаються у тексті, всього за одну мить!";
 
         Request request = buildRequestWithParamValue(languageType);
@@ -80,7 +80,7 @@ public class LocalizationFunctionalityTest {
             Assert.fail(createFailMessage());
         }
 
-        String actual = getResponseBody(response);
+        String actual = getTextMarkerFromResponseBody(response);
 
         Assert.assertEquals(expected, actual);
     }
@@ -88,7 +88,7 @@ public class LocalizationFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testLanguage_textDefault() throws Exception {
         // given
-        final String languageType = "de-DE,de;q=0.8,de-DE;q=0.6,en;q=0.4";
+        final String languageType = LANGUAGE_DE;
         final String expected = "Get the most frequently used words in one click!";
 
         Request request = buildRequestWithParamValue(languageType);
@@ -101,7 +101,7 @@ public class LocalizationFunctionalityTest {
             Assert.fail(createFailMessage());
         }
 
-        String actual = getResponseBody(response);
+        String actual = getTextMarkerFromResponseBody(response);
 
         Assert.assertEquals(expected, actual);
     }
@@ -110,8 +110,8 @@ public class LocalizationFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testLanguage_responseHeaderRU() throws Exception {
         // given
-        final String languageType = "ru-RU,en;q=0.5";
-        final String expected = "ru-RU";
+        final String languageType = LANGUAGE_RU;
+        final String expected = LANGUAGE_RU;
 
         Request request = buildRequestWithParamValue(languageType);
 
@@ -132,9 +132,9 @@ public class LocalizationFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testDefaultLanguage_responseHeader() throws Exception {
         // given
-        final String languageType = "de-DE,en;q=0.5";
+        final String languageType = LANGUAGE_DE;
         //todo config Spring to response header Content-Language in en-EN as default
-        final String expected = "de-DE";
+        final String expected = LANGUAGE_DE;
 
         Request request = buildRequestWithParamValue(languageType);
 
@@ -152,18 +152,18 @@ public class LocalizationFunctionalityTest {
     }
 
     private String createFailMessage() {
-        return "cannot get response from " + COUNT_URL_LOCALIZATION;
+        return "Cannot get response from " + URL_HOME_PAGE;
     }
 
     public Request buildRequestWithParamValue(String languageType) {
         final Request request = new Request.Builder()
-                .header("Accept-Language", languageType)
-                .url(COUNT_URL_LOCALIZATION)
+                .header(PARAM_LANGUAGE, languageType)
+                .url(URL_HOME_PAGE)
                 .build();
         return request;
     }
-    //todo refactor method name
-    private String getResponseBody(Response response) throws IOException {
+
+    private String getTextMarkerFromResponseBody(Response response) throws IOException {
         final Pattern pattern = Pattern.compile("<div id=\"p1\">(.+?)</div>");
 
         String responseBody = response.body().string();

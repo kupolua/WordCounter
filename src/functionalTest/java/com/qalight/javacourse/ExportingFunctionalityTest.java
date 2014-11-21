@@ -20,7 +20,7 @@ public class ExportingFunctionalityTest {
     private static final String MEDIA_TYPE_XLS = "application/vnd.ms-excel;charset=UTF-8";
     private static final String EXPECTED_PDF = "expectedPdf.pdf";
     private static final String EXPECTED_XLS = "expectedXls.xls";
-    private static final String LANGUAGE_TYPE = LANGUAGE_TYPE_RU;
+    private static final String LANGUAGE_TYPE = LANGUAGE_RU;
 
     private OkHttpClient client;
     private Tika documentConverter;
@@ -291,7 +291,7 @@ public class ExportingFunctionalityTest {
                                      String requestedTextCount,
                                      String requestedSortingOrder,
                                      String requestedIsFilterWords) {
-        return "cannot get response from " + countUrl + " with request: " + requestedTextCount + " sorting by: " +
+        return "Cannot get response from " + countUrl + " with request: " + requestedTextCount + " sorting by: " +
                 requestedSortingOrder + " filtered is" + requestedIsFilterWords;
     }
 
@@ -306,7 +306,7 @@ public class ExportingFunctionalityTest {
                 .add(PARAM_IS_FILTER_WORDS, requestedIsFilterWords)
                 .build();
         final Request request = new Request.Builder()
-                .header("Content-Type", mediaType)
+                .header(PARAM_CONTENT_TYPE, mediaType)
                 .header(PARAM_LANGUAGE, LANGUAGE_TYPE)
                 .url(countUrl)
                 .post(formBody)
