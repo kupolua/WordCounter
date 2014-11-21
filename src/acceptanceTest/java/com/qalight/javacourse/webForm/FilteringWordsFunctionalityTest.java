@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,14 +21,17 @@ import static org.junit.Assert.assertFalse;
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class FilteringWordsFunctionalityTest {
     private static WebDriver driver;
+    private static WebDriverWait wait;
 
     private final String buttonIdFilteringWords = "buttonGetFilterWords";
+    final String buttonIdUnFilteringWords = "buttonGetUnFilterWords";
     private final String elementShowFilter = "#showFilter > a";
-    private final int waitTime = 5000;
+    private final int waitTime = 3000;
 
     @BeforeClass
     public static void init() {
         driver = getWebDriver();
+        wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT);
     }
 
     @AfterClass
@@ -47,7 +52,7 @@ public class FilteringWordsFunctionalityTest {
         putDataAndClickCountButton(driver, inputHtmlUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(buttonIdFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -65,7 +70,7 @@ public class FilteringWordsFunctionalityTest {
         putDataAndClickCountButton(driver, cyrillicText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(buttonIdFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -83,7 +88,7 @@ public class FilteringWordsFunctionalityTest {
         putDataAndClickCountButton(driver, frenchText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(buttonIdFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -102,7 +107,7 @@ public class FilteringWordsFunctionalityTest {
         putDataAndClickCountButton(driver, frenchText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(buttonIdFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonGetUnFilterWords")));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -115,16 +120,15 @@ public class FilteringWordsFunctionalityTest {
         driver.get(BASE_URL);
         final String inputLatinUrl = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
         final String expectedResult = "test 3\na 1\nsanta-monica 1";
-        final String buttonIdUnFilteringWords = "buttonGetUnFilterWords";
 
         // when
         putDataAndClickCountButton(driver, inputLatinUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(buttonIdFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
         driver.findElement(By.id(buttonIdUnFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdFilteringWords)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -137,16 +141,15 @@ public class FilteringWordsFunctionalityTest {
         driver.get(BASE_URL);
         final String cyrillicText = "Під'їзд, ПІД'ЇЗД, ґедзь, єнот, й";
         final String expectedResult = "під'їзд 2\nй 1\nєнот 1\nґедзь 1";
-        final String buttonIdUnFilteringWords = "buttonGetUnFilterWords";
 
         // when
         putDataAndClickCountButton(driver, cyrillicText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(buttonIdFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
         driver.findElement(By.id(buttonIdUnFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdFilteringWords)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -160,15 +163,15 @@ public class FilteringWordsFunctionalityTest {
         final String inputPptxUrl =
                 "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
         final String expectedResult = "думи 2\nмої 1";
-        final String buttonIdUnFilteringWords = "buttonGetUnFilterWords";
 
         // when
         putDataAndClickCountButton(driver, inputPptxUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(buttonIdFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
+
         driver.findElement(By.id(buttonIdUnFilteringWords)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdFilteringWords)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -202,7 +205,7 @@ public class FilteringWordsFunctionalityTest {
         putDataAndClickCountButton(driver, inessentialText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.cssSelector(elementShowFilter)).click();
-        Thread.sleep(waitTime);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(elementIdFilteringWords)));
 
         // then
         String actualWordsFromFilter = driver.findElement(By.id(elementIdFilteringWords)).getText();

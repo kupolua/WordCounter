@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,14 +19,15 @@ import static org.junit.Assert.assertEquals;
 
 public class CountingWordsFunctionalityTest {
     private static WebDriver driver;
+    private static WebDriverWait wait;
     private static final String LOCALIZATION_EN = "en";
 
     private final String pdfTestPage = "http://defas.com.ua/java/textForTest.pdf";
-    private final int waitTime = 2500;
 
     @BeforeClass
     public static void init() {
         driver = getWebDriver(LOCALIZATION_EN);
+        wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT);
     }
 
     @AfterClass
@@ -225,7 +228,6 @@ public class CountingWordsFunctionalityTest {
     @Test
     public void testInputText() throws InterruptedException {
         // given
-        Thread.sleep(waitTime);
         driver.get(BASE_URL);
 
         final String TEXT = "a One, the one ONE oNE  Two  two, two!@#$%^&*()_+=!123456789\n" + "https://www.google." +
@@ -316,7 +318,7 @@ public class CountingWordsFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
-        Thread.sleep(TIME_WAIT_SPOILER);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -344,7 +346,7 @@ public class CountingWordsFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
-        Thread.sleep(TIME_WAIT_SPOILER);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
