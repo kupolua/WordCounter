@@ -87,6 +87,174 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expectedXls, actualXls);
     }
 
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testExportPdf_Filtering() throws Exception {
+        // given
+        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String requestedSortingOrder = "VALUE_DESCENDING";
+        final String requestedIsFilterWords = "true";
+        final String expectedPdfFiltering = "expectedPdfFiltering.pdf";
+
+        Request request = buildRequestWithParamValue(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
+                requestedIsFilterWords, MEDIA_TYPE_PDF);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
+                    requestedIsFilterWords));
+        }
+        File pdf = new File(PATH_RESOURCES + expectedPdfFiltering);
+        String expectedPdf = documentConverter.parseToString(pdf);
+
+        InputStream inputPdf = response.body().byteStream();
+        String actualPdf = documentConverter.parseToString(inputPdf);
+
+        Assert.assertEquals(expectedPdf, actualPdf);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testExportXls_Filtering() throws Exception {
+        // given
+        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
+        final String requestedSortingOrder = "VALUE_DESCENDING";
+        final String requestedIsFilterWords = "true";
+        final String expectedXlsFiltering = "expectedXlsFiltering.xls";
+
+        Request request = buildRequestWithParamValue(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
+                requestedIsFilterWords, MEDIA_TYPE_XLS);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
+                    requestedIsFilterWords));
+        }
+        File xls = new File(PATH_RESOURCES + expectedXlsFiltering);
+        String expected = documentConverter.parseToString(xls);
+
+        InputStream input = response.body().byteStream();
+        String actual = documentConverter.parseToString(input);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testExportPdf_Sorting() throws Exception {
+        // given
+        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
+        final String requestedSortingOrder = KEY_ASCENDING;
+        final String requestedIsFilterWords = "false";
+        final String expectedPdfFiltering = "expectedPdfKeyAscending.pdf";
+
+        Request request = buildRequestWithParamValue(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
+                requestedIsFilterWords, MEDIA_TYPE_PDF);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
+                    requestedIsFilterWords));
+        }
+        File pdf = new File(PATH_RESOURCES + expectedPdfFiltering);
+        String expectedPdf = documentConverter.parseToString(pdf);
+
+        InputStream inputPdf = response.body().byteStream();
+        String actualPdf = documentConverter.parseToString(inputPdf);
+
+        Assert.assertEquals(expectedPdf, actualPdf);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testExportXls_Sorting() throws Exception {
+        // given
+        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
+        final String requestedSortingOrder = KEY_DESCENDING;
+        final String requestedIsFilterWords = "false";
+        final String expectedXls = "expectedXlsSorting.xls";
+
+        Request request = buildRequestWithParamValue(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
+                requestedIsFilterWords, MEDIA_TYPE_XLS);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
+                    requestedIsFilterWords));
+        }
+        File xls = new File(PATH_RESOURCES + expectedXls);
+        String expected = documentConverter.parseToString(xls);
+
+        InputStream input = response.body().byteStream();
+        String actual = documentConverter.parseToString(input);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testExportPdf_FilteringAndSorting() throws Exception {
+        // given
+        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/all_lang.odt";
+        final String requestedSortingOrder = VALUE_ASCENDING;
+        final String requestedIsFilterWords = "true";
+        final String expectedPdfFiltering = "expectedPdfFilteringAndSorting.pdf";
+
+        Request request = buildRequestWithParamValue(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
+                requestedIsFilterWords, MEDIA_TYPE_PDF);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(COUNT_URL_PDF, requestedTextCount, requestedSortingOrder,
+                    requestedIsFilterWords));
+        }
+        File pdf = new File(PATH_RESOURCES + expectedPdfFiltering);
+        String expectedPdf = documentConverter.parseToString(pdf);
+
+        InputStream inputPdf = response.body().byteStream();
+        String actualPdf = documentConverter.parseToString(inputPdf);
+
+        Assert.assertEquals(expectedPdf, actualPdf);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testExportXls_FilteringAndSorting() throws Exception {
+        // given
+        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/all_lang.odt";
+        final String requestedSortingOrder = KEY_ASCENDING;
+        final String requestedIsFilterWords = "true";
+        final String expectedXls = "expectedXlsFilteringAndSorting.xls";
+
+        Request request = buildRequestWithParamValue(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
+                requestedIsFilterWords, MEDIA_TYPE_XLS);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(COUNT_URL_XLS, requestedTextCount, requestedSortingOrder,
+                    requestedIsFilterWords));
+        }
+        File xls = new File(PATH_RESOURCES + expectedXls);
+        String expected = documentConverter.parseToString(xls);
+
+        InputStream input = response.body().byteStream();
+        String actual = documentConverter.parseToString(input);
+
+        Assert.assertEquals(expected, actual);
+    }
+
     private String createFailMessage(String countUrl, String requestedTextCount, String requestedSortingOrder,
                                      String requestedIsFilterWords) {
         return "cannot get response from " + countUrl + " with request: " + requestedTextCount + " sorting by: " +
@@ -108,4 +276,6 @@ public class ExportingFunctionalityTest {
                 .build();
         return request;
     }
+
+
 }
