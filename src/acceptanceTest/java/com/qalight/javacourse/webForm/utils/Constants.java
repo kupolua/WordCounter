@@ -14,5 +14,4 @@ public class Constants {
     public static final String SEPARATOR = " ";
     public static final String ELEMENT_CSS_ERROR_CONTAINER = "#errorsContainer";
     public static final String elementCssSpoilerOpen = "spoiler_open";
-    public static final int TIME_WAIT_SPOILER = 1000;
 }

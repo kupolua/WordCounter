@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 public class CountingWordsFunctionalityTest {
     private static WebDriver driver;
     private static WebDriverWait wait;
-    private static final String LOCALIZATION_EN = "en";
 
     @BeforeClass
     public static void init() {
-        driver = getWebDriver(LOCALIZATION_EN);
+        final String localizationEn = "en";
+        driver = getWebDriver(localizationEn);
         wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT);
     }
 
@@ -37,9 +37,10 @@ public class CountingWordsFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String expectedResult = "аэросъемка 2\nдымарь 2\nнет 1\nщеголь 1\nон 1";
+        final String request = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
 
         // when
-        putDataAndClickCountButton(driver, "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html");
+        putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -238,17 +239,16 @@ public class CountingWordsFunctionalityTest {
     @Test
     public void testEnterThreeLinks() {
         // given
-        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
-        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
-                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String request = "http://kupol.in.ua/wordcounter/testData/page_latin.html " +
+                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
         final String expectedEnterThreeLinks = "test 3\n" + "думи 2\n" + "a 1\n" + "мої 1\n" + "santa-monica 1\n" +
                 "people 1\n" + "nice 1";
 
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
+        putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
@@ -259,10 +259,9 @@ public class CountingWordsFunctionalityTest {
     @Test
     public void testEnterThreeLinks_withBrokenHtmlLink() throws Exception {
         // given
-        final String htmlPageLatin = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
-        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
-                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String request = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html " +
+                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
         final String expectedEnterThreeLinks = "думи 2\n" + "people 1\n" + "мої 1\n" + "nice 1";
         String expectedErrorMassage = "Cannot connect to the source: >http://kupol....in.ua/wordcounter/testData/" +
                 "test_page_latin.html";
@@ -270,7 +269,7 @@ public class CountingWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
+        putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
@@ -287,9 +286,9 @@ public class CountingWordsFunctionalityTest {
     @Test
     public void testEnterThreeLinks_withNoReadableTextInPdf() throws Exception {
         // given
-        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
-        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String request = "http://kupol.in.ua/wordcounter/testData/page_latin.html " +
+                "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf " +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
         final String expectedEnterThreeLinks = "test 3\n" + "a 1\n" + "santa-monica 1\n" + "people 1\n" + "nice 1";
         String expectedErrorMassage = "System cannot count text in the source as it is empty or contains non-readable" +
                 " content or symbols: >http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
@@ -297,7 +296,7 @@ public class CountingWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
+        putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
@@ -314,16 +313,15 @@ public class CountingWordsFunctionalityTest {
     @Test
     public void testEnterThreeLinks_withBrokenTxtLink() {
         // given
-        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
-        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
-                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx ";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
+        final String request = "http://kupol.in.ua/wordcounter/testData/test_page_latin.html " +
+                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
         final String expectedEnterThreeLinks = "думи 2\n" + "мої 1";
 
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink);
+        putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then

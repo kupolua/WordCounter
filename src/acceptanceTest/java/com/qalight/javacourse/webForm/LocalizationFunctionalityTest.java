@@ -13,15 +13,15 @@ import static com.qalight.javacourse.webForm.utils.Util.waitForJQueryProcessing;
 import static org.junit.Assert.assertEquals;
 
 public class LocalizationFunctionalityTest {
+    private static final String ID_STRING_AT_WEB_FORM = "p1";
     private WebDriver driver;
     private static WebDriverWait wait;
-    private String idStringAtWebForm = "p1";
 
     @Test
     public void testImproperInput_en() throws Exception {
         // given
         final String localization = "en";
-        final String improperInput = "kris@gmail.com  %/*\\^# 0";
+        final String improperInput = "kris@gmail.com";
         final String expectedResult = "System cannot count entered text. Did you forget to add " +
                 "'http://' to the link or entered not readable text?";
         driver = getWebDriver(localization);
@@ -124,7 +124,7 @@ public class LocalizationFunctionalityTest {
         driver.get(BASE_URL);
 
         // then
-        String actualResult = driver.findElement(By.id(idStringAtWebForm)).getText();
+        String actualResult = driver.findElement(By.id(ID_STRING_AT_WEB_FORM)).getText();
         driver.quit();
         assertEquals(expectedResult, actualResult);
     }
@@ -140,7 +140,7 @@ public class LocalizationFunctionalityTest {
         driver.get(BASE_URL);
 
         // then
-        String actualResult = driver.findElement(By.id(idStringAtWebForm)).getText();
+        String actualResult = driver.findElement(By.id(ID_STRING_AT_WEB_FORM)).getText();
         driver.quit();
         assertEquals(expectedResult, actualResult);
     }
@@ -157,7 +157,7 @@ public class LocalizationFunctionalityTest {
         driver.get(BASE_URL);
 
         // then
-        String actualResult = driver.findElement(By.id(idStringAtWebForm)).getText();
+        String actualResult = driver.findElement(By.id(ID_STRING_AT_WEB_FORM)).getText();
         driver.quit();
         assertEquals(expectedResult, actualResult);
     }
@@ -173,7 +173,7 @@ public class LocalizationFunctionalityTest {
         driver.get(BASE_URL);
 
         // then
-        String actualResult = driver.findElement(By.id(idStringAtWebForm)).getText();
+        String actualResult = driver.findElement(By.id(ID_STRING_AT_WEB_FORM)).getText();
         driver.quit();
         assertEquals(expectedResult, actualResult);
     }

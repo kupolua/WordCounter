@@ -15,21 +15,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class ResultsPresentationFunctionalityTest {
+    private static final int TIME_WAIT_SPOILER = 1000;
+    private static final String ELEMENT_DATA_TABLES_LENGTH = "countedWords_length";
+    private static final String ELEMENT_ID_LINK_NEXT = "countedWords_next";
+    private static final String DATA_TABLES_LENGTH_100 = "100";
+    private static final String HTML_TEST_PAGE_PRESENTATION = "http://defas.com.ua/java/textForTestShowEntries.html";
+    private static final String EXPECTED_BY_DEFAULT = "и 3\njava 2\nновая 2\nв 2\nвремя 2\nверсия 2\nswing 2\n" +
+            "версии 2\n" + "будет 2\n" + "старт 2";
+    private static final String ELEMENT_ID_LINK_PREV = "countedWords_previous";
+    private static final String RU_ALPHABET_LINK = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
+    private static final String EN_ALPHABET_LINK = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
+    private static final String X_PATH_LAST_PAGE = "//*[@id=\"countedWords_paginate\"]/ul/li[7]/a";
     private static WebDriver driver;
-
-    private final String elementDataTablesLength = "countedWords_length";
-    private final String elementIdLinkNext = "countedWords_next";
-    private final String dataTablesLength100 = "100";
-    private final String HtmlTestPagePresentation = "http://defas.com.ua/java/textForTestShowEntries.html";
-    private final String expectedByDefault = "и 3\n" + "java 2\n" + "новая 2\n" + "в 2\n" + "время 2\n" + "версия 2\n" +
-            "swing 2\n" + "версии 2\n" + "будет 2\n" + "старт 2";
-    private final String elementIdLinkPrev = "countedWords_previous";
-    private final String ruAlphabetLink = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
-    private final String enAlphabetLink = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
-    private final String xPathLastPage = "//*[@id=\"countedWords_paginate\"]/ul/li[7]/a";
-    private final String elementIdErrorSpoiler = "errorsSpoiler";
-    private final String elementClassSpoilerClose = "spoiler_close";
-    private String elementCssErrorContainer = "#errorsContainer";
 
     @BeforeClass
     public static void init() {
@@ -47,12 +44,12 @@ public class ResultsPresentationFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, HtmlTestPagePresentation);
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-        assertEquals(expectedByDefault, actualResult);
+        assertEquals(EXPECTED_BY_DEFAULT, actualResult);
     }
 
     @Test
@@ -67,9 +64,9 @@ public class ResultsPresentationFunctionalityTest {
                 "пришло 1";
 
         // when
-        putDataAndClickCountButton(driver, HtmlTestPagePresentation);
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        new Select(driver.findElement(By.name(elementDataTablesLength))).selectByVisibleText(dataTablesLength25);
+        new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength25);
 
         // then
         String actualShowEntries = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -92,9 +89,9 @@ public class ResultsPresentationFunctionalityTest {
                 "например 1\n" + "ваши 1";
 
         // when
-        putDataAndClickCountButton(driver, HtmlTestPagePresentation);
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        new Select(driver.findElement(By.name(elementDataTablesLength))).selectByVisibleText(dataTablesLength50);
+        new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength50);
 
         // then
         String actualShowEntries = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -115,14 +112,14 @@ public class ResultsPresentationFunctionalityTest {
         final String expectedResult8 = "д 1\n" + "ж 1\n" + "р 1\n" + "я 1\n" + "o 1\n" + "r 1\n" + "t 1\n" + "z 1";
 
         // when
-        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
+        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        new Select(driver.findElement(By.name(elementDataTablesLength))).selectByVisibleText(dataTablesLength50);
+        new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength50);
 
-        driver.findElement(By.id(elementIdLinkNext)).click();
+        driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
         String actualResult8 = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
 
-        driver.findElement(By.id(elementIdLinkPrev)).click();
+        driver.findElement(By.id(ELEMENT_ID_LINK_PREV)).click();
         String actualResult50 = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
 
         // then
@@ -152,9 +149,9 @@ public class ResultsPresentationFunctionalityTest {
                 "были 1\n" + "части 1\n" + "библиотек 1\n" + "темы 1\n" + "писем 1\n" + "связка 1\n" + "условия 1";
 
         // when
-        putDataAndClickCountButton(driver, HtmlTestPagePresentation);
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        new Select(driver.findElement(By.name(elementDataTablesLength))).selectByVisibleText(dataTablesLength100);
+        new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(DATA_TABLES_LENGTH_100);
 
         // then
         String actualShowEntries = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -168,14 +165,14 @@ public class ResultsPresentationFunctionalityTest {
         final String dataTablesLength10 = "10";
 
         // when
-        putDataAndClickCountButton(driver, HtmlTestPagePresentation);
+        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        new Select(driver.findElement(By.name(elementDataTablesLength))).selectByVisibleText(dataTablesLength100);
-        new Select(driver.findElement(By.name(elementDataTablesLength))).selectByVisibleText(dataTablesLength10);
+        new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(DATA_TABLES_LENGTH_100);
+        new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength10);
 
         // then
         String actualShowEntries = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-        assertEquals(expectedByDefault, actualShowEntries);
+        assertEquals(EXPECTED_BY_DEFAULT, actualShowEntries);
     }
 
     @Test
@@ -186,9 +183,9 @@ public class ResultsPresentationFunctionalityTest {
                 "х 2\n" + "ц 2";
 
         // when
-        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
+        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        driver.findElement(By.id(elementIdLinkNext)).click();
+        driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -203,10 +200,10 @@ public class ResultsPresentationFunctionalityTest {
                 "к 2\n" + "л 2";
 
         // when
-        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
+        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        driver.findElement(By.id(elementIdLinkNext)).click();
-        driver.findElement(By.id(elementIdLinkPrev)).click();
+        driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
+        driver.findElement(By.id(ELEMENT_ID_LINK_PREV)).click();
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -220,9 +217,9 @@ public class ResultsPresentationFunctionalityTest {
         final String expectedResult = "д 1\n" + "ж 1\n" + "р 1\n" + "я 1\n" + "o 1\n" + "r 1\n" + "t 1\n" + "z 1";
 
         // when
-        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
+        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        driver.findElement(By.xpath(xPathLastPage)).click();
+        driver.findElement(By.xpath(X_PATH_LAST_PAGE)).click();
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
@@ -238,9 +235,9 @@ public class ResultsPresentationFunctionalityTest {
                 "к 2\n" + "л 2";
 
         // when
-        putDataAndClickCountButton(driver, ruAlphabetLink + SEPARATOR + enAlphabetLink);
+        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-        driver.findElement(By.xpath(xPathLastPage)).click();
+        driver.findElement(By.xpath(X_PATH_LAST_PAGE)).click();
         driver.findElement(By.xpath(xPathFirstPage)).click();
 
         // then
@@ -262,10 +259,12 @@ public class ResultsPresentationFunctionalityTest {
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
         Thread.sleep(TIME_WAIT_SPOILER);
+        String elementClassSpoilerClose = "spoiler_close";
         driver.findElement(By.className(elementClassSpoilerClose)).click();
         Thread.sleep(TIME_WAIT_SPOILER);
 
         //then
+        String elementCssErrorContainer = "#errorsContainer";
         final boolean isSpoilerOpen = driver.findElement(By.cssSelector(elementCssErrorContainer)).isDisplayed();
         assertFalse(isSpoilerOpen);
     }
@@ -282,6 +281,7 @@ public class ResultsPresentationFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
+        String elementIdErrorSpoiler = "errorsSpoiler";
         final boolean isSpoilerUse = driver.findElement(By.id(elementIdErrorSpoiler)).isDisplayed();
         assertFalse(isSpoilerUse);
     }

@@ -15,15 +15,17 @@ import static com.qalight.javacourse.webForm.utils.Util.*;
 import static org.junit.Assert.assertTrue;
 
 public class ExportingFunctionalityTest {
+    private static final int WAIT_TIME = 1000;
     private static WebDriver driver;
-    public static String pathResources;
-
-    private final int waitTime = 1000;
+    private static String pathResources;
 
     @BeforeClass
     public static void init() {
-        final String pathWindowsOs = System.getProperty("user.dir") + "\\src\\acceptanceTest\\resources\\";
-        final String pathMacOs =  System.getProperty("user.dir") + "/src/acceptanceTest/resources/";
+        final String userDirectory = System.getProperty("user.dir");
+        final String winPath = "\\src\\acceptanceTest\\resources\\";
+        final String macPath = "/src/acceptanceTest/resources/";
+        final String pathWindowsOs = userDirectory + winPath;
+        final String pathMacOs = userDirectory + macPath;
 
         if (isMacOs()){
             pathResources = pathMacOs;
@@ -50,7 +52,7 @@ public class ExportingFunctionalityTest {
         putDataAndClickCountButton(driver, pageLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(BUTTON_PDF)).click();
-        Thread.sleep(waitTime);
+        Thread.sleep(WAIT_TIME);
 
         File pdfFile = new File(pathResources + pdfName);
         boolean isFileExist = pdfFile.exists();
@@ -71,7 +73,7 @@ public class ExportingFunctionalityTest {
         putDataAndClickCountButton(driver, pageLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(BUTTON_XLS)).click();
-        Thread.sleep(waitTime);
+        Thread.sleep(WAIT_TIME);
 
         File xlsFile = new File(pathResources + xlsName);
         boolean isFileExist = xlsFile.exists();

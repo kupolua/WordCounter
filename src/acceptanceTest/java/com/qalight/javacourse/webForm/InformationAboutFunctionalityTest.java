@@ -11,8 +11,8 @@ import static com.qalight.javacourse.webForm.utils.Util.getWebDriver;
 import static org.junit.Assert.assertTrue;
 
 public class InformationAboutFunctionalityTest {
+    private static final int WAIT_TIME = 3000;
     private static WebDriver driver;
-    private final int waitTime = 3000;
 
     @BeforeClass
     public static void init() {
@@ -33,7 +33,7 @@ public class InformationAboutFunctionalityTest {
 
         // when
         driver.findElement(By.id(elementIdAboutUs)).click();
-        Thread.sleep(waitTime);
+        Thread.sleep(WAIT_TIME);
 
         // then
         boolean isAboutDisplayed = driver.findElement(By.id(elementIdAboutUsText)).isDisplayed();
@@ -49,7 +49,7 @@ public class InformationAboutFunctionalityTest {
 
         // when
         driver.findElement(By.cssSelector(aboutUsCssSelector)).click();
-        Thread.sleep(waitTime);
+        Thread.sleep(WAIT_TIME);
 
         // then
         boolean isAboutTextDisplayed = driver.findElement(By.id(elementIdAboutUsText)).isDisplayed();
