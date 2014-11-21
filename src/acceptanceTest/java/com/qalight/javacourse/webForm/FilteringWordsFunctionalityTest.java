@@ -2,7 +2,6 @@ package com.qalight.javacourse.webForm;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -39,8 +38,6 @@ public class FilteringWordsFunctionalityTest {
         driver.quit();
     }
 
-    //todo: change Thread.sleep(WAIT_TIME) on better way
-
     @Test
     public void testFilterWords_latin_html() throws Exception {
         // given
@@ -51,6 +48,7 @@ public class FilteringWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputHtmlUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
         driver.findElement(By.id(buttonIdFilteringWords)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
@@ -69,6 +67,7 @@ public class FilteringWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, cyrillicText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
         driver.findElement(By.id(buttonIdFilteringWords)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
@@ -82,11 +81,13 @@ public class FilteringWordsFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String frenchText = "Venez découvrir la magie des saisons de l'année en français!";
-        final String expectedResult = "de 1\nl'anne 1\nmagie 1\ndes 1\nla 1\nen 1\nvenez 1\ndcouvrir 1\nsaisons 1\nfranais 1";
+        final String expectedResult = "de 1\nl'anne 1\nmagie 1\ndes 1\nla 1\nen 1\nvenez 1\ndcouvrir 1\nsaisons 1\n" +
+                "franais 1";
 
         // when
         putDataAndClickCountButton(driver, frenchText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
         driver.findElement(By.id(buttonIdFilteringWords)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
@@ -106,6 +107,7 @@ public class FilteringWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, frenchText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
         driver.findElement(By.id(buttonIdFilteringWords)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonGetUnFilterWords")));
 
@@ -124,6 +126,7 @@ public class FilteringWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputLatinUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
         driver.findElement(By.id(buttonIdFilteringWords)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
@@ -145,6 +148,7 @@ public class FilteringWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, cyrillicText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
         driver.findElement(By.id(buttonIdFilteringWords)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
@@ -167,6 +171,7 @@ public class FilteringWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputPptxUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
         driver.findElement(By.id(buttonIdFilteringWords)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonIdUnFilteringWords)));
 
@@ -204,6 +209,7 @@ public class FilteringWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inessentialText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+
         driver.findElement(By.cssSelector(elementShowFilter)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(elementIdFilteringWords)));
 
@@ -218,12 +224,13 @@ public class FilteringWordsFunctionalityTest {
         driver.get(BASE_URL);
         final String inessentialText = "word";
         final String idModalWindow = "simplemodal-placeholder";
+        final String linkTextX = "x";
 
         // when
         putDataAndClickCountButton(driver, inessentialText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.cssSelector(elementShowFilter)).click();
-        driver.findElement(By.linkText("x")).click();
+        driver.findElement(By.linkText(linkTextX)).click();
         Thread.sleep(waitTime);
 
         // then
@@ -237,12 +244,13 @@ public class FilteringWordsFunctionalityTest {
         driver.get(BASE_URL);
         final String inessentialText = "word";
         final String idModalWindow = "simplemodal-placeholder";
+        final String elementCssModalClose = "button.simplemodal-close";
 
         // when
         putDataAndClickCountButton(driver, inessentialText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.cssSelector(elementShowFilter)).click();
-        driver.findElement(By.cssSelector("button.simplemodal-close")).click();
+        driver.findElement(By.cssSelector(elementCssModalClose)).click();
         Thread.sleep(waitTime);
 
         // then

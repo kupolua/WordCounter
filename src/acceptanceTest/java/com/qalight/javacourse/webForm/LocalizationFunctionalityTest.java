@@ -3,9 +3,10 @@ package com.qalight.javacourse.webForm;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.qalight.javacourse.webForm.utils.Constants.*;
-import static com.qalight.javacourse.webForm.utils.Constants.TIME_WAIT_SPOILER;
 import static com.qalight.javacourse.webForm.utils.Util.getWebDriver;
 import static com.qalight.javacourse.webForm.utils.Util.putDataAndClickCountButton;
 import static com.qalight.javacourse.webForm.utils.Util.waitForJQueryProcessing;
@@ -13,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class LocalizationFunctionalityTest {
     private WebDriver driver;
+    private static WebDriverWait wait;
     private String idStringAtWebForm = "p1";
 
     @Test
@@ -23,6 +25,7 @@ public class LocalizationFunctionalityTest {
         final String expectedResult = "System cannot count entered text. Did you forget to add " +
                 "'http://' to the link or entered not readable text?";
         driver = getWebDriver(localization);
+        wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT);
 
         // when
         driver.get(BASE_URL);
@@ -30,7 +33,7 @@ public class LocalizationFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
-        Thread.sleep(TIME_WAIT_SPOILER);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)).getText();
@@ -46,6 +49,7 @@ public class LocalizationFunctionalityTest {
         final String expectedResult = "Система не может обработать введенный текст. Пожалуйста, проверьте, " +
                 "не забыли ли Вы добавить 'http://' префикс к ссылке или ввели нечитаемый текст.";
         driver = getWebDriver(localization);
+        wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT);
 
         // when
         driver.get(BASE_URL);
@@ -53,7 +57,7 @@ public class LocalizationFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
-        Thread.sleep(TIME_WAIT_SPOILER);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)).getText();
@@ -69,6 +73,7 @@ public class LocalizationFunctionalityTest {
         final String expectedResult = "Система не взмозі обробити введений текст. Будь ласка, перевірте, " +
                 "чи ви не забули додати 'http://' префікс до посилання або ввели нечитабельний текст.";
         driver = getWebDriver(localization);
+        wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT);
 
         // when
         driver.get(BASE_URL);
@@ -76,7 +81,7 @@ public class LocalizationFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
-        Thread.sleep(TIME_WAIT_SPOILER);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)).getText();
@@ -92,6 +97,7 @@ public class LocalizationFunctionalityTest {
         final String expectedResult = "System cannot count entered text. Did you forget to add " +
                 "'http://' to the link or entered not readable text?";
         driver = getWebDriver(localization);
+        wait = new WebDriverWait(driver, WAIT_FOR_ELEMENT);
 
         // when
         driver.get(BASE_URL);
@@ -99,7 +105,7 @@ public class LocalizationFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
-        Thread.sleep(TIME_WAIT_SPOILER);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         // then
         String actualResult = driver.findElement(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)).getText();

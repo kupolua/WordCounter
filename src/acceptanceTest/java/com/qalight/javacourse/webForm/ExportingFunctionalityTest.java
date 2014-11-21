@@ -24,7 +24,7 @@ public class ExportingFunctionalityTest {
     public static void init() {
         final String pathWindowsOs = System.getProperty("user.dir") + "\\src\\acceptanceTest\\resources\\";
         final String pathMacOs =  System.getProperty("user.dir") + "/src/acceptanceTest/resources/";
-        //todo add path when os is linux or other
+
         if (isMacOs()){
             pathResources = pathMacOs;
         } else {
@@ -43,10 +43,11 @@ public class ExportingFunctionalityTest {
     public void testExportPdf() throws Exception {
         // given
         driver.get(BASE_URL);
+        final String pageLink = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
         final String pdfName = "calculatedWords.pdf";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        putDataAndClickCountButton(driver, pageLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(BUTTON_PDF)).click();
         Thread.sleep(waitTime);
@@ -63,10 +64,11 @@ public class ExportingFunctionalityTest {
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);
+        final String pageLink = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
         final String xlsName = "calculatedWords.xls";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE);
+        putDataAndClickCountButton(driver, pageLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(BUTTON_XLS)).click();
         Thread.sleep(waitTime);
