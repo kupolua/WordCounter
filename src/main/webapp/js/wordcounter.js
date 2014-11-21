@@ -273,7 +273,7 @@ function showErrors(dataErrors) {
         isErrors = false;
     } else {
         $.each(dataErrors, function (key, value) {
-            errorsMessage += value + '\n\n';
+            errorsMessage += '<li id=\"liError\">' + value + '</li>';
             isErrors = true;
         });
     }

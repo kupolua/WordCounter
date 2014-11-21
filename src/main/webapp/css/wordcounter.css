@@ -11,6 +11,7 @@
     color: #050302;
 }
 .spoiler_close {
+    color: #cb0e15;
     display: none;
     text-align: left;
     padding-top: 3px;
@@ -45,6 +46,7 @@
 }
 .spoiler_open:hover:before { background: url(../img/plus.png) 4px  60% no-repeat; }
 .spoiler_open {
+    color: #cb0e15;
     text-align: left;
     margin: 5px 10px 25px 15px;
     height: 23px;
@@ -60,6 +62,7 @@
     transition: height 0.3s ease;
 }
 .spoiler_title {
+    color: #cb0e15;
     display: none;
     text-align: left;
     padding-top: 3px;
@@ -75,7 +78,7 @@
     top: 0px;
     left: 0;
 }
-.spoiler_open:focus { height: 150px; }
+.spoiler_open:focus { height: auto; }
 .spoiler_open:focus .spoiler_close { display: block; }
 .spoiler_open:focus .spoiler_title { display: none; }
 .spoiler_open:focus:before { display: none; }
@@ -99,10 +102,14 @@
     padding-top: 15px;
     float: left;
 }
+#liError {
+    padding-bottom: 10px;
+}
+
 #errorsContainer {
     border: 0;
     background: #ffffff;
-    color: #ff511d;;
+    color: #cb0e15;;
 }
 
 #errorsSpoiler {
