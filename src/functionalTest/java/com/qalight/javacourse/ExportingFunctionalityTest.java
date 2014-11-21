@@ -4,6 +4,7 @@ import com.squareup.okhttp.*;
 import org.apache.tika.Tika;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -18,8 +19,6 @@ public class ExportingFunctionalityTest {
     private static final String COUNT_URL_XLS = SERVER_NAME + PORT + CONTEXT + COUNT_REQUEST_XLS;
     private static final String MEDIA_TYPE_PDF = "application/pdf;charset=UTF-8";
     private static final String MEDIA_TYPE_XLS = "application/vnd.ms-excel;charset=UTF-8";
-    private static final String EXPECTED_PDF = "expectedEnFromCyrillicHtml.pdf";
-    private static final String EXPECTED_XLS = "expectedXls.xls";
 
     private OkHttpClient client;
     private Tika documentConverter;
@@ -92,6 +91,7 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expectedPdf, actualPdf);
     }
 
+    @Ignore
     @Test(timeout = DEFAULT_TIMEOUT) // line 46
     public void testExportToPdfUk_noTextPptx() throws Exception {
         // given
@@ -185,6 +185,7 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expectedXls, actualXls);
     }
 
+    @Ignore
     @Test(timeout = DEFAULT_TIMEOUT) // line 49
     public void testExportToXlsUk_noTextPptx() throws Exception {
         // given
@@ -288,7 +289,7 @@ public class ExportingFunctionalityTest {
         final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/all_lang.odt";
         final String requestedSortingOrder = VALUE_ASCENDING;
         final String requestedIsFilterWords = "true";
-        final String expectedPdfFiltering = "expectedPdfFilteringAndSorting.pdf";
+        final String expectedPdfFiltering = "expectedRuAllLangOdtFilterValueAscend.pdf";
 
         Request request = buildRequestWithParamValue(
                 COUNT_URL_PDF,
