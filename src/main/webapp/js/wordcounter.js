@@ -107,14 +107,14 @@ $(document).ready(function() {
 });
 
 function setPdfFields() {
-    $("spoiler_close").click();
+    closeSpoiler();
     $("input:hidden[id='pdfTextCount']").attr("value", textCount);
     $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
 }
 
 function setXlsFields() {
-    $("spoiler_close").click();
+    closeSpoiler();
     $("input:hidden[id='xlsTextCount']").attr("value", textCount);
     $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
@@ -284,4 +284,8 @@ function showErrors(dataErrors) {
     } else {
         $('#errorsSpoiler').hide();
     }
+}
+
+function closeSpoiler() {
+    $("spoiler_close").click();
 }
