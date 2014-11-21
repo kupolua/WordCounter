@@ -106,7 +106,6 @@ public class LocalizationFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    //todo it's just for example. Should we test response headers?
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testLanguage_responseHeaderRU() throws Exception {
         // given
@@ -128,12 +127,10 @@ public class LocalizationFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    //todo it's just for example. Should we test response headers?
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testDefaultLanguage_responseHeader() throws Exception {
         // given
         final String languageType = LANGUAGE_DE;
-        //todo config Spring to response header Content-Language in en-EN as default
         final String expected = LANGUAGE_DE;
 
         Request request = buildRequestWithParamValue(languageType);
@@ -152,7 +149,7 @@ public class LocalizationFunctionalityTest {
     }
 
     private String createFailMessage() {
-        return "Cannot get response from " + URL_HOME_PAGE;
+        return String.format("Cannot get response from %s", URL_HOME_PAGE);
     }
 
     public Request buildRequestWithParamValue(String languageType) {

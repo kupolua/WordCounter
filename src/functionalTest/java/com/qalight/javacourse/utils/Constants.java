@@ -14,7 +14,6 @@ public class Constants {
     public static final String COUNT_REQUEST_REST_STYLE = "countWordsRestStyle";
     public static final String COUNT_URL = SERVER_NAME + PORT + CONTEXT + COUNT_REQUEST_REST_STYLE;
     public static final String PATH_RESOURCES = "src/functionalTest/resources/";
-    public static final String SEPARATOR = " ";
     public static final String LANGUAGE_DEFAULT_EN = "en-EN,en;q=0.5";
     public static final String LANGUAGE_RU = "ru";
     public static final String LANGUAGE_UA = "uk";
