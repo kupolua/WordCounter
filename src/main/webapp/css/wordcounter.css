@@ -104,13 +104,12 @@
 }
 #liError {
     padding-bottom: 10px;
-    color: #cb0e15;
 }
 
 #errorsContainer {
     border: 0;
     background: #ffffff;
-    color: #cb0e15;
+    color: #cb0e15;;
 }
 
 #errorsSpoiler {

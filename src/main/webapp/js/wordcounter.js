@@ -12,7 +12,6 @@ var target;
 var dataErrors;
 var errorsMessage = "";
 var isErrors = false;
-var isDataResponse = false;
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
@@ -48,19 +47,16 @@ $(document).ready(function() {
             data: dataString,
             dataType: "json",
             success: function(data) {
-                if (data.countedResult.length > 0) {
-                    dataResponse = data.countedResult;
-                    countedWords = getCountedWords(dataResponse, isFilter);
-                    setStatusFilterButton(isFilter);
-                    displayResponseContainer();
-                    if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
-                        selectedRows = getSelectedRows();
-                    }
-                    writeTable(countedWords, selectedRows);
-                    isDataResponse = true;
-                }
+                dataResponse = data.countedResult;
                 dataErrors = data.errors;
-                showErrors(dataErrors, isDataResponse);
+                countedWords = getCountedWords(dataResponse, isFilter);
+                setStatusFilterButton(isFilter);
+                displayResponseContainer();
+                if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
+                    selectedRows = getSelectedRows();
+                }
+                showErrors(dataErrors);
+                writeTable(countedWords, selectedRows);
             },
             error: function(jqXHR){
                 hideResponseContainer();
@@ -272,7 +268,7 @@ function hideResponseContainer() {
     $('#errorsSpoiler').hide();
 }
 
-function showErrors(dataErrors, isDataResponse) {
+function showErrors(dataErrors) {
     if (dataErrors == "") {
         isErrors = false;
     } else {
@@ -282,14 +278,8 @@ function showErrors(dataErrors, isDataResponse) {
         });
     }
     if (isErrors){
-        if (isDataResponse) {
-            $('#errorsSpoiler').show();
-            $('#errorsContainer').append(errorsMessage);
-        } else {
-            $('#messageCounter').text('');
-            $('#messageCounter').css('color', '#cb0e15');
-            $('#messageCounter').append(errorsMessage);
-        }
+        $('#errorsSpoiler').show();
+        $('#errorsContainer').append(errorsMessage);
         errorsMessage = '';
     } else {
         $('#errorsSpoiler').hide();
