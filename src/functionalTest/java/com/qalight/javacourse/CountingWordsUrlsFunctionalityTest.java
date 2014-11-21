@@ -263,7 +263,7 @@ public class CountingWordsUrlsFunctionalityTest {
     }
 
     public static String createFailMessage(String requestedValue) {
-        return "Cannot get response from " + COUNT_URL + " with request: " + requestedValue;
+        return String.format("Cannot get response from %s with request: %s", COUNT_URL, requestedValue);
     }
 
     public Request buildRequestWithParamValue(String requestedValue) {

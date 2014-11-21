@@ -44,7 +44,7 @@ public class InformationAboutFunctionalityTest {
     }
 
     private String createFailMessage() {
-        return "Cannot get response from " + URL_ABOUT;
+        return String.format("Cannot get response from %s", URL_ABOUT);
     }
 
     public Request buildRequestWithParamValue() {

@@ -45,14 +45,14 @@ public class SearchingFunctionalityTest {
         assertEquals(expectedSearchWord, actualSearchWord);
     }
 
-//    @Test
+    @Test
     public void testSearchWord_noSuchWord() throws Exception {
         // given
         driver.get(BASE_URL);
         final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
         final String elementCssInputSearch = "input[type=\"search\"]";
         final String searchWord = "yet";
-        final String expectedSearchWord = "";
+        final String expectedSearchWord = "No matching records found";
 
         // when
         putDataAndClickCountButton(driver, htmlPageLatin);

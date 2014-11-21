@@ -27,11 +27,9 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     @Test
     public void testEnterThreeLinks() throws Exception {
         // given
-        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
-        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
-                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
-        final String requestedValue = htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink;
+        final String requestedValue = "http://kupol.in.ua/wordcounter/testData/page_latin.html " +
+                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
 
         Request request = buildRequestWithParamValue(requestedValue);
 
@@ -65,12 +63,10 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withBrokenHtmlLink() throws Exception {
         // given
-        final String htmlPageBroken = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
-        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
-                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String requestedValue = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html " +
+                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
         final String errorMassage = "Cannot connect to the source: >http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
-        final String requestedValue = htmlPageBroken + SEPARATOR + pptxLink + SEPARATOR + txtLink;
 
         Request request = buildRequestWithParamValue(requestedValue);
 
@@ -102,12 +98,11 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withNoReadableTextInPdf() throws Exception {
         // given
-        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
-        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String requestedValue = "http://kupol.in.ua/wordcounter/testData/page_latin.html " +
+                "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf " +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
         final String errorMassage = "System cannot count text in the source as it is empty or contains non-readable" +
                 " content or symbols: >http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
-        final String requestedValue = htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink;
 
         Request request = buildRequestWithParamValue(requestedValue);
 
@@ -140,13 +135,11 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withBrokenTxtLink() throws Exception {
         // given
-        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
-        final String pptxLink = "http://kupol.in.ua/wordcounter/testData/" +
-                "%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx ";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
+        final String requestedValue = "http://kupol.in.ua/wordcounter/testData/test_page_latin.html " +
+                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
         final String errorMassageConnect = "Cannot connect to the source: >http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
         final String errorMassageDocument = "Cannot connect to the source: >http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
-        final String requestedValue = htmlPageLatin + SEPARATOR + pptxLink + SEPARATOR + txtLink;
 
         Request request = buildRequestWithParamValue(requestedValue);
 
@@ -175,7 +168,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     }
 
     public static String createFailMessage(String requestedValue) {
-        return "Cannot get response from " + COUNT_URL + " with request: " + requestedValue;
+        return String.format("Cannot get response from %s with request: %s", COUNT_URL, requestedValue);
     }
 
     public Request buildRequestWithParamValue(String requestedValue) {
