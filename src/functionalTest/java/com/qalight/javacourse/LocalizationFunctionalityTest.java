@@ -67,7 +67,7 @@ public class LocalizationFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testLanguage_textUA() throws Exception {
         // given
-        final String languageType = LANGUAGE_UA;
+        final String languageType = LANGUAGE_UK;
         final String expected = "Отримайте перелік слів, що найчастіше зустрічаються у тексті, всього за одну мить!";
 
         Request request = buildRequestWithParamValue(languageType);

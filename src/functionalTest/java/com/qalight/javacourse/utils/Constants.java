@@ -16,7 +16,7 @@ public class Constants {
     public static final String PATH_RESOURCES = "src/functionalTest/resources/";
     public static final String LANGUAGE_DEFAULT_EN = "en-EN,en;q=0.5";
     public static final String LANGUAGE_RU = "ru";
-    public static final String LANGUAGE_UA = "uk";
+    public static final String LANGUAGE_UK = "uk";
     public static final String LANGUAGE_ES = "es";
     public static final String LANGUAGE_DE = "de";
     public static final String KEY_ASCENDING = "KEY_ASCENDING";

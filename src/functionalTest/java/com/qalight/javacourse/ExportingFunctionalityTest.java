@@ -104,7 +104,7 @@ public class ExportingFunctionalityTest {
                 requestedSortingOrder,
                 requestedIsFilterWords,
                 MEDIA_TYPE_PDF,
-                LANGUAGE_UA);
+                LANGUAGE_UK);
 
         // when
         Response response = client.newCall(request).execute();
@@ -198,7 +198,7 @@ public class ExportingFunctionalityTest {
                 requestedSortingOrder,
                 requestedIsFilterWords,
                 MEDIA_TYPE_XLS,
-                LANGUAGE_UA);
+                LANGUAGE_UK);
 
         // when
         Response response = client.newCall(request).execute();
@@ -382,13 +382,81 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test(timeout = DEFAULT_TIMEOUT)
+    @Test(timeout = DEFAULT_TIMEOUT) // line 55
     public void testExportXlsRu_allLangOdt_FilterKeyAscend() throws Exception {
         // given
         final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/all_lang.odt";
         final String requestedSortingOrder = KEY_ASCENDING;
         final String requestedIsFilterWords = "true";
         final String expectedXls = "expectedRuFromAllLangOdtFilterKeyAsc.xls";
+
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_XLS,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_XLS,
+                LANGUAGE_RU);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(
+                    COUNT_URL_XLS, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
+        }
+        File xls = new File(PATH_RESOURCES + expectedXls);
+        String expected = documentConverter.parseToString(xls);
+
+        InputStream input = response.body().byteStream();
+        String actual = documentConverter.parseToString(input);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT) // line 56
+    public void testExportPdfRu_brokenUrlAndNormalUrl_FilterKeyAscend() throws Exception {
+        // given
+        final String requestedTextCount = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html \n" +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String requestedSortingOrder = KEY_DESCENDING;
+        final String requestedIsFilterWords = "true";
+        final String expectedPdf = "expectedRuFromLettersNumbersWithError.pdf";
+
+        Request request = buildRequestWithParamValue(
+                COUNT_URL_PDF,
+                requestedTextCount,
+                requestedSortingOrder,
+                requestedIsFilterWords,
+                MEDIA_TYPE_XLS,
+                LANGUAGE_RU);
+
+        // when
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(
+                    COUNT_URL_XLS, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
+        }
+        File pdf = new File(PATH_RESOURCES + expectedPdf);
+        String expected = documentConverter.parseToString(pdf);
+
+        InputStream input = response.body().byteStream();
+        String actual = documentConverter.parseToString(input);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT) // line 57
+    public void testExportXlsRu_brokenUrlAndNormalUrl_FilterKeyAscend() throws Exception {
+        // given
+        final String requestedTextCount = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html \n" +
+                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String requestedSortingOrder = KEY_DESCENDING;
+        final String requestedIsFilterWords = "true";
+        final String expectedXls = "expectedRuFromLettersNumbersWithError.xls";
 
         Request request = buildRequestWithParamValue(
                 COUNT_URL_XLS,

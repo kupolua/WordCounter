@@ -178,7 +178,7 @@ public class CountingWordsPlainTextFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_trashSymbols() throws Exception {
         // given
-        final String languageParam = LANGUAGE_UA;
+        final String languageParam = LANGUAGE_UK;
         final String textRequest = "%/*\\^#";
 
         // when
