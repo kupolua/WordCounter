@@ -276,25 +276,6 @@ public class CountingWordsFunctionalityTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Ignore
-    @Test
-    public void testImproperInput() {
-        // given
-        driver.get(BASE_URL);
-        final String improperInput = "kris@gmail.com www.google.com %/*\\^# 0";
-        final String expectedResult = "Error during executing request: " +
-                "System cannot count entered text {kris@gmail.com www.google.com %/*\\^# 0}. " +
-                "Did you forget to add 'http://' to the link or entered not readable text?";
-
-        // when
-        putDataAndClickCountButton(driver, improperInput);
-        waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
-        // then
-        String actualResult = driver.findElement(By.id(ELEMENT_ID_MESSAGE)).getText();
-        assertEquals(expectedResult, actualResult);
-    }
-
     @Test
     public void testEnterThreeLinks() {
         // given
