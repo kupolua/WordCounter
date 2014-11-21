@@ -12,6 +12,7 @@ var target;
 var dataErrors;
 var errorsMessage = "";
 var isErrors = false;
+var isDataResponse = false;
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
@@ -47,16 +48,19 @@ $(document).ready(function() {
             data: dataString,
             dataType: "json",
             success: function(data) {
-                dataResponse = data.countedResult;
-                dataErrors = data.errors;
-                countedWords = getCountedWords(dataResponse, isFilter);
-                setStatusFilterButton(isFilter);
-                displayResponseContainer();
-                if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
-                    selectedRows = getSelectedRows();
+                if (data.countedResult.length > 0) {
+                    dataResponse = data.countedResult;
+                    countedWords = getCountedWords(dataResponse, isFilter);
+                    setStatusFilterButton(isFilter);
+                    displayResponseContainer();
+                    if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
+                        selectedRows = getSelectedRows();
+                    }
+                    writeTable(countedWords, selectedRows);
+                    isDataResponse = true;
                 }
-                showErrors(dataErrors);
-                writeTable(countedWords, selectedRows);
+                dataErrors = data.errors;
+                showErrors(dataErrors, isDataResponse);
             },
             error: function(jqXHR){
                 hideResponseContainer();
@@ -268,7 +272,7 @@ function hideResponseContainer() {
     $('#errorsSpoiler').hide();
 }
 
-function showErrors(dataErrors) {
+function showErrors(dataErrors, isDataResponse) {
     if (dataErrors == "") {
         isErrors = false;
     } else {
@@ -278,8 +282,14 @@ function showErrors(dataErrors) {
         });
     }
     if (isErrors){
-        $('#errorsSpoiler').show();
-        $('#errorsContainer').append(errorsMessage);
+        if (isDataResponse) {
+            $('#errorsSpoiler').show();
+            $('#errorsContainer').append(errorsMessage);
+        } else {
+            $('#messageCounter').text('');
+            $('#messageCounter').css('color', '#cb0e15');
+            $('#messageCounter').append(errorsMessage);
+        }
         errorsMessage = '';
     } else {
         $('#errorsSpoiler').hide();
