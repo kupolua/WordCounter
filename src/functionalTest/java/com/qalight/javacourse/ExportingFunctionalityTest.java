@@ -91,7 +91,6 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expectedPdf, actualPdf);
     }
 
-    @Ignore
     @Test(timeout = DEFAULT_TIMEOUT) // line 46
     public void testExportToPdfUk_noTextPptx() throws Exception {
         // given
@@ -185,7 +184,6 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expectedXls, actualXls);
     }
 
-    @Ignore
     @Test(timeout = DEFAULT_TIMEOUT) // line 49
     public void testExportToXlsUk_noTextPptx() throws Exception {
         // given

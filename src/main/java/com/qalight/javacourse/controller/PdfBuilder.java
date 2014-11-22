@@ -21,22 +21,17 @@ public class PdfBuilder extends AbstractPdfView {
     private static final Logger LOG = LoggerFactory.getLogger(PdfBuilder.class);
 
     @Override
-    protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
-                                    HttpServletRequest request, HttpServletResponse response)  {
+    protected void buildPdfDocument(Map<String, Object> model,
+                                    Document document,
+                                    PdfWriter writer,
+                                    HttpServletRequest request,
+                                    HttpServletResponse response)  {
         try {
             setExportFileName(response);
 
-            PdfPTable table = getPdfPTable();
-
-            PdfPCell cell = getPdfPCell();
-
-            setHeadCells(table, cell, request);
-
-            setResultCells(table, cell ,model);
-
             addErrorsIntoDocumentIfExists(document, model);
 
-            document.add(table);
+            addResultIntoDocumentIfExist(model, document, request);
         } catch (DocumentException e) {
             final String msg = "An error has occurred while creating a document.";
             LOG.error(msg, e);
@@ -45,6 +40,19 @@ public class PdfBuilder extends AbstractPdfView {
             final String msg = "An error has occurred while reading a font.";
             LOG.error(msg, e);
             createErrorPdfResponse(document, msg);
+        }
+    }
+
+    private void addResultIntoDocumentIfExist(Map<String, Object> model,
+                                              Document document,
+                                              HttpServletRequest request) throws DocumentException, IOException {
+        Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
+        if (!calculatedWords.isEmpty()) {
+            PdfPTable table = getPdfPTable();
+            PdfPCell cell = getPdfPCell();
+            setHeadCells(table, cell, request);
+            setResultCells(table, cell, calculatedWords);
+            document.add(table);
         }
     }
 
@@ -66,7 +74,9 @@ public class PdfBuilder extends AbstractPdfView {
         return cell;
     }
 
-    private void setHeadCells(PdfPTable table, PdfPCell cell, HttpServletRequest request) throws IOException, DocumentException {
+    private void setHeadCells(PdfPTable table,
+                              PdfPCell cell,
+                              HttpServletRequest request) throws IOException, DocumentException {
         final String userBrowserLocale = request.getHeader(REQUEST_HEADER_NAME);
         Font font = getArialBoldItalicFont();
         String wordsCell = HEAD_CELL_WORDS_EN;
@@ -90,8 +100,7 @@ public class PdfBuilder extends AbstractPdfView {
         return new Font(unicodeArialBold);
     }
 
-    private void setResultCells(PdfPTable table, PdfPCell cell, Map model) throws IOException, DocumentException {
-        Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
+    private void setResultCells(PdfPTable table, PdfPCell cell, Map<String, Integer> calculatedWords) throws IOException, DocumentException {
         Font font = getArialNormalFont();
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
             cell.setPhrase(new Phrase(entry.getKey(), font));

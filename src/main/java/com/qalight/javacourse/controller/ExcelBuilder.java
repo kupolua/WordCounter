@@ -17,16 +17,19 @@ import java.util.Map;
 public class ExcelBuilder extends AbstractExcelView {
 
     @Override
-    protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook,
-                                      HttpServletRequest request, HttpServletResponse response) {
-        createErrorSheetIfErrorExist(model, workbook);
-        HSSFSheet wordsSheet = getWordsSheet(workbook);
-
+    protected void buildExcelDocument(Map<String, Object> model,
+                                      HSSFWorkbook workbook,
+                                      HttpServletRequest request,
+                                      HttpServletResponse response) {
         setExportFileName(response);
 
-        setHeadCells(request, wordsSheet, workbook);
+        createErrorSheetIfErrorExist(model, workbook);
 
-        setResultCells(model, wordsSheet, workbook);
+        createResultSheetIfResultExist(model, workbook, request);
+    }
+
+    private void setExportFileName(HttpServletResponse response) {
+        response.setHeader(RESPONSE_HEADER_NAME, HEADER_VALUE_XLS);
     }
 
     private void createErrorSheetIfErrorExist(Map<String, Object> model, HSSFWorkbook workbook){
@@ -43,6 +46,17 @@ public class ExcelBuilder extends AbstractExcelView {
                 row.createCell(0).setCellValue(DASH + eachError);
                 row.getCell(0).setCellStyle(style);
             }
+        }
+    }
+
+    private void createResultSheetIfResultExist(Map<String, Object> model,
+                                                HSSFWorkbook workbook,
+                                                HttpServletRequest request) {
+        Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
+        if(!calculatedWords.isEmpty()) {
+            HSSFSheet wordsSheet = getWordsSheet(workbook);
+            setHeadCells(request, wordsSheet, workbook);
+            setResultCells(calculatedWords, wordsSheet, workbook);
         }
     }
 
@@ -73,11 +87,9 @@ public class ExcelBuilder extends AbstractExcelView {
         return wordsSheet;
     }
 
-    private void setExportFileName(HttpServletResponse response) {
-        response.setHeader(RESPONSE_HEADER_NAME, HEADER_VALUE_XLS);
-    }
-
-    private void setHeadCells(HttpServletRequest request, HSSFSheet excelSheet, HSSFWorkbook workbook) {
+    private void setHeadCells(HttpServletRequest request,
+                              HSSFSheet excelSheet,
+                              HSSFWorkbook workbook) {
         final String userBrowserLocale = request.getHeader(REQUEST_HEADER_NAME);
         CellStyle style = getFontStyle(workbook);
         String wordsCell = HEAD_CELL_WORDS_EN;
@@ -105,8 +117,9 @@ public class ExcelBuilder extends AbstractExcelView {
         return style;
     }
 
-    private void setResultCells(Map model, HSSFSheet wordsSheet, HSSFWorkbook workbook){
-        Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
+    private void setResultCells(Map<String, Integer> calculatedWords,
+                                HSSFSheet wordsSheet,
+                                HSSFWorkbook workbook){
         CellStyle style = getAlignmentStyle(workbook);
         int rowNum = 1;
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
