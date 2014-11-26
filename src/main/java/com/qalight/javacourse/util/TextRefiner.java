@@ -18,7 +18,7 @@ public class TextRefiner {
     public List<String> refineText(String unrefinedPlainText) {
         Assertions.assertStringIsNotNullOrEmpty(unrefinedPlainText);
 
-        List<String> words = asSplitList(unrefinedPlainText);
+        List<String> words = splitTextToListOfWords(unrefinedPlainText);
 
         words = removeUrlsAndEmails(words);
 
@@ -27,6 +27,16 @@ public class TextRefiner {
         Assertions.assertListIsNotEmpty(words);
         LOG.debug("Text is refined.");
         return words;
+    }
+
+    private List<String> splitTextToListOfWords(String unrefinedPlainText) {
+        String unwrappedWords = unwrapWords(unrefinedPlainText);
+        List<String> lockedWords = Arrays.asList(WHITESPACES_PATTERN.split(unwrappedWords));
+        return new ArrayList<>(lockedWords);
+    }
+
+    private String unwrapWords(String unrefinedPlainText) {
+        return unrefinedPlainText.replaceAll(WORD_WRAPPING, "");
     }
 
     private List<String> removeUrlsAndEmails(List<String> words) {
@@ -42,11 +52,6 @@ public class TextRefiner {
         return words;
     }
 
-    private static List<String> asSplitList(String unrefinedPlainText) {
-        List<String> lockedWords = Arrays.asList(WHITESPACES_PATTERN.split(unrefinedPlainText));
-        return new ArrayList<>(lockedWords);
-    }
-
     private List<String> cleanWords(List<String> words) {
         int i = 0;
         while (i < words.size()) {
@@ -60,7 +65,7 @@ public class TextRefiner {
 
             word = CLEAN_PATTERN.matcher(word).replaceAll("");
 
-            Matcher matcher = HYPHEN_AND_APOSROFE_PATTERN.matcher(word);
+            Matcher matcher = HYPHEN_AND_APOSTROPHE_PATTERN.matcher(word);
             if (matcher.matches()) {
                 word = word.replaceAll("-", "");
                 word = word.replaceAll("'", "");

@@ -30,7 +30,7 @@ public class CountWordsControllerTest {
     @Before
     public void setUp() throws Exception {
         List expectedErrorList = Collections.emptyList();
-        Map<String, Integer>  expectedResult = new HashMap();
+        Map<String, Integer> expectedResult = new HashMap();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
         result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList);

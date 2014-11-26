@@ -31,6 +31,22 @@ public class TextRefinerTest {
     }
 
     @Test
+    public void testRefineText_wordWrappingProcessing() {
+        // given
+        final String givenText = "эки-\nпаж tHReE - two-two усіх—oNe&#160;:, thre/E!: ThrEE- -WWW, іІїЇєЄёЁґҐ ";
+
+        final List<String> expectedResult =
+                Arrays.asList("экипаж", "three", "two-two", "усіх", "one", "three", "three", "www", "ііїїєєёёґґ");
+
+
+        // when
+        final List<String> actualResult = refiner.refineText(givenText);
+
+        // then
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void testRefineText_handlingUrls() {
         // given
         final String givenText = "http://www.a.ua http://b.ua http://c.ua. http://d.ua, " +
