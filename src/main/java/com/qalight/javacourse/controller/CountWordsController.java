@@ -25,9 +25,9 @@ public class CountWordsController {
         this.wordCounterService = wordCounterService;
     }
 
-    @RequestMapping(value = "/countWordsRestStyle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public WordCounterResultContainer getResultRestStyle(@RequestParam String textCount, HttpServletRequest servletRequest) throws Throwable {
+    public WordCounterResultContainer getResult(@RequestParam String textCount, HttpServletRequest servletRequest) throws Throwable {
         Locale userLocale = servletRequest.getLocale();
         ErrorMessenger.setLocale(userLocale);
         CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount);

@@ -21,8 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(MockitoJUnitRunner.class)
 public class CountWordsControllerTest {
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
-    private static final String COUNT_WORDS_REST_STYLE = "/countWordsRestStyle";
-    private static final String COUNT_WORDS_REST_STYLE_WITH_PARAMS = "/countWordsWithParams";
+    private static final String COUNT_WORDS = "/countWords";
+    private static final String COUNT_WORDS_WITH_PARAMS = "/countWordsWithParams";
 
     @Mock private WordCounterService wordCounterService;
     private WordCounterResultContainer result;
@@ -40,12 +40,12 @@ public class CountWordsControllerTest {
     }
 
     @Test
-    public void testGetResultRestStyleWithoutError() throws Exception {
+    public void testGetResultWithoutError() throws Exception {
         final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]}";
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
-        mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
+        mockMvc.perform(post(COUNT_WORDS)
                 .param("textCount", "one two two"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
@@ -55,7 +55,7 @@ public class CountWordsControllerTest {
     }
 
     @Test
-    public void testGetResultRestStyleWithError() throws Exception {
+    public void testGetResultWithError() throws Exception {
         final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]}";
         final Map<String, Integer> expectedEmptyMap = Collections.emptyMap();
         final List expectedErrorList = Arrays.asList("Error has occurred.", "ERROR!!!");
@@ -63,7 +63,7 @@ public class CountWordsControllerTest {
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
-        mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
+        mockMvc.perform(post(COUNT_WORDS)
                 .param("textCount", "http://some-nonexistent-site.com"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
@@ -77,7 +77,7 @@ public class CountWordsControllerTest {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
                 .thenThrow(new IllegalArgumentException("test"));
 
-        mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
+        mockMvc.perform(post(COUNT_WORDS)
                 .param("textCount", ""))
                 .andExpect(status().isBadRequest());
 
@@ -89,7 +89,7 @@ public class CountWordsControllerTest {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
                 .thenThrow(new RuntimeException("test"));
 
-        mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
+        mockMvc.perform(post(COUNT_WORDS)
                 .param("textCount", "http://some-nonexistent-site.com"))
                 .andExpect(status().isInternalServerError());
 
@@ -102,7 +102,7 @@ public class CountWordsControllerTest {
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
-        mockMvc.perform(post(COUNT_WORDS_REST_STYLE_WITH_PARAMS)
+        mockMvc.perform(post(COUNT_WORDS_WITH_PARAMS)
                 .param("textCount", "one two two")
                 .param("sortingOrder", "KEY_ASCENDING")
                 .param("isFilterWords", "true"))
@@ -122,7 +122,7 @@ public class CountWordsControllerTest {
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
-        mockMvc.perform(post(COUNT_WORDS_REST_STYLE_WITH_PARAMS)
+        mockMvc.perform(post(COUNT_WORDS_WITH_PARAMS)
                 .param("textCount", "http://some-nonexistent-site.com")
                 .param("sortingOrder", "KEY_ASCENDING")
                 .param("isFilterWords", "true"))
@@ -138,7 +138,7 @@ public class CountWordsControllerTest {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
                 .thenThrow(new IllegalArgumentException("test"));
 
-        mockMvc.perform(post(COUNT_WORDS_REST_STYLE_WITH_PARAMS)
+        mockMvc.perform(post(COUNT_WORDS_WITH_PARAMS)
                 .param("textCount", "")
                 .param("sortingOrder", "KEY_ASCENDING")
                 .param("isFilterWords", "true"))
@@ -152,7 +152,7 @@ public class CountWordsControllerTest {
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
                 .thenThrow(new RuntimeException("test"));
 
-        mockMvc.perform(post(COUNT_WORDS_REST_STYLE_WITH_PARAMS)
+        mockMvc.perform(post(COUNT_WORDS_WITH_PARAMS)
                 .param("textCount", "http://some-nonexistent-site.com")
                 .param("sortingOrder", "KEY_ASCENDING")
                 .param("isFilterWords", "true"))

@@ -43,7 +43,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "./countWordsRestStyle",
+            url: "./countWords",
             data: dataString,
             dataType: "json",
             success: function(data) {

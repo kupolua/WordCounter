@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class CountWordsControllerIntegrationTest {
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
-    private static final String COUNT_URL_ENDING = "/countWordsRestStyle";
+    private static final String COUNT_URL_ENDING = "/countWords";
     private static final String COUNT_URL_ENDING_WITH_PARAMS = "/countWordsWithParams";
     @Autowired private CountWordsController countWordsController;
     private MockMvc mockMvc;
@@ -27,7 +27,7 @@ public class CountWordsControllerIntegrationTest {
     }
 
     @Test
-    public void testGetResultRestStyle_withError() throws Exception {
+    public void testGetResult_withError() throws Exception {
         // given
         final String givenText = "https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf";
         final String expectedBody = "{\"countedResult\":{},\"errors\":" +
@@ -44,7 +44,7 @@ public class CountWordsControllerIntegrationTest {
     }
 
     @Test
-    public void testGetResultRestStyle_withoutError() throws Exception {
+    public void testGetResult_withoutError() throws Exception {
         // given
         final String givenText = "one two two";
         final String expectedBody = "{\"countedResult\":{\"two\":2,\"one\":1},\"errors\":[]}";
