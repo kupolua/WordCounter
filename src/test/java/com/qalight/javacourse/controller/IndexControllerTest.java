@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class IndexControllerTest {
     private static final String VERSION_FIELD_NAME = "version";
-    private static final String VERSION_FIELD_VALUE = "0.6";
+    private static final String VERSION_FIELD_VALUE = "0.7";
     private static final String FILTER_FIELD_NAME = "filter";
     private static final String FILTER_FIELD_VALUE = "the a an to and of";
 

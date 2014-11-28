@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 public class AboutControllerTest {
     private static final String VERSION_FIELD_NAME = "version";
-    private static final String VERSION_FIELD_VALUE = "0.6";
+    private static final String VERSION_FIELD_VALUE = "0.7";
 
     private MockMvc mockMvc;
 
