@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CountWordsControllerTest {
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
     private static final String COUNT_WORDS_REST_STYLE = "/countWordsRestStyle";
+    private static final String COUNT_WORDS_REST_STYLE_WITH_PARAMS = "/countWordsWithParams";
 
     @Mock private WordCounterService wordCounterService;
     private WordCounterResultContainer result;
@@ -90,6 +91,71 @@ public class CountWordsControllerTest {
 
         mockMvc.perform(post(COUNT_WORDS_REST_STYLE)
                 .param("textCount", "http://some-nonexistent-site.com"))
+                .andExpect(status().isInternalServerError());
+
+        verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));
+    }
+
+    @Test
+    public void testGetResultWithParams_WithoutError() throws Exception {
+        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]}";
+
+        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
+
+        mockMvc.perform(post(COUNT_WORDS_REST_STYLE_WITH_PARAMS)
+                .param("textCount", "one two two")
+                .param("sortingOrder", "KEY_ASCENDING")
+                .param("isFilterWords", "true"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(CONTENT_TYPE))
+                .andExpect(content().string(expectedBody));
+
+        verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));
+    }
+
+    @Test
+    public void testGetResultWithParams_WithError() throws Exception {
+        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]}";
+        final Map<String, Integer> expectedEmptyMap = Collections.emptyMap();
+        final List expectedErrorList = Arrays.asList("Error has occurred.", "ERROR!!!");
+        result = new WordCounterResultContainerImpl(expectedEmptyMap, expectedErrorList);
+
+        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
+
+        mockMvc.perform(post(COUNT_WORDS_REST_STYLE_WITH_PARAMS)
+                .param("textCount", "http://some-nonexistent-site.com")
+                .param("sortingOrder", "KEY_ASCENDING")
+                .param("isFilterWords", "true"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(CONTENT_TYPE))
+                .andExpect(content().string(expectedBody));
+
+        verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));
+    }
+
+    @Test
+    public void testGetResultWithParams_HandleIllegalArgumentExceptions() throws Exception {
+        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
+                .thenThrow(new IllegalArgumentException("test"));
+
+        mockMvc.perform(post(COUNT_WORDS_REST_STYLE_WITH_PARAMS)
+                .param("textCount", "")
+                .param("sortingOrder", "KEY_ASCENDING")
+                .param("isFilterWords", "true"))
+                .andExpect(status().isBadRequest());
+
+        verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));
+    }
+
+    @Test
+    public void testGetResultWithParams_HandleRuntimeExceptions() throws Exception {
+        when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class)))
+                .thenThrow(new RuntimeException("test"));
+
+        mockMvc.perform(post(COUNT_WORDS_REST_STYLE_WITH_PARAMS)
+                .param("textCount", "http://some-nonexistent-site.com")
+                .param("sortingOrder", "KEY_ASCENDING")
+                .param("isFilterWords", "true"))
                 .andExpect(status().isInternalServerError());
 
         verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));

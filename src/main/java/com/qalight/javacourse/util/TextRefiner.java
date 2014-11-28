@@ -25,7 +25,7 @@ public class TextRefiner {
         words = cleanWords(words);
 
         Assertions.assertListIsNotEmpty(words);
-        LOG.debug("Text is refined.");
+        LOG.debug("Text was refined.");
         return words;
     }
 

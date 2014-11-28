@@ -35,6 +35,19 @@ public class CountWordsController {
         return result;
     }
 
+    @RequestMapping(value = "/countWordsWithParams", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public WordCounterResultContainer getResultWithParams(@RequestParam String textCount,
+                                                          @RequestParam String sortingOrder,
+                                                          @RequestParam String isFilterWords,
+                                                          HttpServletRequest servletRequest) throws Throwable {
+        Locale userLocale = servletRequest.getLocale();
+        ErrorMessenger.setLocale(userLocale);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
+        WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
+        return result;
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value= HttpStatus.BAD_REQUEST)
     @ResponseBody

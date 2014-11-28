@@ -16,6 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class CountWordsControllerIntegrationTest {
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
+    private static final String COUNT_URL_ENDING = "/countWordsRestStyle";
+    private static final String COUNT_URL_ENDING_WITH_PARAMS = "/countWordsWithParams";
     @Autowired private CountWordsController countWordsController;
     private MockMvc mockMvc;
 
@@ -32,10 +34,10 @@ public class CountWordsControllerIntegrationTest {
                 "[\"Cannot connect to the source: >https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"]}";
 
         // when
-        mockMvc.perform(post("/countWordsRestStyle")
+        mockMvc.perform(post(COUNT_URL_ENDING)
                 .param("textCount", givenText))
 
-        // then
+                // then
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
                 .andExpect(content().string(expectedBody));
@@ -48,7 +50,7 @@ public class CountWordsControllerIntegrationTest {
         final String expectedBody = "{\"countedResult\":{\"two\":2,\"one\":1},\"errors\":[]}";
 
         // when
-        mockMvc.perform(post("/countWordsRestStyle")
+        mockMvc.perform(post(COUNT_URL_ENDING)
                 .param("textCount", givenText))
 
                 // then
@@ -64,9 +66,69 @@ public class CountWordsControllerIntegrationTest {
         final String expectedBody = "{\"respMessage\":\"Request is empty.\"}";
 
         // when
-        mockMvc.perform(post("/countWordsRestStyle").param("textCount", givenText))
+        mockMvc.perform(post(COUNT_URL_ENDING).param("textCount", givenText))
+
+                // then
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(expectedBody));
+    }
+
+    @Test
+    public void testGetResultWithParams_withError() throws Exception {
+        // given
+        final String givenText = "https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf";
+        final String sortingOrder = "KEY_ASCENDING";
+        final String isFilterWords = "true";
+        final String expectedBody = "{\"countedResult\":{},\"errors\":" +
+                "[\"Cannot connect to the source: >https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"]}";
+
+        // when
+        mockMvc.perform(post(COUNT_URL_ENDING_WITH_PARAMS)
+                .param("textCount", givenText)
+                .param("sortingOrder", sortingOrder)
+                .param("isFilterWords", isFilterWords))
 
         // then
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(CONTENT_TYPE))
+                .andExpect(content().string(expectedBody));
+    }
+
+    @Test
+    public void testGetResultWithParams_withoutError() throws Exception {
+        // given
+        final String givenText = "The bill apple Bill";
+        final String sortingOrder = "KEY_ASCENDING";
+        final String isFilterWords = "true";
+        final String expectedBody = "{\"countedResult\":{\"apple\":1,\"bill\":2},\"errors\":[]}";
+
+        // when
+        mockMvc.perform(post(COUNT_URL_ENDING_WITH_PARAMS)
+                .param("textCount", givenText)
+                .param("sortingOrder", sortingOrder)
+                .param("isFilterWords", isFilterWords))
+
+                // then
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(CONTENT_TYPE))
+                .andExpect(content().string(expectedBody));
+    }
+
+    @Test
+    public void testGetResultWithParams_HandleIllegalArgumentExceptions() throws Exception {
+        // given
+        final String givenText = "";
+        final String sortingOrder = "KEY_ASCENDING";
+        final String isFilterWords = "true";
+        final String expectedBody = "{\"respMessage\":\"Request is empty.\"}";
+
+        // when
+        mockMvc.perform(post(COUNT_URL_ENDING_WITH_PARAMS).param(
+                "textCount", givenText)
+                .param("sortingOrder", sortingOrder)
+                .param("isFilterWords", isFilterWords))
+
+                // then
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(expectedBody));
     }

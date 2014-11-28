@@ -8,10 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.qalight.javacourse.utils.Constants.*;
 
@@ -86,6 +83,39 @@ public class CountingWordsPlainTextFunctionalityTest {
     }
 
     @Test(timeout = DEFAULT_TIMEOUT)
+    public void testCountWordsWithParamsInPlainText_otherCyrillic() throws Exception {
+        // given
+        final String textRequest = "Під'їзд, ПІД'ЇЗД, голка, вода вода, the";
+        final String sortingOrder = KEY_DESCENDING;
+        final String isFilterWords = "true";
+        String languageParam = LANGUAGE_RU;
+
+        // when
+        Request request = buildRequestWithAllParams(textRequest, sortingOrder, isFilterWords, languageParam);
+        Response response = client.newCall(request).execute();
+
+        // then
+        if (!response.isSuccessful()) {
+            Assert.fail(createFailMessage(textRequest));
+        }
+
+        final Map<String, Integer> expectedCountedWords = new LinkedHashMap<String, Integer>() {{
+            put("під'їзд", 2);
+            put("голка", 1);
+            put("вода", 2);
+        }};
+
+        List<String> expectedError = new ArrayList<>();
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+
+        final String resultStr = response.body().string();
+        final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInPlainText_latin() throws Exception {
         // given
         final String textRequest = "SWEET sweet lady loving wife";
@@ -123,7 +153,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         final String textRequest = "kris@gmail.com";
 
         // when
-        Request request = buildRequestWithParamValue(textRequest, languageParam);
+        Request request = buildRequestWithLanguageParam(textRequest, languageParam);
         Response response = client.newCall(request).execute();
 
         // then
@@ -152,7 +182,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         final String textRequest = "www.google.com";
 
         // when
-        Request request = buildRequestWithParamValue(textRequest, languageParam);
+        Request request = buildRequestWithLanguageParam(textRequest, languageParam);
         Response response = client.newCall(request).execute();
 
         // then
@@ -182,7 +212,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         final String textRequest = "%/*\\^#";
 
         // when
-        Request request = buildRequestWithParamValue(textRequest, languageParam);
+        Request request = buildRequestWithLanguageParam(textRequest, languageParam);
         Response response = client.newCall(request).execute();
 
         // then
@@ -242,7 +272,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         final String textRequest = "0";
 
         // when
-        Request request = buildRequestWithParamValue(textRequest, languageParam);
+        Request request = buildRequestWithLanguageParam(textRequest, languageParam);
         Response response = client.newCall(request).execute();
 
         // then
@@ -300,13 +330,31 @@ public class CountingWordsPlainTextFunctionalityTest {
         return request;
     }
 
-    public Request buildRequestWithParamValue(String requestedValue, String languageParam) {
+    public Request buildRequestWithLanguageParam(String requestedValue, String languageParam) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add(PARAM_TEXT_COUNT, requestedValue)
                 .build();
         final Request request = new Request.Builder()
                 .header(PARAM_LANGUAGE, languageParam)
                 .url(COUNT_URL)
+                .post(formBody)
+                .build();
+        return request;
+    }
+
+    public Request buildRequestWithAllParams(String requestedValue,
+                                             String sortingOrder,
+                                             String isFilterWords,
+                                             String languageParam) {
+        String countUrl = SERVER_NAME + PORT + CONTEXT + "countWordsWithParams";
+        RequestBody formBody = new FormEncodingBuilder()
+                .add(PARAM_TEXT_COUNT, requestedValue)
+                .add(PARAM_SORTING_ORDER, sortingOrder)
+                .add(PARAM_IS_FILTER_WORDS, isFilterWords)
+                .build();
+        final Request request = new Request.Builder()
+                .header(PARAM_LANGUAGE, languageParam)
+                .url(countUrl)
                 .post(formBody)
                 .build();
         return request;
