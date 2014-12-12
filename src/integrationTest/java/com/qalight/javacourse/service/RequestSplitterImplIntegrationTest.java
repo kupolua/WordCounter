@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +20,7 @@ public class RequestSplitterImplIntegrationTest {
     public void testGetSplitRequests_plainText() throws Exception {
         //given
         final String userRequest = "one two two,";
-        final Set<String> expected = new HashSet<>();
+        final List<String> expected = new ArrayList<>();
         expected.add("one two two,");
 
         //when
@@ -37,7 +35,7 @@ public class RequestSplitterImplIntegrationTest {
         //given
         final String userRequest = "http://some-site.com\n" +
                                    "http://another-site.com";
-        final Set<String> expected = new HashSet<>();
+        final List<String> expected = new ArrayList<>();
         expected.add("http://some-site.com");
         expected.add("http://another-site.com");
 

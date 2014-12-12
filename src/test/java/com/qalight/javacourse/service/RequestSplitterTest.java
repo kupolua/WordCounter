@@ -1,7 +1,5 @@
 package com.qalight.javacourse.service;
 
-import com.qalight.javacourse.testutils.AssertionsForUnitTests;
-import com.qalight.javacourse.util.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class RequestSplitterTest {
     private RequestSplitter splitter;
@@ -29,7 +27,7 @@ public class RequestSplitterTest {
 
         // then
         List<String> expected = Arrays.asList("http://one", "http://two", "http://three", "https://four");
-        assertTrue(AssertionsForUnitTests.equalCollections(expected, actual));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -42,8 +40,20 @@ public class RequestSplitterTest {
 
         // then
         List<String> expected = Arrays.asList(someNonHttpText);
-        assertTrue(AssertionsForUnitTests.equalCollections(expected, actual));
+        assertEquals(expected, actual);
     }
 
+    @Test
+    public void testGetSplitRequests_mix() throws Exception {
+        // given
+        final String someNonHttpText = "http://one \n one two two three three three  https://four ";
 
+        // when
+        Collection<String> actual = splitter.getSplitRequests(someNonHttpText);
+
+        // then
+        List<String> expected =
+                Arrays.asList("http://one", "one", "two", "two", "three", "three", "three", "https://four");
+        assertEquals(expected, actual);
+    }
 }

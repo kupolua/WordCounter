@@ -262,7 +262,7 @@ public class CountingWordsFunctionalityTest {
         final String request = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html " +
                 "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
                 "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
-        final String expectedEnterThreeLinks = "думи 2\n" + "people 1\n" + "мої 1\n" + "nice 1";
+        final String expectedEnterThreeLinks = "думи 2\n" + "мої 1\n" + "people 1\n" + "nice 1";
         String expectedErrorMassage = "Cannot connect to the source: >http://kupol....in.ua/wordcounter/testData/" +
                 "test_page_latin.html";
 
