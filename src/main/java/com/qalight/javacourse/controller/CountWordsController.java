@@ -27,9 +27,9 @@ public class CountWordsController {
 
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public WordCounterResultContainer getResult(@RequestParam String textCount, HttpServletRequest servletRequest) throws Throwable {
-        Locale userLocale = servletRequest.getLocale();
-        ErrorMessenger.setLocale(userLocale);
+    public WordCounterResultContainer getResult(@RequestParam String textCount,
+                                                HttpServletRequest clientHttpRequest) throws Throwable {
+        setErrorLocale(clientHttpRequest);
         CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
         return result;
@@ -40,12 +40,16 @@ public class CountWordsController {
     public WordCounterResultContainer getResultWithParams(@RequestParam String textCount,
                                                           @RequestParam String sortingOrder,
                                                           @RequestParam String isFilterWords,
-                                                          HttpServletRequest servletRequest) throws Throwable {
-        Locale userLocale = servletRequest.getLocale();
-        ErrorMessenger.setLocale(userLocale);
+                                                          HttpServletRequest clientHttpRequest) throws Throwable {
+        setErrorLocale(clientHttpRequest);
         CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
         return result;
+    }
+
+    private void setErrorLocale(HttpServletRequest clientHttpRequest) {
+        Locale userLocale = clientHttpRequest.getLocale();
+        ErrorMessenger.setLocale(userLocale);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

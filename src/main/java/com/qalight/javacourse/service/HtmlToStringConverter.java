@@ -35,7 +35,7 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
         Document html;
         try {
             html = getDocument(userSourcesList);
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IOException e){
             LOG.error("Can't connect to " + userSourcesList, e);
             throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userSourcesList, e);
         }
