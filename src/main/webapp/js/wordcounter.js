@@ -50,13 +50,18 @@ $(document).ready(function() {
                 dataResponse = data.countedResult;
                 dataErrors = data.errors;
                 countedWords = getCountedWords(dataResponse, isFilter);
-                setStatusFilterButton(isFilter);
-                displayResponseContainer();
-                if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
-                    selectedRows = getSelectedRows();
+                if (countedWords.length > 0) {
+                    setStatusFilterButton(isFilter);
+                    displayResponseContainer();
+                    if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
+                        selectedRows = getSelectedRows();
+                    }
+                    showErrors(dataErrors);
+                    writeTable(countedWords, selectedRows);
+                } else {
+                    displayErrorContainer();
+                    showErrors(dataErrors);
                 }
-                showErrors(dataErrors);
-                writeTable(countedWords, selectedRows);
             },
             error: function(jqXHR){
                 hideResponseContainer();
@@ -269,6 +274,18 @@ function hideResponseContainer() {
     $('#errorsSpoiler').hide();
 }
 
+function displayErrorContainer() {
+    $("#messageCounter").hide();
+    $("#buttonGetUnFilterWords").hide();
+    $("#buttonGetFilterWords").hide();
+    $("#showFilter").hide();
+    $("#saveAsPdf").hide();
+    $("#saveAsXls").hide();
+    $("#wordCounterResponse").hide();
+    $('#countedWords').hide();
+    $('#errorsSpoiler').hide();
+}
+
 function showErrors(dataErrors) {
     if (dataErrors == "") {
         isErrors = false;
@@ -280,7 +297,7 @@ function showErrors(dataErrors) {
     }
     if (isErrors){
         $('#errorsSpoiler').show();
-        $('#errorsContainer').append(errorsMessage);
+        $('#errorsContainer').html(errorsMessage);
         errorsMessage = '';
     } else {
         $('#errorsSpoiler').hide();
