@@ -1,107 +1,309 @@
+var spinner;
+var dataResponse;
+var isFilter = false;
+var isFilterWords = 0;
+var textCount;
+var countedWords;
+var selectedRows = 10;
+var tableSortingFieldParam = 1;
+var tableSortingOrderParam = "desc";
+var opts;
+var target;
+var dataErrors;
+var errorsMessage = "";
+var isErrors = false;
+
 $(document).ready(function() {
-
-    var opts = {
-        lines: 11, // The number of lines to draw
-        length: 17, // The length of each line
-        width: 10, // The line thickness
-        radius: 18, // The radius of the inner circle
-        corners: 1, // Corner roundness (0..1)
-        rotate: 7, // The rotation offset
-        direction: 1, // 1: clockwise, -1: counterclockwise
-        color: '#2ba6cb', // #rgb or #rrggbb or array of colors
-        speed: 1.1, // Rounds per second
-        trail: 60, // Afterglow percentage
-        shadow: false, // Whether to render a shadow
-        hwaccel: false, // Whether to use hardware acceleration
-        className: 'spinner', // The CSS class to assign to the spinner
-        zIndex: 2e9, // The z-index (defaults to 2000000000)
-        top: '150', // Top position relative to parent
-        left: '50%' // Left position relative to parent
-    };
-    var target = document.getElementById('spinner');
-    var spinner;
-
-//Stops the submit request
-    $("#myAjaxRequestForm").submit(function(e){
+    $("#wordCounterForm").submit(function(e){
         e.preventDefault();
     });
 
-    //checks for the button click event
-    $("#button").click(function(e){
+    $("#CountWords").click(function(e){
+        opts = {
+            lines: 11, // The number of lines to draw
+            length: 17, // The length of each line
+            width: 10, // The line thickness
+            radius: 18, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 7, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#b7aeae', // #rgb or #rrggbb or array of colors
+            speed: 1.1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: 'auto', // Top position relative to parent
+            left: '50%' // Left position relative to parent
+        };
+        target = document.getElementById('spinnerAnchor');
+        textCount = $("textarea#textCount").val();
+        dataString = "textCount=" + encodeURIComponent(textCount);
 
-        //getTextType the form data and then serialize that
-        dataString = $("#myAjaxRequestForm").serialize();
-
-        //getTextType the form data using another method
-        var userUrlsList = $("textarea#userUrlsList").val();
-        var dataTypeResponse = $('input[name=dataTypeResponse]').val();
-        dataString = "userUrlsList=" + userUrlsList + "&dataTypeResponse=" + dataTypeResponse;
-        //make the AJAX request, dataType is set to json
-        //meaning we are expecting JSON data in response from the server
         $.ajax({
             type: "POST",
             url: "./countWords",
             data: dataString,
             dataType: "json",
-
-            //if received a response from the server
-            success: function( data, textStatus, jqXHR) {
-                //our country code was correct so we have some information to display
-                if(data.success){
-                    $('#ajaxResponse').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
-                    var parsed = data.dataAjax;
-                    var arr1 = [];
-                    var parsedLength = parsed.length;
-
-                    for(i = 0; i < parsedLength; i++){
-                        arr1[i] = [];
-                        var parsedLength2 = parsed[i].length;
-                        for(j = 0; j < parsedLength2; j++) {
-                            arr1[i][j] = parsed[i][j];
-                        }
+            success: function(data) {
+                dataResponse = data.countedResult;
+                dataErrors = data.errors;
+                countedWords = getCountedWords(dataResponse, isFilter);
+                if (countedWords.length > 0) {
+                    setStatusFilterButton(isFilter);
+                    displayResponseContainer();
+                    if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
+                        selectedRows = getSelectedRows();
                     }
-
-                    $('#example').dataTable( {
-                        "data": arr1,
-                        "order": [ 1, 'desc' ],
-                        "columns": [
-                            { "title": "Word" },
-                            { "title": "Count" }
-                        ]
-                    });
-                }
-                //display error message
-                else {
-                    $("#ajaxResponse").html("");
-                    $("#ajaxResponse").append("<p>" + data.errorMessageToUser + "</p>");
+                    showErrors(dataErrors);
+                    writeTable(countedWords, selectedRows);
+                } else {
+                    displayErrorContainer();
+                    showErrors(dataErrors);
                 }
             },
-
-            //If there was no resonse from the server
-            error: function(jqXHR, textStatus, errorThrown){
-                //console.log("Something really bad happened " + textStatus);
-                $("#ajaxResponse").html(jqXHR.responseText);
+            error: function(jqXHR){
+                hideResponseContainer();
+                var errorMassage = jQuery.parseJSON(jqXHR.responseText);
+                $("#messageCounter").html(errorMassage.respMessage).css("color", "red");
             },
-
-            //capture the request before it was sent to server
-            beforeSend: function(jqXHR, settings){
-                //adding some Dummy data to the request
-                settings.data += "&dummyData=whatever";
-                //disable the button until we getTextType the response
-                $('#button').attr("disabled", true);
+            beforeSend: function(){
+                $('#CountWords').attr("disabled", true);
                 spinner = new Spinner(opts).spin(target);
-
-
             },
-
-            //this is called after the response or error functions are finsihed
-            //so that we can take some action
-            complete: function(jqXHR, textStatus){
-                //enable the button
+            complete: function(){
+                $('#CountWords').attr("disabled", false);
                 spinner.stop(target);
-                $('#button').attr("disabled", false);
             }
+        });
+    });
 
+    $("#buttonGetFilterWords").click(function(e){
+        isFilter = true;
+        var activSpinner = runSpinner(isFilter);
+        activSpinner.done(function(){ spinner.stop(target); });
+    });
+
+    $("#buttonGetUnFilterWords").click(function(e){
+        isFilter = false;
+        var activSpinner = runSpinner(isFilter);
+        activSpinner.done(function(){ spinner.stop(target); });
+    });
+
+    $("#getPdf").click("image", "form.pdfDownloadForm", function (e) {
+        $.fileDownload($(this).prop('action'), {
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again.",
+            httpMethod: "POST",
+            data: $(this).serialize()
+        });
+        e.preventDefault();
+    });
+
+    $("#getXls").click("image", "form.getXlsForm", function (e) {
+        $.fileDownload($(this).prop('action'), {
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again.",
+            httpMethod: "POST",
+            data: $(this).serialize()
         });
     });
 });
+
+function setPdfFields() {
+    closeSpoiler();
+    $("input:hidden[id='pdfTextCount']").attr("value", textCount);
+    $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
+    $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
+}
+
+function setXlsFields() {
+    closeSpoiler();
+    $("input:hidden[id='xlsTextCount']").attr("value", textCount);
+    $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
+    $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
+}
+
+function runSpinner(isFilter){
+    var deferred = $.Deferred();
+    var activeTime = 200;
+    spinner = new Spinner(opts).spin(target);
+    setTimeout(function(){
+        setTableContext(isFilter);
+        showErrors(dataErrors);
+        writeTable(countedWords, selectedRows);
+        deferred.resolve();
+    }, activeTime);
+    return deferred;
+}
+
+function getSortingOrder() {
+    var sortedElement = $("th[aria-sort]");
+    var sortingOrder = sortedElement.attr("aria-sort");
+    var sortingField = sortedElement.index();
+
+    if(sortingField == 0) {
+        sortingField = "KEY_";
+        tableSortingFieldParam = 0;
+    }
+    if(sortingField == 1) {
+        sortingField = "VALUE_";
+        tableSortingFieldParam = 1;
+    }
+
+    if(sortingOrder == "ascending") {
+        sortingOrder = "ASCENDING";
+        tableSortingOrderParam = "asc";
+    }
+    if(sortingOrder == "descending") {
+        sortingOrder = "DESCENDING";
+        tableSortingOrderParam = "desc";
+    }
+
+    if(sortingField && sortingOrder) {
+        return sortingField+sortingOrder;
+    } else {
+        return "NOT_DEFINED";
+    }
+}
+
+function setTableContext(isFilter) {
+    selectedRows = getSelectedRows();
+    countedWords = getCountedWords(dataResponse, isFilter);
+    setStatusFilterButton(isFilter);
+    dataTableDestroy();
+    displayResponseContainer();
+}
+
+function writeTable(countedWords, pageLength) {
+    getSortingOrder();
+    $('#countedWords').dataTable( {
+        "destroy": true,
+        "data": countedWords,
+        "order": [ parseInt(tableSortingFieldParam), tableSortingOrderParam ],
+        "pageLength": parseInt(pageLength),
+        "autoWidth": false,
+        "columns": [
+            {
+                "title": $("#wordsColumNameAnchor").text(),
+                "width": "70%"
+            },
+            {
+                "title": $("#countColumNameAnchor").text(),
+                "width": "30%"
+            }
+        ]
+    });
+}
+
+function getCountedWords(unFilteredWords, isFilter) {
+    var index;
+    var countedWordsTable = [];
+    var isFound = false;
+    var isFilteredWord = 0;
+
+    if(isFilter) {
+        var wordsFilter = $('#wordsFilter').text().split(' ');
+    }
+
+    $.each( unFilteredWords, function( key, value ) {
+        if(!isFilter) {
+            countedWordsTable[isFilteredWord] = [];
+            isFound = true;
+        } else {
+            index = wordsFilter.indexOf(key);
+            if (index < 0) {
+                countedWordsTable[isFilteredWord] = [];
+                isFound = true;
+            } else {
+                isFound = false;
+            }
+        }
+        if(isFound) {
+            countedWordsTable[isFilteredWord][0] = key;
+            countedWordsTable[isFilteredWord][1] = value;
+            isFilteredWord++;
+        }
+    });
+    return countedWordsTable;
+}
+
+function dataTableDestroy() {
+    $('#countedWords').dataTable().fnDestroy();
+    $('#countedWords').hide();
+}
+
+function getSelectedRows() {
+    var getSelectedRows = $("select[name] option:selected");
+    return getSelectedRows.val();
+}
+
+function setStatusFilterButton(isFilter) {
+    $("#noWordCounter").hide();
+    if(!isFilter) {
+        $("#buttonGetUnFilterWords").hide();
+        $("#buttonGetFilterWords").show();
+        isFilterWords = false;
+    } else {
+        $("#buttonGetFilterWords").hide();
+        $("#buttonGetUnFilterWords").show();
+        isFilterWords = true;
+    }
+}
+
+function displayResponseContainer() {
+    $("#showFilter").show();
+    $("#saveAsPdf").show();
+    $("#saveAsXls").show();
+    $("#wordCounterResponse").show();
+    $('#countedWords').show();
+    $("#messageCounter").hide();
+    $('#errorsContainer').text('');
+}
+
+function hideResponseContainer() {
+    $("#messageCounter").show();
+    $("#buttonGetUnFilterWords").hide();
+    $("#buttonGetFilterWords").hide();
+    $("#showFilter").hide();
+    $("#saveAsPdf").hide();
+    $("#saveAsXls").hide();
+    $("#wordCounterResponse").hide();
+    $('#countedWords').hide();
+    $('#errorsSpoiler').hide();
+}
+
+function displayErrorContainer() {
+    $("#messageCounter").hide();
+    $("#buttonGetUnFilterWords").hide();
+    $("#buttonGetFilterWords").hide();
+    $("#showFilter").hide();
+    $("#saveAsPdf").hide();
+    $("#saveAsXls").hide();
+    $("#wordCounterResponse").hide();
+    $('#countedWords').hide();
+    $('#errorsSpoiler').hide();
+}
+
+function showErrors(dataErrors) {
+    if (dataErrors == "") {
+        isErrors = false;
+    } else {
+        $.each(dataErrors, function (key, value) {
+            errorsMessage += '<li id=\"liError\">' + value + '</li>';
+            isErrors = true;
+        });
+    }
+    if (isErrors){
+        $('#errorsSpoiler').show();
+        $('#errorsContainer').html(errorsMessage);
+        errorsMessage = '';
+    } else {
+        $('#errorsSpoiler').hide();
+    }
+}
+
+function closeSpoiler() {
+    $("spoiler_close").click();
+}
