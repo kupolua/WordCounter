@@ -10,6 +10,7 @@ var tableSortingOrderParam = "desc";
 var opts;
 var target;
 var dataErrors;
+var dataStatistic;
 var errorsMessage = "";
 var isErrors = false;
 
@@ -49,6 +50,7 @@ $(document).ready(function() {
             success: function(data) {
                 dataResponse = data.countedResult;
                 dataErrors = data.errors;
+                dataStatistic = data.wordStatistic;
                 countedWords = getCountedWords(dataResponse, isFilter);
                 if (countedWords.length > 0) {
                     setStatusFilterButton(isFilter);
@@ -58,6 +60,7 @@ $(document).ready(function() {
                     }
                     showErrors(dataErrors);
                     writeTable(countedWords, selectedRows);
+                    showStatistic(dataStatistic);
                 } else {
                     displayErrorContainer();
                     showErrors(dataErrors);
@@ -207,7 +210,7 @@ function getCountedWords(unFilteredWords, isFilter) {
         var wordsFilter = $('#wordsFilter').text().split(' ');
     }
 
-    $.each( unFilteredWords, function( key, value ) {
+    $.each(unFilteredWords, function(key, value) {
         if(!isFilter) {
             countedWordsTable[isFilteredWord] = [];
             isFound = true;
@@ -260,6 +263,7 @@ function displayResponseContainer() {
     $('#countedWords').show();
     $("#messageCounter").hide();
     $('#errorsContainer').text('');
+    $('#spoilerStatistic').show();
 }
 
 function hideResponseContainer() {
@@ -272,6 +276,7 @@ function hideResponseContainer() {
     $("#wordCounterResponse").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
+    $('#spoilerStatistic').hide();
 }
 
 function displayErrorContainer() {
@@ -284,6 +289,7 @@ function displayErrorContainer() {
     $("#wordCounterResponse").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
+    $('#spoilerStatistic').hide();
 }
 
 function showErrors(dataErrors) {
@@ -302,6 +308,12 @@ function showErrors(dataErrors) {
     } else {
         $('#errorsSpoiler').hide();
     }
+}
+
+function showStatistic(dataStatistic) {
+    $.each(dataStatistic, function (key, value) {
+        $('#' + key).html(value)
+    });
 }
 
 function closeSpoiler() {

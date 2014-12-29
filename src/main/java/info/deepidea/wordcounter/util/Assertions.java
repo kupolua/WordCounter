@@ -1,6 +1,7 @@
 package info.deepidea.wordcounter.util;
 
 import java.util.List;
+import java.util.Map;
 
 import static info.deepidea.wordcounter.util.ErrorCodeImpl.*;
 
@@ -25,6 +26,12 @@ public class Assertions {
 
     public static void assertListIsNotEmpty(List list){
         if (list.isEmpty()) {
+           throw new WordCounterArgumentException(CANNOT_COUNT_TEXT);
+        }
+    }
+
+    public static void assertMapIsNotEmpty(Map map){
+        if (map == null) {
            throw new WordCounterArgumentException(CANNOT_COUNT_TEXT);
         }
     }

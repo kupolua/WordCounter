@@ -17,15 +17,17 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
     private final DocumentConverter documentConverter;
     private final WordCounter wordCounter;
     private final TextRefiner refiner;
+    private final WordStatistic statistic;
 
 
     @Autowired
     public CountWordsProcessorImpl(TextTypeInquirer textTypeInquirer, DocumentConverter documentConverter,
-                                   WordCounter wordCounter, TextRefiner refiner) {
+                                   WordCounter wordCounter, TextRefiner refiner, WordStatistic statistic) {
         this.textTypeInquirer = textTypeInquirer;
         this.documentConverter = documentConverter;
         this.wordCounter = wordCounter;
         this.refiner = refiner;
+        this.statistic = statistic;
 
     }
 
@@ -43,10 +45,11 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
 
             List<String> refinedWords = refiner.refineText(plainText);
 
-            result = new ThreadResultContainer(wordCounter.countWords(refinedWords));
+            result = new ThreadResultContainer(wordCounter.countWords(refinedWords),
+                    statistic.getStatistic(plainText, refinedWords));
         } catch (RuntimeException e) {
             LOG.error(e.getMessage(), e);
-            result = new ThreadResultContainer(Collections.emptyMap(), e.getMessage());
+            result = new ThreadResultContainer(Collections.emptyMap(), e.getMessage(), Collections.emptyMap());
         }
         return result;
     }

@@ -26,6 +26,7 @@ public class CountWordsProcessorImplTest {
         DocumentConverter documentConverter = mock(DocumentConverter.class);
         WordCounter wordCounter = mock(WordCounterImpl.class);
         TextRefiner textRefiner = mock(TextRefiner.class);
+        WordStatistic statistic = mock(WordStatistic.class);
 
         when(textTypeInquirer.inquireTextType(inputText)).thenReturn(new PlainTextTypeImpl());
         when(documentConverter.getDocumentConverter(any(TextType.class))).thenReturn(new PlainToStringConverter());
@@ -36,7 +37,7 @@ public class CountWordsProcessorImplTest {
         when(wordCounter.countWords(any(List.class))).thenReturn(expectedResult);
 
         CountWordsProcessor processor = new CountWordsProcessorImpl(
-                textTypeInquirer, documentConverter, wordCounter, textRefiner);
+                textTypeInquirer, documentConverter, wordCounter, textRefiner, statistic);
 
         // when
         final ThreadResultContainer actual = processor.process(inputText);
