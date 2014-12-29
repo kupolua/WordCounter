@@ -39,7 +39,15 @@ public class CountersIntegratorImplTest {
         Map<String, Integer> expectedMap = new HashMap<>();
         expectedMap.put("mouse", 5);
 
+        final Map<String, Integer> expectedStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 21);
+            put("statisticUniqueWords", 3);
+            put("statisticTotalCharacters", 23);
+            put("statisticTotalWords", 3);
+        }};
+
         assertEquals(expectedMap, actual.getCountedResult());
+        assertEquals(expectedStatistic, actual.getWordStatistic());
     }
 
     @Test
@@ -78,7 +86,15 @@ public class CountersIntegratorImplTest {
         expected.put("world", 2);
         expected.put("big", 1000);
 
+        final Map<String, Integer> expectedStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 126);
+            put("statisticUniqueWords", 18);
+            put("statisticTotalCharacters", 138);
+            put("statisticTotalWords", 18);
+        }};
+
         assertEquals(expected, actual.getCountedResult());
+        assertEquals(expectedStatistic, actual.getWordStatistic());
     }
 
     @Test
@@ -96,16 +112,32 @@ public class CountersIntegratorImplTest {
         ThreadResultContainer actual = integrator.integrateResults(input);
 
         // then
+        final Map<String, Integer> expectedStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 42);
+            put("statisticUniqueWords", 6);
+            put("statisticTotalCharacters", 46);
+            put("statisticTotalWords", 6);
+        }};
+
         Map<String, Integer> expectedResultMap = new HashMap<>();
         expectedResultMap.put("mouse", 10);
+
         List<String> expectedErrorsList = Arrays.asList("error3", "error4", "error5", "error6");
 
         assertEquals(expectedErrorsList, actual.getErrorsList());
         assertEquals(expectedResultMap, actual.getCountedResult());
+        assertEquals(expectedStatistic, actual.getWordStatistic());
     }
 
     private static List<ThreadResultContainer> addInput(String word, int count,
                                                         List<ThreadResultContainer> existingResult){
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 21);
+            put("statisticUniqueWords", 3);
+            put("statisticTotalCharacters", 23);
+            put("statisticTotalWords", 3);
+        }};
+
         List<ThreadResultContainer> result;
 
         if (existingResult != null) {
@@ -116,13 +148,12 @@ public class CountersIntegratorImplTest {
 
         Map<String, Integer> values = new HashMap<>();
         values.put(word, count);
-        result.add(new ThreadResultContainer(values));
+        result.add(new ThreadResultContainer(values, wordStatistic));
 
         return result;
     }
 
     private static List<ThreadResultContainer> addInputWithError(List<ThreadResultContainer> existingResult, String error){
-
         List<ThreadResultContainer> result;
 
         if (existingResult != null) {
@@ -132,7 +163,7 @@ public class CountersIntegratorImplTest {
         }
 
         Map<String, Integer> emptyMap = Collections.emptyMap();
-        result.add(new ThreadResultContainer(emptyMap, error));
+        result.add(new ThreadResultContainer(emptyMap, error, Collections.EMPTY_MAP));
 
         return result;
     }

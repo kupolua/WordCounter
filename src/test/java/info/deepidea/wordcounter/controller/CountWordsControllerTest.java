@@ -15,6 +15,7 @@ import java.util.*;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,21 +28,32 @@ public class CountWordsControllerTest {
     @Mock private WordCounterService wordCounterService;
     private WordCounterResultContainer result;
     private MockMvc mockMvc;
+    private Map<String, Integer> wordStatistic;
 
     @Before
     public void setUp() throws Exception {
         List expectedErrorList = Collections.emptyList();
+
+        wordStatistic = new HashMap<>();
+        wordStatistic.put("statisticСharactersWithoutSpaces", 9);
+        wordStatistic.put("statisticUniqueWords", 2);
+        wordStatistic.put("statisticTotalCharacters", 11);
+        wordStatistic.put("statisticTotalWords", 3);
+
         Map<String, Integer> expectedResult = new HashMap();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
-        result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList);
+
+        result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList, wordStatistic);
         CountWordsController controller = new CountWordsController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
     public void testGetResultWithoutError() throws Exception {
-        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]}";
+        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]," +
+                "\"wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
+                "\"statisticTotalCharacters\":11,\"statisticTotalWords\":3}}";
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
@@ -49,17 +61,19 @@ public class CountWordsControllerTest {
                 .param("textCount", "one two two"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
-                .andExpect(content().string(expectedBody));
+                .andExpect(content().string(expectedBody)).andDo(print());
 
         verify(wordCounterService, times(1)).getWordCounterResult(any(CountWordsUserRequest.class));
     }
 
     @Test
     public void testGetResultWithError() throws Exception {
-        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]}";
+        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]," +
+                "\"wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
+                "\"statisticTotalCharacters\":11,\"statisticTotalWords\":3}}";
         final Map<String, Integer> expectedEmptyMap = Collections.emptyMap();
         final List expectedErrorList = Arrays.asList("Error has occurred.", "ERROR!!!");
-        result = new WordCounterResultContainerImpl(expectedEmptyMap, expectedErrorList);
+        result = new WordCounterResultContainerImpl(expectedEmptyMap, expectedErrorList, wordStatistic);
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
@@ -98,7 +112,9 @@ public class CountWordsControllerTest {
 
     @Test
     public void testGetResultWithParams_WithoutError() throws Exception {
-        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]}";
+        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]," +
+                "\"wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
+                "\"statisticTotalCharacters\":11,\"statisticTotalWords\":3}}";
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
@@ -115,10 +131,12 @@ public class CountWordsControllerTest {
 
     @Test
     public void testGetResultWithParams_WithError() throws Exception {
-        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]}";
+        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]," +
+                "\"wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
+                "\"statisticTotalCharacters\":11,\"statisticTotalWords\":3}}";
         final Map<String, Integer> expectedEmptyMap = Collections.emptyMap();
         final List expectedErrorList = Arrays.asList("Error has occurred.", "ERROR!!!");
-        result = new WordCounterResultContainerImpl(expectedEmptyMap, expectedErrorList);
+        result = new WordCounterResultContainerImpl(expectedEmptyMap, expectedErrorList, wordStatistic);
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 

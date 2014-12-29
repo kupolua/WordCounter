@@ -5,7 +5,7 @@ import info.deepidea.wordcounter.util.Assertions;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HtmlTextTypeImpl implements TextType {
+public class  HtmlTextTypeImpl implements TextType {
     private static final String[] TEXT_TYPES =
             {".rtf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".ods", ".odp", ".pdf", ".txt"};
 

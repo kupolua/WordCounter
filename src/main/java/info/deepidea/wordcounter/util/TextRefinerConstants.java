@@ -16,8 +16,6 @@ public class TextRefinerConstants {
     public static final String ZERO_WIDTH_NON_JOINER_CHARACTER_ENTITY = "&zwnj;";
     public static final String ZERO_WIDTH_NON_JOINER_NUMERIC_ENTITY = "&#8204;";
     public static final String WORD_WRAPPING = "-\\n";
-    public static final String SPECIAL_CHARACTERS = "[\"\\“\\”\\~\\`\\[\\$\\&\\+\\,\\.\\:\\;\\=\\?\\@\\#\\|\\<\\>\\^\\*\\(\\)\\%\\!\\]\\-\\/]";
-
     public static final String LONG_DASH = "—";
     public static final Pattern WHITESPACES_PATTERN =
             Pattern.compile("(\\s+)|("+NON_BREAKING_SPACE_CHARACTER_ENTITY+")|("+NON_BREAKING_SPACE_NUMERIC_ENTITY+")" +
@@ -25,12 +23,11 @@ public class TextRefinerConstants {
                     "|("+SPACE_LENGTH_N_NUMERIC_ENTITY+")|("+SPACE_LENGTH_M_CHARACTER_ENTITY+")" +
                     "|("+SPACE_LENGTH_M_NUMERIC_ENTITY+")|("+NARROW_SPACE_CHARACTER_ENTITY+")" +
                     "|("+NARROW_SPACE_NUMERIC_ENTITY+")|("+ZERO_WIDTH_NON_JOINER_CHARACTER_ENTITY+")" +
-                    "|("+ZERO_WIDTH_NON_JOINER_NUMERIC_ENTITY+")|("+LONG_DASH+")" +
-                    "|("+SPECIAL_CHARACTERS+")");
+                    "|("+ZERO_WIDTH_NON_JOINER_NUMERIC_ENTITY+")|("+LONG_DASH+")");
     public static final Pattern HYPHEN_AND_APOSTROPHE_PATTERN = Pattern.compile("(.+-)|(-.+)|('.+)");
     public static final Pattern EMAIL_PATTERN =
             Pattern.compile("(^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,}))");
     public static final Pattern URL_PATTERN =
             Pattern.compile("(<http://.*)|(<https://.*)|(<ftp://.*)|(<www\\..*)|(http://.*)|(https://.*)|(ftp://.*)|(www\\..*)");
-    public static final Pattern CLEAN_PATTERN = Pattern.compile("[^0-9a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ']");
+    public static final Pattern CLEAN_PATTERN = Pattern.compile("[^a-zA-Zа-яА-Я-іІїЇєЄёЁґҐ']");
 }

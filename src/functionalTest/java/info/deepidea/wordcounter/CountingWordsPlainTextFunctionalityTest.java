@@ -43,7 +43,14 @@ public class CountingWordsPlainTextFunctionalityTest {
 
         List<String> expectedError = new ArrayList<>();
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 35);
+            put("statisticUniqueWords", 2);
+            put("statisticTotalCharacters", 38);
+            put("statisticTotalWords", 4);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -74,7 +81,14 @@ public class CountingWordsPlainTextFunctionalityTest {
 
         List<String> expectedError = new ArrayList<>();
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 28);
+            put("statisticUniqueWords", 4);
+            put("statisticTotalCharacters", 32);
+            put("statisticTotalWords", 5);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -107,7 +121,14 @@ public class CountingWordsPlainTextFunctionalityTest {
 
         List<String> expectedError = new ArrayList<>();
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 34);
+            put("statisticUniqueWords", 4);
+            put("statisticTotalCharacters", 39);
+            put("statisticTotalWords", 6);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -138,7 +159,14 @@ public class CountingWordsPlainTextFunctionalityTest {
 
         List<String> expectedError = new ArrayList<>();
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 24);
+            put("statisticUniqueWords", 4);
+            put("statisticTotalCharacters", 28);
+            put("statisticTotalWords", 5);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -167,7 +195,9 @@ public class CountingWordsPlainTextFunctionalityTest {
             add("System cannot count entered text. Did you forget to add 'http://' to the link or entered not readable text?");
         }};
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<>();
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -197,7 +227,9 @@ public class CountingWordsPlainTextFunctionalityTest {
                 "не забыли ли Вы добавить 'http://' префикс к ссылке или ввели нечитаемый текст.");
         }};
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<>();
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -227,7 +259,9 @@ public class CountingWordsPlainTextFunctionalityTest {
                 "не забули додати 'http://' префікс до посилання або ввели нечитабельний текст.");
         }};
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<>();
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -257,7 +291,14 @@ public class CountingWordsPlainTextFunctionalityTest {
 
         List<String> expectedError = new ArrayList<>();
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 21);
+            put("statisticUniqueWords", 3);
+            put("statisticTotalCharacters", 23);
+            put("statisticTotalWords", 3);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -286,7 +327,9 @@ public class CountingWordsPlainTextFunctionalityTest {
             add("System cannot count entered text. Did you forget to add 'http://' to the link or entered not readable text?");
         }};
 
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+        final Map<String, Integer> wordStatistic = new HashMap<>();
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);

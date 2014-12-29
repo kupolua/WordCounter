@@ -37,10 +37,11 @@ public class ExportControllerTest {
     @Before
     public void setUp() throws Exception {
         List expectedErrorList = Collections.emptyList();
+
         expectedResult = new HashMap();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
-        result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList);
+        result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList, Collections.EMPTY_MAP);
         ExportController exportController = new ExportController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(exportController).alwaysExpect(status().isOk()).build();
     }

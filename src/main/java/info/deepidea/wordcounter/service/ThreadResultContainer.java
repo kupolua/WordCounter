@@ -21,10 +21,6 @@ public class ThreadResultContainer {
         this.wordStatistic = wordStatistic;
     }
 
-    public ThreadResultContainer(Map<String, Integer> countedResult) {
-        this.countedResult = countedResult;
-    }
-
     public ThreadResultContainer(Map<String, Integer> countedResult, Map<String, Integer> wordStatistic) {
         this.countedResult = countedResult;
         this.wordStatistic = wordStatistic;
@@ -44,5 +40,24 @@ public class ThreadResultContainer {
 
     public List getErrorsList() {
         return errorsList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ThreadResultContainer that = (ThreadResultContainer) o;
+
+        if (countedResult != null ? !countedResult.equals(that.countedResult) : that.countedResult != null) return false;
+        if (error != null ? !error.equals(that.error) : that.error != null) return false;
+        if (errorsList != null ? !errorsList.equals(that.errorsList) : that.errorsList != null) return false;
+        if (wordStatistic != null ? !wordStatistic.equals(that.wordStatistic) : that.wordStatistic != null) return false;
+
+        return true;
     }
 }

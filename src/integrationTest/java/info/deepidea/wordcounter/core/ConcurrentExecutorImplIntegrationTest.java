@@ -48,17 +48,36 @@ public class ConcurrentExecutorImplIntegrationTest {
         List<ThreadResultContainer> actual = executor.countAsynchronously(input);
 
         // then
+        final Map<String, Integer> expectedStatistic0 = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 13);
+            put("statisticUniqueWords", 1);
+            put("statisticTotalCharacters", 15);
+            put("statisticTotalWords", 3);
+        }};
         Map<String, Integer> expectedResult0 = new HashMap<>();
         expectedResult0.put("word", 3);
-        ThreadResultContainer container0 = new ThreadResultContainer(expectedResult0);
+        ThreadResultContainer container0 = new ThreadResultContainer(expectedResult0, expectedStatistic0);
 
+        final Map<String, Integer> expectedStatistic1 = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 10);
+            put("statisticUniqueWords", 1);
+            put("statisticTotalCharacters", 11);
+            put("statisticTotalWords", 2);
+        }};
         Map<String, Integer> expectedResult1 = new HashMap<>();
         expectedResult1.put("hello", 2);
-        ThreadResultContainer container1 = new ThreadResultContainer(expectedResult1);
+        ThreadResultContainer container1 = new ThreadResultContainer(expectedResult1, expectedStatistic1);
 
+        final Map<String, Integer> expectedStatistic2 = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 4);
+            put("statisticUniqueWords", 1);
+            put("statisticTotalCharacters", 4);
+            put("statisticTotalWords", 1);
+        }};
         Map<String, Integer> expectedResult2 = new HashMap<>();
         expectedResult2.put("jump", 1);
-        ThreadResultContainer container2 = new ThreadResultContainer(expectedResult2);
+        ThreadResultContainer container2 = new ThreadResultContainer(expectedResult2, expectedStatistic2);
+
 
         List<ThreadResultContainer> expected = new ArrayList<>();
         expected.add(container0);
@@ -73,9 +92,7 @@ public class ConcurrentExecutorImplIntegrationTest {
         for(int x = 0; x < expected.size(); x++){
             ThreadResultContainer expectedContainer = expected.get(x);
             ThreadResultContainer actualContainer = actual.get(x);
-            Map<String, Integer> expectedMap = expectedContainer.getCountedResult();
-            Map<String, Integer> actualMap = actualContainer.getCountedResult();
-            if(!expectedMap.equals(actualMap)) {
+            if (!expectedContainer.equals(actualContainer)) {
                 return false;
             }
         }

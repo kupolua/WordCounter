@@ -24,20 +24,26 @@ public class CountWordsTaskTest {
         //given
         final String clientRequest = "one two two,";
 
+        final Map<String, Integer> expectedStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 9);
+            put("statisticUniqueWords", 2);
+            put("statisticTotalCharacters", 11);
+            put("statisticTotalWords", 3);
+        }};
         final Map<String, Integer> expectedResult = new HashMap<>();
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
-        ThreadResultContainer container = new ThreadResultContainer(expectedResult);
-        when(wordsProcessor.process(anyString())).thenReturn(container);
+        ThreadResultContainer expectedContainer = new ThreadResultContainer(expectedResult, expectedStatistic);
+        when(wordsProcessor.process(anyString())).thenReturn(expectedContainer);
 
         CountWordsTask wordsTask = new CountWordsTask(clientRequest, wordsProcessor);
 
         //when
-        final ThreadResultContainer actualResult = wordsTask.call();
+        final ThreadResultContainer actualContainer = wordsTask.call();
 
         //then
         verify(wordsProcessor, times(1)).process(anyString());
 
-        assertEquals(expectedResult, actualResult.getCountedResult());
+        assertEquals(expectedContainer, actualContainer);
     }
 }

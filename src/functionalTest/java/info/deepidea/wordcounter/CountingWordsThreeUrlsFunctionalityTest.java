@@ -52,7 +52,15 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         }};
 
         List<String> expectedError = new ArrayList<>();
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 57);
+            put("statisticUniqueWords", 7);
+            put("statisticTotalCharacters", 71);
+            put("statisticTotalWords", 10);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -87,7 +95,15 @@ public class CountingWordsThreeUrlsFunctionalityTest {
 
         List<String> expectedError = new ArrayList<>();
         expectedError.add(errorMassage);
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 30);
+            put("statisticUniqueWords", 4);
+            put("statisticTotalCharacters", 37);
+            put("statisticTotalWords", 5);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -124,7 +140,15 @@ public class CountingWordsThreeUrlsFunctionalityTest {
 
         List<String> expectedError = new ArrayList<>();
         expectedError.add(errorMassage);
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 45);
+            put("statisticUniqueWords", 5);
+            put("statisticTotalCharacters", 56);
+            put("statisticTotalWords", 7);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -159,7 +183,15 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
         expectedError.add(errorMassageConnect);
         expectedError.add(errorMassageDocument);
-        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError);
+
+        final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 12);
+            put("statisticUniqueWords", 2);
+            put("statisticTotalCharacters", 15);
+            put("statisticTotalWords", 3);
+        }};
+
+        final WordCounterResultContainerImpl expected = new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic);
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);

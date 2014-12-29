@@ -30,7 +30,15 @@ public class ConcurrentExecutorImplTest {
     public void setUp() throws Exception {
         Map<String, Integer> expectedMap = new HashMap<>();
         expectedMap.put("word", 10);
-        defaultExpectedResult = new ThreadResultContainer(expectedMap);
+
+        final Map<String, Integer> expectedStatistic = new HashMap<String, Integer>() {{
+            put("statisticСharactersWithoutSpaces", 21);
+            put("statisticUniqueWords", 3);
+            put("statisticTotalCharacters", 23);
+            put("statisticTotalWords", 3);
+        }};
+
+        defaultExpectedResult = new ThreadResultContainer(expectedMap,expectedStatistic);
 
         defaultProcessor = mock(CountWordsProcessor.class);
         when(defaultProcessor.process(any(String.class))).thenReturn(defaultExpectedResult);
@@ -146,5 +154,4 @@ public class ConcurrentExecutorImplTest {
         // then
         // exception thrown
     }
-
 }
