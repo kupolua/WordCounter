@@ -120,7 +120,7 @@
                                     <td><div id="statisticCharactersWithoutSpaces"></div></td>
                                 </tr>
                             </table></div>
-                        <div id="statisticContainer" class="wordCloud"></div>
+                        <div id="statisticContainer" class="wordCloud"> </div>
                         <div id="statisticContainer" class="charts"></div>
                         <div style=" width:100%; height:1px; clear:both;"></div>
                     </div>

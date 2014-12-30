@@ -27,7 +27,7 @@ public class WordStatisticImplTest {
 
         // then
         final Map<String, Integer> expectedStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 9);
+            put("statisticCharactersWithoutSpaces", 9);
             put("statisticUniqueWords", 2);
             put("statisticTotalCharacters", 11);
             put("statisticTotalWords", 3);
