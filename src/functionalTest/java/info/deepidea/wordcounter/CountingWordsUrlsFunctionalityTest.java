@@ -49,7 +49,7 @@ public class CountingWordsUrlsFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 44);
+            put("statisticCharactersWithoutSpaces", 44);
             put("statisticUniqueWords", 5);
             put("statisticTotalCharacters", 53);
             put("statisticTotalWords", 7);
@@ -86,7 +86,7 @@ public class CountingWordsUrlsFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 27);
+            put("statisticCharactersWithoutSpaces", 27);
             put("statisticUniqueWords", 3);
             put("statisticTotalCharacters", 34);
             put("statisticTotalWords", 5);
@@ -184,7 +184,7 @@ public class CountingWordsUrlsFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 12);
+            put("statisticCharactersWithoutSpaces", 12);
             put("statisticUniqueWords", 2);
             put("statisticTotalCharacters", 15);
             put("statisticTotalWords", 3);
@@ -220,7 +220,7 @@ public class CountingWordsUrlsFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 18);
+            put("statisticCharactersWithoutSpaces", 18);
             put("statisticUniqueWords", 2);
             put("statisticTotalCharacters", 22);
             put("statisticTotalWords", 2);
@@ -258,7 +258,7 @@ public class CountingWordsUrlsFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 7548);
+            put("statisticCharactersWithoutSpaces", 7548);
             put("statisticUniqueWords", 4);
             put("statisticTotalCharacters", 9147);
             put("statisticTotalWords", 1500);

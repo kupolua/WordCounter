@@ -44,7 +44,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 35);
+            put("statisticCharactersWithoutSpaces", 35);
             put("statisticUniqueWords", 2);
             put("statisticTotalCharacters", 38);
             put("statisticTotalWords", 4);
@@ -82,7 +82,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 28);
+            put("statisticCharactersWithoutSpaces", 28);
             put("statisticUniqueWords", 4);
             put("statisticTotalCharacters", 32);
             put("statisticTotalWords", 5);
@@ -122,7 +122,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 34);
+            put("statisticCharactersWithoutSpaces", 34);
             put("statisticUniqueWords", 4);
             put("statisticTotalCharacters", 39);
             put("statisticTotalWords", 6);
@@ -160,7 +160,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 24);
+            put("statisticCharactersWithoutSpaces", 24);
             put("statisticUniqueWords", 4);
             put("statisticTotalCharacters", 28);
             put("statisticTotalWords", 5);
@@ -292,7 +292,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 21);
+            put("statisticCharactersWithoutSpaces", 21);
             put("statisticUniqueWords", 3);
             put("statisticTotalCharacters", 23);
             put("statisticTotalWords", 3);

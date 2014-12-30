@@ -48,7 +48,7 @@ public class CountWordsControllerIntegrationTest {
         // given
         final String givenText = "one two two";
         final String expectedBody = "{\"countedResult\":{\"two\":2,\"one\":1},\"errors\":[],\"" +
-                "wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
+                "wordStatistic\":{\"statisticCharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
                 "\"statisticTotalCharacters\":11,\"statisticTotalWords\":3}}";
 
         // when
@@ -103,7 +103,7 @@ public class CountWordsControllerIntegrationTest {
         final String sortingOrder = "KEY_ASCENDING";
         final String isFilterWords = "true";
         final String expectedBody = "{\"countedResult\":{\"apple\":1,\"bill\":2},\"errors\":[],\"" +
-                "wordStatistic\":{\"statisticСharactersWithoutSpaces\":16,\"statisticUniqueWords\":3," +
+                "wordStatistic\":{\"statisticCharactersWithoutSpaces\":16,\"statisticUniqueWords\":3," +
                 "\"statisticTotalCharacters\":19,\"statisticTotalWords\":4}}";
 
         // when

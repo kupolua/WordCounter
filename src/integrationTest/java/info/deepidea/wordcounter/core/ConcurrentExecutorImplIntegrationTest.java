@@ -49,7 +49,7 @@ public class ConcurrentExecutorImplIntegrationTest {
 
         // then
         final Map<String, Integer> expectedStatistic0 = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 13);
+            put("statisticCharactersWithoutSpaces", 13);
             put("statisticUniqueWords", 1);
             put("statisticTotalCharacters", 15);
             put("statisticTotalWords", 3);
@@ -59,7 +59,7 @@ public class ConcurrentExecutorImplIntegrationTest {
         ThreadResultContainer container0 = new ThreadResultContainer(expectedResult0, expectedStatistic0);
 
         final Map<String, Integer> expectedStatistic1 = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 10);
+            put("statisticCharactersWithoutSpaces", 10);
             put("statisticUniqueWords", 1);
             put("statisticTotalCharacters", 11);
             put("statisticTotalWords", 2);
@@ -69,7 +69,7 @@ public class ConcurrentExecutorImplIntegrationTest {
         ThreadResultContainer container1 = new ThreadResultContainer(expectedResult1, expectedStatistic1);
 
         final Map<String, Integer> expectedStatistic2 = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 4);
+            put("statisticCharactersWithoutSpaces", 4);
             put("statisticUniqueWords", 1);
             put("statisticTotalCharacters", 4);
             put("statisticTotalWords", 1);

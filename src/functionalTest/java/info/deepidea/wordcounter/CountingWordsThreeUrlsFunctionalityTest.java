@@ -54,7 +54,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         List<String> expectedError = new ArrayList<>();
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 57);
+            put("statisticCharactersWithoutSpaces", 57);
             put("statisticUniqueWords", 7);
             put("statisticTotalCharacters", 71);
             put("statisticTotalWords", 10);
@@ -97,7 +97,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         expectedError.add(errorMassage);
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 30);
+            put("statisticCharactersWithoutSpaces", 30);
             put("statisticUniqueWords", 4);
             put("statisticTotalCharacters", 37);
             put("statisticTotalWords", 5);
@@ -142,7 +142,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         expectedError.add(errorMassage);
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 45);
+            put("statisticCharactersWithoutSpaces", 45);
             put("statisticUniqueWords", 5);
             put("statisticTotalCharacters", 56);
             put("statisticTotalWords", 7);
@@ -185,7 +185,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         expectedError.add(errorMassageDocument);
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticСharactersWithoutSpaces", 12);
+            put("statisticCharactersWithoutSpaces", 12);
             put("statisticUniqueWords", 2);
             put("statisticTotalCharacters", 15);
             put("statisticTotalWords", 3);
