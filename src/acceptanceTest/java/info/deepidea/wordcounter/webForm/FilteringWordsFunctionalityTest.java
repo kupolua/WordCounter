@@ -142,7 +142,7 @@ public class FilteringWordsFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String cyrillicText = "Під'їзд, ПІД'ЇЗД, ґедзь, єнот, й";
-        final String expectedResult = "під'їзд 2\nй 1\nєнот 1\nґедзь 1";
+        final String expectedResult = "під'їзд 2\nєнот 1\nґедзь 1\nй 1";
 
         // when
         putDataAndClickCountButton(driver, cyrillicText);

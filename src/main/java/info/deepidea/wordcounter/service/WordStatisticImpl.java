@@ -15,17 +15,12 @@ public class WordStatisticImpl implements WordStatistic {
         Assertions.assertStringIsNotNullOrEmpty(plainText);
         Assertions.assertListIsNotEmpty(refinedWords);
 
-        int totalWords;
-        int totalCharacters;
-        int charactersWithoutSpaces;
-        int uniqueWords;
         Map<String, Integer> wordStatistic = new HashMap<>();
         Set<String> uniqueWordsList = new HashSet<String>(refinedWords);
-
-        totalWords = refinedWords.size();
-        totalCharacters = plainText.length();
-        charactersWithoutSpaces = plainText.replaceAll("([ \n])", "").length();
-        uniqueWords = uniqueWordsList.size();
+        int totalWords  = refinedWords.size();
+        int totalCharacters = plainText.length();
+        int charactersWithoutSpaces = plainText.replaceAll("([ \n])", "").length();
+        int uniqueWords = uniqueWordsList.size();
 
         wordStatistic.put(TOTAL_WORDS, totalWords);
         wordStatistic.put(TOTAL_CHARACTERS, totalCharacters);

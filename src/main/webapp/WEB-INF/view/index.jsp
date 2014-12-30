@@ -96,28 +96,33 @@
             <div id="spoilerStatistic" class="spoilerStatistic_open" tabindex="1">
                 <div id="statistic" class="spoilerStatistic_desc">
                     <div id="statisticContainer" name="statisticContainer">
-                        <table id="wordStatistic" cellpadding="0" cellspacing="0" border="0" class="display">
-                            <tr>
-                                <td><b><spring:message code="index.statisticTitleName"/></b></td>
-                                <td><b><spring:message code="index.statisticTitleValue"/></b></td>
-                            </tr>
-                            <tr>
-                                <td><spring:message code="index.statisticTotalWords"/></td>
-                                <td><div id="statisticTotalWords"></div></td>
-                            </tr>
-                            <tr>
-                                <td><spring:message code="index.statisticUniqueWords"/></td>
-                                <td><div id="statisticUniqueWords"></div></td>
-                            </tr>
-                            <tr>
-                                <td><spring:message code="index.statisticTotalCharacters"/></td>
-                                <td><div id="statisticTotalCharacters"></div></td>
-                            </tr>
-                            <tr>
-                                <td><spring:message code="index.statisticСharactersWithoutSpaces"/></td>
-                                <td><div id="statisticСharactersWithoutSpaces"></div></td>
-                            </tr>
-                        </table>
+                        <div style=" width:100%; height:1px; clear:both;"></div>
+                        <div id="statisticContainer">
+                            <table id="wordStatistic" cellpadding="0" cellspacing="0" border="0" class="display">
+                                <tr>
+                                    <td><b><spring:message code="index.statisticTitleName"/></b></td>
+                                    <td><b><spring:message code="index.statisticTitleValue"/></b></td>
+                                </tr>
+                                <tr>
+                                    <td><spring:message code="index.statisticTotalWords"/></td>
+                                    <td><div id="statisticTotalWords"></div></td>
+                                </tr>
+                                <tr>
+                                    <td><spring:message code="index.statisticUniqueWords"/></td>
+                                    <td><div id="statisticUniqueWords"></div></td>
+                                </tr>
+                                <tr>
+                                    <td><spring:message code="index.statisticTotalCharacters"/></td>
+                                    <td><div id="statisticTotalCharacters"></div></td>
+                                </tr>
+                                <tr>
+                                    <td><spring:message code="index.statisticСharactersWithoutSpaces"/></td>
+                                    <td><div id="statisticСharactersWithoutSpaces"></div></td>
+                                </tr>
+                            </table></div>
+                        <div id="statisticContainer" class="wordCloud"></div>
+                        <div id="statisticContainer" class="charts">Charts </div>
+                        <div style=" width:100%; height:1px; clear:both;"></div>
                     </div>
                 </div>
                 <span class="spoilerStatistic_title"><spring:message code="index.statisticTitleOpen"/></span>

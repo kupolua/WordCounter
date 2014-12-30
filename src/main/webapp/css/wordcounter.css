@@ -1,5 +1,19 @@
 /* INDEX */
 
+/* wordCloud */
+
+#statisticContainer {
+    width:auto;
+    height:auto;
+    float:left;
+    margin-left:15px;
+    text-align:center;
+}
+
+.wordCloud {
+    float: right;
+}
+
 /* Statistic Spoiler*/
 .spoilerStatistic_desc {
     background: #ffffff;
