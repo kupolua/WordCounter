@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class CountWordsProcessorImpl implements CountWordsProcessor {
@@ -45,8 +46,11 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
 
             List<String> refinedWords = refiner.refineText(plainText);
 
-            result = new ThreadResultContainer(wordCounter.countWords(refinedWords),
-                    statistic.getStatistic(plainText, refinedWords));
+            Map<String, Integer> countedResult = wordCounter.countWords(refinedWords);
+
+            Map<String, Integer> wordStatistic = statistic.getStatistic(plainText, refinedWords);
+
+            result = new ThreadResultContainer(countedResult, wordStatistic);
         } catch (RuntimeException e) {
             LOG.error(e.getMessage(), e);
             result = new ThreadResultContainer(Collections.emptyMap(), e.getMessage(), Collections.emptyMap());
