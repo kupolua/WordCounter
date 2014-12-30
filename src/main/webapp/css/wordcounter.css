@@ -98,6 +98,20 @@
 .spoilerStatistic_open:focus .spoilerStatistic_title { display: none; }
 .spoilerStatistic_open:focus:before { display: none; }
 .spoilerStatistic_title { display: block; }
+#statisticTotalWords {
+    text-align: right;
+}
+#statisticUniqueWords {
+    text-align: right;
+}
+#statisticTotalCharacters {
+    text-align: right;
+}
+#statisticCharactersWithoutSpaces {
+    text-align: right;
+}
+
+
 
 /* Error Spoiler*/
 .spoiler_desc {

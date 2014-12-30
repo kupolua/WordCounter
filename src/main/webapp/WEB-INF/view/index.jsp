@@ -116,12 +116,12 @@
                                     <td><div id="statisticTotalCharacters"></div></td>
                                 </tr>
                                 <tr>
-                                    <td><spring:message code="index.statisticСharactersWithoutSpaces"/></td>
-                                    <td><div id="statisticСharactersWithoutSpaces"></div></td>
+                                    <td><spring:message code="index.statisticCharactersWithoutSpaces"/></td>
+                                    <td><div id="statisticCharactersWithoutSpaces"></div></td>
                                 </tr>
                             </table></div>
                         <div id="statisticContainer" class="wordCloud"></div>
-                        <div id="statisticContainer" class="charts">Charts </div>
+                        <div id="statisticContainer" class="charts"></div>
                         <div style=" width:100%; height:1px; clear:both;"></div>
                     </div>
                 </div>
