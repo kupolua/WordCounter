@@ -13,6 +13,8 @@ var dataErrors;
 var dataStatistic;
 var errorsMessage = "";
 var isErrors = false;
+var topWords = 50;
+var wordCloud = new Array(10);
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
@@ -52,6 +54,7 @@ $(document).ready(function() {
                 dataErrors = data.errors;
                 dataStatistic = data.wordStatistic;
                 countedWords = getCountedWords(dataResponse, isFilter);
+
                 if (countedWords.length > 0) {
                     setStatusFilterButton(isFilter);
                     displayResponseContainer();
@@ -61,6 +64,7 @@ $(document).ready(function() {
                     showErrors(dataErrors);
                     writeTable(countedWords, selectedRows);
                     showStatistic(dataStatistic);
+                    showWordCloud(countedWords);
                 } else {
                     displayErrorContainer();
                     showErrors(dataErrors);
@@ -136,6 +140,7 @@ function runSpinner(isFilter){
         setTableContext(isFilter);
         showErrors(dataErrors);
         writeTable(countedWords, selectedRows);
+        showWordCloud(countedWords);
         deferred.resolve();
     }, activeTime);
     return deferred;
@@ -318,4 +323,18 @@ function showStatistic(dataStatistic) {
 
 function closeSpoiler() {
     $("spoiler_close").click();
+}
+
+function showWordCloud(countedWords) {
+    var countedWordsLength = countedWords.length;
+    if(countedWordsLength > topWords){
+        countedWordsLength = topWords;
+    }
+    var wordCloud = new Array(countedWordsLength);
+
+    $("#wordCloud").html("");
+    for(i = 0; i < countedWordsLength; i++) {
+        wordCloud[i] = {text: countedWords[i][0], weight: countedWords[i][1]};
+    }
+    $("#wordCloud").jQCloud(wordCloud);
 }

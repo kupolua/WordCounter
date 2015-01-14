@@ -13,7 +13,13 @@
     <link href="css/dataTables.foundation.css" rel="stylesheet" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/osx.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="font/OpenSans-Regular.ttf" rel="stylesheet" type='text/css'>
+    <%--<link href="font/OpenSans-Regular.ttf" rel="stylesheet" type='text/css' />--%>
+    <%--<link href="css/jqcloud.css" rel="stylesheet" type="text/css" />--%>
+
+    <script src="js/d3_002.js" type="text/javascript"></script>
+    <script src="js/unicode.js" type="text/javascript"></script>
+    <script src="js/d3.js" type="text/javascript"></script>
+    <script src="js/cloud.js" type="text/javascript"></script>
 
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
@@ -24,11 +30,20 @@
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="js/dataTables.foundation.js" type="text/javascript"></script>
     <script src="js/spin.js" type="text/javascript"></script>
+    <%--<script src="js/jqcloud-1.0.4.js" type="text/javascript"></script>--%>
     <script src="js/wordcounter.js"  type="text/javascript"></script>
 
 </head>
 
 <body id="home">
+
+<div id="vis"></div>
+
+<form id="form">
+    <p style="position: absolute; right: 0px; top: 0px; display: none;" id="status"></p>
+    <button id="go" type="submit">Go!</button>
+</form>
+
 <div id="allContent">
     <div id="logo">
         <img src="img/wc-6.png" alt="WordCounterLogo">
@@ -120,7 +135,7 @@
                                     <td><div id="statisticCharactersWithoutSpaces"></div></td>
                                 </tr>
                             </table></div>
-                        <div id="statisticContainer" class="wordCloud"> </div>
+                        <div id="statisticContainer" class="wordCloud"><div id="wordCloud""></div></div>
                         <div id="statisticContainer" class="charts"></div>
                         <div style=" width:100%; height:1px; clear:both;"></div>
                     </div>

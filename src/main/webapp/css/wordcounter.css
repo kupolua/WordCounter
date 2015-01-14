@@ -216,6 +216,12 @@
     padding-top: 15px;
     float: left;
 }
+
+#wordCloud {
+    width: 500px;
+    height: 170px;
+}
+
 #liError {
     padding-bottom: 10px;
 }
