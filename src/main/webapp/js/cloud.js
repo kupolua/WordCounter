@@ -32,7 +32,6 @@ var background = svg.append("g"),
 
 var form = d3.select("#form")
     .on("submit", function() {
-        alert("OK");
         parseText("Просто введiть Просто посилання чи текст у посилання форму Просто нижче, натиснiть “Порахувати посилання слова”, і результат не змусить себе чекати.");
       d3.event.preventDefault();
     });

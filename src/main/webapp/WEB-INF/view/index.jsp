@@ -16,11 +16,8 @@
     <%--<link href="font/OpenSans-Regular.ttf" rel="stylesheet" type='text/css' />--%>
     <%--<link href="css/jqcloud.css" rel="stylesheet" type="text/css" />--%>
 
-    <script src="js/d3_002.js" type="text/javascript"></script>
-    <script src="js/unicode.js" type="text/javascript"></script>
-    <script src="js/d3.js" type="text/javascript"></script>
-    <script src="js/cloud.js" type="text/javascript"></script>
 
+<script src="js/wordcloud2.js" type="text/javascript"></script>
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/jquery.simplemodal.js" type="text/javascript"></script>
@@ -33,11 +30,51 @@
     <%--<script src="js/jqcloud-1.0.4.js" type="text/javascript"></script>--%>
     <script src="js/wordcounter.js"  type="text/javascript"></script>
 
+    <style type="text/css">
+    #canvas_cloud{
+    width: 100%;
+    height:300px;
+    }
+    </style>
+
 </head>
 
 <body id="home">
 
-<div id="vis"></div>
+<div id="sourrounding_div" style="width:100%;height:300px">
+<canvas id="canvas_cloud"></canvas>
+</div>
+
+<script>
+var div = document.getElementById("sourrounding_div");
+
+var canvas = document.getElementById("canvas_cloud");
+
+canvas.height = div.offsetHeight;
+
+canvas.width  = div.offsetWidth;
+
+var options =
+{
+  list : [
+  ["Pear", "9"],
+  ["Grape", "3"],
+  ["Pineapple", "8"],
+  ["Василий", "10"],
+  ["Петр", "12"],
+  ["Гриша", "13"],
+  ["Apple", "5"]
+  ],
+  gridSize: Math.round(10 * document.getElementById('canvas_cloud').offsetWidth / 1024),
+  weightFactor: function (size) {
+    return Math.pow(size, 1.3) * document.getElementById('canvas_cloud').offsetWidth / 1024;
+  },
+  rotateRatio: 0.5
+}
+
+WordCloud(document.getElementById('canvas_cloud'), options);
+
+</script>
 
 <form id="form">
     <p style="position: absolute; right: 0px; top: 0px; display: none;" id="status"></p>
