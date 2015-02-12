@@ -37,12 +37,14 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         ThreadResultContainer results = integrator.integrateResults(wordCountResults);
 
-        Map<String, Integer> filteredResults = filter.removeUnimportantWords(results.getCountedResult(), clientRequest.isFilterRequired());
+        Map<String, Integer> filteredResults = filter.removeUnimportantWords(results.getCountedResult(),
+                clientRequest.isFilterRequired());
 
         WordResultSorter sorter = clientRequest.getSortingOrder();
         Map<String, Integer> sortedRefinedCountedWords = sorter.getSortedWords(filteredResults);
 
-        WordCounterResultContainer result = new WordCounterResultContainerImpl(sortedRefinedCountedWords, results.getErrorsList(), results.getWordStatistic());
+        WordCounterResultContainer result = new WordCounterResultContainerImpl(sortedRefinedCountedWords,
+                results.getErrorsList(), results.getWordStatistic(), results.getRelatedLinks());
 
         return result;
     }

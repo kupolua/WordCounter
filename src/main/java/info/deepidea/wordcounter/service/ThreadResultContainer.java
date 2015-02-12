@@ -2,32 +2,41 @@ package info.deepidea.wordcounter.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ThreadResultContainer {
     private final Map<String, Integer> countedResult;
     private String error;
     private List<String> errorsList;
+    private Map<String, Set<String>> relatedLinks;
     private Map<String, Integer> wordStatistic;
 
-    public ThreadResultContainer(Map<String, Integer> countedResult, String error, Map<String, Integer> wordStatistic) {
+    public ThreadResultContainer(Map<String, Integer> countedResult, String error, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks) {
         this.countedResult = countedResult;
         this.error = error;
         this.wordStatistic = wordStatistic;
+        this.relatedLinks = relatedLinks;
     }
 
-    public ThreadResultContainer(Map<String, Integer> countedResult, List<String> errorsList, Map<String, Integer> wordStatistic) {
+    public ThreadResultContainer(Map<String, Integer> countedResult, List<String> errorsList, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks) {
         this.countedResult = countedResult;
         this.errorsList = errorsList;
         this.wordStatistic = wordStatistic;
+        this.relatedLinks = relatedLinks;
     }
 
-    public ThreadResultContainer(Map<String, Integer> countedResult, Map<String, Integer> wordStatistic) {
+    public ThreadResultContainer(Map<String, Integer> countedResult, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks) {
         this.countedResult = countedResult;
         this.wordStatistic = wordStatistic;
+        this.relatedLinks = relatedLinks;
     }
 
     public Map<String, Integer> getCountedResult() {
         return countedResult;
+    }
+
+    public Map<String, Set<String>> getRelatedLinks() {
+        return relatedLinks;
     }
 
     public Map<String, Integer> getWordStatistic() {
@@ -38,7 +47,7 @@ public class ThreadResultContainer {
         return error;
     }
 
-    public List getErrorsList() {
+    public List<String> getErrorsList() {
         return errorsList;
     }
 

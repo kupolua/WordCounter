@@ -43,7 +43,7 @@ public class ConcurrentExecutorImpl implements ConcurrentExecutor{
     @Override
     public List<ThreadResultContainer> countAsynchronously(Collection<String> splitterRequests) {
         Collection<CountWordsTask> tasks = createTasks(splitterRequests);
-        Collection<Future<ThreadResultContainer>> futures = createFutures(tasks);
+        Collection<Future<List<ThreadResultContainer>>> futures = createFutures(tasks);
         List<ThreadResultContainer> result = waitForAllResults(futures);
         return result;
     }
@@ -57,21 +57,21 @@ public class ConcurrentExecutorImpl implements ConcurrentExecutor{
         return result;
     }
 
-    private Collection<Future<ThreadResultContainer>> createFutures(Collection<CountWordsTask> tasks) {
-        List<Future<ThreadResultContainer>> result = new ArrayList<>(tasks.size());
+    private Collection<Future<List<ThreadResultContainer>>> createFutures(Collection<CountWordsTask> tasks) {
+        List<Future<List<ThreadResultContainer>>> result = new ArrayList<>(tasks.size());
         for (CountWordsTask task: tasks) {
-            Future<ThreadResultContainer> future = executorService.submit(task);
+            Future<List<ThreadResultContainer>> future = executorService.submit(task);
             result.add(future);
         }
         return result;
     }
 
-    private List<ThreadResultContainer> waitForAllResults(Collection<Future<ThreadResultContainer>> futures) {
+    private List<ThreadResultContainer> waitForAllResults(Collection<Future<List<ThreadResultContainer>>> futures) {
         List<ThreadResultContainer> result = new ArrayList<>(futures.size());
         try {
-            for (Future<ThreadResultContainer> future : futures) {
-                ThreadResultContainer eachResult = future.get(processingTimeout, TimeUnit.SECONDS);
-                result.add(eachResult);
+            for (Future<List<ThreadResultContainer>> future : futures) {
+                List<ThreadResultContainer> eachResult = future.get(processingTimeout, TimeUnit.SECONDS);
+                result.addAll(eachResult);
             }
         } catch (InterruptedException e) {
             final String msg = String.format("thread %s was interrupted", Thread.currentThread().getName());

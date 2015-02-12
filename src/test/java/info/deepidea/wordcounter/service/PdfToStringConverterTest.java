@@ -19,8 +19,8 @@ import java.util.StringJoiner;
 public class PdfToStringConverterTest {
     @Mock private PdfReader mockedReader;
     @Mock private PdfTextExtractor extractor;
-    @Spy
-    PdfToStringConverter spyConverter;
+    @Spy PdfToStringConverter spyConverter;
+
     private PdfToStringConverter pdfToStringConverter;
 
     @Before

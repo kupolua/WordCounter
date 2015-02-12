@@ -2,18 +2,21 @@ package info.deepidea.wordcounter.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public final class WordCounterResultContainerImpl implements WordCounterResultContainer {
     private Map<String, Integer> countedResult;
     private List<String> errors;
     private Map<String, Integer> wordStatistic;
+    private Map<String, Set<String>> relatedLinks;
 
     public WordCounterResultContainerImpl() {}
 
-    public WordCounterResultContainerImpl(Map<String, Integer> countedResult, List<String> errors, Map<String, Integer> wordStatistic){
+    public WordCounterResultContainerImpl(Map<String, Integer> countedResult, List<String> errors, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks){
         this.countedResult = countedResult;
         this.errors = errors;
         this.wordStatistic = wordStatistic;
+        this.relatedLinks = relatedLinks;
     }
 
     @Override
@@ -32,6 +35,11 @@ public final class WordCounterResultContainerImpl implements WordCounterResultCo
     }
 
     @Override
+    public Map<String, Set<String>> getRelatedLinks() {
+        return relatedLinks;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -42,6 +50,7 @@ public final class WordCounterResultContainerImpl implements WordCounterResultCo
             return false;
         if (errors != null ? !errors.equals(that.errors) : that.errors != null) return false;
         if (wordStatistic != null ? !wordStatistic.equals(that.wordStatistic) : that.wordStatistic != null) return false;
+        if (relatedLinks != null ? !relatedLinks.equals(that.relatedLinks) : that.relatedLinks != null) return false;
 
         return true;
     }
@@ -51,6 +60,7 @@ public final class WordCounterResultContainerImpl implements WordCounterResultCo
         int result = countedResult != null ? countedResult.hashCode() : 0;
         result = 31 * result + (errors != null ? errors.hashCode() : 0);
         result = 31 * result + (wordStatistic != null ? wordStatistic.hashCode() : 0);
+        result = 31 * result + (relatedLinks != null ? relatedLinks.hashCode() : 0);
         return result;
     }
 
@@ -60,6 +70,7 @@ public final class WordCounterResultContainerImpl implements WordCounterResultCo
                 "countedResult=" + countedResult +
                 ", errors=" + errors +
                 ", wordStatistic=" + wordStatistic +
+                ", relatedLinks=" + relatedLinks +
                 '}';
     }
 }
