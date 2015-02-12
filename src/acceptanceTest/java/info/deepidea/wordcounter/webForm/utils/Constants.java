@@ -13,7 +13,8 @@ public class Constants {
     public static final String BUTTON_XLS = "getXls";
     public static final String SEPARATOR = " ";
     public static final String ELEMENT_CSS_ERROR_CONTAINER = "#errorsContainer";
-    public static final String elementCssSpoilerOpen = "spoiler_open";
+    public static final String elementCssErrorSpoilerOpen = "spoiler_open";
+    public static final String elementCssSpoilerOpen = "spoilerStatistic_open";
     public static final String elementCssSpoilerStatisticOpen = "spoilerStatistic_open";
     public static final String STATISTIC_SPOILER = "spoilerStatistic";
     public static final String STATISTIC_TABLE = "wordStatistic";

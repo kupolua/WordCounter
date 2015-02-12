@@ -64,7 +64,7 @@ $(document).ready(function() {
                     showErrors(dataErrors);
                     writeTable(countedWords, selectedRows);
                     showStatistic(dataStatistic);
-                    showWordCloud(countedWords);
+                    showWordCloud();
                 } else {
                     displayErrorContainer();
                     showErrors(dataErrors);
@@ -265,6 +265,7 @@ function displayResponseContainer() {
     $("#saveAsPdf").show();
     $("#saveAsXls").show();
     $("#wordCounterResponse").show();
+    $("#wordCloud").show();
     $('#countedWords').show();
     $("#messageCounter").hide();
     $('#errorsContainer').text('');
@@ -279,6 +280,7 @@ function hideResponseContainer() {
     $("#saveAsPdf").hide();
     $("#saveAsXls").hide();
     $("#wordCounterResponse").hide();
+    $("#wordCloud").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
     $('#spoilerStatistic').hide();
@@ -325,16 +327,42 @@ function closeSpoiler() {
     $("spoiler_close").click();
 }
 
-function showWordCloud(countedWords) {
-    var countedWordsLength = countedWords.length;
-    if(countedWordsLength > topWords){
-        countedWordsLength = topWords;
-    }
-    var wordCloud = new Array(countedWordsLength);
+function showWordCloud() {
+    countedWords = getCountedWords(dataResponse, true);
+    var weightFactor = 100 / countedWords[0][1] * 0.85;
+    var div = $("#wordCloudData");
+    var canvas = $("#canvas_cloud").get(0);
 
-    $("#wordCloud").html("");
-    for(i = 0; i < countedWordsLength; i++) {
-        wordCloud[i] = {text: countedWords[i][0], weight: countedWords[i][1]};
+    canvas.width  = div.width();
+    canvas.height = div.height();
+
+    var options =
+    {
+        list: countedWords,
+        gridSize: 10,
+        weightFactor: weightFactor,
+        minSize: weightFactor + 4,
+        rotateRatio: 0.5
     }
-    $("#wordCloud").jQCloud(wordCloud);
+    WordCloud(canvas, options);
+}
+
+function showModalWordCloud() {
+    countedWords = getCountedWords(dataResponse, true);
+    var weightFactor = 100 / countedWords[0][1];
+    var div = $("#osx-modal-data-wordCloud");
+    var canvas = $("#canvas_cloudModal").get(0);
+
+    canvas.width  = div.width() - 30;
+    canvas.height = div.height() - 30;
+
+    var options =
+    {
+        list: countedWords,
+        gridSize: 10,
+        weightFactor: weightFactor * 1.2,
+        backgroundColor: '#EEEEEE',
+        rotateRatio: 0.5
+    }
+    WordCloud(canvas, options);
 }

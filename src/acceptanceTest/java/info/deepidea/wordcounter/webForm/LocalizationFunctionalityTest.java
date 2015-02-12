@@ -32,7 +32,7 @@ public class LocalizationFunctionalityTest {
         putDataAndClickCountButton(driver, improperInput);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         // then
@@ -56,7 +56,7 @@ public class LocalizationFunctionalityTest {
         putDataAndClickCountButton(driver, improperInput);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         // then
@@ -80,7 +80,7 @@ public class LocalizationFunctionalityTest {
         putDataAndClickCountButton(driver, improperInput);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         // then
@@ -104,7 +104,7 @@ public class LocalizationFunctionalityTest {
         putDataAndClickCountButton(driver, improperInput);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         // then

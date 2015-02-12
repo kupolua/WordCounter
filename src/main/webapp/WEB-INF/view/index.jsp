@@ -1,4 +1,4 @@
-﻿﻿﻿<%@ page contentType="text/html;charset=UTF-8" %>
+﻿﻿﻿﻿<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -13,11 +13,8 @@
     <link href="css/dataTables.foundation.css" rel="stylesheet" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/osx.css" rel="stylesheet" type="text/css" media="screen" />
-    <%--<link href="font/OpenSans-Regular.ttf" rel="stylesheet" type='text/css' />--%>
-    <%--<link href="css/jqcloud.css" rel="stylesheet" type="text/css" />--%>
 
-
-<script src="js/wordcloud2.js" type="text/javascript"></script>
+    <script src="js/wordcloud2.js" type="text/javascript"></script>
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/jquery.simplemodal.js" type="text/javascript"></script>
@@ -27,59 +24,11 @@
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="js/dataTables.foundation.js" type="text/javascript"></script>
     <script src="js/spin.js" type="text/javascript"></script>
-    <%--<script src="js/jqcloud-1.0.4.js" type="text/javascript"></script>--%>
     <script src="js/wordcounter.js"  type="text/javascript"></script>
-
-    <style type="text/css">
-    #canvas_cloud{
-    width: 100%;
-    height:300px;
-    }
-    </style>
 
 </head>
 
 <body id="home">
-
-<div id="sourrounding_div" style="width:100%;height:300px">
-<canvas id="canvas_cloud"></canvas>
-</div>
-
-<script>
-var div = document.getElementById("sourrounding_div");
-
-var canvas = document.getElementById("canvas_cloud");
-
-canvas.height = div.offsetHeight;
-
-canvas.width  = div.offsetWidth;
-
-var options =
-{
-  list : [
-  ["Pear", "9"],
-  ["Grape", "3"],
-  ["Pineapple", "8"],
-  ["Василий", "10"],
-  ["Петр", "12"],
-  ["Гриша", "13"],
-  ["Apple", "5"]
-  ],
-  gridSize: Math.round(10 * document.getElementById('canvas_cloud').offsetWidth / 1024),
-  weightFactor: function (size) {
-    return Math.pow(size, 1.3) * document.getElementById('canvas_cloud').offsetWidth / 1024;
-  },
-  rotateRatio: 0.5
-}
-
-WordCloud(document.getElementById('canvas_cloud'), options);
-
-</script>
-
-<form id="form">
-    <p style="position: absolute; right: 0px; top: 0px; display: none;" id="status"></p>
-    <button id="go" type="submit">Go!</button>
-</form>
 
 <div id="allContent">
     <div id="logo">
@@ -172,7 +121,6 @@ WordCloud(document.getElementById('canvas_cloud'), options);
                                     <td><div id="statisticCharactersWithoutSpaces"></div></td>
                                 </tr>
                             </table></div>
-                        <div id="statisticContainer" class="wordCloud"><div id="wordCloud""></div></div>
                         <div id="statisticContainer" class="charts"></div>
                         <div style=" width:100%; height:1px; clear:both;"></div>
                     </div>
@@ -182,17 +130,27 @@ WordCloud(document.getElementById('canvas_cloud'), options);
             </div>
 
             <div id="responseContainer">
-                    <div id="messageCounter"><spring:message code="index.noCount"/></div>
-                    <div id="wordCounterResponse">
-                        <table id="countedWords" cellpadding="0" cellspacing="0" border="0" class="display"></table>
-                        <div id="wordsColumNameAnchor"><spring:message code="index.wordsColumName"/></div>
-                        <div id="countColumNameAnchor"><spring:message code="index.countColumName"/></div>
+                <div id="messageCounter"><spring:message code="index.noCount"/></div>
+                <div id="wordCloud" class="container">
+                    <div id="table" class="left">
+                        <div id="wordCounterResponse">
+                            <table id="countedWords" cellpadding="0" cellspacing="0" border="0" class="display"></table>
+                            <div id="wordsColumNameAnchor"><spring:message code="index.wordsColumName"/></div>
+                            <div id="countColumNameAnchor"><spring:message code="index.countColumName"/></div>
+                        </div>
                     </div>
+                    <div id="cloud" class="right">
+                        <div id="wordCloudData">
+                            <div id="showModalCloud" class="showModalCloud"><a href="#" class="osx-wordCloud" onclick="showModalWordCloud()"><spring:message code="index.openModal"/></a></div>
+                            <canvas id="canvas_cloud"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </fieldset>
     </div>
 </div>
-<div id="osx-modal-content">
+    <div id="osx-modal-content">
     <div id="osx-modal-title"><spring:message code="index.modalTitle"/></div>
     <div class="close"><a href="#" class="simplemodal-close">x</a></div>
     <div id="osx-modal-data">
@@ -200,7 +158,19 @@ WordCloud(document.getElementById('canvas_cloud'), options);
         <div id="wordsFilter">${filter}</div>
         <p><button class="simplemodal-close"><spring:message code="index.modalClose"/></button></p>
     </div>
+    </div>
 </div>
+
+</div>
+    <div id="osx-modal-content-wordCloud">
+    <div id="osx-modal-title-wordCloud"><spring:message code="index.wordCloudTitle"/></div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data-wordCloud">
+        <div id="wordCloudModal">
+            <canvas id="canvas_cloudModal"></canvas>
+        </div>
+    </div>
+    </div>
 </div>
 
 <footer>
