@@ -9,9 +9,22 @@
     margin-left:15px;
     text-align:center;
 }
-
-.wordCloud {
-    float: right;
+#wordCloud {
+    display: none;
+}
+.container {
+}
+.right {
+    width:45%;
+    overflow:hidden;
+}
+.left {
+    width:55%;
+    float:left;
+}
+#canvas_cloud {
+    margin-top: 20px;
+    height: 350px;
 }
 
 /* Statistic Spoiler*/
@@ -216,6 +229,7 @@
     padding-top: 15px;
     float: left;
 }
+
 #liError {
     padding-bottom: 10px;
 }

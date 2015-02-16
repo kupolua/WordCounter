@@ -103,7 +103,7 @@ public class StatisticWordsFunctionalityTest {
         putDataAndClickCountButton(driver, invalidLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -140,7 +140,7 @@ public class StatisticWordsFunctionalityTest {
         driver.findElement(By.id(STATISTIC_SPOILER)).click();
         String actualStatisticResult = driver.findElement(By.id(STATISTIC_TABLE)).getText();
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then

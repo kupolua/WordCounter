@@ -13,6 +13,8 @@ var dataErrors;
 var dataStatistic;
 var errorsMessage = "";
 var isErrors = false;
+var topWords = 50;
+var wordCloud = new Array(10);
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
@@ -52,6 +54,7 @@ $(document).ready(function() {
                 dataErrors = data.errors;
                 dataStatistic = data.wordStatistic;
                 countedWords = getCountedWords(dataResponse, isFilter);
+
                 if (countedWords.length > 0) {
                     setStatusFilterButton(isFilter);
                     displayResponseContainer();
@@ -61,6 +64,7 @@ $(document).ready(function() {
                     showErrors(dataErrors);
                     writeTable(countedWords, selectedRows);
                     showStatistic(dataStatistic);
+                    showWordCloud();
                 } else {
                     displayErrorContainer();
                     showErrors(dataErrors);
@@ -136,6 +140,7 @@ function runSpinner(isFilter){
         setTableContext(isFilter);
         showErrors(dataErrors);
         writeTable(countedWords, selectedRows);
+        showWordCloud(countedWords);
         deferred.resolve();
     }, activeTime);
     return deferred;
@@ -260,6 +265,7 @@ function displayResponseContainer() {
     $("#saveAsPdf").show();
     $("#saveAsXls").show();
     $("#wordCounterResponse").show();
+    $("#wordCloud").show();
     $('#countedWords').show();
     $("#messageCounter").hide();
     $('#errorsContainer').text('');
@@ -274,6 +280,7 @@ function hideResponseContainer() {
     $("#saveAsPdf").hide();
     $("#saveAsXls").hide();
     $("#wordCounterResponse").hide();
+    $("#wordCloud").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
     $('#spoilerStatistic').hide();
@@ -318,4 +325,44 @@ function showStatistic(dataStatistic) {
 
 function closeSpoiler() {
     $("spoiler_close").click();
+}
+
+function showWordCloud() {
+    countedWords = getCountedWords(dataResponse, true);
+    var weightFactor = 100 / countedWords[0][1] * 0.85;
+    var div = $("#wordCloudData");
+    var canvas = $("#canvas_cloud").get(0);
+
+    canvas.width  = div.width();
+    canvas.height = div.height();
+
+    var options =
+    {
+        list: countedWords,
+        gridSize: 10,
+        weightFactor: weightFactor,
+        minSize: weightFactor + 4,
+        rotateRatio: 0.5
+    }
+    WordCloud(canvas, options);
+}
+
+function showModalWordCloud() {
+    countedWords = getCountedWords(dataResponse, true);
+    var weightFactor = 100 / countedWords[0][1];
+    var div = $("#osx-modal-data-wordCloud");
+    var canvas = $("#canvas_cloudModal").get(0);
+
+    canvas.width  = div.width() - 30;
+    canvas.height = div.height() - 30;
+
+    var options =
+    {
+        list: countedWords,
+        gridSize: 10,
+        weightFactor: weightFactor * 1.2,
+        backgroundColor: '#EEEEEE',
+        rotateRatio: 0.5
+    }
+    WordCloud(canvas, options);
 }

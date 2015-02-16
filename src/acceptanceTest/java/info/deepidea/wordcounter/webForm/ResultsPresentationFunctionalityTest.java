@@ -259,7 +259,7 @@ public class ResultsPresentationFunctionalityTest {
 
         driver.findElement(By.className(elementCssSpoilerOpen)).click();
         Thread.sleep(TIME_WAIT_SPOILER);
-        String elementClassSpoilerClose = "spoiler_close";
+        String elementClassSpoilerClose = "spoilerStatistic_close";
         driver.findElement(By.className(elementClassSpoilerClose)).click();
         Thread.sleep(TIME_WAIT_SPOILER);
 

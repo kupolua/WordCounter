@@ -139,7 +139,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, noTextOnPage);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -159,7 +159,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, invalidLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -228,7 +228,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, noTextInPdf);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -272,7 +272,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -299,7 +299,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
