@@ -14,22 +14,30 @@ public class CountersIntegratorImpl implements CountersIntegrator {
         Map<String, Integer> resultStatistic = new HashMap<>();
         Map<String, Set<String>> relatedLinks = new HashMap<>();
         List<String> errorsList = new ArrayList<>();
-        for (ThreadResultContainer eachContainer : results){
-            addError(errorsList, eachContainer);
-            addResults(resultMap, eachContainer);
-            addLinks(relatedLinks, eachContainer);
-            addStatistic(resultStatistic, eachContainer);
+        for (ThreadResultContainer eachContainer : results) {
+            boolean resultsHaveSameContainer = checkForSameContainer(relatedLinks, eachContainer.getRelatedLinks());
+            if (!resultsHaveSameContainer) {
+                addError(errorsList, eachContainer);
+                addResults(resultMap, eachContainer);
+                addLinks(relatedLinks, eachContainer);
+                addStatistic(resultStatistic, eachContainer);
+            }
         }
         return new ThreadResultContainer(resultMap, errorsList, resultStatistic, relatedLinks);
     }
 
-    private void addLinks(Map<String, Set<String>> relatedLinks, ThreadResultContainer eachContainer) {
-        Map<String, Set<String>> links = eachContainer.getRelatedLinks();
-        for (Map.Entry<String, Set<String>> each : links.entrySet()) {
-            if (!each.getValue().isEmpty()) {
-                relatedLinks.putAll(links);
-                break;
-            }
+    private boolean checkForSameContainer(Map<String, Set<String>> storedLinks, Map<String, Set<String>> eachLinks) {
+        boolean hasSameResults = false;
+        if (storedLinks.keySet().containsAll(eachLinks.keySet())) {
+            hasSameResults = true;
+        }
+        return hasSameResults;
+    }
+
+    private void addError(List<String> errorsList, ThreadResultContainer eachContainer) {
+        String error = eachContainer.getError();
+        if (error != null){
+            errorsList.add(error);
         }
     }
 
@@ -46,6 +54,16 @@ public class CountersIntegratorImpl implements CountersIntegrator {
         }
     }
 
+    private void addLinks(Map<String, Set<String>> relatedLinks, ThreadResultContainer eachContainer) {
+        Map<String, Set<String>> links = eachContainer.getRelatedLinks();
+        for (Map.Entry<String, Set<String>> each : links.entrySet()) {
+            if (!each.getValue().isEmpty()) {
+                relatedLinks.putAll(links);
+                break;
+            }
+        }
+    }
+
     private void addStatistic(Map<String, Integer> resultStatistic, ThreadResultContainer eachContainer) {
         Assertions.assertMapIsNotEmpty(eachContainer.getWordStatistic());
         Map<String, Integer> eachResultStatistic = eachContainer.getWordStatistic();
@@ -57,13 +75,6 @@ public class CountersIntegratorImpl implements CountersIntegrator {
                 int sumStatistic = countStatistic + eachEntry.getValue();
                 resultStatistic.put(eachEntry.getKey(), sumStatistic);
             }
-        }
-    }
-
-    private void addError(List<String> errorsList, ThreadResultContainer eachContainer) {
-        String error = eachContainer.getError();
-        if (error != null){
-            errorsList.add(error);
         }
     }
 }
