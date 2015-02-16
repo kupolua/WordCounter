@@ -28,6 +28,6 @@ public class ViewsConstants {
     public static final String DASH = "- ";
     public static final String TOTAL_WORDS = "statisticTotalWords";
     public static final String TOTAL_CHARACTERS = "statisticTotalCharacters";
-    public static final String CHARACTERS_WITHOUT_SPACES = "statisticСharactersWithoutSpaces";
+    public static final String CHARACTERS_WITHOUT_SPACES = "statisticCharactersWithoutSpaces";
     public static final String UNIQUE_WORDS = "statisticUniqueWords";
 }

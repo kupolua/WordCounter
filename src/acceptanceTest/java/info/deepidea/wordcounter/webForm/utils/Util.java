@@ -33,6 +33,9 @@ public class Util {
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
         driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(data);
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+        if (driver.findElement(By.id(STATISTIC_SPOILER)).isDisplayed()) {
+            driver.findElement(By.id(STATISTIC_SPOILER)).click();
+        }
     }
 
     public static boolean waitForJQueryProcessing(WebDriver driver, int timeOutInSeconds) {

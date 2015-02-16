@@ -62,7 +62,7 @@ public class ExportingFunctionalityTest {
         assertTrue(isFileExist);
     }
 
-    @Test
+//    @Test
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);
