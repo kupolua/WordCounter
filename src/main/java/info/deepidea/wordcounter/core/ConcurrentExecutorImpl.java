@@ -41,17 +41,18 @@ public class ConcurrentExecutorImpl implements ConcurrentExecutor{
     }
 
     @Override
-    public List<ThreadResultContainer> countAsynchronously(Collection<String> splitterRequests) {
-        Collection<CountWordsTask> tasks = createTasks(splitterRequests);
+    public List<ThreadResultContainer> countAsynchronously(Collection<String> splitterRequests,
+                                                           int depth, boolean internalOnly) {
+        Collection<CountWordsTask> tasks = createTasks(splitterRequests, depth, internalOnly);
         Collection<Future<List<ThreadResultContainer>>> futures = createFutures(tasks);
         List<ThreadResultContainer> result = waitForAllResults(futures);
         return result;
     }
 
-    private Collection<CountWordsTask> createTasks(Collection<String> requests) {
+    private Collection<CountWordsTask> createTasks(Collection<String> requests, int depth, boolean internalOnly) {
         List<CountWordsTask> result = new ArrayList<>(requests.size());
         for (String request: requests) {
-            CountWordsTask task = new CountWordsTask(request, countWordsProcessor);
+            CountWordsTask task = new CountWordsTask(request, countWordsProcessor, depth, internalOnly);
             result.add(task);
         }
         return result;

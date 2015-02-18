@@ -22,7 +22,6 @@ public class CrawlerImpl implements Crawler {
     @Override
     public List<ThreadResultContainer> crawl() {
         boolean crawlingRequired = true;
-        //todo: add a boolean variable which prevents crawling on the last iteration
         final List<ThreadResultContainer> resultContainers = new ArrayList<>();
         final HashSet<String> initialUrl = new HashSet<>(Arrays.asList(initialLink));
 
@@ -55,14 +54,15 @@ public class CrawlerImpl implements Crawler {
     }
 
     private void checkInitialLink() {
-        if (initialLink == null || "".equals(initialLink)) {
+        final String empty = "";
+        if (initialLink == null || empty.equals(initialLink)) {
             throw new IllegalArgumentException("Link is null or empty");
         }
     }
 
     private void checkDepth() {
         final int maxDepth = 2;
-        final int minDepth = 1;
+        final int minDepth = 0;
         if (depth > maxDepth || depth < minDepth){
             final String msg = String.format("Depth could not be > %d or < %d", maxDepth, minDepth);
             throw new IllegalArgumentException(msg);

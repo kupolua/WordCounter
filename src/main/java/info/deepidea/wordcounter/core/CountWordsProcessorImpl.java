@@ -23,7 +23,8 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
 
     @Autowired
     public CountWordsProcessorImpl(TextTypeInquirer textTypeInquirer, DocumentConverter documentConverter,
-                                   WordCounter wordCounter, TextRefiner refiner, WordStatistic statistic, UrlReceiver urlReceiver) {
+                                   WordCounter wordCounter, TextRefiner refiner,
+                                   WordStatistic statistic, UrlReceiver urlReceiver) {
         this.textTypeInquirer = textTypeInquirer;
         this.documentConverter = documentConverter;
         this.wordCounter = wordCounter;
@@ -50,18 +51,17 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
 
             Map<String, Integer> wordStatistic = statistic.getStatistic(plainText, refinedWords);
 
-            Set<String> crawledUrls = Collections.emptySet();
-            if (textType instanceof HtmlTextTypeImpl && crawlingRequired) {
-                crawledUrls = urlReceiver.getUrlsFromPage(clientRequest, internalOnly);
-            }
-
             Map<String, Set<String>> relatedLinks = new HashMap<>();
-            relatedLinks.put(clientRequest, crawledUrls);
+            if (textType instanceof HtmlTextTypeImpl && crawlingRequired) {
+                Set<String> crawledUrls = urlReceiver.getUrlsFromPage(clientRequest, internalOnly);
+                relatedLinks.put(clientRequest, crawledUrls);
+            }
 
             result = new ThreadResultContainer(countedResult, wordStatistic, relatedLinks);
         } catch (RuntimeException e) {
             LOG.error(e.getMessage(), e);
-            result = new ThreadResultContainer(Collections.emptyMap(), e.getMessage(), Collections.emptyMap(), Collections.emptyMap());
+            result = new ThreadResultContainer(Collections.emptyMap(), e.getMessage(),
+                                                Collections.emptyMap(),  Collections.emptyMap());
         }
         return result;
     }

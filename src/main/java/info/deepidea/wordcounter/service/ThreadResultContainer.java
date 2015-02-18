@@ -53,20 +53,29 @@ public class ThreadResultContainer {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         ThreadResultContainer that = (ThreadResultContainer) o;
 
-        if (countedResult != null ? !countedResult.equals(that.countedResult) : that.countedResult != null) return false;
+        if (countedResult != null ? !countedResult.equals(that.countedResult) : that.countedResult != null)
+            return false;
         if (error != null ? !error.equals(that.error) : that.error != null) return false;
         if (errorsList != null ? !errorsList.equals(that.errorsList) : that.errorsList != null) return false;
-        if (wordStatistic != null ? !wordStatistic.equals(that.wordStatistic) : that.wordStatistic != null) return false;
+        if (relatedLinks != null ? !relatedLinks.equals(that.relatedLinks) : that.relatedLinks != null) return false;
+        if (wordStatistic != null ? !wordStatistic.equals(that.wordStatistic) : that.wordStatistic != null)
+            return false;
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = countedResult != null ? countedResult.hashCode() : 0;
+        result = 31 * result + (error != null ? error.hashCode() : 0);
+        result = 31 * result + (errorsList != null ? errorsList.hashCode() : 0);
+        result = 31 * result + (relatedLinks != null ? relatedLinks.hashCode() : 0);
+        result = 31 * result + (wordStatistic != null ? wordStatistic.hashCode() : 0);
+        return result;
     }
 }

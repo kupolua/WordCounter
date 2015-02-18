@@ -50,6 +50,11 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
     }
 
     protected Document getDocument(String userUrl) throws IOException {
-        return Jsoup.connect(userUrl).userAgent(USER_AGENT_VALUE).get();
+        final int timeout = 3000;
+        Document doc = Jsoup.connect(userUrl)
+                .timeout(timeout)
+                .userAgent(USER_AGENT_VALUE)
+                .get();
+        return doc;
     }
 }

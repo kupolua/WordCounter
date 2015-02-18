@@ -28,7 +28,7 @@ public class CountersIntegratorImpl implements CountersIntegrator {
 
     private boolean checkForSameContainer(Map<String, Set<String>> storedLinks, Map<String, Set<String>> eachLinks) {
         boolean hasSameResults = false;
-        if (storedLinks.keySet().containsAll(eachLinks.keySet())) {
+        if ((!eachLinks.keySet().isEmpty()) && (storedLinks.keySet().containsAll(eachLinks.keySet()))) {
             hasSameResults = true;
         }
         return hasSameResults;
