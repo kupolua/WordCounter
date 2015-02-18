@@ -13,8 +13,7 @@ var dataErrors;
 var dataStatistic;
 var errorsMessage = "";
 var isErrors = false;
-var topWords = 50;
-var wordCloud = new Array(10);
+var crawlerParam;
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
@@ -42,7 +41,13 @@ $(document).ready(function() {
         };
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
-        dataString = "textCount=" + encodeURIComponent(textCount);
+        crawlLevel = $("#crawler option:selected").val();
+        if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {
+            crawlScope = "true";
+        } else {
+            crawlScope = "false";
+        }
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlLevel=" + crawlLevel + "&crawlScope=" + crawlScope;
 
         $.ajax({
             type: "POST",
@@ -330,6 +335,7 @@ function closeSpoiler() {
 function showWordCloud() {
     countedWords = getCountedWords(dataResponse, true);
     var weightFactor = 100 / countedWords[0][1] * 0.85;
+    weightFactor = 0;
     var div = $("#wordCloudData");
     var canvas = $("#canvas_cloud").get(0);
 

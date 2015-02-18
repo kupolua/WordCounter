@@ -28,10 +28,13 @@ public class CountWordsController {
     @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public WordCounterResultContainer getResult(@RequestParam String textCount,
+                                                @RequestParam int crawlLevel,
+                                                @RequestParam boolean crawlScope,
                                                 HttpServletRequest clientHttpRequest) throws Throwable {
         setErrorLocale(clientHttpRequest);
         CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
+
         return result;
     }
 

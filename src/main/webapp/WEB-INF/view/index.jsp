@@ -52,10 +52,22 @@
         <form id="wordCounterForm">
             <p>
                 <label for="textCount"><spring:message code="index.enter"/></label>
-                <textarea id="textCount" name="textCount" cols="70" rows="7"></textarea>
+                <textarea id="textCount" name="textCount" cols="70" rows="7">
+                    Просто введiть посилання чи текст у форму нижче
+                </textarea>
             </p>
             <div id="spinnerAnchor"></div>
             <p id="note"><spring:message code="index.note"/></p>
+            <div id="crawler">
+                <select>
+                    <option selected value="0">no crawler</option>
+                    <option value="1">crawler deep 1</option>
+                    <option value="2">crawler deep 2</option>
+                </select>
+                <input type="checkbox" name="crawlLocalDomain" value="true"> only local domain
+
+            </div>
+
             <input id="CountWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
         </form>
 
