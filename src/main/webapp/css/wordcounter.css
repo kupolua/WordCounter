@@ -339,6 +339,14 @@ legend {
     font-family: 'Open Sans', sans-serif;
     color: #534d4d;
 }
+#crawler {
+    width: 130px;
+    padding-top: 3px;
+    padding-left: 15px;
+    padding-bottom: 9px;
+    font-family: 'Open Sans', sans-serif;
+    color: #534d4d;
+}
 #buttonGetFilterWords {
     display: none;
 }

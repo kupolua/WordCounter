@@ -1,6 +1,6 @@
 var spinner;
 var dataResponse;
-var isFilter = false;
+var isFilter = true;
 var isFilterWords = 0;
 var textCount;
 var countedWords;
@@ -13,7 +13,6 @@ var dataErrors;
 var dataStatistic;
 var errorsMessage = "";
 var isErrors = false;
-var crawlerParam;
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
@@ -334,20 +333,22 @@ function closeSpoiler() {
 
 function showWordCloud() {
     countedWords = getCountedWords(dataResponse, true);
-    var weightFactor = 100 / countedWords[0][1] * 0.85;
-    weightFactor = 0;
     var div = $("#wordCloudData");
     var canvas = $("#canvas_cloud").get(0);
-
-    canvas.width  = div.width();
-    canvas.height = div.height();
+        canvas.width  = div.width();
+        canvas.height = div.height();
+    var gridSize = Math.round(10 * canvas.width / 1024) * 2;
+    var weightFactor = 100 / countedWords[0][1] * (0.6);
+    if(weightFactor <= 1) {
+        weightFactor += 0.1;
+    }
 
     var options =
     {
         list: countedWords,
-        gridSize: 10,
+        gridSize: gridSize,
         weightFactor: weightFactor,
-        minSize: weightFactor + 4,
+        minSize: 10,
         rotateRatio: 0.5
     }
     WordCloud(canvas, options);
@@ -359,15 +360,15 @@ function showModalWordCloud() {
     var div = $("#osx-modal-data-wordCloud");
     var canvas = $("#canvas_cloudModal").get(0);
 
-    canvas.width  = div.width() - 30;
-    canvas.height = div.height() - 30;
-
+    canvas.width  = div.offsetParent().width() * 0.93;
+    canvas.height = div.offsetParent().height() * 0.8;
     var options =
     {
         list: countedWords,
         gridSize: 10,
-        weightFactor: weightFactor * 1.2,
+        weightFactor: weightFactor * 1.4,
         backgroundColor: '#EEEEEE',
+        minSize: 7,
         rotateRatio: 0.5
     }
     WordCloud(canvas, options);
