@@ -21,7 +21,8 @@ public class Forker extends RecursiveTask<List<ThreadResultContainer>> {
         this(links, processor, 0, links.size(), crawlingRequired, internalOnly);
     }
 
-    public Forker(List<String> links, CountWordsProcessor processor, int start, int end, boolean crawlingRequired, boolean internalOnly) {
+    public Forker(List<String> links, CountWordsProcessor processor, int start,
+                  int end, boolean crawlingRequired, boolean internalOnly) {
         this.links = links;
         this.processor = processor;
         this.start = start;

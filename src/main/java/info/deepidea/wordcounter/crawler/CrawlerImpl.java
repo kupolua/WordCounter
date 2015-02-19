@@ -2,20 +2,27 @@ package info.deepidea.wordcounter.crawler;
 
 import info.deepidea.wordcounter.core.CountWordsProcessor;
 import info.deepidea.wordcounter.service.ThreadResultContainer;
+import info.deepidea.wordcounter.util.Assertions;
+import info.deepidea.wordcounter.util.WordCounterArgumentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
+import static info.deepidea.wordcounter.util.ErrorCodeImpl.*;
+
 public class CrawlerImpl implements Crawler {
+    private static final Logger LOG = LoggerFactory.getLogger(CrawlerImpl.class);
     private final int depth;
     private final boolean internalOnly;
-    private final String initialLink;
+    private final String userRequest;
     private final CountWordsProcessor processor;
 
-    public CrawlerImpl(int depth, boolean internalOnly, String initialLink, CountWordsProcessor processor) {
+    public CrawlerImpl(int depth, boolean internalOnly, String userRequest, CountWordsProcessor processor) {
         this.depth = depth;
         this.internalOnly = internalOnly;
-        this.initialLink = initialLink;
+        this.userRequest = userRequest;
         this.processor = processor;
     }
 
@@ -23,9 +30,9 @@ public class CrawlerImpl implements Crawler {
     public List<ThreadResultContainer> crawl() {
         boolean crawlingRequired = true;
         final List<ThreadResultContainer> resultContainers = new ArrayList<>();
-        final HashSet<String> initialUrl = new HashSet<>(Arrays.asList(initialLink));
+        final Set<String> initialUrl = new HashSet<>(Arrays.asList(userRequest));
 
-        checkInitialLink();
+        Assertions.assertStringIsNotNullOrEmpty(userRequest);
         checkDepth();
 
         List<Set<String>> depthsOfUrls = new ArrayList<Set<String>>();
@@ -41,7 +48,6 @@ public class CrawlerImpl implements Crawler {
             List<ThreadResultContainer> newContainers = pool.invoke(forker);
             Set<String> newUrls = new HashSet<String>(extractUrls(newContainers));
             if (newUrls.isEmpty()) {
-//                LOG.warn("Requested URLs have not returned results. URLs: " + String.valueOf(depthsOfUrls.get(currentDepth))); //todo: logging
                 resultContainers.addAll(newContainers);
                 return resultContainers;
             }
@@ -53,19 +59,13 @@ public class CrawlerImpl implements Crawler {
         return resultContainers;
     }
 
-    private void checkInitialLink() {
-        final String empty = "";
-        if (initialLink == null || empty.equals(initialLink)) {
-            throw new IllegalArgumentException("Link is null or empty");
-        }
-    }
-
     private void checkDepth() {
         final int maxDepth = 2;
         final int minDepth = 0;
         if (depth > maxDepth || depth < minDepth){
             final String msg = String.format("Depth could not be > %d or < %d", maxDepth, minDepth);
-            throw new IllegalArgumentException(msg);
+            LOG.error(msg);
+            throw new WordCounterArgumentException(DEPTH_IS_OUT_OF_RANGE);
         }
     }
 
