@@ -11,4 +11,8 @@ public interface CountWordsUserRequest {
     WordResultSorter getSortingOrder();
 
     boolean isFilterRequired();
+
+    int getDepthOfCrawling();
+
+    boolean isInternalCrawling();
 }

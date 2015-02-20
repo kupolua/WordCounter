@@ -25,7 +25,8 @@ public class UrlReceiverImpl implements UrlReceiver {
 
     @Override
     public Set<String> getUrlsFromPage(String url, boolean internalOnly) {
-        final List<String> urlsFromParsedPage = processor.parsePage(url);
+        final CrawledUrlsContainer urlsContainer = processor.parsePage(url);
+        final List<String> urlsFromParsedPage = urlsContainer.getGainedUrls();
         final Set<String> result;
 
         if (urlsFromParsedPage.isEmpty()) {
@@ -33,7 +34,7 @@ public class UrlReceiverImpl implements UrlReceiver {
         }
 
         if (internalOnly) {
-            result = getInternalUrls(url, urlsFromParsedPage);
+            result = getInternalUrls(urlsContainer.getProcessedUrl(), urlsFromParsedPage);
         } else {
             result = getAnyUrls(urlsFromParsedPage);
         }
@@ -41,8 +42,8 @@ public class UrlReceiverImpl implements UrlReceiver {
     }
 
     private Set<String> getInternalUrls(String url, List<String> urlsFromParsedPage) {
-        final Set<String> internalUrls = new HashSet<>();
         final String host = getHost(url);
+        final Set<String> internalUrls = new HashSet<String>();
         final String pattern = "^http(s)?://(www\\.)?" + host + "[\\w\\d\\W&&[^#]]+$";
 
         for (String each : urlsFromParsedPage) {
@@ -71,7 +72,7 @@ public class UrlReceiverImpl implements UrlReceiver {
         try {
             host = new URL(url).getHost();
         } catch (IOException e) {
-            throw new IllegalArgumentException("Something went wrong", e); //todo: invent something
+            throw new IllegalArgumentException("Cannot create a URL object from " + url, e); //todo: invent something
         }
         return host;
     }

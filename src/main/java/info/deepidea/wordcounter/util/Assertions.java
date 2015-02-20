@@ -35,4 +35,12 @@ public class Assertions {
            throw new WordCounterArgumentException(CANNOT_COUNT_TEXT);
         }
     }
+
+    public static void assertDepthIsNotOutOfRange(int depth) {
+        final int maxDepth = 2;
+        final int minDepth = 0;
+        if (depth > maxDepth || depth < minDepth) {
+            throw new WordCounterArgumentException(DEPTH_IS_OUT_OF_RANGE);
+        }
+    }
 }

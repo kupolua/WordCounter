@@ -3,17 +3,11 @@ package info.deepidea.wordcounter.crawler;
 import info.deepidea.wordcounter.core.CountWordsProcessor;
 import info.deepidea.wordcounter.service.ThreadResultContainer;
 import info.deepidea.wordcounter.util.Assertions;
-import info.deepidea.wordcounter.util.WordCounterArgumentException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
-import static info.deepidea.wordcounter.util.ErrorCodeImpl.*;
-
 public class CrawlerImpl implements Crawler {
-    private static final Logger LOG = LoggerFactory.getLogger(CrawlerImpl.class);
     private final int depth;
     private final boolean internalOnly;
     private final String userRequest;
@@ -30,10 +24,9 @@ public class CrawlerImpl implements Crawler {
     public List<ThreadResultContainer> crawl() {
         boolean crawlingRequired = true;
         final List<ThreadResultContainer> resultContainers = new ArrayList<>();
-        final Set<String> initialUrl = new HashSet<>(Arrays.asList(userRequest));
+        final Set<String> initialUrl = new HashSet<String>(Arrays.asList(userRequest));
 
         Assertions.assertStringIsNotNullOrEmpty(userRequest);
-        checkDepth();
 
         List<Set<String>> depthsOfUrls = new ArrayList<Set<String>>();
         depthsOfUrls.add(initialUrl);
@@ -51,22 +44,12 @@ public class CrawlerImpl implements Crawler {
                 resultContainers.addAll(newContainers);
                 return resultContainers;
             }
-            newUrls.removeAll(mergeResults(depthsOfUrls)); //todo: potential issue (same links result)
+            newUrls.removeAll(mergeResults(depthsOfUrls));
             depthsOfUrls.add(newUrls);
             resultContainers.addAll(newContainers);
         }
 
         return resultContainers;
-    }
-
-    private void checkDepth() {
-        final int maxDepth = 2;
-        final int minDepth = 0;
-        if (depth > maxDepth || depth < minDepth){
-            final String msg = String.format("Depth could not be > %d or < %d", maxDepth, minDepth);
-            LOG.error(msg);
-            throw new WordCounterArgumentException(DEPTH_IS_OUT_OF_RANGE);
-        }
     }
 
     protected ForkJoinPool getForkJoinPool() {

@@ -27,7 +27,9 @@ public class UrlReceiverImplTest {
         urlsFromPage.add("https://code.google.com/p/lightcrawler/2/");
         urlsFromPage.add("http://bbc.com/");
 
-        when(processor.parsePage(url)).thenReturn(urlsFromPage);
+        CrawledUrlsContainer urlsContainer = new CrawledUrlsContainer(url, urlsFromPage);
+
+        when(processor.parsePage(url)).thenReturn(urlsContainer);
 
         UrlReceiver receiver = new UrlReceiverImpl(processor);
 
@@ -55,7 +57,9 @@ public class UrlReceiverImplTest {
         urlsFromPage.add("https://code.google.com/p/lightcrawler/2/");
         urlsFromPage.add("http://bbc.com/");
 
-        when(processor.parsePage(url)).thenReturn(urlsFromPage);
+        CrawledUrlsContainer urlsContainer = new CrawledUrlsContainer(url, urlsFromPage);
+
+        when(processor.parsePage(url)).thenReturn(urlsContainer);
 
         UrlReceiver receiver = new UrlReceiverImpl(processor);
 
@@ -84,7 +88,9 @@ public class UrlReceiverImplTest {
         urlsFromPage.add("https://code.google.com/p/lightcrawler/2.zip");
         urlsFromPage.add("https://code.google.com/p/lightcrawler/start/");
 
-        when(processor.parsePage(url)).thenReturn(urlsFromPage);
+        CrawledUrlsContainer urlsContainer = new CrawledUrlsContainer(url, urlsFromPage);
+
+        when(processor.parsePage(url)).thenReturn(urlsContainer);
 
         UrlReceiver receiver = new UrlReceiverImpl(processor);
 
@@ -112,7 +118,9 @@ public class UrlReceiverImplTest {
         urlsFromPage.add("https://code.google.com/p/lightcrawler/start/");
         urlsFromPage.add("http://bbc.com/");
 
-        when(processor.parsePage(url)).thenReturn(urlsFromPage);
+        CrawledUrlsContainer urlsContainer = new CrawledUrlsContainer(url, urlsFromPage);
+
+        when(processor.parsePage(url)).thenReturn(urlsContainer);
 
         UrlReceiver receiver = new UrlReceiverImpl(processor);
 
@@ -132,12 +140,14 @@ public class UrlReceiverImplTest {
     @Test
     public void testGetUrlsFromPage_incorrectUrl() throws Exception {
         //given
-        final String url = "Хочу смеяться пять минут!";
+        final String url = "boobce23.net";
         final boolean internalOnly = true;
 
         final List<String> emptyList = Collections.emptyList();
 
-        when(processor.parsePage(url)).thenReturn(emptyList);
+        CrawledUrlsContainer urlsContainer = new CrawledUrlsContainer(url, emptyList);
+
+        when(processor.parsePage(url)).thenReturn(urlsContainer);
 
         UrlReceiver receiver = new UrlReceiverImpl(processor);
 
@@ -163,7 +173,9 @@ public class UrlReceiverImplTest {
         urlsFromPage.add("https://code.google.com/p/lightcrawler/2/");
         urlsFromPage.add("http://bbc.com/");
 
-        when(processor.parsePage(url)).thenReturn(urlsFromPage);
+        CrawledUrlsContainer urlsContainer = new CrawledUrlsContainer(url, urlsFromPage);
+
+        when(processor.parsePage(url)).thenReturn(urlsContainer);
 
         UrlReceiver receiver = new UrlReceiverImpl(processor);
 
@@ -191,7 +203,9 @@ public class UrlReceiverImplTest {
         urlsFromPage.add("https://google.com/search/");
         urlsFromPage.add("http://bbc.com/");
 
-        when(processor.parsePage(url)).thenReturn(urlsFromPage);
+        CrawledUrlsContainer urlsContainer = new CrawledUrlsContainer(url, urlsFromPage);
+
+        when(processor.parsePage(url)).thenReturn(urlsContainer);
 
         UrlReceiver receiver = new UrlReceiverImpl(processor);
 
@@ -218,7 +232,9 @@ public class UrlReceiverImplTest {
         urlsFromPage.add("https://google.com/search/target/");
         urlsFromPage.add("http://bbc.com/");
 
-        when(processor.parsePage(url)).thenReturn(urlsFromPage);
+        CrawledUrlsContainer urlsContainer = new CrawledUrlsContainer(url, urlsFromPage);
+
+        when(processor.parsePage(url)).thenReturn(urlsContainer);
 
         UrlReceiver receiver = new UrlReceiverImpl(processor);
 
