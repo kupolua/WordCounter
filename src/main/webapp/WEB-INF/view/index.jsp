@@ -12,13 +12,13 @@
     <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <link href="css/dataTables.foundation.css" rel="stylesheet" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/osx.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="css/modal-window.css" rel="stylesheet" type="text/css" media="screen" />
 
     <script src="js/wordcloud2.js" type="text/javascript"></script>
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/jquery.simplemodal.js" type="text/javascript"></script>
-    <script src="js/osx.js" type="text/javascript"></script>
+    <script src="js/modal-window.js" type="text/javascript"></script>
     <script src="js/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -52,7 +52,9 @@
         <form id="wordCounterForm">
             <p>
                 <label for="textCount"><spring:message code="index.enter"/></label>
-                <textarea id="textCount" name="textCount" cols="70" rows="7"></textarea>
+                <textarea id="textCount" name="textCount" cols="70" rows="7">
+                    Просто введiть посилання чи текст у форму нижче
+                </textarea>
             </p>
             <div id="spinnerAnchor"></div>
             <p id="note"><spring:message code="index.note"/></p>
@@ -62,7 +64,7 @@
                     <option value="1">crawler deep 1</option>
                     <option value="2">crawler deep 2</option>
                 </select>
-                <input type="checkbox" name="crawlLocalDomain" value="true"> only local domain
+                <input type="checkbox" checked name="crawlLocalDomain" value="true"> only local domain
 
             </div>
 

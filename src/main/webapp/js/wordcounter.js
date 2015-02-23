@@ -339,13 +339,114 @@ function showWordCloud() {
         canvas.height = div.height();
     var gridSize = Math.round(10 * canvas.width / 1024) * 2;
     var weightFactor = 100 / countedWords[0][1] * (0.6);
-    if(weightFactor <= 1) {
+    if(weightFactor < 1) {
         weightFactor += 0.1;
     }
 
-    var options =
-    {
+    var options = {
         list: countedWords,
+//        list: [
+//            ["word", "27"],
+//            ["тексте", "27"],
+//            ["мінімум", "27"],
+//            ["новини", "18"],
+//            ["відео", "18"],
+//            ["погляд", "18"],
+//            ["розділу", "18"],
+//            ["усі", "18"],
+//            ["ато", "9"],
+//            ["тсн", "9"],
+//            ["європи", "9"],
+//            ["дебальцевого", "9"],
+//            ["україни", "9"],
+//            ["онлайн", "9"],
+//            ["фото", "9"],
+//            ["загиблих", "9"],
+//            ["погляди", "9"],
+//            ["блоги", "9"],
+//            ["генгам", "9"],
+//            ["донбасі", "9"],
+//            ["tchua", "9"],
+//            ["динамо", "9"],
+//            ["політика", "9"],
+//            ["дня", "9"],
+//            ["україні", "9"],
+//            ["дніпро", "9"],
+//            ["суд", "9"],
+//            ["навальний", "9"],
+//            ["буде", "9"],
+//            ["діб", "9"],
+//            ["ліга", "9"],
+//            ["лютого", "9"],
+//            ["світ", "9"],
+//            ["київ", "9"],
+//            ["донбас", "9"],
+//            ["газу", "9"],
+//            ["дебальцеве", "9"],
+//            ["леді", "9"],
+//            ["сил", "9"],
+//            ["тснua", "9"],
+//            ["постачання", "9"],
+//            ["відеоконтенту", "9"],
+//            ["києва", "9"],
+//            ["бойовики", "9"],
+//            ["українські", "9"],
+//            ["лізі", "9"],
+//            ["обличчя", "9"],
+//            ["частина", "9"],
+//            ["разів", "9"],
+//            ["життя", "9"],
+//            ["битву", "9"],
+//            ["бойовиків", "9"],
+//            ["росія", "9"],
+//            ["путіна", "9"],
+//            ["авто", "9"],
+//            ["дивіться", "9"],
+//            ["час", "9"],
+//            ["чому", "9"],
+//            ["дебальцевому", "9"],
+//            ["два", "9"],
+//            ["сайту", "9"],
+//            ["сбу", "9"],
+//            ["сайті", "9"],
+//            ["виході", "9"],
+//            ["російських", "9"],
+//            ["рік", "9"],
+//            ["генштабі", "9"],
+//            ["україна", "9"],
+//            ["олімпіакосом", "9"],
+//            ["проспорт", "9"],
+//            ["кажуть", "9"],
+//            ["поранених", "9"],
+//            ["citroen", "9"],
+//            ["суду", "9"],
+//            ["росії", "9"],
+//            ["метро", "9"],
+//            ["жінки", "9"],
+//            ["бути", "9"],
+//            ["микола", "9"],
+//            ["заарештували", "9"],
+//            ["києві", "9"],
+//            ["реклама", "9"],
+//            ["бійців", "9"],
+//            ["перша", "9"],
+//            ["туди", "9"],
+//            ["детальніше", "9"],
+//            ["наливайченко", "9"],
+//            ["медики", "9"],
+//            ["альтернативного", "9"],
+//            ["сша", "9"],
+//            ["яременко", "9"],
+//            ["редакція", "9"],
+//            ["гроші", "9"],
+//            ["власні", "9"],
+//            ["підробляли", "9"],
+//            ["українська", "9"],
+//            ["артемівську", "9"],
+//            ["розповіла", "9"],
+//            ["української", "9"],
+//            ["взяти", "9"]
+//        ],
         gridSize: gridSize,
         weightFactor: weightFactor,
         minSize: 10,
@@ -355,21 +456,169 @@ function showWordCloud() {
 }
 
 function showModalWordCloud() {
-    countedWords = getCountedWords(dataResponse, true);
-    var weightFactor = 100 / countedWords[0][1];
-    var div = $("#osx-modal-data-wordCloud");
-    var canvas = $("#canvas_cloudModal").get(0);
+//    countedWords = getCountedWords(dataResponse, true);
+    countedWordsBig = [
+        ["word", 665],
+        ["тексте", 507],
+        ["мінімум", 253],
+        ["новини", 26],
+        ["відео", 13],
+        ["погляд", 13],
+        ["розділу", 12],
+        ["усі", 12],
+        ["ато", 8],
+        ["тсн", 8],
+        ["європи", 8],
+        ["дебальцевого", 8],
+        ["україни", 7],
+        ["онлайн", 7],
+        ["фото", 6],
+        ["загиблих", 6],
+        ["погляди", 5],
+        ["блоги", 5],
+        ["генгам", 5],
+        ["донбасі", 5],
+        ["tchua", 5],
+        ["динамо", 5],
+        ["політика", 5]
+    ];
+    countedWordsMiddle = [
+        ["дня", 5],
+        ["україні", 5],
+        ["дніпро", 5],
+        ["суд", 4],
+        ["навальний", 4],
+        ["буде", 4],
+        ["діб", 4],
+        ["ліга", 4],
+        ["лютого", 4],
+        ["світ", 4],
+        ["київ", 4],
+        ["донбас", 4],
+        ["газу", 4],
+        ["дебальцеве", 4],
+        ["леді", 4],
+        ["сил", 4],
+        ["тснua", 4],
+        ["постачання", 4],
+        ["відеоконтенту", 3],
+        ["києва", 3],
+        ["бойовики", 3],
+        ["українські", 3],
+        ["лізі", 3],
+        ["обличчя", 3],
+        ["частина", 3],
+        ["разів", 3],
+        ["життя", 3],
+        ["битву", 3],
+        ["бойовиків", 3],
+        ["росія", 3],
+        ["путіна", 3],
+        ["авто", 3],
+        ["дивіться", 3],
+        ["час", 3],
+        ["чому", 3],
+        ["дебальцевому", 3],
+        ["два", 3],
+        ["сайту", 3],
+        ["сбу", 3],
+        ["сайті", 3],
+        ["виході", 3],
+        ["російських", 3],
+        ["рік", 3],
+        ["генштабі", 3],
+        ["україна", 3],
+        ["олімпіакосом", 3],
+        ["проспорт", 3],
+        ["кажуть", 3],
+        ["поранених", 3],
+        ["citroen", 3],
+        ["суду", 3],
+        ["росії", 3],
+        ["метро", 2]
+    ];
+    countedWordsSmall = [
+        ["жінки", 2],
+        ["бути", 2],
+        ["микола", 2],
+        ["заарештували", 2],
+        ["києві", 2],
+        ["реклама", 2],
+        ["бійців", 2],
+        ["перша", 2],
+        ["туди", 2],
+        ["детальніше", 2],
+        ["наливайченко", 2],
+        ["медики", 1],
+        ["альтернативного", 1],
+        ["сша", 1],
+        ["яременко", 1],
+        ["редакція", 1],
+        ["гроші", 1],
+        ["власні", 1],
+        ["підробляли", 1],
+        ["українська", 1],
+        ["артемівську", 1],
+        ["розповіла", 1],
+        ["української", 1],
+        ["взяти", 1]
+    ];
+    var totalWordsWeigth = 0;
+    var wordsListLength = countedWords.length;
+    for(var i = 0; i < wordsListLength; i++) {
+        totalWordsWeigth += countedWords[i][1];
+    }
+    var maxWordWeight = countedWords[0][1];
+    var minWordWeight = countedWords[wordsListLength - 1][1];
+    var numberIntervals = 1 + Math.round(Math.log(wordsListLength, 2));
+    var step = (maxWordWeight - minWordWeight) / numberIntervals;
+    var intervalParam = [];
+    var increasePercent = 50;
+    var minWeight = 1;
+    var totalWeigth = 0;
+    for(var i = 0; i < numberIntervals; i++) {
+        intervalParam[i] = [];
+        if(i == 0) {
+            intervalParam[i][0] = minWordWeight + step;
+            intervalParam[i][1] = minWeight;
+        } else {
+            intervalParam[i][0] = intervalParam[i - 1][0] + step;
+            intervalParam[i][1] = intervalParam[i - 1][1] + (intervalParam[i - 1][1] * increasePercent / 100);
+        }
+    }
+    for(var i = 0; i < wordsListLength; i++) {
+        for(var k = 0; k < numberIntervals; k++) {
+            if(countedWords[i][1] <= intervalParam[k][0]) {
+                countedWords[i][1] = intervalParam[k][1];
+                totalWeigth += countedWords[i][1];
+                break;
+            }
+        }
+    }
 
-    canvas.width  = div.offsetParent().width() * 0.93;
-    canvas.height = div.offsetParent().height() * 0.8;
-    var options =
-    {
+    var cloudContainer = $("#osx-modal-data-wordCloud");
+    var cloudCanvas = $("#canvas_cloudModal").get(0); //todo change canvas_cloudModal to cloudCanvasModal
+
+    cloudCanvas.width  = cloudContainer.offsetParent().width() * 0.93; //todo get width from css element
+    cloudCanvas.height = cloudContainer.offsetParent().height() * 0.8; //todo todo height color from css element
+//    var weightFactor = totalWeigth / 2;
+    countedWords = countedWordsBig + countedWordsMiddle + countedWordsSmall;
+    var weightFactor = 60;
+    alert(
+        "wordsListLength: " + wordsListLength + "\n" +
+        "maxWeigth" + cloudCanvas.width / totalWeigth + "\n" +
+        cloudCanvas.width + " / " + totalWeigth + " = " + cloudCanvas.width / totalWeigth + "\n" +
+        cloudCanvas.height + " / " + totalWeigth + " = " + cloudCanvas.height / totalWeigth + "\n" +
+        cloudCanvas.width + " * " + cloudCanvas.height  + " = " + cloudCanvas.width * cloudCanvas.height  + "\n" +
+        "weightFactor: " + weightFactor
+    );
+    var options = {
         list: countedWords,
         gridSize: 10,
-        weightFactor: weightFactor * 1.4,
-        backgroundColor: '#EEEEEE',
-        minSize: 7,
+        weightFactor: weightFactor,
+        backgroundColor: '#EEEEEE', //todo get color from css element
+//        minSize: 7,
         rotateRatio: 0.5
     }
-    WordCloud(canvas, options);
+    WordCloud(cloudCanvas, options);
 }

@@ -180,7 +180,7 @@ if (!window.clearImmediate) {
                 '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
             fontWeight: 'normal',
             color: 'random-dark',
-            minSize: 3, // 0 to disable
+            minSize: 0, // 0 to disable
             weightFactor: 1,
             clearCanvas: true,
             backgroundColor: '#ffffff',  // opaque white = rgba(255, 255, 255, 1)
