@@ -108,45 +108,6 @@ public class CrawlerImplTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testCrawl_threeDepths() throws Exception {
-        //given
-        CrawlerImpl spyCrawler = Mockito.spy(new CrawlerImpl(3, true, initial, processor));
-
-        doReturn(forker).when(spyCrawler).getForker(anySet(), anyBoolean());
-        doReturn(pool).when(spyCrawler).getForkJoinPool();
-        when(pool.invoke(forker)).thenReturn(firstResult);
-
-        //when
-        final List<ThreadResultContainer> actual = spyCrawler.crawl();
-
-        //then
-        verify(spyCrawler, never()).getForkJoinPool();
-        verify(spyCrawler, never()).getForker(anySet(), anyBoolean());
-        verify(pool, never()).invoke(forker);
-
-        //exception expected
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCrawl_negativeDepth() throws Exception {
-        //given
-        CrawlerImpl spyCrawler = Mockito.spy(new CrawlerImpl(-1, true, initial, processor));
-
-        doReturn(forker).when(spyCrawler).getForker(anySet(), anyBoolean());
-        doReturn(pool).when(spyCrawler).getForkJoinPool();
-        when(pool.invoke(forker)).thenReturn(firstResult);
-
-        //when
-        final List<ThreadResultContainer> actual = spyCrawler.crawl();
-
-        //then
-        verify(spyCrawler, never()).getForkJoinPool();
-        verify(spyCrawler, never()).getForker(anySet(), anyBoolean());
-        verify(pool, never()).invoke(forker);
-        //exception expected
-    }
-
     @Test
     public void testCrawl_zeroDepth() throws Exception {
         //given
