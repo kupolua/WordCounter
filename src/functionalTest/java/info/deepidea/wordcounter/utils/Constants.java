@@ -5,6 +5,8 @@ public class Constants {
     public static final long DEFAULT_TIMEOUT = 30 * SECOND;
     public static final int PORT = 8080;
     public static final String PARAM_TEXT_COUNT = "textCount";
+    public static final String DEPTH = "crawlLevel";
+    public static final String INTERNAL_ONLY = "crawlScope";
     public static final String PARAM_SORTING_ORDER = "sortingOrder";
     public static final String PARAM_IS_FILTER_WORDS = "isFilterWords";
     public static final String PARAM_LANGUAGE = "Accept-Language";

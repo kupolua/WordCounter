@@ -23,28 +23,38 @@ public class ExportController {
         this.wordCounterService = wordCounterService;
     }
 
-    @RequestMapping(value = "/downloadPDF", method = RequestMethod.POST, produces = "application/pdf;charset=UTF-8")
+    @RequestMapping(value = "/downloadPDF",
+                    method = RequestMethod.POST,
+                    produces = "application/pdf;charset=UTF-8")
     public ModelAndView getPdfResult(@RequestParam String textCount,
                                      @RequestParam String sortingOrder,
                                      @RequestParam String isFilterWords,
+                                     @RequestParam int crawlLevel,
+                                     @RequestParam boolean crawlScope,
                                      HttpServletRequest clientHttpRequest) throws  Throwable {
         final String viewName = "pdfView";
         setErrorLocale(clientHttpRequest);
-        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
+        CountWordsUserRequest request =
+                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlLevel, crawlScope);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         ModelAndView modelAndView = getModelAndView(viewName, result);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/downloadExcel", method = RequestMethod.POST, produces = "application/vnd.ms-excel;charset=UTF-8")
+    @RequestMapping(value = "/downloadExcel",
+                    method = RequestMethod.POST,
+                    produces = "application/vnd.ms-excel;charset=UTF-8")
     public ModelAndView getExcelResult(@RequestParam String textCount,
                                        @RequestParam String sortingOrder,
                                        @RequestParam String isFilterWords,
+                                       @RequestParam int crawlLevel,
+                                       @RequestParam boolean crawlScope,
                                        HttpServletRequest clientHttpRequest) throws Throwable {
         final String viewName = "excelView";
         setErrorLocale(clientHttpRequest);
-        CountWordsUserRequest request = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
+        CountWordsUserRequest request =
+                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlLevel, crawlScope);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         ModelAndView modelAndView = getModelAndView(viewName, result);

@@ -5,6 +5,7 @@ import info.deepidea.wordcounter.service.ThreadResultContainer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
@@ -14,15 +15,16 @@ public class Forker extends RecursiveTask<List<ThreadResultContainer>> {
     private final int end;
     private final boolean internalOnly;
     private final boolean crawlingRequired;
-    private final List<String> links;
+    private final List<String> userRequest;
     private CountWordsProcessor processor;
 
-    public Forker(List<String> links, CountWordsProcessor processor, boolean crawlingRequired, boolean internalOnly) {
-        this(links, processor, 0, links.size(), crawlingRequired, internalOnly);
+    public Forker(List<String> userRequest, CountWordsProcessor processor, boolean crawlingRequired, boolean internalOnly) {
+        this(userRequest, processor, 0, userRequest.size(), crawlingRequired, internalOnly);
     }
 
-    public Forker(List<String> links, CountWordsProcessor processor, int start, int end, boolean crawlingRequired, boolean internalOnly) {
-        this.links = links;
+    public Forker(List<String> userRequest, CountWordsProcessor processor, int start,
+                  int end, boolean crawlingRequired, boolean internalOnly) {
+        this.userRequest = userRequest;
         this.processor = processor;
         this.start = start;
         this.end = end;
@@ -32,15 +34,19 @@ public class Forker extends RecursiveTask<List<ThreadResultContainer>> {
 
     @Override
     protected List<ThreadResultContainer> compute() {
-        int length = end - start;
-        if (length == SEQUENTIAL_THRESHOLD){
-            String url = links.get(start);
-            List<ThreadResultContainer> container = Arrays.asList(processor.process(url, crawlingRequired, internalOnly));
-            return container;
+        if (userRequest.isEmpty()) {
+            return Collections.emptyList();
         }
-        Forker one = new Forker(links, processor, start, start + length/2, crawlingRequired, internalOnly);
+        int length = end - start;
+        if (length == SEQUENTIAL_THRESHOLD) {
+            String url = userRequest.get(start);
+            ThreadResultContainer container = processor.process(url, crawlingRequired, internalOnly);
+            List<ThreadResultContainer> containersList = Arrays.asList(container);
+            return containersList;
+        }
+        Forker one = new Forker(userRequest, processor, start, start + length / 2, crawlingRequired, internalOnly);
         one.fork();
-        Forker two = new Forker(links, processor, start + length/2, end, crawlingRequired, internalOnly);
+        Forker two = new Forker(userRequest, processor, start + length / 2, end, crawlingRequired, internalOnly);
         two.fork();
 
         return joinResults(one, two);
