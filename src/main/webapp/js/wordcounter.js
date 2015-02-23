@@ -604,14 +604,22 @@ function showModalWordCloud() {
 //    var weightFactor = totalWeigth / 2;
     countedWords = countedWordsBig + countedWordsMiddle + countedWordsSmall;
     var weightFactor = 60;
-    alert(
-        "wordsListLength: " + wordsListLength + "\n" +
-        "maxWeigth" + cloudCanvas.width / totalWeigth + "\n" +
-        cloudCanvas.width + " / " + totalWeigth + " = " + cloudCanvas.width / totalWeigth + "\n" +
-        cloudCanvas.height + " / " + totalWeigth + " = " + cloudCanvas.height / totalWeigth + "\n" +
-        cloudCanvas.width + " * " + cloudCanvas.height  + " = " + cloudCanvas.width * cloudCanvas.height  + "\n" +
-        "weightFactor: " + weightFactor
+    $("#cloudStat").html(
+            "wordsListLength: " + wordsListLength + "\n" +
+            "maxWeigth" + cloudCanvas.width / totalWeigth + "\n" +
+            cloudCanvas.width + " / " + totalWeigth + " = " + cloudCanvas.width / totalWeigth + "\n" +
+            cloudCanvas.height + " / " + totalWeigth + " = " + cloudCanvas.height / totalWeigth + "\n" +
+            cloudCanvas.width + " * " + cloudCanvas.height  + " = " + cloudCanvas.width * cloudCanvas.height  + "\n" +
+            "weightFactor: " + weightFactor
     );
+//    alert(
+//        "wordsListLength: " + wordsListLength + "\n" +
+//        "maxWeigth" + cloudCanvas.width / totalWeigth + "\n" +
+//        cloudCanvas.width + " / " + totalWeigth + " = " + cloudCanvas.width / totalWeigth + "\n" +
+//        cloudCanvas.height + " / " + totalWeigth + " = " + cloudCanvas.height / totalWeigth + "\n" +
+//        cloudCanvas.width + " * " + cloudCanvas.height  + " = " + cloudCanvas.width * cloudCanvas.height  + "\n" +
+//        "weightFactor: " + weightFactor
+//    );
     var options = {
         list: countedWords,
         gridSize: 10,

@@ -70,7 +70,7 @@
 
             <input id="CountWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
         </form>
-
+        <div id="cloudStat"></div>
         <fieldset>
             <legend><spring:message code="index.response"/></legend>
             <div id="pdfContainerIframe"></div>
