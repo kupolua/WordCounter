@@ -125,7 +125,6 @@ function setPdfFields() {
     $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
     $("input:hidden[id='pdfCrawlLevel']").attr("value", $("#crawler option:selected").val());
     $("input:hidden[id='pdfCrawlScope']").attr("value", getCrawlScoupe());
-    alert($("#crawler option:selected").val() + " : " + getCrawlScoupe());
 }
 
 function setXlsFields() {
@@ -135,7 +134,6 @@ function setXlsFields() {
     $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
     $("input:hidden[id='xlsCrawlLevel']").attr("value", $("#crawler option:selected").val());
     $("input:hidden[id='xlsCrawlScope']").attr("value", getCrawlScoupe());
-    alert($("#crawler option:selected").val() + " : " + getCrawlScoupe());
 }
 
 function runSpinner(isFilter){
