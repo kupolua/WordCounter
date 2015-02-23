@@ -41,11 +41,7 @@ $(document).ready(function() {
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
         crawlLevel = $("#crawler option:selected").val();
-        if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {
-            crawlScope = "true";
-        } else {
-            crawlScope = "false";
-        }
+        crawlScope = getCrawlScoupe();
         dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlLevel=" + crawlLevel + "&crawlScope=" + crawlScope;
 
         $.ajax({
@@ -128,8 +124,8 @@ function setPdfFields() {
     $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
     $("input:hidden[id='pdfCrawlLevel']").attr("value", $("#crawler option:selected").val());
-    $("input:hidden[id='pdfCrawlScope']").attr("value", $("input[name=crawlLocalDomain]:checkbox").val());
-    alert($("#crawler option:selected").val() + " : " + $("input[name=crawlLocalDomain]:checkbox").val());
+    $("input:hidden[id='pdfCrawlScope']").attr("value", getCrawlScoupe());
+    alert($("#crawler option:selected").val() + " : " + getCrawlScoupe());
 }
 
 function setXlsFields() {
@@ -138,8 +134,8 @@ function setXlsFields() {
     $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
     $("input:hidden[id='xlsCrawlLevel']").attr("value", $("#crawler option:selected").val());
-    $("input:hidden[id='xlsCrawlScope']").attr("value", $("input[name=crawlLocalDomain]:checkbox").val());
-    alert($("#crawler option:selected").val() + " : " + $("input[name=crawlLocalDomain]:checkbox").val());
+    $("input:hidden[id='xlsCrawlScope']").attr("value", getCrawlScoupe());
+    alert($("#crawler option:selected").val() + " : " + getCrawlScoupe());
 }
 
 function runSpinner(isFilter){
@@ -335,6 +331,15 @@ function showStatistic(dataStatistic) {
 
 function closeSpoiler() {
     $("spoiler_close").click();
+}
+
+function getCrawlScoupe() {
+    if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {
+        crawlScope = "true";
+    } else {
+        crawlScope = "false";
+    }
+    return crawlScope;
 }
 
 function showWordCloud() {
