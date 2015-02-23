@@ -457,7 +457,7 @@ function showWordCloud() {
 
 function showModalWordCloud() {
 //    countedWords = getCountedWords(dataResponse, true);
-    countedWordsBig = [
+    countedWords = [
         ["word", 665],
         ["тексте", 507],
         ["мінімум", 253],
@@ -480,9 +480,7 @@ function showModalWordCloud() {
         ["донбасі", 5],
         ["tchua", 5],
         ["динамо", 5],
-        ["політика", 5]
-    ];
-    countedWordsMiddle = [
+        ["політика", 5],
         ["дня", 5],
         ["україні", 5],
         ["дніпро", 5],
@@ -535,9 +533,7 @@ function showModalWordCloud() {
         ["citroen", 3],
         ["суду", 3],
         ["росії", 3],
-        ["метро", 2]
-    ];
-    countedWordsSmall = [
+        ["метро", 2],
         ["жінки", 2],
         ["бути", 2],
         ["микола", 2],
@@ -602,15 +598,15 @@ function showModalWordCloud() {
     cloudCanvas.width  = cloudContainer.offsetParent().width() * 0.93; //todo get width from css element
     cloudCanvas.height = cloudContainer.offsetParent().height() * 0.8; //todo todo height color from css element
 //    var weightFactor = totalWeigth / 2;
-    countedWords = countedWordsBig + countedWordsMiddle + countedWordsSmall;
     var weightFactor = 60;
     $("#cloudStat").html(
-            "wordsListLength: " + wordsListLength + "\n" +
-            "maxWeigth" + cloudCanvas.width / totalWeigth + "\n" +
-            cloudCanvas.width + " / " + totalWeigth + " = " + cloudCanvas.width / totalWeigth + "\n" +
-            cloudCanvas.height + " / " + totalWeigth + " = " + cloudCanvas.height / totalWeigth + "\n" +
-            cloudCanvas.width + " * " + cloudCanvas.height  + " = " + cloudCanvas.width * cloudCanvas.height  + "\n" +
-            "weightFactor: " + weightFactor
+            "wordsListLength: " + wordsListLength + "</b>" +
+            "maxWordWeigth: " + wordsListLength + "</b>" +
+            "totalWeigth" + cloudCanvas.width / totalWeigth + "</b>" +
+            cloudCanvas.width + " / " + totalWeigth + " = " + cloudCanvas.width / totalWeigth + "</b>" +
+            cloudCanvas.height + " / " + totalWeigth + " = " + cloudCanvas.height / totalWeigth + "</b>" +
+            cloudCanvas.width + " * " + cloudCanvas.height  + " = " + cloudCanvas.width * cloudCanvas.height  + "</b>" +
+            "weightFactor(manual): " + weightFactor
     );
 //    alert(
 //        "wordsListLength: " + wordsListLength + "\n" +
