@@ -3,7 +3,6 @@ package info.deepidea.wordcounter.service;
 import info.deepidea.wordcounter.util.Assertions;
 import info.deepidea.wordcounter.util.ErrorCodeImpl;
 import info.deepidea.wordcounter.util.WordCounterRuntimeException;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Map;
 
 @Component
 public class HtmlToStringConverter implements DocumentToStringConverter {
@@ -53,14 +51,9 @@ public class HtmlToStringConverter implements DocumentToStringConverter {
 
     protected Document getDocument(String userUrl) throws IOException {
         final int timeout = 3000;
-        Connection.Response con = Jsoup.connect(userUrl)
-                .timeout(timeout)
-                .userAgent(USER_AGENT_VALUE).execute();
-        Map<String, String> cookies = con.cookies();
         Document doc = Jsoup.connect(userUrl)
                 .timeout(timeout)
                 .userAgent(USER_AGENT_VALUE)
-                .cookies(cookies)
                 .get();
         return doc;
     }
