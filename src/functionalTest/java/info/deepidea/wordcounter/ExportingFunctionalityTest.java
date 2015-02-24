@@ -522,7 +522,6 @@ public class ExportingFunctionalityTest {
         final String requestedIsFilterWords = "true";
         final String expectedXls = "expectedRuFromLettersNumbersWithError.xls";
 
-
         // when
         Request request = buildRequestWithParamValue(
                 COUNT_URL_XLS,
@@ -577,6 +576,4 @@ public class ExportingFunctionalityTest {
                 .build();
         return request;
     }
-
-
 }
