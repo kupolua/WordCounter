@@ -418,7 +418,7 @@ public class CountingWordsPlainTextFunctionalityTest {
         Response response = client.newCall(request).execute();
 
         // then
-        final String expectedError = "Depth could not be > 2 or < 0";
+        final String expectedError = "Depth could not be > 1 or < 0";
 
         final ErrorDataContainer expected = new ErrorDataContainer(expectedError);
 
