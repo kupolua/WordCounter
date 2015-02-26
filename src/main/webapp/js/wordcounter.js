@@ -1,6 +1,6 @@
 var spinner;
 var dataResponse;
-var isFilter = true;
+var isFilter = false;
 var isFilterWords = 0;
 var textCount;
 var countedWords;
@@ -46,11 +46,7 @@ $(document).ready(function() {
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
         crawlLevel = $("#crawler option:selected").val();
-        if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {
-            crawlScope = "true";
-        } else {
-            crawlScope = "false";
-        }
+        crawlScope = getCrawlScoupe();
         dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlLevel=" + crawlLevel + "&crawlScope=" + crawlScope;
 
         $.ajax({
@@ -132,6 +128,8 @@ function setPdfFields() {
     $("input:hidden[id='pdfTextCount']").attr("value", textCount);
     $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
+    $("input:hidden[id='pdfCrawlLevel']").attr("value", $("#crawler option:selected").val());
+    $("input:hidden[id='pdfCrawlScope']").attr("value", getCrawlScoupe());
 }
 
 function setXlsFields() {
@@ -139,6 +137,8 @@ function setXlsFields() {
     $("input:hidden[id='xlsTextCount']").attr("value", textCount);
     $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
+    $("input:hidden[id='xlsCrawlLevel']").attr("value", $("#crawler option:selected").val());
+    $("input:hidden[id='xlsCrawlScope']").attr("value", getCrawlScoupe());
 }
 
 function runSpinner(isFilter){
@@ -334,6 +334,15 @@ function showStatistic(dataStatistic) {
 
 function closeSpoiler() {
     $("spoiler_close").click();
+}
+
+function getCrawlScoupe() {
+    if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {
+        crawlScope = "true";
+    } else {
+        crawlScope = "false";
+    }
+    return crawlScope;
 }
 
 function showWordCloud() {

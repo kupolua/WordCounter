@@ -2,6 +2,7 @@ package info.deepidea.wordcounter.webForm;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -59,6 +60,7 @@ public class WordCloudFunctionalityTest {
         assertFalse(driver.findElement(By.id("canvas_cloud")).isDisplayed());
     }
 
+    @Ignore
     @Test
     public void wordCloudCanvas_modalWindow() {
         // given
@@ -72,7 +74,6 @@ public class WordCloudFunctionalityTest {
 
         driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(elementIdWordCloud)));
-
 
         //then
         assertTrue(driver.findElement(By.id("canvas_cloudModal")).isDisplayed());

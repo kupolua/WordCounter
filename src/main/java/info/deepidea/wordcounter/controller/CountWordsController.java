@@ -25,27 +25,34 @@ public class CountWordsController {
         this.wordCounterService = wordCounterService;
     }
 
-    @RequestMapping(value = "/countWords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/countWords",
+                    method = RequestMethod.POST,
+                    produces = "application/json;charset=UTF-8")
     @ResponseBody
     public WordCounterResultContainer getResult(@RequestParam String textCount,
-                                                @RequestParam int crawlLevel,
-                                                @RequestParam boolean crawlScope,
+                                                @RequestParam int crawlLevel, //todo: rename
+                                                @RequestParam boolean crawlScope, //todo: rename
                                                 HttpServletRequest clientHttpRequest) throws Throwable {
         setErrorLocale(clientHttpRequest);
-        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount, crawlLevel, crawlScope);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
 
         return result;
     }
 
-    @RequestMapping(value = "/countWordsWithParams", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/countWordsWithParams",
+                    method = RequestMethod.POST,
+                    produces = "application/json;charset=UTF-8")
     @ResponseBody
     public WordCounterResultContainer getResultWithParams(@RequestParam String textCount,
                                                           @RequestParam String sortingOrder,
-                                                          @RequestParam String isFilterWords,
+                                                          @RequestParam String isFilterWords, //todo: Why it is not boolean?
+                                                          @RequestParam int crawlLevel,
+                                                          @RequestParam boolean crawlScope,
                                                           HttpServletRequest clientHttpRequest) throws Throwable {
         setErrorLocale(clientHttpRequest);
-        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords);
+        CountWordsUserRequest userRequest =
+                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlLevel, crawlScope);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
         return result;
     }
