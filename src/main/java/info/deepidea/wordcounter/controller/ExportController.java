@@ -29,13 +29,13 @@ public class ExportController {
     public ModelAndView getPdfResult(@RequestParam String textCount,
                                      @RequestParam String sortingOrder,
                                      @RequestParam String isFilterWords,
-                                     @RequestParam int crawlLevel,
+                                     @RequestParam int crawlDepth,
                                      @RequestParam boolean crawlScope,
                                      HttpServletRequest clientHttpRequest) throws  Throwable {
         final String viewName = "pdfView";
         setErrorLocale(clientHttpRequest);
         CountWordsUserRequest request =
-                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlLevel, crawlScope);
+                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlDepth, crawlScope);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         ModelAndView modelAndView = getModelAndView(viewName, result);
@@ -48,13 +48,13 @@ public class ExportController {
     public ModelAndView getExcelResult(@RequestParam String textCount,
                                        @RequestParam String sortingOrder,
                                        @RequestParam String isFilterWords,
-                                       @RequestParam int crawlLevel,
+                                       @RequestParam int crawlDepth,
                                        @RequestParam boolean crawlScope,
                                        HttpServletRequest clientHttpRequest) throws Throwable {
         final String viewName = "excelView";
         setErrorLocale(clientHttpRequest);
         CountWordsUserRequest request =
-                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlLevel, crawlScope);
+                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlDepth, crawlScope);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(request);
 
         ModelAndView modelAndView = getModelAndView(viewName, result);

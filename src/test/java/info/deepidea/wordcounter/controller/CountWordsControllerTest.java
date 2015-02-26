@@ -25,7 +25,7 @@ public class CountWordsControllerTest {
     private static final String COUNT_WORDS = "/countWords";
     private static final String COUNT_WORDS_WITH_PARAMS = "/countWordsWithParams";
     public static final String TEXT_COUNT = "textCount";
-    public static final String CRAWL_LEVEL = "crawlLevel";
+    public static final String CRAWL_DEPTH = "crawlDepth";
     public static final String CRAWL_SCOPE = "crawlScope";
 
     @Mock private WordCounterService wordCounterService;
@@ -63,7 +63,7 @@ public class CountWordsControllerTest {
 
         mockMvc.perform(post(COUNT_WORDS)
                 .param(TEXT_COUNT, "one two two")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
@@ -86,7 +86,7 @@ public class CountWordsControllerTest {
 
         mockMvc.perform(post(COUNT_WORDS)
                 .param(TEXT_COUNT, "http://some-nonexistent-site.com")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
@@ -102,7 +102,7 @@ public class CountWordsControllerTest {
 
         mockMvc.perform(post(COUNT_WORDS)
                 .param(TEXT_COUNT, "")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(status().isBadRequest());
 
@@ -116,7 +116,7 @@ public class CountWordsControllerTest {
 
         mockMvc.perform(post(COUNT_WORDS)
                 .param(TEXT_COUNT, "http://some-nonexistent-site.com")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(status().isInternalServerError());
 
@@ -135,7 +135,7 @@ public class CountWordsControllerTest {
                 .param(TEXT_COUNT, "one two two")
                 .param("sortingOrder", "KEY_ASCENDING")
                 .param("isFilterWords", "true")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
@@ -159,7 +159,7 @@ public class CountWordsControllerTest {
                 .param(TEXT_COUNT, "http://some-nonexistent-site.com")
                 .param("sortingOrder", "KEY_ASCENDING")
                 .param("isFilterWords", "true")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
@@ -177,7 +177,7 @@ public class CountWordsControllerTest {
                 .param(TEXT_COUNT, "")
                 .param("sortingOrder", "KEY_ASCENDING")
                 .param("isFilterWords", "true")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(status().isBadRequest());
 
@@ -193,7 +193,7 @@ public class CountWordsControllerTest {
                 .param(TEXT_COUNT, "http://some-nonexistent-site.com")
                 .param("sortingOrder", "KEY_ASCENDING")
                 .param("isFilterWords", "true")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(status().isInternalServerError());
 

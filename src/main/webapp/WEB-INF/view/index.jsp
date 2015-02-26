@@ -86,7 +86,7 @@
                             <input id="pdfTextCount" type="hidden" value="" name="textCount">
                             <input id="pdfSortingOrder" type="hidden" value="" name="sortingOrder">
                             <input id="pdfIsFilterWords" type="hidden" value="" name="isFilterWords">
-                            <input id="pdfCrawlLevel" type="hidden" value="" name="crawlLevel">
+                            <input id="pdfCrawlDepth" type="hidden" value="" name="crawlDepth">
                             <input id="pdfCrawlScope" type="hidden" value="" name="crawlScope">
                             <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" onclick="setPdfFields()"/>
                         </form>
@@ -96,7 +96,7 @@
                             <input id="xlsTextCount" type="hidden" value="" name="textCount">
                             <input id="xlsSortingOrder" type="hidden" value="" name="sortingOrder">
                             <input id="xlsIsFilterWords" type="hidden" value="" name="isFilterWords">
-                            <input id="xlsCrawlLevel" type="hidden" value="" name="crawlLevel">
+                            <input id="xlsCrawlDepth" type="hidden" value="" name="crawlDepth">
                             <input id="xlsCrawlScope" type="hidden" value="" name="crawlScope">
                             <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" onclick="setXlsFields()"/>
                         </form>

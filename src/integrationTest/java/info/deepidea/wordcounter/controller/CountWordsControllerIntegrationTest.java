@@ -18,7 +18,7 @@ public class CountWordsControllerIntegrationTest {
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
     private static final String COUNT_URL_ENDING = "/countWords";
     private static final String COUNT_URL_ENDING_WITH_PARAMS = "/countWordsWithParams";
-    public static final String CRAWL_LEVEL = "crawlLevel";
+    public static final String CRAWL_DEPTH = "crawlDepth";
     public static final String CRAWL_SCOPE = "crawlScope";
 
     @Autowired private CountWordsController countWordsController;
@@ -40,7 +40,7 @@ public class CountWordsControllerIntegrationTest {
         // when
         mockMvc.perform(post(COUNT_URL_ENDING)
                 .param("textCount", givenText)
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
 
                 // then
@@ -60,7 +60,7 @@ public class CountWordsControllerIntegrationTest {
         // when
         mockMvc.perform(post(COUNT_URL_ENDING)
                 .param("textCount", givenText)
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
 
                 // then
@@ -78,7 +78,7 @@ public class CountWordsControllerIntegrationTest {
         // when
         mockMvc.perform(post(COUNT_URL_ENDING)
                 .param("textCount", givenText)
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
 
                 // then
@@ -101,7 +101,7 @@ public class CountWordsControllerIntegrationTest {
                 .param("textCount", givenText)
                 .param("sortingOrder", sortingOrder)
                 .param("isFilterWords", isFilterWords)
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
 
                 // then
@@ -125,7 +125,7 @@ public class CountWordsControllerIntegrationTest {
                 .param("textCount", givenText)
                 .param("sortingOrder", sortingOrder)
                 .param("isFilterWords", isFilterWords)
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
 
                 // then
@@ -147,7 +147,7 @@ public class CountWordsControllerIntegrationTest {
                 "textCount", givenText)
                 .param("sortingOrder", sortingOrder)
                 .param("isFilterWords", isFilterWords)
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
 
                 // then

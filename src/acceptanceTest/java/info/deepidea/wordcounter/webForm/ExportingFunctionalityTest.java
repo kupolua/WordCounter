@@ -11,7 +11,8 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import java.io.File;
 
 import static info.deepidea.wordcounter.webForm.utils.Constants.*;
-import static info.deepidea.wordcounter.webForm.utils.Util.*;
+import static info.deepidea.wordcounter.webForm.utils.Util.putDataAndClickCountButton;
+import static info.deepidea.wordcounter.webForm.utils.Util.waitForJQueryProcessing;
 import static org.junit.Assert.assertTrue;
 
 public class ExportingFunctionalityTest {
@@ -62,7 +63,7 @@ public class ExportingFunctionalityTest {
         assertTrue(isFileExist);
     }
 
-//    @Test
+    @Test
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);

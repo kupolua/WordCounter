@@ -45,7 +45,7 @@ $(document).ready(function() {
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
         crawlDepth = getCrawlDepth();
-        crawlScope = getCrawlScoupe();
+        crawlScope = getCrawlScoupe(); //todo remove u
         dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
 
         $.ajax({
@@ -127,7 +127,7 @@ function setPdfFields() {
     $("input:hidden[id='pdfTextCount']").attr("value", textCount);
     $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
-    $("input:hidden[id='pdfCrawlLevel']").attr("value", $("#crawler option:selected").val());
+    $("input:hidden[id='pdfCrawlDepth']").attr("value", getCrawlDepth());
     $("input:hidden[id='pdfCrawlScope']").attr("value", getCrawlScoupe());
 }
 
@@ -136,7 +136,7 @@ function setXlsFields() {
     $("input:hidden[id='xlsTextCount']").attr("value", textCount);
     $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
     $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
-    $("input:hidden[id='xlsCrawlLevel']").attr("value", $("#crawler option:selected").val());
+    $("input:hidden[id='xlsCrawlDepth']").attr("value", getCrawlDepth());
     $("input:hidden[id='xlsCrawlScope']").attr("value", getCrawlScoupe());
 }
 
@@ -403,7 +403,7 @@ function showModalWordCloud() {
 function normalizationWords() {
     countedWords = getCountedWords(dataResponse, true);
     var wordsListLength = countedWords.length;
-    var maxWordsList = 100;
+    var maxWordsList = 200;
     var totalWordsWeigth = 0;
     totalWeigth = 0;
     percent = 0.45;

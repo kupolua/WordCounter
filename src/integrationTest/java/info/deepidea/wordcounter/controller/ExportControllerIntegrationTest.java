@@ -23,7 +23,7 @@ public class ExportControllerIntegrationTest {
     private static final String TEXT_COUNT_PARAM_NAME = "textCount";
     private static final String SORTING_ORDER_PARAM_NAME = "sortingOrder";
     private static final String IS_FILTER_WORDS_PARAM_NAME = "isFilterWords";
-    public static final String CRAWL_LEVEL = "crawlLevel";
+    public static final String CRAWL_DEPTH = "crawlDepth";
     public static final String CRAWL_SCOPE = "crawlScope";
 
     @Autowired
@@ -47,7 +47,7 @@ public class ExportControllerIntegrationTest {
                 .param(TEXT_COUNT_PARAM_NAME, "one two two")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(forwardedUrl("pdfView"))
                 .andExpect(model().attributeExists("calculatedWords"))
@@ -61,7 +61,7 @@ public class ExportControllerIntegrationTest {
                 .param(TEXT_COUNT_PARAM_NAME, "one two two")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(forwardedUrl("excelView"))
                 .andExpect(model().attributeExists("calculatedWords"))
@@ -77,7 +77,7 @@ public class ExportControllerIntegrationTest {
                 .param(TEXT_COUNT_PARAM_NAME, "")
                 .param(SORTING_ORDER_PARAM_NAME, "VALUE_DESCENDING")
                 .param(IS_FILTER_WORDS_PARAM_NAME, "false")
-                .param(CRAWL_LEVEL, "0")
+                .param(CRAWL_DEPTH, "0")
                 .param(CRAWL_SCOPE, "false"))
                 .andExpect(forwardedUrl("error"))
                 .andExpect(model().attributeExists("exception"))

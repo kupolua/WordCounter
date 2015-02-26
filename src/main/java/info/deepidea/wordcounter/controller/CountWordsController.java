@@ -47,12 +47,12 @@ public class CountWordsController {
     public WordCounterResultContainer getResultWithParams(@RequestParam String textCount,
                                                           @RequestParam String sortingOrder,
                                                           @RequestParam String isFilterWords, //todo: Why it is not boolean?
-                                                          @RequestParam int crawlLevel,
+                                                          @RequestParam int crawlDepth,
                                                           @RequestParam boolean crawlScope,
                                                           HttpServletRequest clientHttpRequest) throws Throwable {
         setErrorLocale(clientHttpRequest);
         CountWordsUserRequest userRequest =
-                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlLevel, crawlScope);
+                new CountWordsUserRequestImpl(textCount, sortingOrder, isFilterWords, crawlDepth, crawlScope);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
         return result;
     }
