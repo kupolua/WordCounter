@@ -22,6 +22,26 @@
     width:55%;
     float:left;
 }
+.crawlContainer {
+}
+.crawlRight {
+    width:45%;
+    padding-left: 55px;
+    overflow:hidden;
+}
+.crawlLeft {
+    width:100%;
+    float:left;
+}
+#crawlDepthInput {
+    margin-right: 5px;
+}
+#crawlLocalDomainInput {
+    margin-right: 5px;
+}
+#crawlLocalDomain {
+    display: none;
+}
 #canvas_cloud {
     margin-top: 20px;
     height: 350px;
@@ -340,7 +360,6 @@ legend {
     color: #534d4d;
 }
 #crawler {
-    width: 130px;
     padding-top: 3px;
     padding-left: 15px;
     padding-bottom: 9px;
@@ -374,6 +393,13 @@ legend {
     color: #534d4d;
 }
 #note {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #534d4d;
+}
+#crawlScopeClarification{
+    display: none;
+    text-align: right;
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     color: #534d4d;
