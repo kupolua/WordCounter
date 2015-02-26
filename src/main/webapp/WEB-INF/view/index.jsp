@@ -62,7 +62,7 @@
                 <select>
                     <option selected value="0">no crawler</option>
                     <option value="1">crawler deep 1</option>
-                    <option value="2">crawler deep 2</option>
+                    <%--<option value="2">crawler deep 2</option>//todo decide: "be or not to be" --%>
                 </select>
                 <input type="checkbox" checked name="crawlLocalDomain" value="true"> only local domain
 
@@ -70,7 +70,6 @@
 
             <input id="CountWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
         </form>
-        <div id="cloudStat"></div>
         <fieldset>
             <legend><spring:message code="index.response"/></legend>
             <div id="pdfContainerIframe"></div>
@@ -163,6 +162,11 @@
         </fieldset>
     </div>
 </div>
+    <div class="container">
+        <div id="cloudStat" class="left"></div>
+        <div class="right"><table id="dispersion"></table></div>
+    </div>
+
     <div id="osx-modal-content">
     <div id="osx-modal-title"><spring:message code="index.modalTitle"/></div>
     <div class="close"><a href="#" class="simplemodal-close">x</a></div>

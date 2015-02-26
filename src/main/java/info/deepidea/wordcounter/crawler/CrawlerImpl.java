@@ -32,6 +32,7 @@ public class CrawlerImpl implements Crawler {
         depthsOfUrls.add(initialUrl);
 
         ForkJoinPool pool = getForkJoinPool();
+        System.out.println(depth);
 
         for (int currentDepth = 0; currentDepth <= depth; currentDepth++) {
             if (currentDepth == depth) {
