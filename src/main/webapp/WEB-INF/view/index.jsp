@@ -52,9 +52,7 @@
         <form id="wordCounterForm">
             <p>
                 <label for="textCount"><spring:message code="index.enter"/></label>
-                <textarea id="textCount" name="textCount" cols="70" rows="7">
-                    Просто введiть посилання чи текст у форму нижче
-                </textarea>
+                <textarea id="textCount" name="textCount" cols="70" rows="7"></textarea>
             </p>
             <div id="spinnerAnchor"></div>
             <p id="note"><spring:message code="index.note"/></p>
