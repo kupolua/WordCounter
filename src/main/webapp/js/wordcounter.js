@@ -366,7 +366,7 @@ function showModalWordCloud() {
     var cloudContainer = $("#osx-modal-data-wordCloud");
     var cloudCanvas = $("#canvas_cloudModal").get(0); //todo change canvas_cloudModal to cloudCanvasModal
         cloudCanvas.width  = cloudContainer.offsetParent().width() * 0.93; //todo get width from css element
-        cloudCanvas.height = cloudContainer.offsetParent().height() * 0.8; //todo todo height color from css element
+        cloudCanvas.height = cloudContainer.offsetParent().height() * 0.75; //todo todo height color from css element
     var constantCanvasCloudSize = cloudCanvas.width / baseCloudCanvas * baseWordWeigth;
     var weightFactor = constantCanvasCloudSize * (countedWords.length / totalWeigth) * tmp;
     var options = {
@@ -407,17 +407,17 @@ function normalizationWords() {
     for(var i = 0; i < numberIntervals; i++) {
         intervalParam[i] = [];
         if(i == 0) {
-            intervalParam[i][0] = Math.round(minWordWeight + stepLength);
+            intervalParam[i][0] = minWordWeight + stepLength;
             intervalParam[i][1] = minWeight;
         } else {
-            intervalParam[i][0] = Math.round(intervalParam[i - 1][0] + stepLength);
+            intervalParam[i][0] = intervalParam[i - 1][0] + stepLength;
             intervalParam[i][1] = intervalParam[i - 1][1] + (intervalParam[i - 1][1] * increasePercent / 100);
         }
     }
 
     for(var i = 0; i < wordsListLength; i++) {
         for(var k = 0; k < numberIntervals; k++) {
-            if(countedWords[i][1] <= intervalParam[k][0]) {
+            if(countedWords[i][1] <= Math.round(intervalParam[k][0])) {
                 countedWords[i][1] = intervalParam[k][1];
                 totalWeigth += countedWords[i][1];
                 break;
