@@ -16,8 +16,7 @@ var isErrors = false;
 var totalWeigth = 0;
 var baseWordWeigth = 1.1;
 var baseCloudCanvas = 15.3;
-var tmp = 0.5;
-
+var percent;
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
@@ -45,9 +44,9 @@ $(document).ready(function() {
         };
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
-        crawlLevel = $("#crawler option:selected").val();
+        crawlDepth = getCrawlDepth();
         crawlScope = getCrawlScoupe();
-        dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlLevel=" + crawlLevel + "&crawlScope=" + crawlScope;
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
 
         $.ajax({
             type: "POST",
@@ -326,6 +325,18 @@ function showErrors(dataErrors) {
     }
 }
 
+function showCrawlScooe() {
+    if($("input[name=crawlDepth]:checkbox:checked").val()) {
+        $(".crawlLeft").css("width", "55%");
+        $("#crawlLocalDomain").show();
+        $("#crawlScopeClarification").show();
+    } else {
+        $(".crawlLeft").css("width", "100%");
+        $("#crawlLocalDomain").hide();
+        $("#crawlScopeClarification").hide();
+    }
+}
+
 function showStatistic(dataStatistic) {
     $.each(dataStatistic, function (key, value) {
         $('#' + key).html(value)
@@ -345,14 +356,23 @@ function getCrawlScoupe() {
     return crawlScope;
 }
 
+function getCrawlDepth() {
+    if($("input[name=crawlDepth]:checkbox:checked").val()) {
+        crawlScope = 1;
+    } else {
+        crawlScope = 0;
+    }
+    return crawlScope;
+}
+
 function showWordCloud() {
     normalizationWords();
     var div = $("#wordCloudData");
     var canvas = $("#canvas_cloud").get(0);
         canvas.width  = div.width();
         canvas.height = div.height();
-    var constantCanvasSize = canvas.width / baseCloudCanvas * baseWordWeigth
-    var weightFactor = constantCanvasSize * (countedWords.length / totalWeigth) * tmp;
+    var constantCanvasSize = canvas.width / baseCloudCanvas * baseWordWeigth;
+    var weightFactor = constantCanvasSize * (countedWords.length / totalWeigth) * percent;
     var options = {
         list: countedWords,
         gridSize: 10,
@@ -364,16 +384,17 @@ function showWordCloud() {
 
 function showModalWordCloud() {
     var cloudContainer = $("#osx-modal-data-wordCloud");
-    var cloudCanvas = $("#canvas_cloudModal").get(0); //todo change canvas_cloudModal to cloudCanvasModal
+    var backgroundColor = $("#osx-modal-data-wordCloud").css("background-color");
+    var cloudCanvas = $("#canvas_cloudModal").get(0);
         cloudCanvas.width  = cloudContainer.offsetParent().width() * 0.93; //todo get width from css element
-        cloudCanvas.height = cloudContainer.offsetParent().height() * 0.8; //todo todo height color from css element
+        cloudCanvas.height  = cloudContainer.offsetParent().height() * 0.73; //todo get width from css element
     var constantCanvasCloudSize = cloudCanvas.width / baseCloudCanvas * baseWordWeigth;
-    var weightFactor = constantCanvasCloudSize * (countedWords.length / totalWeigth) * tmp;
+    var weightFactor = constantCanvasCloudSize * (countedWords.length / totalWeigth) * percent;
     var options = {
         list: countedWords,
         gridSize: 10,
         weightFactor: weightFactor,
-        backgroundColor: '#EEEEEE', //todo get color from css element
+        backgroundColor: backgroundColor,
         rotateRatio: 0.5
     }
     WordCloud(cloudCanvas, options);
@@ -382,11 +403,10 @@ function showModalWordCloud() {
 function normalizationWords() {
     countedWords = getCountedWords(dataResponse, true);
     var wordsListLength = countedWords.length;
-    if(countedWords[0][1] < 2) {
-        tmp++;
-    }
     var maxWordsList = 100;
     var totalWordsWeigth = 0;
+    totalWeigth = 0;
+    percent = 0.45;
     for(var i = 0; i < wordsListLength; i++) {
         if(i > maxWordsList) {
             countedWords.splice(i, 1);
@@ -396,7 +416,6 @@ function normalizationWords() {
             totalWordsWeigth += countedWords[i][1];
         }
     }
-
     var maxWordWeight = countedWords[0][1];
     var minWordWeight = countedWords[wordsListLength - 1][1];
     var numberIntervals = 1 + Math.round(Math.log(countedWords.length, 2));
@@ -407,21 +426,23 @@ function normalizationWords() {
     for(var i = 0; i < numberIntervals; i++) {
         intervalParam[i] = [];
         if(i == 0) {
-            intervalParam[i][0] = Math.round(minWordWeight + stepLength);
+            intervalParam[i][0] = minWordWeight + stepLength;
             intervalParam[i][1] = minWeight;
         } else {
-            intervalParam[i][0] = Math.round(intervalParam[i - 1][0] + stepLength);
+            intervalParam[i][0] = intervalParam[i - 1][0] + stepLength;
             intervalParam[i][1] = intervalParam[i - 1][1] + (intervalParam[i - 1][1] * increasePercent / 100);
         }
     }
-
     for(var i = 0; i < wordsListLength; i++) {
         for(var k = 0; k < numberIntervals; k++) {
-            if(countedWords[i][1] <= intervalParam[k][0]) {
+            if(countedWords[i][1] <= Math.round(intervalParam[k][0])) {
                 countedWords[i][1] = intervalParam[k][1];
                 totalWeigth += countedWords[i][1];
                 break;
             }
         }
+    }
+    if(wordsListLength < maxWordsList) {
+        percent += ((maxWordsList - wordsListLength) / 100) * 1.8;
     }
 }

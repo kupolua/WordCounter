@@ -52,22 +52,24 @@
         <form id="wordCounterForm">
             <p>
                 <label for="textCount"><spring:message code="index.enter"/></label>
-                <textarea id="textCount" name="textCount" cols="70" rows="7">
-                    Просто введiть посилання чи текст у форму нижче
-                </textarea>
+                <textarea id="textCount" name="textCount" cols="70" rows="7"></textarea>
             </p>
             <div id="spinnerAnchor"></div>
             <p id="note"><spring:message code="index.note"/></p>
-            <div id="crawler">
-                <select>
-                    <option selected value="0">no crawler</option>
-                    <option value="1">crawler deep 1</option>
-                    <%--<option value="2">crawler deep 2</option>//todo decide: "be or not to be" --%>
-                </select>
-                <input type="checkbox" checked name="crawlLocalDomain" value="true"> only local domain
-
+            <div id="crawler" class="crawlContainer">
+                <div id="crawlDepth" class="crawlLeft">
+                    <input type="checkbox" name="crawlDepth" value="true" onclick="showCrawlScooe()" id="crawlDepthInput"/>
+                    <b><spring:message code="index.crawlDepth"/></b>
+                </div>
+                <div id="crawlLocalDomain" class="crawlRight">
+                    <%--<input type="checkbox" disabled readonly name="crawlLocalDomain" value="true" id="crawlLocalDomainInput"/>--%>
+                    <input type="checkbox" checked name="crawlLocalDomain" value="true" id="crawlLocalDomainInput"/>
+                    <spring:message code="index.crawlScope"/>
+                </div>
+                <div>
+                    <input id="CountWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
+                </div>
             </div>
-            <input id="CountWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
         </form>
         <fieldset>
             <legend><spring:message code="index.response"/></legend>
@@ -164,6 +166,7 @@
             </div>
         </fieldset>
     </div>
+    <div id="crawlScopeClarification"><spring:message code="index.crawlScopeClarification"/></div>
 </div>
     <div id="osx-modal-content">
     <div id="osx-modal-title"><spring:message code="index.modalTitle"/></div>
@@ -186,7 +189,6 @@
     </div>
     </div>
 </div>
-
 <footer>
     <spring:message code="index.footer"/>
     <p>V. ${version}</p>

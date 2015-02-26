@@ -30,11 +30,11 @@ public class CountWordsController {
                     produces = "application/json;charset=UTF-8")
     @ResponseBody
     public WordCounterResultContainer getResult(@RequestParam String textCount,
-                                                @RequestParam int crawlLevel, //todo: rename
+                                                @RequestParam int crawlDepth, //todo: rename
                                                 @RequestParam boolean crawlScope, //todo: rename
                                                 HttpServletRequest clientHttpRequest) throws Throwable {
         setErrorLocale(clientHttpRequest);
-        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount, crawlLevel, crawlScope);
+        CountWordsUserRequest userRequest = new CountWordsUserRequestImpl(textCount, crawlDepth, crawlScope);
         WordCounterResultContainer result = wordCounterService.getWordCounterResult(userRequest);
 
         return result;
