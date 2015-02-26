@@ -67,7 +67,6 @@
                 <input type="checkbox" checked name="crawlLocalDomain" value="true"> only local domain
 
             </div>
-
             <input id="CountWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
         </form>
         <fieldset>
@@ -162,11 +161,6 @@
         </fieldset>
     </div>
 </div>
-    <div class="container">
-        <div id="cloudStat" class="left"></div>
-        <div class="right"><table id="dispersion"></table></div>
-    </div>
-
     <div id="osx-modal-content">
     <div id="osx-modal-title"><spring:message code="index.modalTitle"/></div>
     <div class="close"><a href="#" class="simplemodal-close">x</a></div>
@@ -177,7 +171,6 @@
     </div>
     </div>
 </div>
-
 </div>
     <div id="osx-modal-content-wordCloud">
     <div id="osx-modal-title-wordCloud"><spring:message code="index.wordCloudTitle"/></div>

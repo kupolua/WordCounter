@@ -33,7 +33,7 @@ public class WordCounterServiceImpl implements WordCounterService {
 
         Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest.getTextCount());
 
-        List<ThreadResultContainer> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests, 1, true);
+        List<ThreadResultContainer> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests, 0, true);
 
         ThreadResultContainer results = integrator.integrateResults(wordCountResults);
 
