@@ -13,8 +13,8 @@ var dataErrors;
 var dataStatistic;
 var errorsMessage = "";
 var isErrors = false;
-var totalWeigth = 0;
-var baseWordWeigth = 1.1;
+var totalWeigth = 0; //todo spelling totalWeight
+var baseWordWeigth = 1.1; //todo spelling totalWeight
 var baseCloudCanvas = 15.3;
 var percent;
 
@@ -47,7 +47,10 @@ $(document).ready(function() {
         crawlDepth = getCrawlDepth();
         crawlScope = getCrawlScoupe(); //todo remove u
         dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
-
+        //todo implement clearAllData & clear button
+//        if($.fn.DataTable.isDataTable('#countedWords')){
+//            dataTableDestroy();
+//        }
         $.ajax({
             type: "POST",
             url: "./countWords",
@@ -148,7 +151,6 @@ function runSpinner(isFilter){
         setTableContext(isFilter);
         showErrors(dataErrors);
         writeTable(countedWords, selectedRows);
-        showWordCloud(countedWords);
         deferred.resolve();
     }, activeTime);
     return deferred;
@@ -213,6 +215,11 @@ function writeTable(countedWords, pageLength) {
     });
 }
 
+function dataTableDestroy() {
+    $('#countedWords').dataTable().fnDestroy();
+    $('#countedWords').hide();
+}
+
 function getCountedWords(unFilteredWords, isFilter) {
     var index;
     var countedWordsTable = [];
@@ -243,11 +250,6 @@ function getCountedWords(unFilteredWords, isFilter) {
         }
     });
     return countedWordsTable;
-}
-
-function dataTableDestroy() {
-    $('#countedWords').dataTable().fnDestroy();
-    $('#countedWords').hide();
 }
 
 function getSelectedRows() {
@@ -367,6 +369,7 @@ function getCrawlDepth() {
 
 function showWordCloud() {
     normalizationWords();
+
     var div = $("#wordCloudData");
     var canvas = $("#canvas_cloud").get(0);
         canvas.width  = div.width();
@@ -378,32 +381,35 @@ function showWordCloud() {
         gridSize: 10,
         weightFactor: weightFactor,
         rotateRatio: 0.5
-    }
+    };
     WordCloud(canvas, options);
 }
 
 function showModalWordCloud() {
-    var cloudContainer = $("#osx-modal-data-wordCloud");
-    var backgroundColor = $("#osx-modal-data-wordCloud").css("background-color");
+    var pageSize = getPageSize();
+    var cloudCanvasWidth = pageSize[2];
+    var cloudCanvasHeight = pageSize[3];
+    var resizePercent = 90 / 100;
     var cloudCanvas = $("#canvas_cloudModal").get(0);
-        cloudCanvas.width  = cloudContainer.offsetParent().width() * 0.93; //todo get width from css element
-        cloudCanvas.height  = cloudContainer.offsetParent().height() * 0.73; //todo get width from css element
+        cloudCanvas.width  = cloudCanvasWidth * resizePercent;
+        cloudCanvas.height  = cloudCanvasHeight * resizePercent;
     var constantCanvasCloudSize = cloudCanvas.width / baseCloudCanvas * baseWordWeigth;
     var weightFactor = constantCanvasCloudSize * (countedWords.length / totalWeigth) * percent;
+    var backgroundColor = $("#osx-modal-data-wordCloud").css("background-color");
     var options = {
         list: countedWords,
         gridSize: 10,
         weightFactor: weightFactor,
         backgroundColor: backgroundColor,
         rotateRatio: 0.5
-    }
+    };
     WordCloud(cloudCanvas, options);
 }
 
 function normalizationWords() {
     countedWords = getCountedWords(dataResponse, true);
     var wordsListLength = countedWords.length;
-    var maxWordsList = 200;
+    var maxWordsList = 100;
     var totalWordsWeigth = 0;
     totalWeigth = 0;
     percent = 0.45;
@@ -443,6 +449,50 @@ function normalizationWords() {
         }
     }
     if(wordsListLength < maxWordsList) {
-        percent += ((maxWordsList - wordsListLength) / 100) * 1.8;
+        percent += ((maxWordsList - wordsListLength) / 100) + 1;
     }
 }
+
+function getPageSize() {
+    var xScroll, yScroll;
+
+    if (window.innerHeight && window.scrollMaxY) {
+        xScroll = document.body.scrollWidth;
+        yScroll = window.innerHeight + window.scrollMaxY;
+    } else if (document.body.scrollHeight > document.body.offsetHeight){
+        xScroll = document.body.scrollWidth;
+        yScroll = document.body.scrollHeight;
+    } else if (document.documentElement && document.documentElement.scrollHeight > document.documentElement.offsetHeight){ // Explorer 6 strict mode
+        xScroll = document.documentElement.scrollWidth;
+        yScroll = document.documentElement.scrollHeight;
+    } else {
+        xScroll = document.body.offsetWidth;
+        yScroll = document.body.offsetHeight;
+    }
+
+    var windowWidth, windowHeight;
+    if (self.innerHeight) {
+        windowWidth = self.innerWidth;
+        windowHeight = self.innerHeight;
+    } else if (document.documentElement && document.documentElement.clientHeight) {
+        windowWidth = document.documentElement.clientWidth;
+        windowHeight = document.documentElement.clientHeight;
+    } else if (document.body) {
+        windowWidth = document.body.clientWidth;
+        windowHeight = document.body.clientHeight;
+    }
+
+    if(yScroll < windowHeight){
+        pageHeight = windowHeight;
+    } else {
+        pageHeight = yScroll;
+    }
+
+    if(xScroll < windowWidth){
+        pageWidth = windowWidth;
+    } else {
+        pageWidth = xScroll;
+    }
+    return [pageWidth,pageHeight,windowWidth,windowHeight];
+}
+
