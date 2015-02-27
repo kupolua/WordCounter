@@ -329,8 +329,8 @@ function showErrors(dataErrors) {
 
 function showCrawlScope() {
     if($("input[name=crawlDepth]:checkbox:checked").val()) {
-        $(".crawlLeft").css("width", "35%");
-        $(".crawlRight").css("width", "65%");
+        $(".crawlLeft").css("width", "auto");
+        $(".crawlRight").css("width", "55%");
         $("input[name=crawlLocalDomain]").prop('disabled', false);
         $("#crawlLocalDomain").show();
         $("#crawlScopeClarification").show();
