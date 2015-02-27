@@ -56,19 +56,21 @@
             </p>
             <div id="spinnerAnchor"></div>
             <p id="note"><spring:message code="index.note"/></p>
+            <div>
+                <input type="checkbox" name="crawlDepth" value="true" onclick="showCrawlScope()" id="crawlDepthInput"/>
+                <b><spring:message code="index.crawlDepth"/></b>
+            </div>
             <div id="crawler" class="crawlContainer">
                 <div id="crawlDepth" class="crawlLeft">
-                    <input type="checkbox" name="crawlDepth" value="true" onclick="showCrawlScooe()" id="crawlDepthInput"/>
-                    <b><spring:message code="index.crawlDepth"/></b>
-                </div>
-                <div id="crawlLocalDomain" class="crawlRight">
-                    <%--<input type="checkbox" disabled readonly name="crawlLocalDomain" value="true" id="crawlLocalDomainInput"/>--%>
-                    <input type="checkbox" checked name="crawlLocalDomain" value="true" id="crawlLocalDomainInput"/>
+                    <input type="checkbox" checked disabled="disabled" name="crawlLocalDomain" value="true" id="crawlLocalDomainInput"/>
                     <spring:message code="index.crawlScope"/>
                 </div>
-                <div>
-                    <input id="CountWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
+                <div id="crawlLocalDomain" class="crawlRight">
+                    <div id="crawlScopeClarification"><spring:message code="index.crawlScopeClarification"/></div>
                 </div>
+            </div>
+            <div id="CountWords">
+                <input type="button" value="<spring:message code="index.bCountWords"/>"/>
             </div>
         </form>
         <fieldset>
@@ -145,7 +147,6 @@
                 <span class="spoilerStatistic_title"><spring:message code="index.statisticTitleOpen"/></span>
                 <span id="spoilerStatistic_close" tabindex="0" class="spoilerStatistic_close"><spring:message code="index.statisticTitleClose"/></span>
             </div>
-
             <div id="responseContainer">
                 <div id="messageCounter"><spring:message code="index.noCount"/></div>
                 <div id="wordCloud" class="container">
@@ -166,7 +167,6 @@
             </div>
         </fieldset>
     </div>
-    <div id="crawlScopeClarification"><spring:message code="index.crawlScopeClarification"/></div>
 </div>
     <div id="osx-modal-content">
     <div id="osx-modal-title"><spring:message code="index.modalTitle"/></div>

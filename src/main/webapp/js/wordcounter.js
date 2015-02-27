@@ -327,13 +327,17 @@ function showErrors(dataErrors) {
     }
 }
 
-function showCrawlScooe() {
+function showCrawlScope() {
     if($("input[name=crawlDepth]:checkbox:checked").val()) {
-        $(".crawlLeft").css("width", "55%");
+        $(".crawlLeft").css("width", "35%");
+        $(".crawlRight").css("width", "65%");
+        $("input[name=crawlLocalDomain]").prop('disabled', false);
         $("#crawlLocalDomain").show();
         $("#crawlScopeClarification").show();
     } else {
         $(".crawlLeft").css("width", "100%");
+        $("input[name=crawlLocalDomain]").prop('disabled', true);
+        $("input[name=crawlLocalDomain]").prop('checked', true);
         $("#crawlLocalDomain").hide();
         $("#crawlScopeClarification").hide();
     }
