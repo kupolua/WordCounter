@@ -33,19 +33,14 @@
     float: none;
 }
 #crawlScopeClarification{
-    display: none;
     text-align: left;
     font-family: 'Open Sans', sans-serif;
     font-size: 12px;
-    color: #30b1d9;
+    color: #534d4d;
+    padding-bottom: 9px;
 }
 .crawlContainer {
     width: 100%;
-}
-.crawlRight {
-    width:45%;
-    padding-left: 55px;
-    overflow:hidden;
 }
 .crawlLeft {
     width:100%;
@@ -56,9 +51,6 @@
 }
 #crawlLocalDomainInput {
     margin-right: 5px;
-}
-#crawlLocalDomain {
-    display: none;
 }
 
 #canvas_cloud {
@@ -486,4 +478,4 @@ input[type="button"]:active {
 A:link {text-decoration: none}
 A:visited {text-decoration: none}
 A:active {text-decoration: none}
-A:hover {text-decoration: none}
+A:hover {text-decoration: none}                                         

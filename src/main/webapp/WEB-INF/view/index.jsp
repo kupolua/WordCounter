@@ -65,10 +65,10 @@
                     <input type="checkbox" checked disabled="disabled" name="crawlLocalDomain" value="true" id="crawlLocalDomainInput"/>
                     <spring:message code="index.crawlScope"/>
                 </div>
-                <div id="crawlLocalDomain" class="crawlRight">
-                    <div id="crawlScopeClarification"><spring:message code="index.crawlScopeClarification"/></div>
-                </div>
             </div>
+            <div id="crawlLocalDomain">
+               <div id="crawlScopeClarification"><spring:message code="index.crawlScopeСlarification"/></div>
+               </div>
             <div id="CountWords">
                 <input type="button" value="<spring:message code="index.bCountWords"/>"/>
             </div>

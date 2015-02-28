@@ -329,17 +329,12 @@ function showErrors(dataErrors) {
 
 function showCrawlScope() {
     if($("input[name=crawlDepth]:checkbox:checked").val()) {
-        $(".crawlLeft").css("width", "auto");
-        $(".crawlRight").css("width", "55%");
+        $("#crawlScopeClarification").css("color", "#30b1d9");
         $("input[name=crawlLocalDomain]").prop('disabled', false);
-        $("#crawlLocalDomain").show();
-        $("#crawlScopeClarification").show();
     } else {
-        $(".crawlLeft").css("width", "100%");
         $("input[name=crawlLocalDomain]").prop('disabled', true);
         $("input[name=crawlLocalDomain]").prop('checked', true);
-        $("#crawlLocalDomain").hide();
-        $("#crawlScopeClarification").hide();
+        $("#crawlScopeClarification").css("color", "#534d4d");
     }
 }
 
