@@ -202,6 +202,7 @@ function writeTable(countedWords, pageLength) {
         "order": [ parseInt(tableSortingFieldParam), tableSortingOrderParam ],
         "pageLength": parseInt(pageLength),
         "autoWidth": false,
+        "deferRender": true,
         "columns": [
             {
                 "title": $("#wordsColumNameAnchor").text(),
