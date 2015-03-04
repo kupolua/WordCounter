@@ -56,6 +56,7 @@
 #canvas_cloud {
     margin-top: 20px;
     height: 350px;
+    border: 1px solid;
 }
 
 /* Statistic Spoiler*/
@@ -478,4 +479,4 @@ input[type="button"]:active {
 A:link {text-decoration: none}
 A:visited {text-decoration: none}
 A:active {text-decoration: none}
-A:hover {text-decoration: none}                                         
+A:hover {text-decoration: none}
