@@ -222,34 +222,42 @@ function dataTableDestroy() {
 }
 
 function getCountedWords(unFilteredWords, isFilter) {
-    var index;
     var countedWordsTable = [];
-    var isFound = false;
-    var isFilteredWord = 0;
 
     if(isFilter) {
-        var wordsFilter = $('#wordsFilter').text().split(' ');
+        countedWordsTable = getFilteredWords(unFilteredWords);
+    } else {
+        countedWordsTable = getMultiArrayOfCalculatedWords(unFilteredWords);
     }
 
-    $.each(unFilteredWords, function(key, value) {
-        if(!isFilter) {
-            countedWordsTable[isFilteredWord] = [];
-            isFound = true;
-        } else {
-            index = wordsFilter.indexOf(key);
-            if (index < 0) {
-                countedWordsTable[isFilteredWord] = [];
-                isFound = true;
-            } else {
-                isFound = false;
-            }
+    return countedWordsTable;
+}
+
+function getFilteredWords(unFilteredWords) {
+    var index;
+    var copyOfUnfilteredWords = jQuery.extend({}, unFilteredWords);
+    var filteringWords = $('#wordsFilter').text().split(' ');
+
+    for (index = 0; index < filteringWords.length; ++index) {
+        if (copyOfUnfilteredWords.hasOwnProperty(filteringWords[index])) {
+            delete copyOfUnfilteredWords[filteringWords[index]];
         }
-        if(isFound) {
-            countedWordsTable[isFilteredWord][0] = key;
-            countedWordsTable[isFilteredWord][1] = value;
-            isFilteredWord++;
-        }
+    }
+
+    return getMultiArrayOfCalculatedWords(copyOfUnfilteredWords);
+}
+
+function getMultiArrayOfCalculatedWords(calculatedWords) {
+    var countedWordsTable = [];
+    var index = 0;
+
+    $.each(calculatedWords, function(key, value) {
+        countedWordsTable[index] = [];
+        countedWordsTable[index][0] = key;
+        countedWordsTable[index][1] = value;
+        index++;
     });
+
     return countedWordsTable;
 }
 
