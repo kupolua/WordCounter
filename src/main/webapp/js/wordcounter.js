@@ -368,11 +368,6 @@ function showWordCloud() {
         canvas.width  = div.width();
         canvas.height = div.height();
     normalizationWords(canvas);
-    var constantCanvasSize = canvas.width / baseCloudCanvas * baseWordWeigth;
-//    var weightFactor = constantCanvasSize * (countedWords.length / totalWeigth) * percent;
-//    getWeightFactor(canvas);
-//    var weightFactor = getWeightFactor(canvas);
-    var weightFactor = 1;
     var options = {
         list: countedWords,
         gridSize: 1,
@@ -390,12 +385,8 @@ function showModalWordCloud() {
     var cloudCanvas = $("#canvas_cloudModal").get(0);
         cloudCanvas.width  = cloudCanvasWidth * resizePercent;
         cloudCanvas.height  = cloudCanvasHeight * resizePercent;
-
-//    var constantCanvasCloudSize = cloudCanvas.width / baseCloudCanvas * baseWordWeigth;
-//    var weightFactor = constantCanvasCloudSize * (countedWords.length / totalWeigth) * percent;
     var backgroundColor = $("#osx-modal-data-wordCloud").css("background-color");
-//    var backgroundColor = "#cb0e15";
-    normalizationWords(cloudCanvas);
+//    normalizationWords(cloudCanvas);
     var options = {
         list: countedWords,
         gridSize: 1,
@@ -406,129 +397,11 @@ function showModalWordCloud() {
     WordCloud(cloudCanvas, options);
 }
 
-function normalizationWords(canvas) {
+function normalizationWords(canvas) { //todo refactor code around 10h
     countedWords = getCountedWords(dataResponse, true);
     var countedWordsLength = countedWords.length;
 
-//    countedWords = [
-//        ["word", 665],
-//        ["maroko", 665],
-//        ["enlargedIndex", 250],
-//        ["тексте", 250],
-//        ["мінімум", 153],
-//        ["новини", 26],
-//        ["відео", 13],
-//        ["погляд", 13],
-//        ["розділу", 12],
-//        ["усі", 12],
-//        ["ато", 8],
-//        ["тсн", 8],
-//        ["європи", 8],
-//        ["дебальцевого", 8],
-//        ["україни", 7],
-//        ["онлайн", 7],
-//        ["фото", 6],
-//        ["загиблих", 6],
-//        ["погляди", 5],
-//        ["блоги", 5],
-//        ["генгам", 5],
-//        ["донбасі", 5],
-//        ["tchua", 5],
-//        ["динамо", 5],
-//        ["політика", 5],
-//        ["дня", 5],
-//        ["україні", 5],
-//        ["дніпро", 5],
-//        ["суд", 4],
-//        ["навальний", 4],
-//        ["буде", 4],
-//        ["діб", 4],
-//        ["ліга", 4],
-//        ["лютого", 4],
-//        ["світ", 4],
-//        ["київ", 4],
-//        ["донбас", 4],
-//        ["газу", 4],
-//        ["дебальцеве", 4],
-//        ["леді", 4],
-//        ["сил", 4],
-//        ["тснua", 4],
-//        ["постачання", 4],
-//        ["відеоконтенту", 3],
-//        ["києва", 3],
-//        ["бойовики", 3],
-//        ["українські", 3],
-//        ["лізі", 3],
-//        ["обличчя", 3],
-//        ["частина", 3],
-//        ["разів", 3],
-//        ["життя", 3],
-//        ["битву", 3],
-//        ["бойовиків", 3],
-//        ["росія", 3],
-//        ["путіна", 3],
-//        ["авто", 3],
-//        ["дивіться", 3],
-//        ["час", 3],
-//        ["чому", 3],
-//        ["дебальцевому", 3],
-//        ["два", 3],
-//        ["сайту", 3],
-//        ["сбу", 3],
-//        ["сайті", 3],
-//        ["виході", 3],
-//        ["російських", 3],
-//        ["рік", 3],
-//        ["генштабі", 3],
-//        ["україна", 3],
-//        ["олімпіакосом", 3],
-//        ["проспорт", 3],
-//        ["кажуть", 3],
-//        ["поранених", 3],
-//        ["citroen", 3],
-//        ["суду", 3],
-//        ["росії", 3],
-//        ["метро", 2],
-//        ["жінки", 2],
-//        ["бути", 2],
-//        ["микола", 2],
-//        ["заарештували", 2],
-//        ["києві", 2],
-//        ["реклама", 2],
-//        ["бійців", 2],
-//        ["перша", 2],
-//        ["туди", 2],
-//        ["детальніше", 2],
-//        ["наливайченко", 2],
-//        ["медики", 1],
-//        ["альтернативного", 1],
-//        ["сша", 1],
-//        ["яременко", 1],
-//        ["редакція", 1],
-//        ["гроші", 1],
-//        ["власні", 1],
-//        ["підробляли", 1],
-//        ["українська", 1],
-//        ["артемівську", 1],
-//        ["розповіла", 1],
-//        ["української", 1],
-//        ["взяти", 1]
-//    ];
     var wordsListLength = countedWords.length;
-//    var maxWordsList = 1000;
-//    var totalWordsWeigth = 0;
-//    totalWeigth = 0;
-//    percent = 0.45;
-//    var i = 0;
-//    for(; i < wordsListLength; i++) {
-//        if(i > maxWordsList) {
-//            countedWords.splice(i, 1);
-//            i--;
-//            wordsListLength--;
-//        } else {
-//            totalWordsWeigth += countedWords[i][1];
-//        }
-//    }
     var maxWordWeight = countedWords[0][1];
     var minWordWeight = countedWords[wordsListLength - 1][1];
     var minWeight = 1;
@@ -542,25 +415,14 @@ function normalizationWords(canvas) {
         intervalParam[i] = [];
         intervalParam[i][0] = minWordWeight + stepLength;
         intervalParam[i][1] = minWeight;
-//        var amountIntervalsFactor = 0;
         for(i++; i < numberIntervals; i++) {
             intervalParam[i] = [];
             intervalParam[i][0] = intervalParam[i - 1][0] + stepLength;
             intervalParam[i][1] = intervalParam[i - 1][1] + (intervalParam[i - 1][1] * increasePercent / 100);
-//            amountIntervalsFactor += intervalParam[i][1];
-//            $("#intervals").append("<tr>" +
-//                "<td>" + intervalParam[i - 1][0].toFixed(2) + "</td>" +
-//                "<td>" + intervalParam[i - 1][1].toFixed(2) + "</td>" +
-//                "</tr>");
         }
     } else {
         intervalParam[0] = [minWordWeight, minWeight];
     }
-
-//    $("#intervals").append("<tr>" +
-//        "<td>" + intervalParam[numberIntervals - 1][0].toFixed(2) + "</td>" +
-//        "<td>" + intervalParam[numberIntervals - 1][1].toFixed(2) + "</td>" +
-//    "</tr>");
 
     i = 0;
     for(; i < wordsListLength; i++) {
@@ -583,20 +445,11 @@ function normalizationWords(canvas) {
             countedWords[i][1] = countedWords[i + 1][1] * increaseFactor;
         }
         if(countedWords[i][1] != countedWords[i + 1][1]) {
-//            amountWordsInInterval[indexIntervalFactor] = 0;
             amountWordsInInterval[indexIntervalFactor] = [countedWords[i + 1][1], countWordsInInterval];
             indexIntervalFactor++;
             countWordsInInterval = 0;
             amountIntervalFactor += countedWords[i + 1][1];
         }
-//        wordSquare = (countedWords[i][0].length * constantWordWidth / constantWordLength * countedWords[i][1] / constantFontSize) * (countedWords[i][1] * constantWordHeight / constantFontSize);
-//        $("#words").html();
-//        $("#words").append("<tr>" +
-//            "<td>" + countedWords[i][0].length + "</td>" +
-//            "<td>" + countedWords[i][0] + "</td>" +
-//            "<td>" + countedWords[i][1].toFixed(2) + "</td>" +
-//            "<td>" + wordSquare.toFixed(2) + "</td>" +
-//            "</tr>");
     }
     amountWordsInInterval[indexIntervalFactor] = [countedWords[i + 1][1], ++countWordsInInterval];
     amountIntervalFactor += countedWords[i + 1][1];
@@ -604,12 +457,8 @@ function normalizationWords(canvas) {
     var constantFontSize = 1;
     var constantWordWidth = 2.4;
     var constantWordHeight = 0.7;
-    var constantMinFontSize = 18;
-//    var constantFontSize = 12;
-//    var constantWordWidth = 28.8;
-//    var constantWordHeight = 8.4;
+    var constantMinFontSize = 16;
     var wordHeight = 0;
-//    var canvasSquare = (canvas.width * canvas.height) - (canvas.width * canvas.height * 10 / 100);
     var canvasSquare = (canvas.width * canvas.height);
     var wordIntervalWidth = 0;
     var wordIntervalHeight = 0;
@@ -619,9 +468,8 @@ function normalizationWords(canvas) {
     var fontSize = 0;
     var wordWidth = 0;
     var amountWords = 0;
-    var isMinFontSize = false;
     var usedSquare = 0;
-    var minWordFontSize = 1000;
+    var minFontZoomFactor = 0.8;
     var i = 0;
     amountWords = getIntervalFactor(amountWordsInInterval, countedWords[i][1]);
     wordWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength);
@@ -637,79 +485,46 @@ function normalizationWords(canvas) {
     fontSize = constantFontSize * fontZoomFactor;
     usedSquare += wordIntervalWidth * wordIntervalHeight;
     var prevWordFactor = countedWords[i][1];
+    fontSize *= minFontZoomFactor;
     countedWords[i][1] = fontSize;
     var currentFontSize = fontSize;
 
     i++;
-    do {
-        if(countedWords[i][1] < prevWordFactor) {
-            currentFontSize = currentFontSize / (prevWordFactor / countedWords[i][1]);
-            prevWordFactor = countedWords[i][1];
+    if(i < countedWordsLength) {
+        do {
+            if (countedWords[i][1] < prevWordFactor) {
+                currentFontSize = currentFontSize / (prevWordFactor / countedWords[i][1]);
+                prevWordFactor = countedWords[i][1];
+            }
+            amountWords = getIntervalFactor(amountWordsInInterval, countedWords[i][1]);
+            wordIntervalWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength * currentFontSize / constantFontSize);
+            wordIntervalHeight = currentFontSize * constantWordHeight / constantFontSize;
+            if (wordIntervalWidth > canvas.height) {
+                wordIntervalHeight = wordIntervalHeight * (canvas.height / wordIntervalWidth);
+                wordIntervalWidth = canvas.height;
+            }
+            fontSize = currentFontSize;
+            if (fontSize < constantMinFontSize) {
+                wordIntervalWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength * constantMinFontSize / constantFontSize);
+                wordIntervalHeight = constantMinFontSize * constantWordHeight / constantFontSize;
+                fontZoomFactor = wordIntervalHeight / wordHeight;
+                fontSize = constantFontSize * fontZoomFactor;
+            }
+            usedSquare += wordIntervalWidth * wordIntervalHeight;
+            countedWords[i][1] = fontSize;
+            i++;
+            if (i == countedWordsLength) {
+                break;
+            }
+        } while (usedSquare < canvasSquare);
+        var removingWord = i;
+        for (; i < countedWordsLength; i++) {
+            countedWords.splice(removingWord, 1);
         }
-        amountWords = getIntervalFactor(amountWordsInInterval, countedWords[i][1]);
-        wordIntervalWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength * currentFontSize / constantFontSize);
-        wordIntervalHeight = currentFontSize * constantWordHeight / constantFontSize;
-//        wordsIntervalsSquare = (countedWords[i][1] * 100 / amountIntervalFactor / amountWords) * (canvasSquare - usedSquare) / 100;
-//        wordIntervalHeight = Math.sqrt(wordsIntervalsSquare / (wordWidth * wordHeight) * Math.pow(wordHeight, 2));
-//        wordIntervalWidth = constantWordWidth / constantWordHeight * wordIntervalHeight;
-        if(wordIntervalWidth > canvas.height) {
-            wordIntervalHeight = wordIntervalHeight * (canvas.height / wordIntervalWidth);
-            wordIntervalWidth = canvas.height;
-        }
-//        fontZoomFactor = wordIntervalHeight / wordHeight;
-//        fontSize = constantFontSize * fontZoomFactor;
-        fontSize = currentFontSize;
-        if(fontSize < constantMinFontSize) {
-            wordIntervalWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength * constantMinFontSize / constantFontSize);
-            wordIntervalHeight = constantMinFontSize * constantWordHeight /constantFontSize;
-            fontZoomFactor = wordIntervalHeight / wordHeight;
-            fontSize = constantFontSize * fontZoomFactor;
-        }
-        usedSquare += wordIntervalWidth * wordIntervalHeight;
-        countedWords[i][1] = fontSize;
-        i++;
-        if(i == countedWordsLength) {
-            break;
-        }
-    } while(usedSquare < canvasSquare);
-    var removingWord = i;
-    for(; i < countedWordsLength; i++) {
-        countedWords.splice(removingWord, 1);
     }
 
-//    for(i = 0; i < countedWords.length; i++) {
-//        if(isEmpySquare) {
-//            countedWords.splice(i - 1, 1);
-//            i--;
-//        } else {
-//            if (countedWords[i][1] <= amountWordsInInterval[0][0]) { //todo refactor repeat operation
-//                wordsIntervalsSquare = (countedWords[i][1] * 100 / amountIntervalFactor) * (canvasSquare - usedSquare) / 100;
-//                do {
-//                    wordWidth = (countedWords[i][0].length * 28.8 / 8.4);
-////                    wordWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength * constantFontSize / constantFontSize);
-//                    wordHeight = 8.4;
-//                    wordIntervalSquare += wordWidth * wordHeight;
-//                    usedSquare += wordIntervalSquare;
-//                    countedWords[i][1] = 12;
-//                    i++;
-//                } while (wordIntervalSquare < wordsIntervalsSquare);
-//                isEmpySquare = true;
-//            } else {
-//                amountWords = getIntervalFactor(amountWordsInInterval, countedWords[i][1]);
-//                wordWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength * constantFontSize / constantFontSize);
-//                wordHeight = constantWordHeight;
-//                wordsIntervalsSquare = (countedWords[i][1] * 100 / amountIntervalFactor / amountWords) * (canvasSquare - usedSquare) / 100;
-//                wordIntervalHeight = Math.sqrt(wordsIntervalsSquare / (wordWidth * wordHeight) * Math.pow(wordHeight, 2));
-//                wordIntervalWidth = constantWordWidth / constantWordHeight * wordIntervalHeight;
-//                usedSquare += wordIntervalWidth * wordIntervalHeight;
-//                fontZoomFactor = wordIntervalHeight / wordHeight;
-//                fontSize = constantFontSize * fontZoomFactor;
-//                countedWords[i][1] = fontSize;
-//            }
-//        }
-//    }
-//    countedWords.splice(countedWords.length - 1, 1);
 }
+
 function getIntervalFactor(amountWordsInInterval, intervalFactor) {
     var k = 0;
     var wordsInIntervalLength = amountWordsInInterval.length;
