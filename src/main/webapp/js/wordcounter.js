@@ -386,7 +386,7 @@ function showModalWordCloud() {
         cloudCanvas.width  = cloudCanvasWidth * resizePercent;
         cloudCanvas.height  = cloudCanvasHeight * resizePercent;
     var backgroundColor = $("#osx-modal-data-wordCloud").css("background-color");
-//    normalizationWords(cloudCanvas);
+    normalizationWords(cloudCanvas);
     var options = {
         list: countedWords,
         gridSize: 1,
@@ -458,6 +458,7 @@ function normalizationWords(canvas) { //todo refactor code around 10h
     var constantWordWidth = 2.4;
     var constantWordHeight = 0.7;
     var constantMinFontSize = 16;
+    var constantMinWordLength = 5;
     var wordHeight = 0;
     var canvasSquare = (canvas.width * canvas.height);
     var wordIntervalWidth = 0;
@@ -485,6 +486,9 @@ function normalizationWords(canvas) { //todo refactor code around 10h
     fontSize = constantFontSize * fontZoomFactor;
     usedSquare += wordIntervalWidth * wordIntervalHeight;
     var prevWordFactor = countedWords[i][1];
+    if(countedWords[i][1] == 1) {
+       minFontZoomFactor = 0.5; //todo count factor with math
+    }
     fontSize *= minFontZoomFactor;
     countedWords[i][1] = fontSize;
     var currentFontSize = fontSize;

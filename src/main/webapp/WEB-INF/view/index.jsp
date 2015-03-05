@@ -90,7 +90,6 @@
                             <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>"/>
                     </div>
                 </div>
-                <div id="cloudParam"></div>
             </div>
             <div id="errorsSpoiler" class="spoiler_open" tabindex="1">
                 <div id="errors" class="spoiler_desc">
