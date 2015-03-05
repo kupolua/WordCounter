@@ -105,42 +105,28 @@ $(document).ready(function() {
         activSpinner.done(function(){ spinner.stop(target); });
     });
 
-    $("#getPdf").click("image", "form.pdfDownloadForm", function (e) {
-        $.fileDownload($(this).prop('action'), {
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again.",
-            httpMethod: "POST",
-            data: $(this).serialize()
-        });
-        e.preventDefault();
+    $("#saveAsPdf").click(function(e) {
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&sortingOrder=" + getSortingOrder()
+            + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
+
+        var path = "/WordCounter/downloadPDF";
+        requestBinaryCopyOfCalculatedWords(path);
     });
 
-    $("#getXls").click("image", "form.getXlsForm", function (e) {
-        $.fileDownload($(this).prop('action'), {
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again.",
-            httpMethod: "POST",
-            data: $(this).serialize()
-        });
+    $("#saveAsXls").click(function(e) {
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&sortingOrder=" + getSortingOrder()
+            + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
+
+        var path = "/WordCounter/downloadExcel";
+        requestBinaryCopyOfCalculatedWords(path);
     });
 });
 
-function setPdfFields() {
-    closeSpoiler();
-    $("input:hidden[id='pdfTextCount']").attr("value", textCount);
-    $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
-    $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
-    $("input:hidden[id='pdfCrawlDepth']").attr("value", getCrawlDepth());
-    $("input:hidden[id='pdfCrawlScope']").attr("value", getCrawlScoupe());
-}
-
-function setXlsFields() {
-    closeSpoiler();
-    $("input:hidden[id='xlsTextCount']").attr("value", textCount);
-    $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
-    $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
-    $("input:hidden[id='xlsCrawlDepth']").attr("value", getCrawlDepth());
-    $("input:hidden[id='xlsCrawlScope']").attr("value", getCrawlScoupe());
+function requestBinaryCopyOfCalculatedWords(path) {
+    spinner.spin(target);
+    $.fileDownload(path, {httpMethod: "POST", data: dataString})
+                           .done(function () { spinner.stop(target); })
+                           .fail(function () { alert('File download failed!'); });
 }
 
 function runSpinner(isFilter){
@@ -778,108 +764,5 @@ function getPageSize() {
         pageWidth = xScroll;
     }
     return [pageWidth,pageHeight,windowWidth,windowHeight];
-}
-
-function getWeightFactor(canvas) {
-    var constantWordLength = 5;
-    var constantFontSize = 100;
-    var constantWordWidth = 240;
-    var constantWordHeight = 70;
-    var countWordsLength = countedWords.length;
-    var canvasSquare = canvas.width * canvas.height;
-
-    var intervalsSquare = [];
-    var intervalIndex = 0;
-    var countedWordsLength = countedWords.length;
-    var i = 0;
-    var intervalWordsSquare = 0;
-    totalWordsSquare = 0;
-    i++;
-    for(; i < countedWordsLength; i++) {
-        wordLength = countedWords[i][0].length;
-        wordWeight = countedWords[i][1];
-        wordWidth = wordLength * constantWordWidth / constantWordLength * wordWeight / constantFontSize;
-        wordHeight = wordWeight * constantWordHeight / constantFontSize;
-        wordSquare = wordWidth * wordHeight;
-        intervalWordsSquare += wordSquare;
-        totalWordsSquare += wordSquare;
-        if(countedWords[i][1] != countedWords[i - 1][1]) {
-            intervalsSquare[intervalIndex] = [countedWords[i][1], intervalWordsSquare];
-            intervalIndex++;
-            intervalWordsSquare = 0;
-        }
-    }
-    intervalsSquare[intervalIndex - 1] = [countedWords[i - 1][1], intervalWordsSquare];
-//    do {
-
-//    } while (canvasSquare > 0);
-}
-function getWeightFactor_old(canvas) {
-    var weightFactor = 0;
-    var wordSquare = 0;
-    var constantWordLength = 5;
-    var constantFontSize = 100;
-    var constantWordWidth = 240;
-    var constantWordHeight = 70;
-//    var wordsLength = countedWords.slice();
-    var countWordsLength = countedWords.length;
-    var wordWeight = 0;
-    var wordLength = 0;
-    var wordWidth = 0;
-    var wordHeight = 0;
-    var totalWordsSquare = 0;
-    var totalWordsWidth = 0;
-    var totalWordsHeight = 0;
-    var correlationАactor = 0;
-    var cloudPerimeter = 0;
-    var canvasPerimeter = 0;
-    var canvasSquare = canvas.width * canvas.height;
-    $("#constants").html();
-    $("#constants").append(
-        "<tr><td>constantWordLength</td><td>" + constantWordLength + "</td></tr>" +
-        "<tr><td>constantFontSize</td><td>" + constantFontSize + "</td></tr>" +
-        "<tr><td>constantWordWidth</td><td>" + constantWordWidth + "</td></tr>" +
-        "<tr><td>constantWordHeight</td><td>" + constantWordHeight + "</td></tr>" +
-        "<tr><td>constantWordSquare</td><td>" + constantWordWidth * constantWordHeight + "</td></tr>" +
-        "<tr><td>canvas.width</td><td>" + canvas.width + "</td></tr>" +
-        "<tr><td>canvas.height</td><td>" + canvas.height + "</td></tr>" +
-        "<tr><td>canvasSquare</td><td>" + (canvas.width * canvas.height) + "</td></tr>"
-    );
-
-    var normalStepSize = 2;
-    var increaseFactor = 1.5;
-    var intervalsSquare = [];
-    var intervalIndex = 0;
-    var countedWordsLength = countedWords.length;
-    var i = 0;
-    wordLength = countedWords[i][0].length;
-    wordWeight = countedWords[i][1];
-    wordWidth = wordLength * constantWordWidth / constantWordLength * wordWeight / constantFontSize;
-    wordHeight = wordWeight * constantWordHeight / constantFontSize;
-    wordSquare = wordWidth * wordHeight;
-    totalWordsSquare += wordSquare;
-    intervalsSquare[intervalIndex] = [countedWords[i][1], totalWordsSquare];
-    intervalIndex++;
-    var intervalWordsSquare = 0;
-    totalWordsSquare = 0;
-    i++;
-    for(; i < countedWordsLength; i++) {
-        wordLength = countedWords[i][0].length;
-        wordWeight = countedWords[i][1];
-        wordWidth = wordLength * constantWordWidth / constantWordLength * wordWeight / constantFontSize;
-        wordHeight = wordWeight * constantWordHeight / constantFontSize;
-        wordSquare = wordWidth * wordHeight;
-        intervalWordsSquare += wordSquare;
-        totalWordsSquare += wordSquare;
-        if(countedWords[i][1] != countedWords[i - 1][1]) {
-            intervalsSquare[intervalIndex] = [countedWords[i][1], intervalWordsSquare];
-            intervalIndex++;
-            intervalWordsSquare = 0;
-        }
-    }
-    intervalsSquare[intervalIndex - 1] = [countedWords[i - 1][1], intervalWordsSquare];
-//    do {
-
-//    } while (canvasSquare > 0);
 }
 

@@ -30,4 +30,7 @@ public class ViewsConstants {
     public static final String TOTAL_CHARACTERS = "statisticTotalCharacters";
     public static final String CHARACTERS_WITHOUT_SPACES = "statisticCharactersWithoutSpaces";
     public static final String UNIQUE_WORDS = "statisticUniqueWords";
+    public static final String FILE_DOWNLOAD_COOKIE_NAME = "fileDownload";
+    public static final String FILE_DOWNLOAD_COOKIE_VALUE = "true";
+    public static final String FILE_DOWNLOAD_COOKIE_PATH = "/";
 }

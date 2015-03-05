@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -21,11 +22,18 @@ public class ExcelBuilder extends AbstractExcelView {
                                       HSSFWorkbook workbook,
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
+        setCookie(response);
         setExportFileName(response);
 
         createErrorSheetIfErrorExist(model, workbook);
 
         createResultSheetIfResultExist(model, workbook, request);
+    }
+
+    private void setCookie(HttpServletResponse response) {
+        Cookie cookie = new Cookie(FILE_DOWNLOAD_COOKIE_NAME, FILE_DOWNLOAD_COOKIE_VALUE);
+        cookie.setPath(FILE_DOWNLOAD_COOKIE_PATH);
+        response.addCookie(cookie);
     }
 
     private void setExportFileName(HttpServletResponse response) {

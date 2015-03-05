@@ -16,12 +16,12 @@
 
     <script src="js/wordcloud2.js" type="text/javascript"></script>
     <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/jquery.simplemodal.js" type="text/javascript"></script>
     <script src="js/modal-window.js" type="text/javascript"></script>
-    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/dataTables.foundation.js" type="text/javascript"></script>
     <script src="js/spin.js" type="text/javascript"></script>
     <script src="js/wordcounter.js"  type="text/javascript"></script>
@@ -52,7 +52,7 @@
         <form id="wordCounterForm">
             <p>
                 <label for="textCount"><spring:message code="index.enter"/></label>
-                <textarea id="textCount" name="textCount" cols="70" rows="7">Simply text put URL</textarea>
+                <textarea id="textCount" name="textCount" cols="70" rows="7"></textarea>
             </p>
             <div id="spinnerAnchor"></div>
             <p id="note"><spring:message code="index.note"/></p>
@@ -84,29 +84,13 @@
                     </div>
                     <div id="showFilter" class="showFilter"><a href="#" class="osx" onclick="closeSpoiler()"><spring:message code="index.contentLocalLang"/></a></div>
                     <div id="saveAsPdf">
-                        <form id="getPdfForm" class="pdfDownloadForm" action="/WordCounter/downloadPDF" method="post">
-                            <input id="pdfTextCount" type="hidden" value="" name="textCount">
-                            <input id="pdfSortingOrder" type="hidden" value="" name="sortingOrder">
-                            <input id="pdfIsFilterWords" type="hidden" value="" name="isFilterWords">
-                            <input id="pdfCrawlDepth" type="hidden" value="" name="crawlDepth">
-                            <input id="pdfCrawlScope" type="hidden" value="" name="crawlScope">
-                            <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" onclick="setPdfFields()"/>
-                            <%--//todo src="img/pdf-32.png" move to css--%>
-                        </form>
+                            <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>"/>
                     </div>
                     <div id="saveAsXls">
-                        <form id="getXlsForm" class="xlsDownloadForm" action="/WordCounter/downloadExcel" method="post">
-                            <input id="xlsTextCount" type="hidden" value="" name="textCount">
-                            <input id="xlsSortingOrder" type="hidden" value="" name="sortingOrder">
-                            <input id="xlsIsFilterWords" type="hidden" value="" name="isFilterWords">
-                            <input id="xlsCrawlDepth" type="hidden" value="" name="crawlDepth">
-                            <input id="xlsCrawlScope" type="hidden" value="" name="crawlScope">
-                            <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" onclick="setXlsFields()"/>
-                            <%--//todo src="img/excel-32.png" move to css--%>
-                        </form>
+                            <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>"/>
                     </div>
                 </div>
-                <div id="cloudIndicators"></div>
+                <div id="cloudParam"></div>
             </div>
             <div id="errorsSpoiler" class="spoiler_open" tabindex="1">
                 <div id="errors" class="spoiler_desc">
@@ -155,15 +139,6 @@
                     <div id="table" class="left">
                         <div id="wordCounterResponse">
                             <table id="countedWords" cellpadding="0" cellspacing="0" border="0" class="display"></table>
-                            <%--<table id="countedWords" cellpadding="0" cellspacing="0" border="0" class="display">--%>
-                                <%--<tr>--%>
-                                    <%--<td valign="top">--%>
-                                        <%--<table id="intervals"></table>--%>
-                                        <%--<table id="constants"></table>--%>
-                                    <%--</td>--%>
-                                    <%--<td valign="top"><table id="words"></table></td>--%>
-                                <%--</tr>--%>
-                            <%--</table>--%>
                             <div id="wordsColumNameAnchor"><spring:message code="index.wordsColumName"/></div>
                             <div id="countColumNameAnchor"><spring:message code="index.countColumName"/></div>
                         </div>
@@ -206,4 +181,3 @@
 </footer>
 </body>
 </html>
-   
