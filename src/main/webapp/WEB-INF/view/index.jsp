@@ -16,12 +16,12 @@
 
     <script src="js/wordcloud2.js" type="text/javascript"></script>
     <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/jquery.simplemodal.js" type="text/javascript"></script>
     <script src="js/modal-window.js" type="text/javascript"></script>
-    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/dataTables.foundation.js" type="text/javascript"></script>
     <script src="js/spin.js" type="text/javascript"></script>
     <script src="js/wordcounter.js"  type="text/javascript"></script>
@@ -84,24 +84,10 @@
                     </div>
                     <div id="showFilter" class="showFilter"><a href="#" class="osx" onclick="closeSpoiler()"><spring:message code="index.contentLocalLang"/></a></div>
                     <div id="saveAsPdf">
-                        <form id="getPdfForm" class="pdfDownloadForm" action="/WordCounter/downloadPDF" method="post">
-                            <input id="pdfTextCount" type="hidden" value="" name="textCount">
-                            <input id="pdfSortingOrder" type="hidden" value="" name="sortingOrder">
-                            <input id="pdfIsFilterWords" type="hidden" value="" name="isFilterWords">
-                            <input id="pdfCrawlDepth" type="hidden" value="" name="crawlDepth">
-                            <input id="pdfCrawlScope" type="hidden" value="" name="crawlScope">
-                            <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" onclick="setPdfFields()"/>
-                        </form>
+                            <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>"/>
                     </div>
                     <div id="saveAsXls">
-                        <form id="getXlsForm" class="xlsDownloadForm" action="/WordCounter/downloadExcel" method="post">
-                            <input id="xlsTextCount" type="hidden" value="" name="textCount">
-                            <input id="xlsSortingOrder" type="hidden" value="" name="sortingOrder">
-                            <input id="xlsIsFilterWords" type="hidden" value="" name="isFilterWords">
-                            <input id="xlsCrawlDepth" type="hidden" value="" name="crawlDepth">
-                            <input id="xlsCrawlScope" type="hidden" value="" name="crawlScope">
-                            <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" onclick="setXlsFields()"/>
-                        </form>
+                            <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>"/>
                     </div>
                 </div>
                 <div id="cloudParam"></div>
@@ -195,4 +181,3 @@
 </footer>
 </body>
 </html>
-   

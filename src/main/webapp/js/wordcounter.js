@@ -105,25 +105,29 @@ $(document).ready(function() {
         activSpinner.done(function(){ spinner.stop(target); });
     });
 
-    $("#getPdf").click("image", "form.pdfDownloadForm", function (e) {
-        $.fileDownload($(this).prop('action'), {
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again.",
-            httpMethod: "POST",
-            data: $(this).serialize()
-        });
-        e.preventDefault();
+    $("#saveAsPdf").click(function(e) {
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&sortingOrder=" + getSortingOrder()
+            + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
+
+        var path = "/WordCounter/downloadPDF";
+        requestBinaryCopyOfCalculatedWords(path);
     });
 
-    $("#getXls").click("image", "form.getXlsForm", function (e) {
-        $.fileDownload($(this).prop('action'), {
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again.",
-            httpMethod: "POST",
-            data: $(this).serialize()
-        });
+    $("#saveAsXls").click(function(e) {
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&sortingOrder=" + getSortingOrder()
+            + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
+
+        var path = "/WordCounter/downloadExcel";
+        requestBinaryCopyOfCalculatedWords(path);
     });
 });
+
+function requestBinaryCopyOfCalculatedWords(path) {
+    spinner.spin(target);
+    $.fileDownload(path, {httpMethod: "POST", data: dataString})
+                           .done(function () { spinner.stop(target); })
+                           .fail(function () { alert('File download failed!'); });
+}
 
 function setPdfFields() {
     closeSpoiler();

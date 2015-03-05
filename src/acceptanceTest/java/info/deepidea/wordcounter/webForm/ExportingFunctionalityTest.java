@@ -16,7 +16,7 @@ import static info.deepidea.wordcounter.webForm.utils.Util.waitForJQueryProcessi
 import static org.junit.Assert.assertTrue;
 
 public class ExportingFunctionalityTest {
-    private static final int WAIT_TIME = 1000;
+    private static final int WAIT_TIME = 5000;
     private static WebDriver driver;
     private static String pathResources;
 
