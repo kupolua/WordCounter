@@ -129,24 +129,6 @@ function requestBinaryCopyOfCalculatedWords(path) {
                            .fail(function () { alert('File download failed!'); });
 }
 
-function setPdfFields() {
-    closeSpoiler();
-    $("input:hidden[id='pdfTextCount']").attr("value", textCount);
-    $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
-    $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
-    $("input:hidden[id='pdfCrawlDepth']").attr("value", getCrawlDepth());
-    $("input:hidden[id='pdfCrawlScope']").attr("value", getCrawlScoupe());
-}
-
-function setXlsFields() {
-    closeSpoiler();
-    $("input:hidden[id='xlsTextCount']").attr("value", textCount);
-    $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
-    $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
-    $("input:hidden[id='xlsCrawlDepth']").attr("value", getCrawlDepth());
-    $("input:hidden[id='xlsCrawlScope']").attr("value", getCrawlScoupe());
-}
-
 function runSpinner(isFilter){
     var deferred = $.Deferred();
     var activeTime = 200;
@@ -507,4 +489,3 @@ function getPageSize() {
     }
     return [pageWidth,pageHeight,windowWidth,windowHeight];
 }
-
