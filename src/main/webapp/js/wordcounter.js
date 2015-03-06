@@ -13,17 +13,13 @@ var dataErrors;
 var dataStatistic;
 var errorsMessage = "";
 var isErrors = false;
-var totalWeigth = 0; //todo spelling totalWeight
-var baseWordWeigth = 1.1; //todo spelling totalWeight
-var baseCloudCanvas = 15.3;
-var percent;
 
 $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
         e.preventDefault();
     });
 
-    $("#CountWords").click(function(e){
+    $("#getCountedWords").click(function(e){
         opts = {
             lines: 11, // The number of lines to draw
             length: 17, // The length of each line
@@ -47,10 +43,6 @@ $(document).ready(function() {
         crawlDepth = getCrawlDepth();
         crawlScope = getCrawlScoupe(); //todo remove u
         dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
-        //todo implement clearAllData & clear button
-//        if($.fn.DataTable.isDataTable('#countedWords')){
-//            dataTableDestroy();
-//        }
         $.ajax({
             type: "POST",
             url: "./countWords",

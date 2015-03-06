@@ -6,7 +6,7 @@ public class Constants {
     public static final int PORT = 8080;
     public static final String CONTEXT = "/WordCounter/?";
     public static final String BASE_URL = "http://localhost:" + PORT + CONTEXT;
-    public static final String BUTTON_ID_COUNT_WORDS = "CountWords";
+    public static final String BUTTON_ID_COUNT_WORDS = "getCountedWords";
     public static final String ANCHOR_HTML_PAGE_WITH_WORDS = "#countedWords > tbody";
     public static final String ELEMENT_ID_TEXT_AREA = "textCount";
     public static final String BUTTON_PDF = "getPdf";

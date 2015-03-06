@@ -60,7 +60,7 @@ public class WordCloudFunctionalityTest {
         assertFalse(driver.findElement(By.id("canvas_cloud")).isDisplayed());
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void wordCloudCanvas_modalWindow() {
         // given
