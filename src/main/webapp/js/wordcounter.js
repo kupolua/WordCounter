@@ -463,7 +463,9 @@ function normalizationWords(canvas) { //todo refactor code around 10h
     var wordWidth = 0;
     var amountWords = 0;
     var usedSquare = 0;
+    var minWordsLenth = 7;
     var minFontZoomFactor = 0.8;
+    var minWordsLenthFactor = 0.7;
     var i = 0;
     amountWords = getIntervalFactor(amountWordsInInterval, countedWords[i][1]);
     wordWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength);
@@ -500,8 +502,8 @@ function normalizationWords(canvas) { //todo refactor code around 10h
                 wordIntervalHeight = wordIntervalHeight * (canvas.height / wordIntervalWidth);
                 wordIntervalWidth = canvas.height;
             }
-            if(countedWords[i][0].length > 9) {
-                currentFontSize *= 0.7;
+            if(countedWords[i][0].length > minWordsLenth) {
+                currentFontSize *= minWordsLenthFactor;
             }
             fontSize = currentFontSize;
             if (fontSize < constantMinFontSize) {
