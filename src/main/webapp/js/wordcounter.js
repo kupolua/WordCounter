@@ -275,6 +275,7 @@ function displayResponseContainer() {
     $("#messageCounter").hide();
     $('#errorsContainer').text('');
     $('#spoilerStatistic').show();
+    $('#reloadWordCounter').show();
 }
 
 function hideResponseContainer() {
@@ -289,6 +290,7 @@ function hideResponseContainer() {
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
     $('#spoilerStatistic').hide();
+    $('#reloadWordCounter').hide();
 }
 
 function displayErrorContainer() {
@@ -362,7 +364,6 @@ function getCrawlDepth() {
 }
 
 function showWordCloud() {
-
     var div = $("#wordCloudData");
     var canvas = $("#canvas_cloud").get(0);
         canvas.width  = div.width();
@@ -506,6 +507,9 @@ function normalizationWords(canvas) { //todo refactor code around 10h
             if (wordIntervalWidth > canvas.height) {
                 wordIntervalHeight = wordIntervalHeight * (canvas.height / wordIntervalWidth);
                 wordIntervalWidth = canvas.height;
+            }
+            if(countedWords[i][0].length > 9) {
+                currentFontSize *= 0.7;
             }
             fontSize = currentFontSize;
             if (fontSize < constantMinFontSize) {

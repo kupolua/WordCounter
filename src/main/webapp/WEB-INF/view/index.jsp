@@ -71,6 +71,7 @@
                </div>
             <div id="CountWords">
                 <input type="button" value="<spring:message code="index.bCountWords"/>"/>
+                <input id="reloadWordCounter" type="button" value="<spring:message code="index.bReloadWordCounter"/>" onclick="location.reload()"/>
             </div>
         </form>
         <fieldset>

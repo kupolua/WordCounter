@@ -1,6 +1,10 @@
 /* INDEX */
 
 /* wordCloud */
+#reloadWordCounter {
+    display: none;
+    margin-left:15px;
+}
 
 #CountWords {
     clear: both;
