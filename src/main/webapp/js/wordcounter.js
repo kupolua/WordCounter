@@ -268,6 +268,7 @@ function displayResponseContainer() {
     $('#errorsContainer').text('');
     $('#spoilerStatistic').show();
     $('#reloadWordCounter').show();
+    $('#wordCloudData').show();
 }
 
 function hideResponseContainer() {
@@ -283,6 +284,7 @@ function hideResponseContainer() {
     $('#errorsSpoiler').hide();
     $('#spoilerStatistic').hide();
     $('#reloadWordCounter').hide();
+    $('#wordCloudData').hide();
 }
 
 function displayErrorContainer() {
@@ -296,6 +298,7 @@ function displayErrorContainer() {
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
     $('#spoilerStatistic').hide();
+    $('#wordCloudData').hide();
 }
 
 function showErrors(dataErrors) {
