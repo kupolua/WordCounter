@@ -76,7 +76,6 @@
         </form>
         <fieldset>
             <legend><spring:message code="index.response"/></legend>
-            <div id="pdfContainerIframe"></div>
             <div id="filterContainer" class="filterContainer">
                 <div class="filterButton">
                     <div id="getFilterWords" class="buttonGetFilterWords">
