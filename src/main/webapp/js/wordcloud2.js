@@ -855,6 +855,7 @@ if (!window.clearImmediate) {
                 }
 
                 // Actually put the text on the canvas
+
                 drawText(gx, gy, info, word, weight,
                     (maxRadius - r), gxy[2], rotateDeg, attributes);
 
@@ -865,6 +866,7 @@ if (!window.clearImmediate) {
                 return true;
             };
 
+            var npp = 0;
             while (r--) {
                 var points = getPointsAtRadius(maxRadius - r);
 
@@ -877,6 +879,7 @@ if (!window.clearImmediate) {
                 // array.some() will stop and return true
                 // when putWordAtPoint() returns true.
                 // If all the points returns false, array.some() returns false.
+
                 var drawn = points.some(tryToPutWordAtPoint);
 
                 if (drawn) {
@@ -1062,17 +1065,21 @@ if (!window.clearImmediate) {
             };
 
             addEventListener('wordcloudstart', anotherWordCloudStart);
-
             var timer = loopingFunction(function loop() {
                 if (i >= settings.list.length) {
                     stoppingFunction(timer);
                     sendEvent('wordcloudstop', false);
                     removeEventListener('wordcloudstart', anotherWordCloudStart);
+                    $("#isWordCloudModalClosed").hide();
 
                     return;
                 }
                 escapeTime = (new Date()).getTime();
                 var drawn = putWord(settings.list[i]);
+                if($("#isWordCloudModalClosed").is(":visible")) {
+//                    $("#wordCloudRunuble").append(i + " " + settings.list[i] + " canvas: " + elements[0]['id'] +"</br>"); //todo it will be removed after complete WordCloud
+                    i = settings.list.length;
+                }
                 var canceled = !sendEvent('wordclouddrawn', true, {
                     item: settings.list[i], drawn: drawn });
                 if (exceedTime() || canceled) {
