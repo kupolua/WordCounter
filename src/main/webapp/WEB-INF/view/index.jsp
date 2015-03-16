@@ -41,10 +41,10 @@
             </ul>
     </div>
 <div id="headingText">
-<div id="welcomeText">
-    <div id="p1"><spring:message code="index.welcomeHeader"/></div>
-    <div id="p2"><spring:message code="index.welcomeText"/></div>
-    <a href="about"><spring:message code="index.showMore"/></a>
+    <div id="welcomeText">
+        <div id="p1"><spring:message code="index.welcomeHeader"/></div>
+        <div id="p2"><spring:message code="index.welcomeText"/></div>
+            <a href="about"><spring:message code="index.showMore"/></a>
     </div>
  </div>
 <div id="wordCounterContent">
@@ -167,7 +167,7 @@
 </div>
     <div id="osx-modal-content-wordCloud">
     <div id="osx-modal-title-wordCloud"><spring:message code="index.wordCloudTitle"/></div>
-    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="wordCloudModalClose" class="close"><a href="#" class="simplemodal-close">x</a></div>
     <div id="osx-modal-data-wordCloud">
         <div id="wordCloudModal">
             <canvas id="canvas_cloudModal"></canvas>
@@ -175,6 +175,8 @@
     </div>
     </div>
 </div>
+<div id="isWordCloudModalClosed"></div>
+<div id="wordCloudRunuble"></div>
 <footer>
     <spring:message code="index.footer"/>
     <p>V. ${version}</p>

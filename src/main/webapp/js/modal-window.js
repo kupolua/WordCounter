@@ -118,6 +118,7 @@ jQuery(function ($) {
                 {top:"-" + (d.container.height() + 20)},
                 500,
                 function () {
+                    $("#isWordCloudModalClosed").show();
                     self.close(); // or $.modal.close();
                 }
             );

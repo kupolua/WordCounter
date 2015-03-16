@@ -16,6 +16,9 @@
     margin-left:15px;
     text-align:center;
 }
+#isWordCloudModalClosed {
+    display: none;
+}
 #wordCloud {
     display: none;
 }
