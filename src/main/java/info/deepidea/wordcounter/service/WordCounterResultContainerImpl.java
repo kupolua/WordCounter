@@ -9,14 +9,16 @@ public final class WordCounterResultContainerImpl implements WordCounterResultCo
     private List<String> errors;
     private Map<String, Integer> wordStatistic;
     private Map<String, Set<String>> relatedLinks;
+    private Map<String, Map<String, Integer>> d3TestData;
 
     public WordCounterResultContainerImpl() {}
 
-    public WordCounterResultContainerImpl(Map<String, Integer> countedResult, List<String> errors, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks){
+    public WordCounterResultContainerImpl(Map<String, Integer> countedResult, List<String> errors, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks, Map<String, Map<String, Integer>> d3TestData){
         this.countedResult = countedResult;
         this.errors = errors;
         this.wordStatistic = wordStatistic;
         this.relatedLinks = relatedLinks;
+        this.d3TestData = d3TestData;
     }
 
     @Override
@@ -37,6 +39,11 @@ public final class WordCounterResultContainerImpl implements WordCounterResultCo
     @Override
     public Map<String, Set<String>> getRelatedLinks() {
         return relatedLinks;
+    }
+
+    @Override
+    public Map<String, Map<String, Integer>> getD3TestData() {
+        return d3TestData;
     }
 
     @Override
