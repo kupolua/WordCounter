@@ -57,7 +57,7 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
                 relatedLinks.put(clientRequest, crawledUrls);
             }
 
-            result = new ThreadResultContainer(countedResult, wordStatistic, relatedLinks);
+            result = new ThreadResultContainer(countedResult, wordStatistic, relatedLinks, clientRequest);
         } catch (RuntimeException e) {
             LOG.error(e.getMessage(), e);
             result = new ThreadResultContainer(Collections.emptyMap(), e.getMessage(),

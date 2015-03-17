@@ -9,4 +9,5 @@ public interface WordCounterResultContainer {
     List<String> getErrors();
     Map<String, Integer> getWordStatistic();
     Map<String, Set<String>> getRelatedLinks();
+    public Map<String, Map<String, Integer>> getD3TestData();
 }

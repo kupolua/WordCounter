@@ -45,7 +45,7 @@ public class WordCounterServiceImpl implements WordCounterService {
         Map<String, Integer> sortedRefinedCountedWords = sorter.getSortedWords(filteredResults);
 
         WordCounterResultContainer result = new WordCounterResultContainerImpl(sortedRefinedCountedWords,
-                results.getErrorsList(), results.getWordStatistic(), results.getRelatedLinks());
+                results.getErrorsList(), results.getWordStatistic(), results.getRelatedLinks(), results.getD3TestData());
 
         return result;
     }

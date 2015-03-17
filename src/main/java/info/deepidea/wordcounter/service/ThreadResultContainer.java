@@ -10,6 +10,8 @@ public class ThreadResultContainer {
     private List<String> errorsList;
     private Map<String, Set<String>> relatedLinks;
     private Map<String, Integer> wordStatistic;
+    private Map<String, Map<String, Integer>> d3TestData;
+    private String visitedPage;
 
     public ThreadResultContainer(Map<String, Integer> countedResult, String error, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks) {
         this.countedResult = countedResult;
@@ -18,17 +20,20 @@ public class ThreadResultContainer {
         this.relatedLinks = relatedLinks;
     }
 
-    public ThreadResultContainer(Map<String, Integer> countedResult, List<String> errorsList, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks) {
+    public ThreadResultContainer(Map<String, Integer> countedResult, List<String> errorsList, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks, Map<String, Map<String, Integer>> d3TestData) {
         this.countedResult = countedResult;
         this.errorsList = errorsList;
         this.wordStatistic = wordStatistic;
         this.relatedLinks = relatedLinks;
+        this.d3TestData = d3TestData;
+
     }
 
-    public ThreadResultContainer(Map<String, Integer> countedResult, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks) {
+    public ThreadResultContainer(Map<String, Integer> countedResult, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks, String visitedPage) {
         this.countedResult = countedResult;
         this.wordStatistic = wordStatistic;
         this.relatedLinks = relatedLinks;
+        this.visitedPage = visitedPage;
     }
 
     public Map<String, Integer> getCountedResult() {
@@ -49,6 +54,14 @@ public class ThreadResultContainer {
 
     public List<String> getErrorsList() {
         return errorsList;
+    }
+
+    public Map<String, Map<String, Integer>> getD3TestData() {
+        return d3TestData;
+    }
+
+    public String getVisitedPage() {
+        return visitedPage;
     }
 
     @Override
