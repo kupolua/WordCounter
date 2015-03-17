@@ -16,6 +16,7 @@ public class CountersIntegratorImpl implements CountersIntegrator {
         Map<String, Map<String, Integer>> d3TestData = new HashMap<>();
         List<String> errorsList = new ArrayList<>();
         for (ThreadResultContainer eachContainer : results) {
+            System.out.println(">>>>>>>>>>>>>>>>>>>>" + eachContainer.getVisitedPage());
             boolean resultsHaveSameContainer = checkForSameContainer(relatedLinks, eachContainer.getRelatedLinks());
             if (!resultsHaveSameContainer) {
                 addD3TestData(d3TestData, eachContainer);
@@ -37,7 +38,9 @@ public class CountersIntegratorImpl implements CountersIntegrator {
     }
 
     private void addD3TestData(Map<String, Map<String, Integer>> d3TestData, ThreadResultContainer eachContainer) {
+        if (eachContainer.getVisitedPage() != null) {
             d3TestData.put(eachContainer.getVisitedPage(), eachContainer.getCountedResult());
+        }
     }
 
     private void addError(List<String> errorsList, ThreadResultContainer eachContainer) {
