@@ -325,7 +325,7 @@ function getPixelDims(scratch, t) {
     var word = t + "(" + getTotalWordWeight(t) + ")";
     scratch.empty();
     scratch.append(document.createTextNode(word));
-    return {width: scratch.outerWidth(), height: scratch.outerHeight()};
+    return {width: scratch.outerWidth(), height: scratch.outerHeight() * 2};
 }
 
 function initialize() {
@@ -345,7 +345,7 @@ function initialize() {
         stackHeight: 12,
         radius: 5,
         fontSize: 14,
-        labelFontSize: 15,
+        labelFontSize: 18,
         labelLineSpacing: 2.5,
         nodeLabel: null,
         markerWidth: 0,
@@ -361,7 +361,7 @@ function initialize() {
         nodeFocus: true,
         nodeFocusRadius: 25,
         nodeFocusColor: "FireBrick",
-        labelOffset: 5,
+        labelOffset: 20,
         gravity: .05,
         routeFocusStroke: "FireBrick",
         routeFocusStrokeWidth: 3,
@@ -395,7 +395,6 @@ function initialize() {
         control.svg = d3.select(control.divName)
             .append("svg:svg")
             .attr("width", control.width)
-//            .attr("height", control.height);
             .attr("height", 1200);
 
         control.force = d3.layout.force().
@@ -492,7 +491,7 @@ function dataMassage(control, data) {
     for (var i = 0, c = 0; i < nodes.length; i++) {
         var page = nodes[i];
         if (page.fixed) {
-            page.right = (c > control.pageCount / 2);
+            page.right = (c >= control.pageCount / 2);
             // y dimension calc same for each column
             page.y = ((c % (control.pageCount / 2)) + .5) * (control.pageRectSize.height);
 
@@ -512,7 +511,6 @@ function dataMassage(control, data) {
 function findOrAddPage(control, page, nodes) {
     for (var i = 0; i < nodes.length; i++) {
         if (nodes[i].key === page.key) {
-//            nodes[i].wordWeight += page.wordWeight;
             nodes[i].count++;
             return nodes[i];
         }
