@@ -8,9 +8,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="robots" content="noindex,nofollow"/>
 
-    <link href="css/d3v1.css" rel="stylesheet" type="text/css"/>
+    <link href="css/wordVisualization.css" rel="stylesheet" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
     <link href="font/OpenSans-Regular.ttf" rel="stylesheet" type='text/css'>
+    <link href="css/d3direct.css" rel="stylesheet" type="text/css">
+
+    <script src="js/d3.v3.min.js" type="text/javascript"></script>
+    <script src="js/jsapi.js" type="text/javascript"></script>
+    <script src="js/wordConnection.js"  type="text/javascript"></script>
+
 </head>
 <body id="aboutUS">
     <div id="logo">
@@ -22,6 +28,7 @@
           <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
         </ul>
     </div>
-
+    <div id="chart">
+    </div>
 </body>
 </html>
