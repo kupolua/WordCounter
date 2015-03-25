@@ -1,4 +1,5 @@
 var heapKVArray;
+var sitesKVArray;
 google.load("jquery", "1");
 google.setOnLoadCallback(function () {
     initialize().then(
@@ -60,11 +61,20 @@ function doTheTreeViz(control) {
             return getRadius(d);
         });
 
-    var urlLink = "";
     node.selectAll("text")
         .text(function (d) {
-            return d.wordWeight == "0" ? d.name : d.name + " (" + getTotalWordWeight(d.name) + ")";
+            var isUpdateWeight = d.isShowWeight;
+            return d.isShowWeight
+                ?
+                    d.name + " (" + d.wordWeight + ")"
+                :
+                    d.isShowed == 1
+                    ?
+                        d.name + " (" + getTotalWordWeight(d.name, isUpdateWeight, d.currentWord) + ")"
+                    :
+                        d.name
         });
+//        d.isShowWeight = d.isShowWeight ? false : true;
 
     // Enter any new nodes.
     var nodeEnter = node.enter()
@@ -160,14 +170,14 @@ function doTheTreeViz(control) {
             .attr("dy", ".31em")
             .attr("class", "shadow")
             .attr("key", function (d) {
-                return d.wordWeight == 0 ? d.name : d.name + " (" + d.wordWeight + ")";
+                return d.isShowWeight ? d.name + " (" + d.wordWeight + ")" : d.name;
             })
             .attr("text-anchor", function (d) {
                 return !d.right ? 'start' : 'start';
             })
             .style("font-size", control.options.labelFontSize + "px")
             .text(function (d) {
-                return d.wordWeight == 0 ? d.name : d.name + " (" + getTotalWordWeight(d.name) + ")";
+                return d.isShowWeight ? d.name + " (" + getTotalWordWeight(d.name, d.isShowWeight) + ")" : d.name;
             });
 
         var text = nodeEnter.append("svg:text")
@@ -180,14 +190,14 @@ function doTheTreeViz(control) {
             .attr("dy", ".35em")
             .attr("class", "text")
             .attr("key", function (d) {
-                return d.wordWeight == 0 ? d.name : d.name + " (" + d.wordWeight + ")";
+                return d.isShowWeight ? d.name + " (" + d.wordWeight + ")" : d.name;
             })
             .attr("text-anchor", function (d) {
                 return !d.right ? 'start' : 'start';
             })
             .style("font-size", control.options.labelFontSize + "px")
             .text(function (d) {
-                return d.wordWeight == 0 ? d.name : d.name + " (" + getTotalWordWeight(d.name) + ")";
+                return d.isShowWeight ? d.name + " (" + getTotalWordWeight(d.name, d.isShowWeight) + ")" : d.name;
             })
 
             .on("mouseover", function (d) {
@@ -255,25 +265,22 @@ function makeFilteredData(control, selectedNode) {
 
     for (var i = 0; i < control.data.links.length; i++) {
         var link = control.data.links[i];
+        if(!link.source.isShowWeight && link.source.isShowed == 0) {
+            link.source.isShowed = 0;
+        }
         if (link.target.isCurrentlyFocused) { //todo remove duplicate code to function()
             link.target.name = link.target.key;
+            link.source.currentWord = link.target.key;
+            link.source.isShowed = 1;
             newLinks.push(link);
             addNodeIfNotThere(link.source, newNodes);
             addNodeIfNotThere(link.target, newNodes);
         }
         if (link.source.isCurrentlyFocused) { //todo remove duplicate code to function()
-            link.target.name = link.source.name + " (" + getWordWeight(link.target, link.source.name) + ") " + link.target.name;
-            newLinks.push(link);
-            addNodeIfNotThere(link.source, newNodes);
-            addNodeIfNotThere(link.target, newNodes);
-            link.source.isDetailed = true;
-        }
-        if (link.source.isDetailed && !link.source.isCurrentlyFocused) { //todo remove duplicate code to function()
             link.target.name = link.target.key;
             newLinks.push(link);
             addNodeIfNotThere(link.source, newNodes);
             addNodeIfNotThere(link.target, newNodes);
-            var isUpdated = true;
         }
     }
 
@@ -286,20 +293,7 @@ function makeFilteredData(control, selectedNode) {
         control.nodes = control.data.nodes;
         control.links = control.data.links;
     }
-    if (isUpdated) {
-        control.nodes = control.data.nodes;
-        control.links = control.data.links;
-    }
     return control;
-
-    function getWordWeight(linkTarget, linkSourceName) {
-        var linkTargetLength = linkTarget.pages.length;
-        for (var i = 0; i < linkTargetLength; i++) {
-            if (linkTarget.pages[i].name == linkSourceName) {
-                return linkTarget.pages[i].wordWeight;
-            }
-        }
-    }
 
     function addNodeIfNotThere(node, nodes) {
         for (var i = 0; i < nodes.length; i++) {
@@ -309,23 +303,36 @@ function makeFilteredData(control, selectedNode) {
     }
 }
 
-function getTotalWordWeight(word) {
+function getTotalWordWeight(word, isShowWeight, currentWord) {
     var wordWeight;
-    for (var index = 0; index < heapKVArray.length; index++) {
-        if (heapKVArray[index].key === word) {
-            wordWeight = heapKVArray[index].value;
-            break;
+    if(isShowWeight) {
+        for (var index = 0; index < sitesKVArray.length; index++) {
+            if (heapKVArray[index].key === word) {
+                wordWeight = heapKVArray[index].value;
+                break;
+            }
+        }
+    } else {
+        for (var index = 0; index < sitesKVArray.length; index++) {
+            if (sitesKVArray[index].key.substr(0, 29) === word) {
+                for (var i in sitesKVArray[index].value) {
+                    if(i == currentWord) {
+                        wordWeight = sitesKVArray[index].value[i];
+                        break;
+                    }
+                }
+            }
         }
     }
     return wordWeight;
 }
 
-function getPixelDims(scratch, t) {
+function getPixelDims(scratch, t, isShowWeight) {
     // scratch is an elemen with the correct styling, t is the text to be counted in pixels
-    var word = t + "(" + getTotalWordWeight(t) + ")";
+    var word = isShowWeight ? t + "(" + getTotalWordWeight(t, isShowWeight) + ")" : t + "(        )";
     scratch.empty();
     scratch.append(document.createTextNode(word));
-    return {width: scratch.outerWidth(), height: scratch.outerHeight() * 2};
+    return {width: scratch.outerWidth(), height: scratch.outerHeight() * 1.5}; //todo count 1.5 parameter
 }
 
 function initialize() {
@@ -411,24 +418,30 @@ function initialize() {
 function getTheData(control) {
     var massage = $.Deferred();
 
+    var maxWords = 10;
     var newData = [];
     var wordsIndex;
     var sitesIndex;
     var sortedHeap = JSON.parse(window.localStorage.getItem("sortedHeap"));
     var dataBySites = JSON.parse(window.localStorage.getItem("dataD3"));
-    var sitesKVArray = d3.entries(dataBySites);
+    sitesKVArray = d3.entries(dataBySites);
     heapKVArray = d3.entries(sortedHeap);
 
-    for (var index = 0; index < sitesKVArray.length; index++) {
-        newData[index] = {name: sitesKVArray[index].key, wordWeight:0, key: sitesKVArray[index].key, pages: []};
+    for (var index = 0; index < maxWords; index++) {
+        newData[index] = {name: heapKVArray[index].key, isShowWeight: true, wordWeight:heapKVArray[index].value, key: heapKVArray[index].key, pages: []};
     }
 
-    for (wordsIndex = 0; wordsIndex < 50; wordsIndex++) {
+    for (wordsIndex = 0; wordsIndex < maxWords; wordsIndex++) {
+        var word = newData[wordsIndex].key;
         for (sitesIndex = 0; sitesIndex < sitesKVArray.length; sitesIndex++) {
-            var word = heapKVArray[wordsIndex].key;
             if (sitesKVArray[sitesIndex].value.hasOwnProperty(word)) {
                 var currentSiteWordsList = sitesKVArray[sitesIndex].value;
-                newData[sitesIndex].pages.push({name: word, wordWeight: currentSiteWordsList[word], key: word});
+                newData[wordsIndex].pages.push({
+                    name: sitesKVArray[sitesIndex].key.substr(0, 29),
+                    isShowWeight: false,
+                    wordWeight: currentSiteWordsList[word],
+                    key: sitesKVArray[sitesIndex].key.substr(0, 29)
+                });
             }
         }
     }
@@ -474,7 +487,7 @@ function dataMassage(control, data) {
     for (var i = 0; i < nodes.length; i++) {
         page = nodes[i];
         page.group = 0;
-        page.dim = getPixelDims(control.scratch, page.name);
+        page.dim = getPixelDims(control.scratch, page.name, page.isShowWeight);
         if (page.fixed) {
             control.pageCount++;
             // this will calculate the width/height in pixels of the largest label
