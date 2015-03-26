@@ -64,17 +64,18 @@ function doTheTreeViz(control) {
     node.selectAll("text")
         .text(function (d) {
             var isUpdateWeight = d.isShowWeight;
-            return d.isShowWeight
+            var text = d.isShowWeight
                 ?
-                    d.name + " (" + d.wordWeight + ")"
+                d.name + " (" + d.wordWeight + ")"
                 :
                     d.isShowed == 1
-                    ?
-                        d.name + " (" + getTotalWordWeight(d.name, isUpdateWeight, d.currentWord) + ")"
-                    :
-                        d.name
+                ?
+                d.name + " (" + getTotalWordWeight(d.name, isUpdateWeight, d.currentWord) + ")"
+                :
+                d.name;
+            return text;
         });
-//        d.isShowWeight = d.isShowWeight ? false : true;
+        var controlSource = control.source;
 
     // Enter any new nodes.
     var nodeEnter = node.enter()
