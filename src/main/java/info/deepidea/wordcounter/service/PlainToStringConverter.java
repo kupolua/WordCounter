@@ -1,5 +1,8 @@
 package info.deepidea.wordcounter.service;
 
+import org.springframework.stereotype.Component;
+
+@Component("plainText")
 public class PlainToStringConverter implements DocumentToStringConverter {
     @Override
     public boolean isEligible(TextType documentType) {
@@ -11,7 +14,8 @@ public class PlainToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public String convertToString(String userRequest) {
-        return userRequest;
+    public ConvertedDataContainer convertToString(RequestContainer userRequest) {
+        final String sourceName = "PlainText";
+        return new ConvertedDataContainer(sourceName, userRequest.getClientRequest());
     }
 }

@@ -21,10 +21,10 @@ public class PdfToStringConverterIntegrationTest {
         final String expected = "Words Count\nsimply 1\nput 1";
 
         //when
-        String actualResult = pdfToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = pdfToStringConverter.convertToString(new RequestContainer(url));
 
         //then
-        Assert.assertEquals(expected, actualResult);
+        Assert.assertEquals(expected, actualResult.getPlainText());
     }
 
     @Test(expected = RuntimeException.class)
@@ -33,7 +33,7 @@ public class PdfToStringConverterIntegrationTest {
         final String url = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
 
         //when
-        String actualResult = pdfToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = pdfToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception
@@ -45,7 +45,7 @@ public class PdfToStringConverterIntegrationTest {
         final String url = null;
 
         //when
-        String actualResult = pdfToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = pdfToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception
@@ -57,7 +57,7 @@ public class PdfToStringConverterIntegrationTest {
         final String url = "";
 
         //when
-        String actualResult = pdfToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = pdfToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception

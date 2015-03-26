@@ -17,23 +17,23 @@ public class DocToStringConverterIntegrationTest {
     @Test
     public void testConvertToString() {
         //given
-        final String URL = "http://95.158.60.148:8008/kpl/test.rtf";
+        final String url = "http://95.158.60.148:8008/kpl/test.rtf";
         final String expectedResult = "one two two three three three a a a a a a a\n";
 
         //when
-        String actualResult = docToStringConverter.convertToString(URL);
+        ConvertedDataContainer actualResult = docToStringConverter.convertToString(new RequestContainer(url));
 
         //then
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult.getPlainText());
     }
 
     @Test(expected = RuntimeException.class)
     public void testConvertToString_badUrl() {
         //given
-        final String URL = "http://www.xmlfiles.com/examples/cd_ca22123talog";
+        final String url = "http://www.xmlfiles.com/examples/cd_ca22123talog";
 
         //when
-        String actualResult = docToStringConverter.convertToString(URL);
+        ConvertedDataContainer actualResult = docToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception
@@ -42,10 +42,10 @@ public class DocToStringConverterIntegrationTest {
     @Test(expected = RuntimeException.class)
     public void testConvertToString_woProtocol() {
         //given
-        final String URL = "www.xmlfiles.com/examples/cd_ca22123talog";
+        final String url = "www.xmlfiles.com/examples/cd_ca22123talog";
 
         //when
-        String actualResult = docToStringConverter.convertToString(URL);
+        ConvertedDataContainer actualResult = docToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception

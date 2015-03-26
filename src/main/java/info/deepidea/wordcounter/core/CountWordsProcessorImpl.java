@@ -1,6 +1,5 @@
 package info.deepidea.wordcounter.core;
 
-import info.deepidea.wordcounter.crawler.UrlReceiver;
 import info.deepidea.wordcounter.service.*;
 import info.deepidea.wordcounter.util.TextRefiner;
 import org.slf4j.Logger;
@@ -18,51 +17,46 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
     private final WordCounter wordCounter;
     private final TextRefiner refiner;
     private final WordStatistic statistic;
-    private final UrlReceiver urlReceiver;
-
 
     @Autowired
     public CountWordsProcessorImpl(TextTypeInquirer textTypeInquirer, DocumentConverter documentConverter,
-                                   WordCounter wordCounter, TextRefiner refiner,
-                                   WordStatistic statistic, UrlReceiver urlReceiver) {
+                                   WordCounter wordCounter, TextRefiner refiner, WordStatistic statistic) {
         this.textTypeInquirer = textTypeInquirer;
         this.documentConverter = documentConverter;
         this.wordCounter = wordCounter;
         this.refiner = refiner;
         this.statistic = statistic;
-        this.urlReceiver = urlReceiver;
     }
 
     @Override
     public ThreadResultContainer process(String clientRequest, boolean crawlingRequired, boolean internalOnly) {
         LOG.debug(String.format("executing request {%s} in thread '%s'",
                 clientRequest, Thread.currentThread().getName()));
+        final RequestContainer requestContainer = getRequestContainer(clientRequest, crawlingRequired, internalOnly); //WORDS-563
+
         ThreadResultContainer result;
         try{
-            TextType textType = textTypeInquirer.inquireTextType(clientRequest);
+            TextType requestType = textTypeInquirer.inquireTextType(requestContainer.getClientRequest());
 
-            DocumentToStringConverter documentToStringConverter = documentConverter.getDocumentConverter(textType);
+            DocumentToStringConverter converter = documentConverter.getDocumentConverter(requestType);
 
-            String plainText = documentToStringConverter.convertToString(clientRequest);
+            ConvertedDataContainer convertedData = converter.convertToString(requestContainer);
 
-            List<String> refinedWords = refiner.refineText(plainText);
+            List<String> refinedWords = refiner.refineText(convertedData.getPlainText());
 
             Map<String, Integer> countedResult = wordCounter.countWords(refinedWords);
 
-            Map<String, Integer> wordStatistic = statistic.getStatistic(plainText, refinedWords);
+            Map<String, Integer> wordStatistic = statistic.getStatistic(convertedData.getPlainText(), refinedWords);
 
-            Map<String, Set<String>> relatedLinks = new HashMap<>();
-            if (textType instanceof HtmlTextTypeImpl && crawlingRequired) {
-                Set<String> crawledUrls = urlReceiver.getUrlsFromPage(clientRequest, internalOnly);
-                relatedLinks.put(clientRequest, crawledUrls);
-            }
-
-            result = new ThreadResultContainer(countedResult, wordStatistic, relatedLinks);
+            result = new ThreadResultContainer(countedResult, wordStatistic, convertedData.getRelatedLinks());
         } catch (RuntimeException e) {
             LOG.error(e.getMessage(), e);
-            result = new ThreadResultContainer(Collections.emptyMap(), e.getMessage(),
-                                                Collections.emptyMap(),  Collections.emptyMap());
+            result = new ThreadResultContainer(e.getMessage());
         }
         return result;
+    }
+
+    protected RequestContainer getRequestContainer(String clientRequest, boolean crawlingRequired, boolean internalOnly) {
+        return new RequestContainer(clientRequest, crawlingRequired, internalOnly);
     }
 }

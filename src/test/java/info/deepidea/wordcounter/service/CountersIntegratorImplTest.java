@@ -1,5 +1,6 @@
 package info.deepidea.wordcounter.service;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,7 +70,7 @@ public class CountersIntegratorImplTest {
 
         assertEquals(expectedMap, actual.getCountedResult());
         assertEquals(expectedErrorsList, actual.getErrorsList());
-        assertEquals(Collections.emptyMap(), actual.getRelatedLinks());
+        Assert.assertTrue(actual.getRelatedLinks().isEmpty());
     }
 
     @Test
@@ -169,7 +170,7 @@ public class CountersIntegratorImplTest {
             result = new ArrayList<>();
         }
 
-        result.add(new ThreadResultContainer(Collections.emptyMap(), error, Collections.emptyMap(), getEmptyRelatedLinks(clientRequest)));
+        result.add(new ThreadResultContainer(error));
 
         return result;
     }

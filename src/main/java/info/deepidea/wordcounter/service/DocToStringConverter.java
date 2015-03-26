@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@Component
+@Component("doc")
 public class DocToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DocToStringConverter.class);
 
@@ -28,23 +28,24 @@ public class DocToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public String convertToString(String userSourcesList) {
-        Assertions.assertStringIsNotNullOrEmpty(userSourcesList);
+    public ConvertedDataContainer convertToString(RequestContainer userRequest) {
+        Assertions.assertStringIsNotNullOrEmpty(userRequest.getClientRequest());
         final Tika tika = getTika();
-        URL url = createUrlObject(userSourcesList);
+        URL url = createUrlObject(userRequest.getClientRequest());
         String extractedText;
         try {
             extractedText = tika.parseToString(url);
         } catch (IOException e) {
-            LOG.error("I/O operation has been failed or interrupted while processing <" + userSourcesList + ">.", e);
-            throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userSourcesList, e);
+            LOG.error("I/O operation has been failed or interrupted while processing <" + userRequest.getClientRequest() + ">.", e);
+            throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userRequest.getClientRequest(), e);
         } catch (TikaException e) {
-            LOG.error("Can't extract text from <" + userSourcesList + ">.", e);
-            throw new RuntimeException("Document <" + userSourcesList + "> cannot be processed. ", e);
+            LOG.error("Can't extract text from <" + userRequest.getClientRequest() + ">.", e);
+            throw new RuntimeException("Document <" + userRequest.getClientRequest() + "> cannot be processed. ", e);
         }
-        LOG.info("Connection to " + userSourcesList + " has been successfully established.");
-        Assertions.assertStringIsNotNullOrEmpty(extractedText, userSourcesList);
-        return extractedText;
+        LOG.info("Connection to " + userRequest.getClientRequest() + " has been successfully established.");
+        Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
+
+        return new ConvertedDataContainer(userRequest.getClientRequest(), extractedText);
     }
 
     protected Tika getTika() {

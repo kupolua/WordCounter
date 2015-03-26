@@ -1,5 +1,6 @@
 package info.deepidea.wordcounter.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,11 +12,11 @@ public class ThreadResultContainer {
     private Map<String, Set<String>> relatedLinks;
     private Map<String, Integer> wordStatistic;
 
-    public ThreadResultContainer(Map<String, Integer> countedResult, String error, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks) {
-        this.countedResult = countedResult;
+    public ThreadResultContainer(String error) {
         this.error = error;
-        this.wordStatistic = wordStatistic;
-        this.relatedLinks = relatedLinks;
+        countedResult = Collections.emptyMap();
+        wordStatistic = Collections.emptyMap();
+        relatedLinks = Collections.emptyMap();
     }
 
     public ThreadResultContainer(Map<String, Integer> countedResult, List<String> errorsList, Map<String, Integer> wordStatistic, Map<String, Set<String>> relatedLinks) {

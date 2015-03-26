@@ -20,11 +20,13 @@ public class PdfToStringConverterTest {
     @Mock private PdfReader mockedReader;
     @Mock private PdfTextExtractor extractor;
     @Spy PdfToStringConverter spyConverter;
-
+    private RequestContainer requestContainer;
     private PdfToStringConverter pdfToStringConverter;
 
     @Before
     public void setUp() {
+        final String input = "http://pdf-examples.com/example.pdf";
+        requestContainer = new RequestContainer(input);
         pdfToStringConverter = new PdfToStringConverter();
     }
 
@@ -55,33 +57,31 @@ public class PdfToStringConverterTest {
     @Test
     public void testConvertToString() throws Exception {
         //given
-        final String input = "http://pdf-examples.com/example.pdf";
         final String expected = "example text";
 
         doReturn(mockedReader).when(spyConverter).getPdfReader(anyString());
         doReturn(expected).when(spyConverter).getTextFromAllPages(any(PdfReader.class));
 
         //when
-        final String actual = spyConverter.convertToString(input);
+        final ConvertedDataContainer actual = spyConverter.convertToString(requestContainer);
 
         //then
         verify(spyConverter, times(1)).getPdfReader(anyString());
         verify(spyConverter, times(1)).getTextFromAllPages(any(PdfReader.class));
 
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual.getPlainText());
     }
 
     @Test(expected = RuntimeException.class)
     public void testConvertToString_throwingException() throws Exception {
         //given
-        final String input = "pdf-examples.com/example.pdf";
         final String expected = "example text";
 
         doThrow(new IOException("test")).when(spyConverter).getPdfReader(anyString());
         doReturn(expected).when(spyConverter).getTextFromAllPages(any(PdfReader.class));
 
         //when
-        final String actual = spyConverter.convertToString(input);
+        final ConvertedDataContainer actual = spyConverter.convertToString(requestContainer);
 
         //then
         verify(spyConverter, times(1)).getPdfReader(anyString());

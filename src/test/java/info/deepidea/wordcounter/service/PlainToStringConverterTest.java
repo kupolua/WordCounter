@@ -6,9 +6,12 @@ import org.junit.Test;
 
 public class PlainToStringConverterTest {
     private PlainToStringConverter plainToStringConverter;
+    private RequestContainer requestContainer;
 
     @Before
     public void setUp() throws Exception {
+        final String input = "В мире есть много интересных занятий.";
+        requestContainer = new RequestContainer(input);
         plainToStringConverter = new PlainToStringConverter();
     }
 
@@ -54,33 +57,9 @@ public class PlainToStringConverterTest {
         final String inputText = "В мире есть много интересных занятий.";
 
         // when
-        String actualResult = plainToStringConverter.convertToString(inputText);
+        ConvertedDataContainer actualResult = plainToStringConverter.convertToString(requestContainer);
 
         // then
-        Assert.assertEquals(inputText, actualResult);
-    }
-
-    @Test
-    public void testConvertToString_empty() {
-        // given
-        final String inputText = " ";
-
-        // when
-        String actualResult = plainToStringConverter.convertToString(inputText);
-
-        // then
-        Assert.assertEquals(inputText, actualResult);
-    }
-
-    @Test
-    public void testConvertToString_null() {
-        // given
-        final String inputText = null;
-
-        // when
-        String actualResult = plainToStringConverter.convertToString(inputText);
-
-        // then
-        Assert.assertEquals(inputText, actualResult);
+        Assert.assertEquals(inputText, actualResult.getPlainText());
     }
 }

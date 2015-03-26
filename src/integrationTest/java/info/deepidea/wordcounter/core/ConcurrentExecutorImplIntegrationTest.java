@@ -1,6 +1,7 @@
 package info.deepidea.wordcounter.core;
 
 import info.deepidea.wordcounter.service.ThreadResultContainer;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.*;
-
-import static junit.framework.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
@@ -42,8 +41,8 @@ public class ConcurrentExecutorImplIntegrationTest {
         ThreadResultContainer expectedConteiner =
                 new ThreadResultContainer(expectedResult, expectedStatistic, Collections.emptyMap());
 
-        assertEquals(1, actual.size());
-        assertEquals(expectedConteiner, actual.get(0));
+        Assert.assertEquals(1, actual.size());
+        Assert.assertEquals(expectedConteiner, actual.get(0));
     }
 
     @Test
@@ -98,7 +97,7 @@ public class ConcurrentExecutorImplIntegrationTest {
         expected.add(container1);
         expected.add(container2);
 
-        assertEquals(3, actual.size());
-        assertEquals(expected, actual);
+        Assert.assertEquals(3, actual.size());
+        Assert.assertEquals(expected, actual);
     }
 }
