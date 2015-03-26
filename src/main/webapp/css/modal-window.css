@@ -30,8 +30,8 @@
 /* WordCloud */
 
 /*#osx-modal-content-wordCloud, #osx-modal-data-wordCloud {width:35%; height:30%; display:none;}*/
-#osx-modal-content-wordCloud, #osx-modal-data-wordCloud {display:none;}
 /*#osx-modal-content-wordCloud, #osx-modal-data-wordCloud {width:1500px; height:900px; display:none;}*/
+#osx-modal-content-wordCloud, #osx-modal-data-wordCloud {display:none;}
 
 /* Overlay */
 #osx-overlay-wordCloud {background-color:#000;}
