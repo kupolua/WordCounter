@@ -13,8 +13,7 @@ import java.util.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HtmlToStringConverterTest {
-    @Mock
-    private ParsingProcessor processor;
+    @Mock private ParsingProcessor processor;
     private HtmlToStringConverter converter;
 
     @Before
