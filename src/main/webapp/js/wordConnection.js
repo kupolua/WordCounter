@@ -68,7 +68,7 @@ function doTheTreeViz(control) {
                 ?
                 d.name + " (" + d.wordWeight + ")"
                 :
-                    d.isShowed == 1
+                    control.data.isShowed == 1
                 ?
                 d.name + " (" + getTotalWordWeight(d.name, isUpdateWeight, d.currentWord) + ")"
                 :
@@ -289,10 +289,12 @@ function makeFilteredData(control, selectedNode) {
     if (newNodes.length > 0) {
         control.links = newLinks;
         control.nodes = newNodes;
+        control.data.isShowed = 1;
     }
     else {
         control.nodes = control.data.nodes;
         control.links = control.data.links;
+        control.data.isShowed = 0;
     }
     return control;
 
@@ -315,7 +317,7 @@ function getTotalWordWeight(word, isShowWeight, currentWord) {
         }
     } else {
         for (var index = 0; index < sitesKVArray.length; index++) {
-            if (sitesKVArray[index].key.substr(0, 29) === word) {
+            if (sitesKVArray[index].key.substr(-15) === word) {
                 for (var i in sitesKVArray[index].value) {
                     if(i == currentWord) {
                         wordWeight = sitesKVArray[index].value[i];
