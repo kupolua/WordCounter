@@ -346,7 +346,7 @@ function initialize() {
     var newoptions = {
         nodeLabel: "label",
         nodeResize: "count", height: 900,
-        nodeFocus: true, radius: 3, charge: -500
+        nodeFocus: true, radius: 3, charge: -3000
     };
     // defaults
     control.options = $.extend({
@@ -361,8 +361,8 @@ function initialize() {
         width: $(control.divName).outerWidth(),
         gap: 1.5,
         nodeResize: "",
-        linkDistance: 80,
-        charge: -120,
+        linkDistance: 450,
+        charge: 3000,
         styleColumn: null,
         styles: null,
         linkName: null,
@@ -370,7 +370,7 @@ function initialize() {
         nodeFocusRadius: 25,
         nodeFocusColor: "FireBrick",
         labelOffset: 20,
-        gravity: .05,
+        gravity: .5,
         routeFocusStroke: "FireBrick",
         routeFocusStrokeWidth: 3,
         circleFill: "Black",
@@ -408,6 +408,7 @@ function initialize() {
         control.force = d3.layout.force().
             size([control.width, control.height])
             .linkDistance(control.options.linkDistance)
+            .linkStrength(0.01)
             .charge(control.options.charge)
             .gravity(control.options.gravity);
 
