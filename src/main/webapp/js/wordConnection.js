@@ -361,7 +361,7 @@ function initialize() {
         width: $(control.divName).outerWidth(),
         gap: 1.5,
         nodeResize: "",
-        linkDistance: 450,
+        linkDistance: 200,
         charge: 3000,
         styleColumn: null,
         styles: null,
@@ -408,7 +408,9 @@ function initialize() {
         control.force = d3.layout.force().
             size([control.width, control.height])
             .linkDistance(control.options.linkDistance)
-            .linkStrength(0.01)
+            .linkStrength(0.1)
+            //.friction(0.3)
+            //.chargeDistance(-5000)
             .charge(control.options.charge)
             .gravity(control.options.gravity);
 
@@ -439,10 +441,10 @@ function getTheData(control) {
             if (sitesKVArray[sitesIndex].value.hasOwnProperty(word)) {
                 var currentSiteWordsList = sitesKVArray[sitesIndex].value;
                 newData[wordsIndex].pages.push({
-                    name: sitesKVArray[sitesIndex].key.substr(0, 29),
+                    name: sitesKVArray[sitesIndex].key.substr(-15),
                     isShowWeight: false,
                     wordWeight: currentSiteWordsList[word],
-                    key: sitesKVArray[sitesIndex].key.substr(0, 29)
+                    key: sitesKVArray[sitesIndex].key
                 });
             }
         }
@@ -454,11 +456,12 @@ function getTheData(control) {
         for (var index2 = 0; index2 < newData[index].pages.length; index2++) {
             newCount += newData[index].pages[index2].wordWeight;
         }
-        newData[index].count = newCount;
+        newData[index].count = newCount;                                                        //size of central circles
         newCount = 0;
     }
 
     var data = newData;
+    console.log(newData);
     massage.resolve(dataMassage(control, data));
     return massage.promise();
 }
@@ -473,7 +476,7 @@ function dataMassage(control, data) {
         // add links to pages
         for (var j = 0; j < ind[i].pages.length; j++) {
             //push this page as a node
-            var node = findOrAddPage(control, ind[i].pages[j], nodes);
+            var node = findOrAddPage(ind[i].pages[j], nodes);
             node.isCurrentlyFocused = false;
             // create a link
             var link = {source: node, target: ind[i], key: node.key + "_" + ind[i].key};
@@ -481,7 +484,7 @@ function dataMassage(control, data) {
         }
     }
     // sort nodes alpha
-    nodes.sort(function (a, b) {
+    nodes.sort(function (a, b) {                                                        // calculating position of pages
         return a.key < b.key ? -1 : (a.key == b.key ? 0 : 1 );
     });
     control.pageCount = 0;
@@ -523,7 +526,7 @@ function dataMassage(control, data) {
 
 }
 
-function findOrAddPage(control, page, nodes) {
+function findOrAddPage(page, nodes) {                                               // size of left/right circles
     for (var i = 0; i < nodes.length; i++) {
         if (nodes[i].key === page.key) {
             nodes[i].count++;
