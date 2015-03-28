@@ -63,19 +63,9 @@ function doTheTreeViz(control) {
 
     node.selectAll("text")
         .text(function (d) {
-            var isUpdateWeight = d.isShowWeight;
-            var text = d.isShowWeight
-                ?
-                d.name + " (" + d.wordWeight + ")"
-                :
-                    control.data.isShowed == 1
-                ?
-                d.name + " (" + getTotalWordWeight(d.name, isUpdateWeight, d.currentWord) + ")"
-                :
-                d.name;
-            return text;
+            var isShowed = control.data.isShowed;
+            return getTotalWordWeight(d, isShowed, control);
         });
-        var controlSource = control.source;
 
     // Enter any new nodes.
     var nodeEnter = node.enter()
@@ -128,8 +118,25 @@ function doTheTreeViz(control) {
         });
 
     function enhanceNode(selectedNode) {
+        var i = 0;
+        var l = 0;
         link.filter(function (d) {
-            return d.source.key == selectedNode.key || d.target.key == selectedNode.key;
+            var stroke;
+            var strokeSource = d.source.key == selectedNode.key;
+            var strokeTarget = d.target.key == selectedNode.key;
+            if(strokeSource) {
+                stroke = strokeSource;
+                var k = i;
+                ++l;
+            }
+            if(strokeTarget) {
+                stroke = strokeTarget;
+                var k = i;
+                ++l;
+            }
+
+            i++;
+            return stroke;
         })
             .style("stroke", control.options.routeFocusStroke)
             .style("stroke-width", control.options.routeFocusStrokeWidth);
@@ -161,6 +168,7 @@ function doTheTreeViz(control) {
 
     if (control.options.nodeLabel) {
         // text is done once for shadow as well as for text
+        var isShowed = control.data.isShowed;
         var textShadow = nodeEnter.append("svg:text")
             .attr("x", function (d) {
                 var x = (d.right || !d.fixed) ?
@@ -171,14 +179,14 @@ function doTheTreeViz(control) {
             .attr("dy", ".31em")
             .attr("class", "shadow")
             .attr("key", function (d) {
-                return d.isShowWeight ? d.name + " (" + d.wordWeight + ")" : d.name;
+                return getTotalWordWeight(d, isShowed);
             })
             .attr("text-anchor", function (d) {
                 return !d.right ? 'start' : 'start';
             })
             .style("font-size", control.options.labelFontSize + "px")
             .text(function (d) {
-                return d.isShowWeight ? d.name + " (" + getTotalWordWeight(d.name, d.isShowWeight) + ")" : d.name;
+                return getTotalWordWeight(d, isShowed);
             });
 
         var text = nodeEnter.append("svg:text")
@@ -191,25 +199,45 @@ function doTheTreeViz(control) {
             .attr("dy", ".35em")
             .attr("class", "text")
             .attr("key", function (d) {
-                return d.isShowWeight ? d.name + " (" + d.wordWeight + ")" : d.name;
+                return getTotalWordWeight(d, isShowed);
             })
             .attr("text-anchor", function (d) {
                 return !d.right ? 'start' : 'start';
             })
             .style("font-size", control.options.labelFontSize + "px")
             .text(function (d) {
-                return d.isShowWeight ? d.name + " (" + getTotalWordWeight(d.name, d.isShowWeight) + ")" : d.name;
+                return getTotalWordWeight(d, isShowed);
             })
 
             .on("mouseover", function (d) {
                 // enhance all the links that end here
                 enhanceNode(d);
-                d3.select(this)
-                    .style('fill', control.options.routeFocusStroke);
+                if(d.group > 0) {
+                    d3.select(this)
+                        .style('fill', control.options.routeFocusStroke)
+                        .attr("x", function (d) {
+//                        var x = d.right ? d.px - (d.px * 2) + d.px - (d.key.length * 4) : d.px - (d.px * 2);
+                            var x = d.right ? -10 : d.x - (d.x * 2);
+                            return x;
+                        })
+                        .text(function (d) {
+                            return d.key;
+                        });
+                }
             })
 
             .on("mouseout", function (d) {
                 resetNode(d);
+                if(d.group > 0) {
+                    d3.select(this)
+                        .attr("x", function (d) {
+                            var x = d.right ? d.px - (d.px * 2) + d.px + (d.name.length * 2) - 10 : d.px - (d.px * 2);
+                            return x;
+                        })
+                        .text(function (d) {
+                            return d.name;
+                        });
+                }
             });
     }
 
@@ -266,19 +294,23 @@ function makeFilteredData(control, selectedNode) {
 
     for (var i = 0; i < control.data.links.length; i++) {
         var link = control.data.links[i];
-        if(!link.source.isShowWeight && link.source.isShowed == 0) {
-            link.source.isShowed = 0;
-        }
         if (link.target.isCurrentlyFocused) { //todo remove duplicate code to function()
             link.target.name = link.target.key;
             link.source.currentWord = link.target.key;
-            link.source.isShowed = 1;
+//            link.source.isShowed = 1;
+            link.source.isTarget = true;
+            control.data.isShowed = true;
             newLinks.push(link);
             addNodeIfNotThere(link.source, newNodes);
             addNodeIfNotThere(link.target, newNodes);
         }
         if (link.source.isCurrentlyFocused) { //todo remove duplicate code to function()
             link.target.name = link.target.key;
+            link.source.currentWord = link.target.key;
+//            link.source.isShowed = 1;
+            link.source.isSource = true;
+            link.source.isShowWeight = true;
+            control.data.isShowed = true;
             newLinks.push(link);
             addNodeIfNotThere(link.source, newNodes);
             addNodeIfNotThere(link.target, newNodes);
@@ -289,12 +321,11 @@ function makeFilteredData(control, selectedNode) {
     if (newNodes.length > 0) {
         control.links = newLinks;
         control.nodes = newNodes;
-        control.data.isShowed = 1;
     }
     else {
         control.nodes = control.data.nodes;
         control.links = control.data.links;
-        control.data.isShowed = 0;
+        control.data.isShowed = false;
     }
     return control;
 
@@ -306,28 +337,50 @@ function makeFilteredData(control, selectedNode) {
     }
 }
 
-function getTotalWordWeight(word, isShowWeight, currentWord) {
-    var wordWeight;
+function getTotalWordWeight(d, isShowed, control) {
+    var word = d.name;
+    var isShowWeight = d.isShowWeight;
+    var currentWord = d.currentWord;
+    var text;
+    var totalWordWeight;
+
     if(isShowWeight) {
-        for (var index = 0; index < sitesKVArray.length; index++) {
-            if (heapKVArray[index].key === word) {
-                wordWeight = heapKVArray[index].value;
-                break;
-            }
+//        var contr = control;
+        if(d.isSource){
+//            for (var index = 0; index < sitesKVArray.length; index++) {
+//                if (heapKVArray[index].key === word) {
+//                    totalWordWeight = heapKVArray[index].value;
+//                    text = d.name + " (" + d.wordWeight + ")";
+//                    break;
+//                }
+//            }
+            text = d.name;
+        } else {
+            text = d.name + " (" + d.wordWeight + ")";
         }
     } else {
-        for (var index = 0; index < sitesKVArray.length; index++) {
-            if (sitesKVArray[index].key.substr(-15) === word) {
-                for (var i in sitesKVArray[index].value) {
-                    if(i == currentWord) {
-                        wordWeight = sitesKVArray[index].value[i];
-                        break;
+        if(isShowed) {
+            for (var index = 0; index < sitesKVArray.length; index++) {
+                if (sitesKVArray[index].key.substr(-15) === word) {
+                    for (var i in sitesKVArray[index].value) {
+                        if(i == currentWord) {
+                            totalWordWeight = sitesKVArray[index].value[i];
+                            break;
+                        }
                     }
                 }
             }
+            if(d.right) {
+                text = "(" + totalWordWeight + ") " + d.name;
+            } else {
+                text = d.name + " (" + totalWordWeight + ")";
+            }
+        } else {
+            text = d.name;
         }
     }
-    return wordWeight;
+
+    return text;
 }
 
 function getPixelDims(scratch, t, isShowWeight) {
@@ -347,7 +400,7 @@ function initialize() {
     //some basic options
     var newoptions = {
         nodeLabel: "label",
-        nodeResize: "count", height: 900,
+        nodeResize: "count", height: 2000,
         nodeFocus: true, radius: 3, charge: -3000
     };
     // defaults
@@ -405,7 +458,7 @@ function initialize() {
         control.svg = d3.select(control.divName)
             .append("svg:svg")
             .attr("width", control.width)
-            .attr("height", 1200);
+            .attr("height", 2000);
 
         control.force = d3.layout.force().
             size([control.width, control.height])
@@ -424,7 +477,7 @@ function initialize() {
 function getTheData(control) {
     var massage = $.Deferred();
 
-    var maxWords = 10;
+    var maxWords = 30;
     var newData = [];
     var wordsIndex;
     var sitesIndex;
@@ -485,6 +538,7 @@ function dataMassage(control, data) {
             links.push(link);
         }
     }
+
     // sort nodes alpha
     nodes.sort(function (a, b) {                                                        // calculating position of pages
         return a.key < b.key ? -1 : (a.key == b.key ? 0 : 1 );
@@ -508,12 +562,16 @@ function dataMassage(control, data) {
     var options = control.options;
 
     // we're going to fix the nodes that are pages into two columns
+    var totalHeight = 0;
     for (var i = 0, c = 0; i < nodes.length; i++) {
         var page = nodes[i];
         if (page.fixed) {
             page.right = (c >= control.pageCount / 2);
             // y dimension calc same for each column
             page.y = ((c % (control.pageCount / 2)) + .5) * (control.pageRectSize.height);
+            if(page.right) {
+                totalHeight = page.y;
+            }
 
             // x based on right or left column
             page.x = page.right ?
@@ -521,8 +579,8 @@ function dataMassage(control, data) {
                 page.dim.width + options.labelOffset;
             c++;
         }
-
     }
+    control.height = totalHeight / 2;
 
     return {nodes: nodes, links: links};
 
