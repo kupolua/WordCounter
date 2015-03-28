@@ -66,6 +66,7 @@ function doTheTreeViz(control) {
             var isShowed = control.data.isShowed;
             return getTotalWordWeight(d, isShowed, control);
         });
+        var controlSource = control.source;
 
     // Enter any new nodes.
     var nodeEnter = node.enter()
@@ -212,30 +213,43 @@ function doTheTreeViz(control) {
             .on("mouseover", function (d) {
                 // enhance all the links that end here
                 enhanceNode(d);
-                if(d.group > 0) {
-                    d3.select(this)
-                        .style('fill', control.options.routeFocusStroke)
-                        .attr("x", function (d) {
-//                        var x = d.right ? d.px - (d.px * 2) + d.px - (d.key.length * 4) : d.px - (d.px * 2);
-                            var x = d.right ? -10 : d.x - (d.x * 2);
-                            return x;
-                        })
-                        .text(function (d) {
-                            return d.key;
-                        });
+                if (d.fixed) {
+                    if (d.right) {
+                        d3.select(this)
+                            .attr("x", function (d) {
+                                //var keyDim = getKeyDim(control.scratch, d.key, d.isShowWeight);
+                                //console.log(keyDim);
+                                //var x = (-keyDim.height - control.options.labelOffset);
+                                var x = -100;
+                                return x;
+                            })
+                            .style('fill', control.options.routeFocusStroke)
+                            .text(function (d) {
+                                return d.key;
+                            });
+                    } else {
+                        d3.select(this)
+                            .style('fill', control.options.routeFocusStroke)
+                            .text(function (d) {
+                                return d.key;
+                            });
+                    }
                 }
             })
 
             .on("mouseout", function (d) {
                 resetNode(d);
-                if(d.group > 0) {
+                if (d.fixed) {
+                    if (d.right) {
+                        d3.select(this)
+                            .attr("x", function (d) {
+                                var x = control.options.labelOffset;
+                                return x;
+                            });
+                    }
                     d3.select(this)
-                        .attr("x", function (d) {
-                            var x = d.right ? d.px - (d.px * 2) + d.px + (d.name.length * 2) - 10 : d.px - (d.px * 2);
-                            return x;
-                        })
                         .text(function (d) {
-                            return d.name;
+                            return d.isShowWeight ? d.name + " (" + getTotalWordWeight(d.name, d.isShowWeight) + ")" : d.name;
                         });
                 }
             });
@@ -383,6 +397,14 @@ function getTotalWordWeight(d, isShowed, control) {
     return text;
 }
 
+function getKeyDim(scratch, key, isShowWeight) {
+    // scratch is an elemen with the correct styling, t is the text to be counted in pixels
+    var word = isShowWeight ? key + "(" + getTotalWordWeight(key, isShowWeight) + ")" : key + "(        )";
+    scratch.empty();
+    scratch.append(document.createTextNode(word));
+    return {width: scratch.outerWidth(), height: scratch.outerHeight() * 1.5}; //todo count 1.5 parameter
+}
+
 function getPixelDims(scratch, t, isShowWeight) {
     // scratch is an elemen with the correct styling, t is the text to be counted in pixels
     var word = isShowWeight ? t + "(" + getTotalWordWeight(t, isShowWeight) + ")" : t + "(        )";
@@ -400,7 +422,7 @@ function initialize() {
     //some basic options
     var newoptions = {
         nodeLabel: "label",
-        nodeResize: "count", height: 2000,
+        nodeResize: "count", height: 900,
         nodeFocus: true, radius: 3, charge: -3000
     };
     // defaults
@@ -458,7 +480,7 @@ function initialize() {
         control.svg = d3.select(control.divName)
             .append("svg:svg")
             .attr("width", control.width)
-            .attr("height", 2000);
+            .attr("height", 1200);
 
         control.force = d3.layout.force().
             size([control.width, control.height])
@@ -477,7 +499,7 @@ function initialize() {
 function getTheData(control) {
     var massage = $.Deferred();
 
-    var maxWords = 30;
+    var maxWords = 10;
     var newData = [];
     var wordsIndex;
     var sitesIndex;
@@ -496,7 +518,7 @@ function getTheData(control) {
             if (sitesKVArray[sitesIndex].value.hasOwnProperty(word)) {
                 var currentSiteWordsList = sitesKVArray[sitesIndex].value;
                 newData[wordsIndex].pages.push({
-                    name: sitesKVArray[sitesIndex].key.substr(-15),
+                    name: parseUri(sitesKVArray[sitesIndex].key).host + "..." + sitesKVArray[sitesIndex].key.substr(-7),
                     isShowWeight: false,
                     wordWeight: currentSiteWordsList[word],
                     key: sitesKVArray[sitesIndex].key
@@ -516,10 +538,38 @@ function getTheData(control) {
     }
 
     var data = newData;
-    console.log(newData);
     massage.resolve(dataMassage(control, data));
     return massage.promise();
 }
+
+function parseUri (str) {
+    var	o   = parseUri.options,
+        m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+        uri = {},
+        i   = 14;
+
+    while (i--) uri[o.key[i]] = m[i] || "";
+
+    uri[o.q.name] = {};
+    uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+        if ($1) uri[o.q.name][$1] = $2;
+    });
+
+    return uri;
+};
+
+parseUri.options = {
+    strictMode: false,
+    key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+    q:   {
+        name:   "queryKey",
+        parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+    },
+    parser: {
+        strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+        loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+    }
+};
 
 function dataMassage(control, data) {
 
