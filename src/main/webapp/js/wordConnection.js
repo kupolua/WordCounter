@@ -81,18 +81,20 @@ function doTheTreeViz(control) {
         })
         .on("click", function (d) {
             // this is a hack so that click doesnt fire on the1st click of a dblclick
-            if (!control.nodeClickInProgress) {
-                control.nodeClickInProgress = true;
-                setTimeout(function () {
-                    if (control.nodeClickInProgress) {
-                        control.nodeClickInProgress = false;
-                        if (control.options.nodeFocus) {
-                            d.isCurrentlyFocused = !d.isCurrentlyFocused;
-                            doTheTreeViz(makeFilteredData(control));
+            //if(d.pages) {                                       //single click on pages is off because todo: need a fix
+                if (!control.nodeClickInProgress) {
+                    control.nodeClickInProgress = true;
+                    setTimeout(function () {
+                        if (control.nodeClickInProgress) {
+                            control.nodeClickInProgress = false;
+                            if (control.options.nodeFocus) {
+                                d.isCurrentlyFocused = !d.isCurrentlyFocused;
+                                doTheTreeViz(makeFilteredData(control));
+                            }
                         }
-                    }
-                }, control.clickHack);
-            }
+                    }, control.clickHack);
+                }
+            //}
         })
         .call(force.drag);
 
@@ -170,25 +172,25 @@ function doTheTreeViz(control) {
     if (control.options.nodeLabel) {
         // text is done once for shadow as well as for text
         var isShowed = control.data.isShowed;
-        var textShadow = nodeEnter.append("svg:text")
-            .attr("x", function (d) {
-                var x = (d.right || !d.fixed) ?
-                    control.options.labelOffset :
-                    (-d.dim.width - control.options.labelOffset);
-                return x;
-            })
-            .attr("dy", ".31em")
-            .attr("class", "shadow")
-            .attr("key", function (d) {
-                return getTotalWordWeight(d, isShowed);
-            })
-            .attr("text-anchor", function (d) {
-                return !d.right ? 'start' : 'start';
-            })
-            .style("font-size", control.options.labelFontSize + "px")
-            .text(function (d) {
-                return getTotalWordWeight(d, isShowed);
-            });
+        //var textShadow = nodeEnter.append("svg:text")
+        //    .attr("x", function (d) {
+        //        var x = (d.right || !d.fixed) ?
+        //            control.options.labelOffset :
+        //            (-d.dim.width - control.options.labelOffset);
+        //        return x;
+        //    })
+        //    .attr("dy", ".31em")
+        //    .attr("class", "shadow")
+        //    .attr("key", function (d) {
+        //        return getTotalWordWeight(d, isShowed);
+        //    })
+        //    .attr("text-anchor", function (d) {
+        //        return !d.right ? 'start' : 'start';
+        //    })
+        //    .style("font-size", control.options.labelFontSize + "px")
+        //    .text(function (d) {
+        //        return getTotalWordWeight(d, isShowed);
+        //    });
 
         var text = nodeEnter.append("svg:text")
             .attr("x", function (d) {
@@ -213,14 +215,13 @@ function doTheTreeViz(control) {
             .on("mouseover", function (d) {
                 // enhance all the links that end here
                 enhanceNode(d);
-                if (d.fixed) {
-                    if (d.right) {
+                if (!d.pages && d.key.length >= 30) {  //todo: move 30 to global var?
+                    if (d.right ) {
                         d3.select(this)
                             .attr("x", function (d) {
-                                //var keyDim = getKeyDim(control.scratch, d.key, d.isShowWeight);
-                                //console.log(keyDim);
-                                //var x = (-keyDim.height - control.options.labelOffset);
-                                var x = -100;
+                                var keyDim = getKeyDim(control.scratch, d.key);
+                                var x = (d.dim.width - keyDim.width) + 20; //todo: remove hardfix (20)
+                                //var x = d.dim.width - (d.key.length * 8);
                                 return x;
                             })
                             .style('fill', control.options.routeFocusStroke)
@@ -239,7 +240,7 @@ function doTheTreeViz(control) {
 
             .on("mouseout", function (d) {
                 resetNode(d);
-                if (d.fixed) {
+                if (!d.pages) {
                     if (d.right) {
                         d3.select(this)
                             .attr("x", function (d) {
@@ -247,11 +248,18 @@ function doTheTreeViz(control) {
                                 return x;
                             });
                     }
-                    d3.select(this)
-                        .text(function (d) {
-//                            var isShowed = true;
-                            return getTotalWordWeight(d, isShowed);
-                        });
+                    if (control.data.isShowed) {
+                        d3.select(this)
+                            .text(function (d) {
+                                var isShowed = true;
+                                return getTotalWordWeight(d, isShowed);
+                            });
+                    } else {
+                        d3.select(this)
+                            .text(function (d) {
+                                return d.name;
+                            });
+                    }
                 }
             });
     }
@@ -398,20 +406,19 @@ function getTotalWordWeight(d, isShowed, control) {
     return text;
 }
 
-function getKeyDim(scratch, key, isShowWeight) {
-    // scratch is an elemen with the correct styling, t is the text to be counted in pixels
-    var word = isShowWeight ? key + "(" + getTotalWordWeight(key, isShowWeight) + ")" : key + "(        )";
+function getKeyDim(scratch, key) {
+    var word = key;
     scratch.empty();
     scratch.append(document.createTextNode(word));
-    return {width: scratch.outerWidth(), height: scratch.outerHeight() * 1.5}; //todo count 1.5 parameter
+    return {width: scratch.outerWidth()};
 }
 
 function getPixelDims(scratch, t, isShowWeight) {
     // scratch is an elemen with the correct styling, t is the text to be counted in pixels
-    var word = isShowWeight ? t + "(" + getTotalWordWeight(t, isShowWeight) + ")" : t + "(        )";
+    var word = isShowWeight ? t + "()" : t + "(        )";
     scratch.empty();
-    scratch.append(document.createTextNode(word));
-    return {width: scratch.outerWidth(), height: scratch.outerHeight() * 1.5}; //todo count 1.5 parameter
+    scratch.append(document.createTextNode("(33)"+t));                  //HARDFIX todo: invent something
+    return {width: scratch.outerWidth(), height: scratch.outerHeight() * 1.5};
 }
 
 function initialize() {
@@ -490,6 +497,7 @@ function initialize() {
             .linkStrength(0.1)
             //.friction(0.3)
             //.chargeDistance(-5000)
+            //.alpha(-300)
             .charge(control.options.charge)
             .gravity(control.options.gravity);
 
@@ -519,11 +527,16 @@ function getTheData(control) {
         for (sitesIndex = 0; sitesIndex < sitesKVArray.length; sitesIndex++) {
             if (sitesKVArray[sitesIndex].value.hasOwnProperty(word)) {
                 var currentSiteWordsList = sitesKVArray[sitesIndex].value;
+                var pageName = sitesKVArray[sitesIndex].key;
+                if (sitesKVArray[sitesIndex].key.length >= 30) { //todo: move 30 to global var?
+                    pageName = parseUri(sitesKVArray[sitesIndex].key).host + "..." + sitesKVArray[sitesIndex].key.substr(-7);
+                }
                 newData[wordsIndex].pages.push({
-                    name: parseUri(sitesKVArray[sitesIndex].key).host + "..." + sitesKVArray[sitesIndex].key.substr(-7),
+                    name: pageName,
                     isShowWeight: false,
                     wordWeight: currentSiteWordsList[word],
-                    key: sitesKVArray[sitesIndex].key
+                    key: sitesKVArray[sitesIndex].key,
+                    url: sitesKVArray[sitesIndex].key
                 });
             }
         }
