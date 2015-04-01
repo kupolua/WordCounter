@@ -249,7 +249,8 @@ function doTheTreeViz(control) {
                     }
                     d3.select(this)
                         .text(function (d) {
-                            return d.isShowWeight ? d.name + " (" + getTotalWordWeight(d.name, d.isShowWeight) + ")" : d.name;
+//                            var isShowed = true;
+                            return getTotalWordWeight(d, isShowed);
                         });
                 }
             });
@@ -375,7 +376,7 @@ function getTotalWordWeight(d, isShowed, control) {
     } else {
         if(isShowed) {
             for (var index = 0; index < sitesKVArray.length; index++) {
-                if (sitesKVArray[index].key.substr(-15) === word) {
+                if (sitesKVArray[index].key === d.key) {
                     for (var i in sitesKVArray[index].value) {
                         if(i == currentWord) {
                             totalWordWeight = sitesKVArray[index].value[i];
@@ -453,6 +454,7 @@ function initialize() {
         circleFill: "Black",
         routeStroke: "Black",
         routeStrokeWidth: 1,
+        minHeight: 500,
         height: $(control.divName).outerHeight()
 
     }, newoptions);
@@ -480,7 +482,7 @@ function initialize() {
         control.svg = d3.select(control.divName)
             .append("svg:svg")
             .attr("width", control.width)
-            .attr("height", 1200);
+            .attr("height", control.height);
 
         control.force = d3.layout.force().
             size([control.width, control.height])
@@ -499,7 +501,7 @@ function initialize() {
 function getTheData(control) {
     var massage = $.Deferred();
 
-    var maxWords = 10;
+    var maxWords = 7;
     var newData = [];
     var wordsIndex;
     var sitesIndex;
@@ -593,8 +595,15 @@ function dataMassage(control, data) {
     nodes.sort(function (a, b) {                                                        // calculating position of pages
         return a.key < b.key ? -1 : (a.key == b.key ? 0 : 1 );
     });
+
+    var currentHeight = 0;
+    if(nodes.length < 100) {
+        var pageSize = getPageSize();
+        currentHeight = pageSize[3] / (nodes.length / 2);
+    }
+
     control.pageCount = 0;
-    control.pageRectSize = {width: 0, height: 0, radius: 0};
+    control.pageRectSize = {width: 0, height: currentHeight, radius: 0};
     for (var i = 0; i < nodes.length; i++) {
         page = nodes[i];
         page.group = 0;
@@ -627,10 +636,13 @@ function dataMassage(control, data) {
             page.x = page.right ?
                 control.width - control.pageRectSize.width - options.labelOffset :
                 page.dim.width + options.labelOffset;
+            if(page.name === "caption") {
+                var iii;
+            }
             c++;
         }
     }
-    control.height = totalHeight / 2;
+    control.height = totalHeight + control.pageRectSize.height;
 
     return {nodes: nodes, links: links};
 
@@ -646,4 +658,47 @@ function findOrAddPage(page, nodes) {                                           
     page.fixed = true;
     page.count = 0;
     return nodes[nodes.push(page) - 1];
+}
+
+function getPageSize() {
+    var xScroll, yScroll;
+
+    if (window.innerHeight && window.scrollMaxY) {
+        xScroll = document.body.scrollWidth;
+        yScroll = window.innerHeight + window.scrollMaxY;
+    } else if (document.body.scrollHeight > document.body.offsetHeight){
+        xScroll = document.body.scrollWidth;
+        yScroll = document.body.scrollHeight;
+    } else if (document.documentElement && document.documentElement.scrollHeight > document.documentElement.offsetHeight){
+        xScroll = document.documentElement.scrollWidth;
+        yScroll = document.documentElement.scrollHeight;
+    } else {
+        xScroll = document.body.offsetWidth;
+        yScroll = document.body.offsetHeight;
+    }
+
+    var windowWidth, windowHeight;
+    if (self.innerHeight) {
+        windowWidth = self.innerWidth;
+        windowHeight = self.innerHeight;
+    } else if (document.documentElement && document.documentElement.clientHeight) {
+        windowWidth = document.documentElement.clientWidth;
+        windowHeight = document.documentElement.clientHeight;
+    } else if (document.body) {
+        windowWidth = document.body.clientWidth;
+        windowHeight = document.body.clientHeight;
+    }
+
+    if(yScroll < windowHeight){
+        pageHeight = windowHeight;
+    } else {
+        pageHeight = yScroll;
+    }
+
+    if(xScroll < windowWidth){
+        pageWidth = windowWidth;
+    } else {
+        pageWidth = xScroll;
+    }
+    return [pageWidth,pageHeight,windowWidth,windowHeight];
 }
