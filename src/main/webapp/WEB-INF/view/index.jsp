@@ -76,19 +76,23 @@
         </form>
         <fieldset>
             <legend><spring:message code="index.response"/></legend>
-            <div id="pdfContainerIframe"></div>
             <div id="filterContainer" class="filterContainer">
                 <div class="filterButton">
                     <div id="getFilterWords" class="buttonGetFilterWords">
                         <input id="buttonGetFilterWords" type="button" value="<spring:message code="index.bFilter"/>" onclick="closeSpoiler()"/>
                         <input id="buttonGetUnFilterWords" type="button" value="<spring:message code="index.bUnFilter"/>" onclick="closeSpoiler()"/>
                     </div>
-                    <div id="showFilter" class="showFilter"><a href="#" class="osx" onclick="closeSpoiler()"><spring:message code="index.contentLocalLang"/></a></div>
+                    <div id="showFilter" class="showFilter">
+                        <a href="#" class="osx" onclick="closeSpoiler()"><spring:message code="index.contentLocalLang"/></a>
+                    </div>
                     <div id="saveAsPdf">
                             <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>"/>
                     </div>
                     <div id="saveAsXls">
                             <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>"/>
+                    </div>
+                    <div id="wordConnection">
+                        <a href="d3v1" target="_blank" onclick="setWordConnectionData()"><spring:message code="index.wordConnection"/></a>
                     </div>
                 </div>
             </div>

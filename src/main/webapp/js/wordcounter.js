@@ -11,6 +11,7 @@ var opts;
 var target;
 var dataErrors;
 var dataStatistic;
+var dataD3;
 var errorsMessage = "";
 var isErrors = false;
 
@@ -52,6 +53,7 @@ $(document).ready(function() {
                 dataResponse = data.countedResult;
                 dataErrors = data.errors;
                 dataStatistic = data.wordStatistic;
+                dataD3 = data.d3TestData;
                 countedWords = getCountedWords(dataResponse, isFilter);
 
                 if (countedWords.length > 0) {
@@ -113,6 +115,14 @@ $(document).ready(function() {
         requestBinaryCopyOfCalculatedWords(path);
     });
 });
+
+function setWordConnectionData() {
+    var isVisualization = true;
+    var sortedHeap = getFilteredWords(dataResponse, isVisualization);
+
+    window.localStorage.setItem("sortedHeap", JSON.stringify(sortedHeap));
+    window.localStorage.setItem("dataD3", JSON.stringify(dataD3));
+}
 
 function requestBinaryCopyOfCalculatedWords(path) {
     spinner.spin(target);
@@ -211,7 +221,7 @@ function getCountedWords(unFilteredWords, isFilter) {
     return countedWordsTable;
 }
 
-function getFilteredWords(unFilteredWords) {
+function getFilteredWords(unFilteredWords, isVisualization) {
     var index;
     var copyOfUnfilteredWords = jQuery.extend({}, unFilteredWords);
     var filteringWords = $('#wordsFilter').text().split(' ');
@@ -221,8 +231,11 @@ function getFilteredWords(unFilteredWords) {
             delete copyOfUnfilteredWords[filteringWords[index]];
         }
     }
-
-    return getMultiArrayOfCalculatedWords(copyOfUnfilteredWords);
+    if(isVisualization) {
+        return copyOfUnfilteredWords;
+    } else {
+        return getMultiArrayOfCalculatedWords(copyOfUnfilteredWords);
+    }
 }
 
 function getMultiArrayOfCalculatedWords(calculatedWords) {
@@ -257,7 +270,7 @@ function setStatusFilterButton(isFilter) {
     }
 }
 
-function displayResponseContainer() {
+function displayResponseContainer() { //todo move divs to elementsContainer
     $("#showFilter").show();
     $("#saveAsPdf").show();
     $("#saveAsXls").show();
@@ -269,6 +282,7 @@ function displayResponseContainer() {
     $('#spoilerStatistic').show();
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
+    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
 }
 
 function hideResponseContainer() {
@@ -285,6 +299,7 @@ function hideResponseContainer() {
     $('#spoilerStatistic').hide();
     $('#reloadWordCounter').hide();
     $('#wordCloudData').hide();
+    $('#wordConnection').hide();
 }
 
 function displayErrorContainer() {
@@ -299,6 +314,7 @@ function displayErrorContainer() {
     $('#errorsSpoiler').hide();
     $('#spoilerStatistic').hide();
     $('#wordCloudData').hide();
+    $('#wordConnection').hide();
 }
 
 function showErrors(dataErrors) {
@@ -343,6 +359,7 @@ function closeSpoiler() {
 function getCrawlScoupe() {
     if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {
         crawlScope = "true";
+
     } else {
         crawlScope = "false";
     }
