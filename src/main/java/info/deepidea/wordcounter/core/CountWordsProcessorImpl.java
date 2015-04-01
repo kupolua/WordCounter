@@ -48,7 +48,7 @@ public class CountWordsProcessorImpl implements CountWordsProcessor {
 
             Map<String, Integer> wordStatistic = statistic.getStatistic(convertedData.getPlainText(), refinedWords);
 
-            result = new ThreadResultContainer(countedResult, wordStatistic, convertedData.getRelatedLinks());
+            result = new ThreadResultContainer(countedResult, wordStatistic, convertedData.getRelatedLinks(), convertedData.getSourceName());
         } catch (RuntimeException e) {
             LOG.error(e.getMessage(), e);
             result = new ThreadResultContainer(e.getMessage());

@@ -38,10 +38,10 @@ public class CrawlerImplTest {
         links.put(initial, new HashSet<String>(Arrays.asList("https://code.google.com/p/lightcrawler/1/",
                 "https://code.google.com/p/lightcrawler/2/")));
         firstResult = new ArrayList<ThreadResultContainer>();
-        firstResult.add(new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), links));
+        firstResult.add(new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), links, initial));
 
-        ThreadResultContainer container1 = new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
-        ThreadResultContainer container2 = new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
+        ThreadResultContainer container1 = new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap(), initial);
+        ThreadResultContainer container2 = new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap(), initial);
         emptyJoinedResults = Arrays.asList(container1, container2);
     }
 
@@ -183,7 +183,7 @@ public class CrawlerImplTest {
         }};
 
         List<ThreadResultContainer> countedResult =
-                Arrays.asList(new ThreadResultContainer(words, Collections.emptyMap(), Collections.emptyMap()));
+                Arrays.asList(new ThreadResultContainer(words, Collections.emptyMap(), Collections.emptyMap(), initial));
 
         doReturn(forker).when(spyCrawler).getForker(anySet(), anyBoolean());
         doReturn(pool).when(spyCrawler).getForkJoinPool();
@@ -207,7 +207,7 @@ public class CrawlerImplTest {
         List<ThreadResultContainer> joinedResult = new ArrayList<>();
         for (Map<String, Set<String>> each : urls) {
             ThreadResultContainer container =
-                    new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), each);
+                    new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), each, "something");
             joinedResult.add(container);
         }
         return joinedResult;

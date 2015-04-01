@@ -62,7 +62,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final Map<String, Set<String>> relatedLinks = Collections.emptyMap();
 
         final WordCounterResultContainerImpl expected =
-                new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks);
+                new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks, Collections.emptyMap());
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual =
@@ -111,7 +111,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final Map<String, Set<String>> relatedLinks = Collections.emptyMap();
 
         final WordCounterResultContainerImpl expected =
-                new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks);
+                new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks, Collections.emptyMap());
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -161,7 +161,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final Map<String, Set<String>> relatedLinks = Collections.emptyMap();
 
         final WordCounterResultContainerImpl expected =
-                new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks);
+                new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks, Collections.emptyMap());
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual = objectMapper.readValue(resultStr, WordCounterResultContainerImpl.class);
@@ -209,7 +209,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         final Map<String, Set<String>> relatedLinks = Collections.emptyMap();
 
         final WordCounterResultContainerImpl expected =
-                new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks);
+                new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks, Collections.emptyMap());
 
         final String resultStr = response.body().string();
         final WordCounterResultContainerImpl actual =

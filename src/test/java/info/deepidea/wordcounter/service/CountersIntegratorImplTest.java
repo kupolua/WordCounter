@@ -156,7 +156,7 @@ public class CountersIntegratorImplTest {
         Map<String, Integer> values = new HashMap<>();
         values.put(word, count);
 
-        result.add(new ThreadResultContainer(values, wordStatistic, getRelatedLinks(clientRequest)));
+        result.add(new ThreadResultContainer(values, wordStatistic, getRelatedLinks(clientRequest), clientRequest));
 
         return result;
     }

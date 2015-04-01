@@ -28,6 +28,8 @@ public class ConcurrentExecutorImplTest {
 
     @Before
     public void setUp() throws Exception {
+        final String visitedPage = "http://cnn.com";
+
         Map<String, Integer> expectedMap = new HashMap<>();
         expectedMap.put("word", 10);
 
@@ -38,7 +40,7 @@ public class ConcurrentExecutorImplTest {
             put("statisticTotalWords", 3);
         }};
 
-        defaultExpectedResult = new ThreadResultContainer(expectedMap,expectedStatistic, Collections.emptyMap());
+        defaultExpectedResult = new ThreadResultContainer(expectedMap,expectedStatistic, Collections.emptyMap(), visitedPage);
 
         defaultProcessor = mock(CountWordsProcessor.class);
         when(defaultProcessor.process(any(String.class), anyBoolean(), anyBoolean())).thenReturn(defaultExpectedResult);
@@ -55,7 +57,7 @@ public class ConcurrentExecutorImplTest {
         final boolean internalOnly = true;
         Collection<String> input = new ArrayList<>();
         input.add("word");
-        List<ThreadResultContainer> expected = new ArrayList<>();
+        List<ThreadResultContainer> expected = new ArrayList<ThreadResultContainer>();
         expected.add(defaultExpectedResult);
 
         // when

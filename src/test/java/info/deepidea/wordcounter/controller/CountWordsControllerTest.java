@@ -48,16 +48,14 @@ public class CountWordsControllerTest {
         expectedResult.put("one", 1);
         expectedResult.put("two", 2);
 
-        result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList, wordStatistic, urls);
+        result = new WordCounterResultContainerImpl(expectedResult, expectedErrorList, wordStatistic, urls, Collections.emptyMap());
         CountWordsController controller = new CountWordsController(wordCounterService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
     public void testGetResultWithoutError() throws Exception {
-        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]," +
-                "\"wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
-                "\"statisticTotalCharacters\":11,\"statisticTotalWords\":3},\"relatedLinks\":{}}";
+        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[],\"wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2,\"statisticTotalCharacters\":11,\"statisticTotalWords\":3},\"relatedLinks\":{},\"d3TestData\":{}}";
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
@@ -74,13 +72,12 @@ public class CountWordsControllerTest {
 
     @Test
     public void testGetErrorResult() throws Exception {
-        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]" +
-                                    ",\"wordStatistic\":{},\"relatedLinks\":{}}";
+        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"],\"wordStatistic\":{},\"relatedLinks\":{},\"d3TestData\":{}}";
 
         final List<String> expectedErrorList = Arrays.asList("Error has occurred.", "ERROR!!!");
 
         result = new WordCounterResultContainerImpl(
-                Collections.emptyMap(), expectedErrorList, Collections.emptyMap(), Collections.emptyMap());
+                Collections.emptyMap(), expectedErrorList, Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
@@ -125,9 +122,7 @@ public class CountWordsControllerTest {
 
     @Test
     public void testGetResultWithParams_WithoutError() throws Exception {
-        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[]," +
-                "\"wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
-                "\"statisticTotalCharacters\":11,\"statisticTotalWords\":3},\"relatedLinks\":{}}";
+        final String expectedBody = "{\"countedResult\":{\"one\":1,\"two\":2},\"errors\":[],\"wordStatistic\":{\"statisticСharactersWithoutSpaces\":9,\"statisticUniqueWords\":2,\"statisticTotalCharacters\":11,\"statisticTotalWords\":3},\"relatedLinks\":{},\"d3TestData\":{}}";
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 
@@ -146,12 +141,11 @@ public class CountWordsControllerTest {
 
     @Test
     public void testGetResultWithParams_error() throws Exception {
-        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"]," +
-                "\"wordStatistic\":{},\"relatedLinks\":{}}";
+        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Error has occurred.\",\"ERROR!!!\"],\"wordStatistic\":{},\"relatedLinks\":{},\"d3TestData\":{}}";
 
         final List expectedErrorList = Arrays.asList("Error has occurred.", "ERROR!!!");
         result = new WordCounterResultContainerImpl(
-                Collections.emptyMap(), expectedErrorList, Collections.emptyMap(), Collections.emptyMap());
+                Collections.emptyMap(), expectedErrorList, Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
 
         when(wordCounterService.getWordCounterResult(any(CountWordsUserRequest.class))).thenReturn(result);
 

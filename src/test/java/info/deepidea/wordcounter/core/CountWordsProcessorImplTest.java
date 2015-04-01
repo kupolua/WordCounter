@@ -57,7 +57,7 @@ public class CountWordsProcessorImplTest {
         }};
 
         ThreadResultContainer expectedContainer =
-                new ThreadResultContainer(expectedCountedResult, expectedStatistic, Collections.emptyMap());
+                new ThreadResultContainer(expectedCountedResult, expectedStatistic, Collections.emptyMap(), clientRequest);
         doReturn(requestContainer).when(spyProcessor).getRequestContainer(clientRequest, crawlingRequired, internalOnly);
         when(textTypeInquirer.inquireTextType(clientRequest)).thenReturn(concreteType);
         when(documentConverter.getDocumentConverter(any(TextType.class))).thenReturn(concreteConverter);
@@ -99,7 +99,7 @@ public class CountWordsProcessorImplTest {
         }};
 
         ThreadResultContainer expectedContainer =
-                new ThreadResultContainer(expectedCountedResult, expectedStatistic, Collections.emptyMap());
+                new ThreadResultContainer(expectedCountedResult, expectedStatistic, Collections.emptyMap(), clientRequest);
         doReturn(requestContainer).when(spyProcessor).getRequestContainer(clientRequest, crawlingRequired, internalOnly);
         when(textTypeInquirer.inquireTextType(clientRequest)).thenReturn(concreteType);
         when(documentConverter.getDocumentConverter(any(TextType.class))).thenReturn(concreteConverter);
@@ -141,7 +141,7 @@ public class CountWordsProcessorImplTest {
         }};
 
         ThreadResultContainer expectedContainer =
-                new ThreadResultContainer(expectedCountedResult, expectedStatistic, Collections.emptyMap());
+                new ThreadResultContainer(expectedCountedResult, expectedStatistic, Collections.emptyMap(), clientRequest);
 
         doReturn(requestContainer).when(spyProcessor).getRequestContainer(clientRequest, crawlingRequired, internalOnly);
         when(textTypeInquirer.inquireTextType(clientRequest)).thenReturn(concreteType);
@@ -186,7 +186,7 @@ public class CountWordsProcessorImplTest {
         expectedLinks.put(clientRequest, Collections.emptySet());
 
         ThreadResultContainer expectedContainer =
-                new ThreadResultContainer(expectedCountedResult, expectedStatistic, expectedLinks);
+                new ThreadResultContainer(expectedCountedResult, expectedStatistic, expectedLinks, clientRequest);
 
         doReturn(requestContainer).when(spyProcessor).getRequestContainer(clientRequest, crawlingRequired, internalOnly);
         when(textTypeInquirer.inquireTextType(clientRequest)).thenReturn(concreteType);
