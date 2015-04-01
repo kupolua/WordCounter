@@ -282,7 +282,7 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $('#spoilerStatistic').show();
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
-    $('#wordConnection').show();
+    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
 }
 
 function hideResponseContainer() {
@@ -359,6 +359,7 @@ function closeSpoiler() {
 function getCrawlScoupe() {
     if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {
         crawlScope = "true";
+
     } else {
         crawlScope = "false";
     }

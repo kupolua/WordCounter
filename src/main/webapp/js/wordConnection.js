@@ -172,25 +172,25 @@ function doTheTreeViz(control) {
     if (control.options.nodeLabel) {
         // text is done once for shadow as well as for text
         var isShowed = control.data.isShowed;
-        //var textShadow = nodeEnter.append("svg:text")
-        //    .attr("x", function (d) {
-        //        var x = (d.right || !d.fixed) ?
-        //            control.options.labelOffset :
-        //            (-d.dim.width - control.options.labelOffset);
-        //        return x;
-        //    })
-        //    .attr("dy", ".31em")
-        //    .attr("class", "shadow")
-        //    .attr("key", function (d) {
-        //        return getTotalWordWeight(d, isShowed);
-        //    })
-        //    .attr("text-anchor", function (d) {
-        //        return !d.right ? 'start' : 'start';
-        //    })
-        //    .style("font-size", control.options.labelFontSize + "px")
-        //    .text(function (d) {
-        //        return getTotalWordWeight(d, isShowed);
-        //    });
+        var textShadow = nodeEnter.append("svg:text")
+            .attr("x", function (d) {
+                var x = (d.right || !d.fixed) ?
+                    control.options.labelOffset :
+                    (-d.dim.width - control.options.labelOffset);
+                return x;
+            })
+            .attr("dy", ".31em")
+            .attr("class", "shadow")
+            .attr("key", function (d) {
+                return getTotalWordWeight(d, isShowed);
+            })
+            .attr("text-anchor", function (d) {
+                return !d.right ? 'start' : 'start';
+            })
+            .style("font-size", control.options.labelFontSize + "px")
+            .text(function (d) {
+                return getTotalWordWeight(d, isShowed);
+            });
 
         var text = nodeEnter.append("svg:text")
             .attr("x", function (d) {
@@ -278,7 +278,11 @@ function doTheTreeViz(control) {
     }
 
     function tick() {
+        var maxLeftColumSize = 0;
         link.attr("x1", function (d) {
+            if(!d.source.right) {
+                maxLeftColumSize = maxLeftColumSize < d.source.px ? d.source.px : maxLeftColumSize;
+            }
             return d.source.x;
         })
             .attr("y1", function (d) {
@@ -291,6 +295,9 @@ function doTheTreeViz(control) {
                 return d.target.y;
             });
         node.attr("transform", function (d) {
+            if(d.px < maxLeftColumSize && !d.fixed) {
+                d.px -= 100;
+            }
             return "translate(" + d.x + "," + d.y + ")";
         });
 
@@ -368,15 +375,7 @@ function getTotalWordWeight(d, isShowed, control) {
     var totalWordWeight;
 
     if(isShowWeight) {
-//        var contr = control;
         if(d.isSource){
-//            for (var index = 0; index < sitesKVArray.length; index++) {
-//                if (heapKVArray[index].key === word) {
-//                    totalWordWeight = heapKVArray[index].value;
-//                    text = d.name + " (" + d.wordWeight + ")";
-//                    break;
-//                }
-//            }
             text = d.name;
         } else {
             text = d.name + " (" + d.wordWeight + ")";
@@ -637,6 +636,8 @@ function dataMassage(control, data) {
     var totalHeight = 0;
     for (var i = 0, c = 0; i < nodes.length; i++) {
         var page = nodes[i];
+        // x based on right or left column
+
         if (page.fixed) {
             page.right = (c >= control.pageCount / 2);
             // y dimension calc same for each column
@@ -644,21 +645,15 @@ function dataMassage(control, data) {
             if(page.right) {
                 totalHeight = page.y;
             }
-
-            // x based on right or left column
             page.x = page.right ?
                 control.width - control.pageRectSize.width - options.labelOffset :
                 page.dim.width + options.labelOffset;
-            if(page.name === "caption") {
-                var iii;
-            }
             c++;
         }
     }
     control.height = totalHeight + control.pageRectSize.height;
 
     return {nodes: nodes, links: links};
-
 }
 
 function findOrAddPage(page, nodes) {                                               // size of left/right circles
