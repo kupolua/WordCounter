@@ -6,7 +6,7 @@ $(document).ready(function() {
 //    urlFolding();
 });
 
-function getWordsCountByUrl(url) {
+function getOverallAmountOfWordsByUrl(url) {
     var urlWordsCount = 0;
     for (var x = 0; x < sitesKVArray.length; x++) {
         if (sitesKVArray[x].key === url || sitesKVArray[x].key +"/" === url) {
@@ -30,7 +30,7 @@ function makeUrlTreeObject(relatedLinksKVArray) {
         var amountOfSecondDepthWords = 0;
         rootObject.children.push({name: relatedLinksKVArray[secondDepthIndex].key, children :[]});
         for (var thirdDepthIndex = 0; thirdDepthIndex < relatedLinksKVArray[secondDepthIndex].value.length; thirdDepthIndex++) {
-            var amountOfUrlWords = getWordsCountByUrl(relatedLinksKVArray[secondDepthIndex].value[thirdDepthIndex]);
+            var amountOfUrlWords = getOverallAmountOfWordsByUrl(relatedLinksKVArray[secondDepthIndex].value[thirdDepthIndex]);
             amountOfSecondDepthWords += amountOfUrlWords;
             rootObject.children[secondDepthIndex].children.push({name: relatedLinksKVArray[secondDepthIndex].value[thirdDepthIndex], count: amountOfUrlWords})
         }
