@@ -42,6 +42,7 @@ public class CrawlerImpl implements Crawler {
             Set<String> newUrls = new HashSet<String>(extractUrls(newContainers));
             if (newUrls.isEmpty()) {
                 resultContainers.addAll(newContainers);
+                addInitialUrlMarker(resultContainers);
                 return resultContainers;
             }
             newUrls.removeAll(mergeResults(depthsOfUrls));
@@ -49,6 +50,7 @@ public class CrawlerImpl implements Crawler {
             resultContainers.addAll(newContainers);
         }
 
+        addInitialUrlMarker(resultContainers);
         return resultContainers;
     }
 
@@ -77,5 +79,11 @@ public class CrawlerImpl implements Crawler {
             mergedResults.addAll(depth);
         }
         return mergedResults;
+    }
+
+    private void addInitialUrlMarker(List<ThreadResultContainer> containers) {
+        for (ThreadResultContainer each : containers) {
+            each.setMarker(userRequest);
+        }
     }
 }

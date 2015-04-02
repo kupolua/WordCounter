@@ -1,62 +1,59 @@
+var sitesKVArray;
 $(document).ready(function() {
-    var treeData2 = {"name": "http://www.yahoo.com http://edition.cnn.com",root: "root","children": [
-        {"name": "http://www.yahoo.com","children": [
-            {"name": "https://www.yahoo.com/makers", "count": 16540},
-            {"name": "https://www.yahoo.com/style/dancing-with-the-stars-week-c1427831092579.html", "count": 16540},
-            {"name": "https://www.yahoo.com/travel", "count": 16540},
-            {"name": "https://www.yahoo.com/travel/want-to-retire-in-your-30s-and-travel-the-world-115039314527.html", "count": 16540},
-            {"name": "https://www.yahoo.com/style", "count": 16540},
-            {"name": "https://www.yahoo.com/movies", "count": 16540},
-            {"name": "https://www.yahoo.com/tech/s/access-secret-hidden-menus-iphone-android-phone-140654496.html", "count": 16540},
-            {"name": "https://www.yahoo.com/makers", "count": 16540},
-            {"name": "https://www.yahoo.com/style/dancing-with-the-stars-week-c1427831092579.html", "count": 16540},
-            {"name": "https://www.yahoo.com/travel", "count": 16540},
-            {"name": "https://www.yahoo.com/travel/want-to-retire-in-your-30s-and-travel-the-world-115039314527.html", "count": 16540},
-            {"name": "https://www.yahoo.com/style", "count": 16540},
-            {"name": "https://www.yahoo.com/style/nikki-reed-on-her-most-cherished-clothes-why-115093660963.html", "count": 16540},
-            {"name": "https://www.yahoo.com/tech", "count": 16540},
-            {"name": "https://www.yahoo.com/style/nikki-reed-on-her-most-cherished-clothes-why-115093660963.html", "count": 16540},
-            {"name": "https://www.yahoo.com/tech", "count": 16540},
-            {"name": "https://www.yahoo.com/food", "count": 16540}
-        ]},
-        {"name": "http://edition.cnn.com","children": [
-            {"name": "http://edition.cnn.com/tv", "count": 16540},
-            {"name": "http://edition.cnn.com/europe/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/2015/04/01/travel/airport-codes/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/us/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/africa/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/tech/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/videos/business/2015/03/30/wbt-intv-croft-nigeria-elections-economy.cnn", "count": 16540},
-            {"name": "http://edition.cnn.com/videos/us/2015/03/31/april-fools-day-history-boyette-ls.cnn", "count": 16540},
-            {"name": "http://edition.cnn.com/americas/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/tv", "count": 16540},
-            {"name": "http://edition.cnn.com/europe/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/2015/04/01/travel/airport-codes/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/us/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/africa/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/tech/index.html", "count": 16540},
-            {"name": "http://edition.cnn.com/videos/business/2015/03/30/wbt-intv-croft-nigeria-elections-economy.cnn", "count": 16540},
-            {"name": "http://edition.cnn.com/videos/us/2015/03/31/april-fools-day-history-boyette-ls.cnn", "count": 16540},
-            {"name": "http://edition.cnn.com/americas/index.html", "count": 16540},
-            {"name": "https://www.yahoo.com/food", "count": 16540}
-        ]}
-    ]};
     var treeData4 = getData();
 
-    urlDragAndDrop(treeData2);
+    urlDragAndDrop(treeData4);
 //    urlFolding();
 });
 
+function getWordsCountByUrl(url) {
+    var urlWordsCount = 0;
+    for (var x = 0; x < sitesKVArray.length; x++) {
+        if (sitesKVArray[x].key === url || sitesKVArray[x].key +"/" === url) {
+            for (var key in sitesKVArray[x].value) {
+                urlWordsCount += sitesKVArray[x].value[key];
+            }
+            break;
+        }
+    }
+    return urlWordsCount;
+}
+function makeUrlTreeObject(relatedLinksKVArray) {
+    var request = "";
+    for (var x = 0; x < relatedLinksKVArray.length; x++) {
+        request += "{"+relatedLinksKVArray[x].key+"}";
+    }
+
+    var rootObject = {name :request, children :[]};
+    var amountOfRootWords = 0;
+    for (var secondDepthIndex = 0; secondDepthIndex < relatedLinksKVArray.length; secondDepthIndex++) {
+        var amountOfSecondDepthWords = 0;
+        rootObject.children.push({name: relatedLinksKVArray[secondDepthIndex].key, children :[]});
+        for (var thirdDepthIndex = 0; thirdDepthIndex < relatedLinksKVArray[secondDepthIndex].value.length; thirdDepthIndex++) {
+            var amountOfUrlWords = getWordsCountByUrl(relatedLinksKVArray[secondDepthIndex].value[thirdDepthIndex]);
+            amountOfSecondDepthWords += amountOfUrlWords;
+            rootObject.children[secondDepthIndex].children.push({name: relatedLinksKVArray[secondDepthIndex].value[thirdDepthIndex], count: amountOfUrlWords})
+        }
+        rootObject.children[secondDepthIndex].count = amountOfSecondDepthWords;
+        amountOfRootWords += amountOfSecondDepthWords;
+    }
+
+    rootObject.count = amountOfRootWords;
+    
+    return rootObject;
+}
 function getData() {
-    var treeData;
     var sortedHeap = JSON.parse(window.localStorage.getItem("sortedHeap"));
     var dataBySites = JSON.parse(window.localStorage.getItem("dataD3"));
     var dataByLinks = JSON.parse(window.localStorage.getItem("relatedLinks"));
-    var sitesKVArray = d3.entries(dataBySites);
+    sitesKVArray = d3.entries(dataBySites);
     var heapKVArray = d3.entries(sortedHeap);
-    var linksKVArray = d3.entries(dataByLinks);
+    var relatedLinksKVArray = d3.entries(dataByLinks);
 
-    return treeData;
+    var dataTree = makeUrlTreeObject(relatedLinksKVArray);
+
+    console.log(sitesKVArray);
+    return dataTree;
 }
 
 function urlDragAndDrop(treeData) {
@@ -364,7 +361,7 @@ function urlDragAndDrop(treeData) {
         scale = zoomListener.scale();
         x = -source.y0;
         y = -source.x0;
-        x = x * scale + viewerWidth / 2;
+        x = x * scale + viewerWidth / 4;
         y = y * scale + viewerHeight / 2;
         d3.select('g').transition()
             .duration(duration)

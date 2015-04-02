@@ -25,12 +25,13 @@ public class CountersIntegratorImpl implements CountersIntegrator {
                 addStatistic(resultStatistic, eachContainer);
             }
         }
+
         return new ThreadResultContainer(resultMap, errorsList, resultStatistic, relatedLinks, d3TestData);
     }
 
     private boolean checkForSameContainer(Map<String, Map<String, Integer>> wordsByPage, String visitedPage) {
         boolean hasSameResults = false;
-        final String slash = "/";
+        final String slash = "/";                       //WORDS-562
 
         if (!wordsByPage.isEmpty()) {
             for (String page : wordsByPage.keySet()) {
@@ -70,11 +71,15 @@ public class CountersIntegratorImpl implements CountersIntegrator {
     }
 
     private void addLinks(Map<String, Set<String>> relatedLinks, ThreadResultContainer eachContainer) {
-        Map<String, Set<String>> links = eachContainer.getRelatedLinks();
-        for (Map.Entry<String, Set<String>> each : links.entrySet()) {
-            if (!each.getValue().isEmpty()) {
-                relatedLinks.putAll(links);
-                break;
+        if (eachContainer.getVisitedPage() != null) {
+            Set<String> existingPages = relatedLinks.get(eachContainer.getMarker());
+            if (existingPages == null) {
+                Set<String> newPages = new HashSet<>(1);
+                newPages.add(eachContainer.getVisitedPage());
+                relatedLinks.put(eachContainer.getMarker(), newPages);
+            } else {
+                existingPages.add(eachContainer.getVisitedPage());
+                relatedLinks.put(eachContainer.getMarker(), existingPages);
             }
         }
     }

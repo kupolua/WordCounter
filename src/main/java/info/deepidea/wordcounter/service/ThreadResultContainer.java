@@ -13,6 +13,7 @@ public class ThreadResultContainer {
     private Map<String, Integer> wordStatistic;
     private Map<String, Map<String, Integer>> d3TestData;
     private String visitedPage;
+    private String marker;
 
     public ThreadResultContainer(String error) {
         this.error = error;
@@ -63,6 +64,14 @@ public class ThreadResultContainer {
 
     public String getVisitedPage() {
         return visitedPage;
+    }
+
+    public String getMarker() {
+        return marker;
+    }
+
+    public void setMarker(String marker) {
+        this.marker = marker;
     }
 
     @Override
