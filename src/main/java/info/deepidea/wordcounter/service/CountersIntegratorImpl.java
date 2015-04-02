@@ -16,7 +16,7 @@ public class CountersIntegratorImpl implements CountersIntegrator {
         Map<String, Map<String, Integer>> d3TestData = new HashMap<>();
         List<String> errorsList = new ArrayList<>();
         for (ThreadResultContainer eachContainer : results) {
-            boolean resultsHaveSameContainer = checkForSameContainer(relatedLinks, eachContainer.getRelatedLinks());
+            boolean resultsHaveSameContainer = checkForSameContainer(d3TestData, eachContainer.getVisitedPage());
             if (!resultsHaveSameContainer) {
                 addD3TestData(d3TestData, eachContainer);
                 addError(errorsList, eachContainer);
@@ -28,10 +28,17 @@ public class CountersIntegratorImpl implements CountersIntegrator {
         return new ThreadResultContainer(resultMap, errorsList, resultStatistic, relatedLinks, d3TestData);
     }
 
-    private boolean checkForSameContainer(Map<String, Set<String>> storedLinks, Map<String, Set<String>> eachLinks) {
+    private boolean checkForSameContainer(Map<String, Map<String, Integer>> wordsByPage, String visitedPage) {
         boolean hasSameResults = false;
-        if ((!eachLinks.keySet().isEmpty()) && (storedLinks.keySet().containsAll(eachLinks.keySet()))) {
-            hasSameResults = true;
+        final String slash = "/";
+
+        if (!wordsByPage.isEmpty()) {
+            for (String page : wordsByPage.keySet()) {
+                String slashedPage = page + slash;
+                if (page.equals(visitedPage) || slashedPage.equals(visitedPage)) {
+                    hasSameResults = true;
+                }
+            }
         }
         return hasSameResults;
     }
