@@ -1,7 +1,4 @@
-// Get JSON data
-//treeJSON = d3.json("js/flare.json", function(error, treeData) {
 $(document).ready(function() {
-//treeJSON = d3.(treeData1, function(treeData) {
     var treeData1 = {
         "name": "flare",
         "children": [{
@@ -759,6 +756,48 @@ $(document).ready(function() {
             }]
         }]
     };
+    var treeData = {"name": "http://www.yahoo.com http://edition.cnn.com",root: "root","children": [
+        {"name": "http://www.yahoo.com","children": [
+            {"name": "https://www.yahoo.com/makers"},
+            {"name": "https://www.yahoo.com/style/dancing-with-the-stars-week-c1427831092579.html"},
+            {"name": "https://www.yahoo.com/travel"},
+            {"name": "https://www.yahoo.com/travel/want-to-retire-in-your-30s-and-travel-the-world-115039314527.html"},
+            {"name": "https://www.yahoo.com/style"},
+            {"name": "https://www.yahoo.com/movies"},
+            {"name": "https://www.yahoo.com/tech/s/access-secret-hidden-menus-iphone-android-phone-140654496.html"},
+            {"name": "https://www.yahoo.com/makers"},
+            {"name": "https://www.yahoo.com/style/dancing-with-the-stars-week-c1427831092579.html"},
+            {"name": "https://www.yahoo.com/travel"},
+            {"name": "https://www.yahoo.com/travel/want-to-retire-in-your-30s-and-travel-the-world-115039314527.html"},
+            {"name": "https://www.yahoo.com/style"},
+            {"name": "https://www.yahoo.com/style/nikki-reed-on-her-most-cherished-clothes-why-115093660963.html"},
+            {"name": "https://www.yahoo.com/tech"},
+            {"name": "https://www.yahoo.com/style/nikki-reed-on-her-most-cherished-clothes-why-115093660963.html"},
+            {"name": "https://www.yahoo.com/tech"},
+            { "name": "https://www.yahoo.com/food"}
+        ]},
+        {"name": "http://edition.cnn.com","children": [
+            {"name": "http://edition.cnn.com/tv"},
+            {"name": "http://edition.cnn.com/europe/index.html"},
+            {"name": "http://edition.cnn.com/2015/04/01/travel/airport-codes/index.html"},
+            {"name": "http://edition.cnn.com/us/index.html"},
+            {"name": "http://edition.cnn.com/africa/index.html"},
+            {"name": "http://edition.cnn.com/tech/index.html"},
+            {"name": "http://edition.cnn.com/videos/business/2015/03/30/wbt-intv-croft-nigeria-elections-economy.cnn"},
+            {"name": "http://edition.cnn.com/videos/us/2015/03/31/april-fools-day-history-boyette-ls.cnn"},
+            {"name": "http://edition.cnn.com/americas/index.html"},
+            {"name": "http://edition.cnn.com/tv"},
+            {"name": "http://edition.cnn.com/europe/index.html"},
+            {"name": "http://edition.cnn.com/2015/04/01/travel/airport-codes/index.html"},
+            {"name": "http://edition.cnn.com/us/index.html"},
+            {"name": "http://edition.cnn.com/africa/index.html"},
+            {"name": "http://edition.cnn.com/tech/index.html"},
+            {"name": "http://edition.cnn.com/videos/business/2015/03/30/wbt-intv-croft-nigeria-elections-economy.cnn"},
+            {"name": "http://edition.cnn.com/videos/us/2015/03/31/april-fools-day-history-boyette-ls.cnn"},
+            {"name": "http://edition.cnn.com/americas/index.html"},
+            { "name": "https://www.yahoo.com/food"}
+        ]}
+    ]};
 
     // Calculate total nodes, max label length
     var totalNodes = 0;
@@ -804,7 +843,7 @@ $(document).ready(function() {
     }
 
     // Call visit function to establish maxLabelLength
-    visit(treeData1, function(d) {
+    visit(treeData, function(d) {
         totalNodes++;
         maxLabelLength = Math.max(d.name.length, maxLabelLength);
 
@@ -1157,6 +1196,10 @@ $(document).ready(function() {
             .attr("text-anchor", function(d) {
                 return d.children || d._children ? "end" : "start";
             })
+            .on("mouseover", function (d) {
+                // enhance all the links that end here
+                return d.size ? d.name + "(" + d.size + ")" : d.name;
+            })
             .text(function(d) {
                 return d.name;
             })
@@ -1185,7 +1228,8 @@ $(document).ready(function() {
                 return d.children || d._children ? "end" : "start";
             })
             .text(function(d) {
-                return d.name;
+                return d.size ? d.name + " (" + d.size + ")" : d.name;
+//                return d.name;
             });
 
         // Change the circle fill depending on whether it has children and is collapsed
@@ -1271,8 +1315,7 @@ $(document).ready(function() {
     var svgGroup = baseSvg.append("g");
 
     // Define the root
-//    root1 = treeData;
-    root = treeData1;
+    root = treeData;
     root.x0 = viewerHeight / 2;
     root.y0 = 0;
 
