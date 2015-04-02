@@ -12,6 +12,7 @@ var target;
 var dataErrors;
 var dataStatistic;
 var dataD3;
+var dataUrlTree;
 var errorsMessage = "";
 var isErrors = false;
 
@@ -54,6 +55,7 @@ $(document).ready(function() {
                 dataErrors = data.errors;
                 dataStatistic = data.wordStatistic;
                 dataD3 = data.d3TestData;
+                dataUrlTree = data.relatedLinks;
                 countedWords = getCountedWords(dataResponse, isFilter);
 
                 if (countedWords.length > 0) {
@@ -122,6 +124,15 @@ function setWordConnectionData() {
 
     window.localStorage.setItem("sortedHeap", JSON.stringify(sortedHeap));
     window.localStorage.setItem("dataD3", JSON.stringify(dataD3));
+}
+
+function setUrlTreeData() {
+    var isVisualization = true;
+    var sortedHeap = getFilteredWords(dataResponse, isVisualization);
+
+    window.localStorage.setItem("sortedHeap", JSON.stringify(sortedHeap));
+    window.localStorage.setItem("dataD3", JSON.stringify(dataD3));
+    window.localStorage.setItem("relatedLinks", JSON.stringify(dataUrlTree));
 }
 
 function requestBinaryCopyOfCalculatedWords(path) {
@@ -283,6 +294,7 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
     getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
+    getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
 function hideResponseContainer() {

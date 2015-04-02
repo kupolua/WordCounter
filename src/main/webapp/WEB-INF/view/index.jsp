@@ -94,6 +94,9 @@
                     <div id="wordConnection">
                         <a href="d3v1" target="_blank" onclick="setWordConnectionData()"><spring:message code="index.wordConnection"/></a>
                     </div>
+                    <div id="urlTree">
+                        <a href="d3v2" target="_blank" onclick="setUrlTreeData()"><spring:message code="index.urlTree"/></a>
+                    </div>
                 </div>
             </div>
             <div id="errorsSpoiler" class="spoiler_open" tabindex="1">

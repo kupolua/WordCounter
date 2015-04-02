@@ -14,6 +14,7 @@
 
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/d3.v3.min.js" type="text/javascript"></script>
+    <script src="js/d3.layout.js" type="text/javascript"></script>
     <%--<script src="js/wordTree.js" type="text/javascript"></script>//todo remove file--%>
     <script src="js/urlTree.js" type="text/javascript"></script>
 
