@@ -33,9 +33,7 @@ public class CountWordsControllerIntegrationTest {
     public void testGetResult_withError() throws Exception {
         // given
         final String givenText = "https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf";
-        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Cannot connect to the source: " +
-                ">https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"],\"wordStatistic\":{}," +
-                "\"relatedLinks\":{}}";
+        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Cannot connect to the source: >https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"],\"wordStatistic\":{},\"relatedLinks\":{},\"d3TestData\":{}}";
 
         // when
         mockMvc.perform(post(COUNT_URL_ENDING)
@@ -53,9 +51,7 @@ public class CountWordsControllerIntegrationTest {
     public void testGetResult_withoutError() throws Exception {
         // given
         final String givenText = "one two two";
-        final String expectedBody = "{\"countedResult\":{\"two\":2,\"one\":1},\"errors\":[],\"" +
-                "wordStatistic\":{\"statisticCharactersWithoutSpaces\":9,\"statisticUniqueWords\":2," +
-                "\"statisticTotalCharacters\":11,\"statisticTotalWords\":3},\"relatedLinks\":{}}";
+        final String expectedBody = "{\"countedResult\":{\"two\":2,\"one\":1},\"errors\":[],\"wordStatistic\":{\"statisticCharactersWithoutSpaces\":9,\"statisticUniqueWords\":2,\"statisticTotalCharacters\":11,\"statisticTotalWords\":3},\"relatedLinks\":{},\"d3TestData\":{\"PlainText\":{\"one\":1,\"two\":2}}}";
 
         // when
         mockMvc.perform(post(COUNT_URL_ENDING)
@@ -92,9 +88,7 @@ public class CountWordsControllerIntegrationTest {
         final String givenText = "https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf";
         final String sortingOrder = "KEY_ASCENDING";
         final String isFilterWords = "true";
-        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Cannot connect to the source: " +
-                ">https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"],\"wordStatistic\":{}" +
-                ",\"relatedLinks\":{}}";
+        final String expectedBody = "{\"countedResult\":{},\"errors\":[\"Cannot connect to the source: >https://dl.dropboxusercontent.com/u/12495182/tests/woddfrds.pdf\"],\"wordStatistic\":{},\"relatedLinks\":{},\"d3TestData\":{}}";
 
         // when
         mockMvc.perform(post(COUNT_URL_ENDING_WITH_PARAMS)
@@ -116,9 +110,7 @@ public class CountWordsControllerIntegrationTest {
         final String givenText = "The bill apple Bill";
         final String sortingOrder = "KEY_ASCENDING";
         final String isFilterWords = "true";
-        final String expectedBody = "{\"countedResult\":{\"apple\":1,\"bill\":2},\"errors\":[],\"" +
-                "wordStatistic\":{\"statisticCharactersWithoutSpaces\":16,\"statisticUniqueWords\":3," +
-                "\"statisticTotalCharacters\":19,\"statisticTotalWords\":4},\"relatedLinks\":{}}";
+        final String expectedBody = "{\"countedResult\":{\"apple\":1,\"bill\":2},\"errors\":[],\"wordStatistic\":{\"statisticCharactersWithoutSpaces\":16,\"statisticUniqueWords\":3,\"statisticTotalCharacters\":19,\"statisticTotalWords\":4},\"relatedLinks\":{},\"d3TestData\":{\"PlainText\":{\"the\":1,\"apple\":1,\"bill\":2}}}";
 
         // when
         mockMvc.perform(post(COUNT_URL_ENDING_WITH_PARAMS)

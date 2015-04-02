@@ -1,6 +1,7 @@
 package info.deepidea.wordcounter.core;
 
 import info.deepidea.wordcounter.service.ThreadResultContainer;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.*;
-
-import static junit.framework.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
@@ -38,12 +37,12 @@ public class ConcurrentExecutorImplIntegrationTest {
             put("statisticTotalCharacters", 15);
             put("statisticTotalWords", 3);
         }};
-
+        final String visitedPage = "http://cnn.com";
         ThreadResultContainer expectedConteiner =
-                new ThreadResultContainer(expectedResult, expectedStatistic, Collections.emptyMap());
+                new ThreadResultContainer(expectedResult, expectedStatistic, Collections.emptyMap(),visitedPage);
 
-        assertEquals(1, actual.size());
-        assertEquals(expectedConteiner, actual.get(0));
+        Assert.assertEquals(1, actual.size());
+        Assert.assertEquals(expectedConteiner, actual.get(0));
     }
 
     @Test
@@ -68,8 +67,9 @@ public class ConcurrentExecutorImplIntegrationTest {
         }};
         Map<String, Integer> expectedResult0 = new HashMap<>();
         expectedResult0.put("word", 3);
+        final String visitedPage = "http://cnn.com";
         ThreadResultContainer container0 =
-                new ThreadResultContainer(expectedResult0, expectedStatistic0, Collections.emptyMap());
+                new ThreadResultContainer(expectedResult0, expectedStatistic0, Collections.emptyMap(), visitedPage);
 
         final Map<String, Integer> expectedStatistic1 = new HashMap<String, Integer>() {{
             put("statisticCharactersWithoutSpaces", 10);
@@ -79,8 +79,10 @@ public class ConcurrentExecutorImplIntegrationTest {
         }};
         Map<String, Integer> expectedResult1 = new HashMap<>();
         expectedResult1.put("hello", 2);
+
+        final String visitedPage2 = "http://cnn.com";
         ThreadResultContainer container1 =
-                new ThreadResultContainer(expectedResult1, expectedStatistic1, Collections.emptyMap());
+                new ThreadResultContainer(expectedResult1, expectedStatistic1, Collections.emptyMap(), visitedPage2);
 
         final Map<String, Integer> expectedStatistic2 = new HashMap<String, Integer>() {{
             put("statisticCharactersWithoutSpaces", 4);
@@ -90,15 +92,17 @@ public class ConcurrentExecutorImplIntegrationTest {
         }};
         Map<String, Integer> expectedResult2 = new HashMap<>();
         expectedResult2.put("jump", 1);
+
+        final String visitedPage3 = "http://cnn.com";
         ThreadResultContainer container2 =
-                new ThreadResultContainer(expectedResult2, expectedStatistic2, Collections.emptyMap());
+                new ThreadResultContainer(expectedResult2, expectedStatistic2, Collections.emptyMap(), visitedPage3);
 
         List<ThreadResultContainer> expected = new ArrayList<>();
         expected.add(container0);
         expected.add(container1);
         expected.add(container2);
 
-        assertEquals(3, actual.size());
-        assertEquals(expected, actual);
+        Assert.assertEquals(3, actual.size());
+        Assert.assertEquals(expected, actual);
     }
 }

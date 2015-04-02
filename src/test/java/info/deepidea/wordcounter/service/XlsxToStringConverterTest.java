@@ -21,9 +21,12 @@ public class XlsxToStringConverterTest {
     @Mock InputStream stream;
     @Spy private XlsxToStringConverter spyConverter;
     private XlsxToStringConverter xlsxToStringConverter;
+    private RequestContainer requestContainer;
 
     @Before
     public void setUp() throws Exception {
+        final String input = "http://xlsx-examples.com/example.xlsx";
+        requestContainer = new RequestContainer(input);
         xlsxToStringConverter = new XlsxToStringConverter();
     }
 
@@ -54,36 +57,32 @@ public class XlsxToStringConverterTest {
     @Test
     public void testConvertToString() throws Exception {
         //given
-        final String input = "http://xlsx-examples.com/example.xlsx";
         final String expected = "example text";
 
-        doReturn(stream).when(spyConverter).openStream(input);
+        doReturn(stream).when(spyConverter).openStream(requestContainer.getClientRequest());
         doReturn(expected).when(spyConverter).extractXlsxWithoutSheetName(stream);
 
         //when
-        final String actualResult = spyConverter.convertToString(input);
+        final ConvertedDataContainer actualResult = spyConverter.convertToString(requestContainer);
 
         //then
-        verify(spyConverter).openStream(input);
+        verify(spyConverter).openStream(requestContainer.getClientRequest());
         verify(spyConverter).extractXlsxWithoutSheetName(stream);
 
-        assertEquals(expected, actualResult);
+        assertEquals(expected, actualResult.getPlainText());
     }
 
     @Test(expected = RuntimeException.class)
     public void testConvertToString_throwingException() throws Exception {
         //given
-        final String input = "http://xls-examples.com/example.xls";
-        final String expected = "example text";
-
-        doReturn(stream).when(spyConverter).openStream(input);
+        doReturn(stream).when(spyConverter).openStream(requestContainer.getClientRequest());
         doThrow(new IOException("test")).when(spyConverter).extractXlsxWithoutSheetName(stream);
 
         //when
-        final String actualResult = spyConverter.convertToString(input);
+        final ConvertedDataContainer actualResult = spyConverter.convertToString(requestContainer);
 
         //then
-        verify(spyConverter).openStream(input);
+        verify(spyConverter).openStream(requestContainer.getClientRequest());
         verify(spyConverter).extractXlsxWithoutSheetName(stream);
     }
 }

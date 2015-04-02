@@ -17,10 +17,10 @@ public class HtmlToStringConverterIntegrationTest {
     @Test
     public void testConvertToString_html() {
         //given
-        final String URL = "http://bbc.com";
+        final String url = "http://bbc.com";
 
         //when
-        String actualResult = converter.convertToString(URL);
+        ConvertedDataContainer actualResult = converter.convertToString(new RequestContainer(url));
 
         //then
         Assert.assertNotNull(actualResult);
@@ -29,10 +29,10 @@ public class HtmlToStringConverterIntegrationTest {
     @Test
     public void testConvertToString_https() {
         //given
-        final String URL = "https://www.google.com.ua/";
+        final String url = "https://www.google.com.ua/";
 
         //when
-        String actualResult = converter.convertToString(URL);
+        ConvertedDataContainer actualResult = converter.convertToString(new RequestContainer(url));
 
         //then
         Assert.assertNotNull(actualResult);
@@ -41,10 +41,10 @@ public class HtmlToStringConverterIntegrationTest {
     @Test
     public void testConvertToString_xml() {
         //given
-        final String URL = "http://www.xmlfiles.com/examples/cd_catalog.xml";
+        final String url = "http://www.xmlfiles.com/examples/cd_catalog.xml";
 
         //when
-        String actualResult = converter.convertToString(URL);
+        ConvertedDataContainer actualResult = converter.convertToString(new RequestContainer(url));
 
         //then
         Assert.assertNotNull(actualResult);
@@ -53,10 +53,10 @@ public class HtmlToStringConverterIntegrationTest {
     @Test(expected = RuntimeException.class)
     public void testConvertToString_badUrl() {
         //given
-        final String URL = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
+        final String url = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
 
         //when
-        converter.convertToString(URL);
+        ConvertedDataContainer actualResult = converter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception
@@ -65,10 +65,10 @@ public class HtmlToStringConverterIntegrationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testConvertToString_null() {
         //given
-        final String URL = null;
+        final String url = null;
 
         //when
-        converter.convertToString(URL);
+        converter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception

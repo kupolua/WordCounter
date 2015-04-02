@@ -45,7 +45,7 @@ public class ExportControllerTest {
         expectedResult.put("two", 2);
 
         result = new WordCounterResultContainerImpl(
-                expectedResult, expectedErrorList, Collections.emptyMap(), Collections.emptyMap());
+                expectedResult, expectedErrorList, Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
         ExportController exportController = new ExportController(wordCounterService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(exportController).alwaysExpect(status().isOk()).build();

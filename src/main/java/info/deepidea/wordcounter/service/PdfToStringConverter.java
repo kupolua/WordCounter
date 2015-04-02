@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.StringJoiner;
 
-@Component
+@Component("pdf")
 public class PdfToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(PdfToStringConverter.class);
 
@@ -27,22 +27,23 @@ public class PdfToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public String convertToString(String userSourcesList) {
-        Assertions.assertStringIsNotNullOrEmpty(userSourcesList);
+    public ConvertedDataContainer convertToString(RequestContainer userRequest) {
+        Assertions.assertStringIsNotNullOrEmpty(userRequest.getClientRequest());
         PdfReader reader = null;
         try {
-            reader = getPdfReader(userSourcesList);
+            reader = getPdfReader(userRequest.getClientRequest());
         } catch (IOException e) {
             String msg = "Can't connect to ";
-            LOG.error(msg + userSourcesList, e);
-            throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userSourcesList, e);
+            LOG.error(msg + userRequest.getClientRequest(), e);
+            throw new WordCounterRuntimeException(ErrorCodeImpl.CANNOT_CONNECT, userRequest.getClientRequest(), e);
         } finally {
             if (reader != null) reader.close();
         }
-        LOG.info("Connection to " + userSourcesList + " has been successfully established.");
+        LOG.info("Connection to " + userRequest.getClientRequest() + " has been successfully established.");
         String extractedText = getTextFromAllPages(reader);
-        Assertions.assertStringIsNotNullOrEmpty(extractedText, userSourcesList);
-        return extractedText;
+        Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
+
+        return new ConvertedDataContainer(userRequest.getClientRequest(), extractedText);
     }
 
     protected PdfReader getPdfReader(String userUrl) throws IOException {

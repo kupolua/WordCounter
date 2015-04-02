@@ -3,6 +3,7 @@ package info.deepidea.wordcounter.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -11,20 +12,19 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test_spring_config.xml")
 public class DocumentConverterIntegrationTest {
-    @Autowired
-    private DocumentConverter converter;
+    @Autowired private DocumentConverter converter;
+    @Autowired @Qualifier("html") private DocumentToStringConverter htmlConverter;
 
     @Test
     public void testGetDocumentConverter_html() throws Exception {
         //given
         final TextType htmlType = new HtmlTextTypeImpl();
-        final DocumentToStringConverter expectedConverter = new HtmlToStringConverter();
 
         //when
         final DocumentToStringConverter actual = converter.getDocumentConverter(htmlType);
 
         //then
-        assertEquals(expectedConverter.getClass(), actual.getClass());
+        assertEquals(htmlConverter.getClass(), actual.getClass());
     }
 
     @Test

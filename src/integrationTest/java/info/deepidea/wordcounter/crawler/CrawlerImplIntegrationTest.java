@@ -43,11 +43,11 @@ public class CrawlerImplIntegrationTest {
         urls2.put(second, googleResults2);
 
         ThreadResultContainer container1 =
-                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls1);
+                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls1, first);
         ThreadResultContainer container2 =
-                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls2);
+                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls2, second);
         ThreadResultContainer emptyContainer =
-                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
+                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap(), "");
 
         when(processor.process(eq(first), anyBoolean(), anyBoolean())).thenReturn(container1);
         when(processor.process(eq(second), anyBoolean(), anyBoolean())).thenReturn(container2);
@@ -102,11 +102,11 @@ public class CrawlerImplIntegrationTest {
         urls3.put(third, googleResults3);
 
         ThreadResultContainer container1 =
-                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls1);
+                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls1, first);
         ThreadResultContainer container2 =
-                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls2);
+                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls2, second);
         ThreadResultContainer container3 =
-                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls3);
+                new ThreadResultContainer(Collections.emptyMap(), Collections.emptyMap(), urls3, third);
 
         when(processor.process(eq(first), anyBoolean(), anyBoolean())).thenReturn(container1);
         when(processor.process(eq(second), anyBoolean(), anyBoolean())).thenReturn(container2);
