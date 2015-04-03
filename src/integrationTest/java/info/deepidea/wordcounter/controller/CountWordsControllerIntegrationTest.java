@@ -1,6 +1,7 @@
 package info.deepidea.wordcounter.controller;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class CountWordsControllerIntegrationTest {
                 .andExpect(content().string(expectedBody));
     }
 
+    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test
     public void testGetResult_withoutError() throws Exception {
         // given
@@ -104,6 +106,7 @@ public class CountWordsControllerIntegrationTest {
                 .andExpect(content().string(expectedBody));
     }
 
+    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test
     public void testGetResultWithParams_withoutError() throws Exception {
         // given

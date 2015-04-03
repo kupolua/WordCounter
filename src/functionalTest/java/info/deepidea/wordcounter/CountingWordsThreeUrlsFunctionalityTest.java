@@ -5,6 +5,7 @@ import info.deepidea.wordcounter.service.WordCounterResultContainerImpl;
 import com.squareup.okhttp.*;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.*;
@@ -21,6 +22,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         objectMapper = new ObjectMapper();
     }
 
+    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test
     public void testEnterThreeLinks() throws Exception {
         // given
@@ -71,6 +73,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withBrokenHtmlLink() throws Exception {
         // given
@@ -119,6 +122,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withNoReadableTextInPdf() throws Exception {
         // given
@@ -169,6 +173,7 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withBrokenTxtLink() throws Exception {
         // given
