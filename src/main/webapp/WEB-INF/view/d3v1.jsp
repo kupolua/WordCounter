@@ -28,6 +28,10 @@
           <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
         </ul>
     </div>
+    <div id="splitDiagrams" class="urlContainer">
+        <div><spring:message code="index.splitDiagrams"/></div>
+        <div class="originalRequest" onClick="drawSelectedDiagram('originalRequest')"><spring:message code="index.originalRequest"/></div>
+    </div>
     <div id="chart">
     </div>
 </body>

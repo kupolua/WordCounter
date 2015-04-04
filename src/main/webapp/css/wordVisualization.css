@@ -494,6 +494,24 @@ input[type="button"]:active {
 	text-align:left;
 }
 
+#splitDiagrams {
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #30b1d9;
+}
+.urlContainer div:nth-child(1){
+    float: left;
+}
+.urlContainer div:nth-child(2){
+    padding-left: 5px;
+    padding-bottom: 10px;
+    float: left;
+}
+
+.originalRequest:hover{color: #970E11}
 A:link {text-decoration: none}
 A:visited {text-decoration: none}
 A:active {text-decoration: none}

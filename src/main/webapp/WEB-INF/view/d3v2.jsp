@@ -29,7 +29,6 @@
           <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
         </ul>
     </div>
-    <div id="chart"></div>
     <div id="tree-container"></div>
 </body>
 </html>
