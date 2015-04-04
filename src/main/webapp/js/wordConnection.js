@@ -441,7 +441,7 @@ function initialize(selectedDiagram) {
     var newoptions = {
         nodeLabel: "label",
         nodeResize: "count", height: 900,
-        nodeFocus: true, radius: 3, charge: -3000
+        nodeFocus: true, radius: 3, charge: -2500
     };
     // defaults
     control.options = $.extend({
@@ -577,11 +577,28 @@ function getTheData(control, selectedDiagram) {
         newCount = 0;
     }
 
-    var data = newData;
-    massage.resolve(dataMassage(control, data));
+    normalizeRadiusOfCentralCircles(newData, control);
+
+    massage.resolve(dataMassage(control, newData));
     return massage.promise();
 }
 
+function normalizeRadiusOfCentralCircles(data, control) {
+    var amount = 0;
+    for (var index = 0; index < data.length; index++) {
+        if (amount < data[index].count) {
+            amount = data[index].count;
+        }
+    }
+
+    if (amount >= 3000 && amount <= 60000) {
+        control.options.radius = 0.5;
+    }
+    if (amount > 60000) {
+        control.options.radius = 0.2;
+    }
+
+}
 function getFilteredData(selectedDiagram) {
     var dataContainer;
     var countedWords = [];

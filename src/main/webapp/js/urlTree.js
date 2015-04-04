@@ -25,6 +25,7 @@ function makeUrlTreeObject(relatedLinksKVArray) {
     }
 
     var rootObject = {name :request, children :[]};
+    
     var amountOfRootWords = 0;
     for (var secondDepthIndex = 0; secondDepthIndex < relatedLinksKVArray.length; secondDepthIndex++) {
         var amountOfSecondDepthWords = 0;
