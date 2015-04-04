@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@Component
+@Component("xlsx")
 public class XlsxToStringConverter implements DocumentToStringConverter {
     private static final Logger LOG = LoggerFactory.getLogger(XlsxToStringConverter.class);
 
@@ -29,20 +29,21 @@ public class XlsxToStringConverter implements DocumentToStringConverter {
     }
 
     @Override
-    public String convertToString(String userSourcesList) {
-        Assertions.assertStringIsNotNullOrEmpty(userSourcesList);
-        InputStream stream = openStream(userSourcesList);
+    public ConvertedDataContainer convertToString(RequestContainer userRequest) {
+        Assertions.assertStringIsNotNullOrEmpty(userRequest.getClientRequest());
+        InputStream stream = openStream(userRequest.getClientRequest());
         String extractedText;
         try {
             extractedText = extractXlsxWithoutSheetName(stream);
         } catch (IOException e) {
-            LOG.error("I/O operation has been failed or interrupted while processing <" + userSourcesList + ">.", e);
-            throw new RuntimeException("Document " + userSourcesList + " cannot be processed. ", e);
+            LOG.error("I/O operation has been failed or interrupted while processing <" + userRequest.getClientRequest() + ">.", e);
+            throw new RuntimeException("Document " + userRequest.getClientRequest() + " cannot be processed. ", e);
         } finally {
             closeInputStream(stream);
         }
-        Assertions.assertStringIsNotNullOrEmpty(extractedText, userSourcesList);
-        return extractedText;
+        Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
+
+        return new ConvertedDataContainer(userRequest.getClientRequest(), extractedText);
     }
 
     protected String extractXlsxWithoutSheetName(InputStream input) throws IOException {

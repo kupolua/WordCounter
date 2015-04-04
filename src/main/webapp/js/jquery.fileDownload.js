@@ -179,7 +179,6 @@
 
                     //wire up a jquery dialog to display the preparing message if specified
                     if (settings.preparingMessageHtml) {
-                        spinner = new Spinner(opts).spin(target);
                         $preparingDialog = $("<div>").html(settings.preparingMessageHtml).dialog(settings.dialogOptions);
 
                     } else if (settings.prepareCallback) {

@@ -2,6 +2,8 @@ package info.deepidea.wordcounter.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -11,18 +13,21 @@ import java.util.Set;
 public class DocumentConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentConverter.class);
     private static Set<DocumentToStringConverter> documentToStringConverters;
-    public DocumentConverter(){
-        documentToStringConverters = new HashSet<>();
-        documentToStringConverters.add(new HtmlToStringConverter());
-        documentToStringConverters.add(new PdfToStringConverter());
-        documentToStringConverters.add(new DocToStringConverter());
-        documentToStringConverters.add(new PlainToStringConverter());
-        documentToStringConverters.add(new XlsToStringConverter());
-        documentToStringConverters.add(new XlsxToStringConverter());
-    }
 
-    public static void setDocumentToStringConverters(Set<DocumentToStringConverter> documentToStringConverters) {
-        DocumentConverter.documentToStringConverters = documentToStringConverters;
+    @Autowired
+    public DocumentConverter(@Qualifier("html") DocumentToStringConverter htmlConverter,
+                             @Qualifier("pdf") DocumentToStringConverter pdfConverter,
+                             @Qualifier("doc") DocumentToStringConverter docConverter,
+                             @Qualifier("plainText") DocumentToStringConverter plainTextConverter,
+                             @Qualifier("xls") DocumentToStringConverter xlsConverter,
+                             @Qualifier("xlsx") DocumentToStringConverter xlsxConverter){
+        documentToStringConverters = new HashSet<>();
+        documentToStringConverters.add(htmlConverter);
+        documentToStringConverters.add(pdfConverter);
+        documentToStringConverters.add(docConverter);
+        documentToStringConverters.add(plainTextConverter);
+        documentToStringConverters.add(xlsConverter);
+        documentToStringConverters.add(xlsxConverter);
     }
 
     public DocumentToStringConverter getDocumentConverter(TextType sourceType) {

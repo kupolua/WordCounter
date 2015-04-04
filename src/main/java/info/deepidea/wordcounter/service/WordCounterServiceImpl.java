@@ -29,26 +29,30 @@ public class WordCounterServiceImpl implements WordCounterService {
 
     @Override
     public WordCounterResultContainer getWordCounterResult(CountWordsUserRequest clientRequest) {
-        checkParams(clientRequest.getTextCount(), clientRequest.getSortingOrder());
+        checkParams(clientRequest.getDepthOfCrawling(), clientRequest.getTextCount(), clientRequest.getSortingOrder());
 
         Collection<String> splitterRequests = splitter.getSplitRequests(clientRequest.getTextCount());
 
-        List<ThreadResultContainer> wordCountResults = concurrentExecutor.countAsynchronously(splitterRequests);
+        List<ThreadResultContainer> wordCountResults = concurrentExecutor.countAsynchronously(
+                splitterRequests, clientRequest.getDepthOfCrawling(), clientRequest.isInternalCrawling());
 
         ThreadResultContainer results = integrator.integrateResults(wordCountResults);
 
-        Map<String, Integer> filteredResults = filter.removeUnimportantWords(results.getCountedResult(), clientRequest.isFilterRequired());
+        Map<String, Integer> filteredResults = filter.removeUnimportantWords(
+                results.getCountedResult(), clientRequest.isFilterRequired());
 
         WordResultSorter sorter = clientRequest.getSortingOrder();
         Map<String, Integer> sortedRefinedCountedWords = sorter.getSortedWords(filteredResults);
 
-        WordCounterResultContainer result = new WordCounterResultContainerImpl(sortedRefinedCountedWords, results.getErrorsList());
+        WordCounterResultContainer result = new WordCounterResultContainerImpl(sortedRefinedCountedWords,
+                results.getErrorsList(), results.getWordStatistic(), results.getRelatedLinks(), results.getD3TestData());
 
         return result;
     }
 
-    private static void checkParams(String userUrlsString, Object obj) {
+    private static void checkParams(int depth, String userUrlsString, Object obj) {
         Assertions.assertStringIsNotNullOrEmpty(userUrlsString);
         Assertions.assertObjectIsNotNull(obj);
+        Assertions.assertDepthIsNotOutOfRange(depth);
     }
 }

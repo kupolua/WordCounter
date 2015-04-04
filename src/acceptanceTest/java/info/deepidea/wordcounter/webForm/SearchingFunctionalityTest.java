@@ -41,6 +41,7 @@ public class SearchingFunctionalityTest {
         driver.findElement(By.cssSelector(elementCssInputSearch)).sendKeys(searchWord);
 
         // then
+        driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         String actualSearchWord = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(expectedSearchWord, actualSearchWord);
     }

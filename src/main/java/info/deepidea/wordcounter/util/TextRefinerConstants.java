@@ -16,7 +16,6 @@ public class TextRefinerConstants {
     public static final String ZERO_WIDTH_NON_JOINER_CHARACTER_ENTITY = "&zwnj;";
     public static final String ZERO_WIDTH_NON_JOINER_NUMERIC_ENTITY = "&#8204;";
     public static final String WORD_WRAPPING = "-\\n";
-
     public static final String LONG_DASH = "—";
     public static final Pattern WHITESPACES_PATTERN =
             Pattern.compile("(\\s+)|("+NON_BREAKING_SPACE_CHARACTER_ENTITY+")|("+NON_BREAKING_SPACE_NUMERIC_ENTITY+")" +

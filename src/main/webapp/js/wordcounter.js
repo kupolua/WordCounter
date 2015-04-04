@@ -10,6 +10,9 @@ var tableSortingOrderParam = "desc";
 var opts;
 var target;
 var dataErrors;
+var dataStatistic;
+var dataD3;
+var dataUrlTree;
 var errorsMessage = "";
 var isErrors = false;
 
@@ -18,7 +21,7 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-    $("#CountWords").click(function(e){
+    $("#getCountedWords").click(function(e){
         opts = {
             lines: 11, // The number of lines to draw
             length: 17, // The length of each line
@@ -39,8 +42,9 @@ $(document).ready(function() {
         };
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
-        dataString = "textCount=" + encodeURIComponent(textCount);
-
+        crawlDepth = getCrawlDepth();
+        crawlScope = getCrawlScoupe(); //todo remove u
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
         $.ajax({
             type: "POST",
             url: "./countWords",
@@ -49,7 +53,11 @@ $(document).ready(function() {
             success: function(data) {
                 dataResponse = data.countedResult;
                 dataErrors = data.errors;
+                dataStatistic = data.wordStatistic;
+                dataD3 = data.d3TestData;
+                dataUrlTree = data.relatedLinks;
                 countedWords = getCountedWords(dataResponse, isFilter);
+
                 if (countedWords.length > 0) {
                     setStatusFilterButton(isFilter);
                     displayResponseContainer();
@@ -58,6 +66,8 @@ $(document).ready(function() {
                     }
                     showErrors(dataErrors);
                     writeTable(countedWords, selectedRows);
+                    showStatistic(dataStatistic);
+                    showWordCloud();
                 } else {
                     displayErrorContainer();
                     showErrors(dataErrors);
@@ -91,38 +101,50 @@ $(document).ready(function() {
         activSpinner.done(function(){ spinner.stop(target); });
     });
 
-    $("#getPdf").click("image", "form.pdfDownloadForm", function (e) {
-        $.fileDownload($(this).prop('action'), {
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again.",
-            httpMethod: "POST",
-            data: $(this).serialize()
-        });
-        e.preventDefault();
+    $("#saveAsPdf").click(function(e) {
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&sortingOrder=" + getSortingOrder()
+            + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
+
+        var path = "/WordCounter/downloadPDF";
+        requestBinaryCopyOfCalculatedWords(path);
     });
 
-    $("#getXls").click("image", "form.getXlsForm", function (e) {
-        $.fileDownload($(this).prop('action'), {
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again.",
-            httpMethod: "POST",
-            data: $(this).serialize()
-        });
+    $("#saveAsXls").click(function(e) {
+        dataString = "textCount=" + encodeURIComponent(textCount) + "&sortingOrder=" + getSortingOrder()
+            + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
+
+        var path = "/WordCounter/downloadExcel";
+        requestBinaryCopyOfCalculatedWords(path);
     });
 });
 
-function setPdfFields() {
-    closeSpoiler();
-    $("input:hidden[id='pdfTextCount']").attr("value", textCount);
-    $("input:hidden[id='pdfSortingOrder']").attr("value", getSortingOrder());
-    $("input:hidden[id='pdfIsFilterWords']").attr("value", isFilterWords);
+function setWordConnectionData() {
+    var isVisualization = true;
+    var sortedHeap = getFilteredWords(dataResponse, isVisualization);
+    for (var property in dataD3) {
+        if (dataD3.hasOwnProperty(property)) {
+            dataD3[property] = getFilteredWords(dataD3[property], isVisualization);
+        }
+    }
+    window.localStorage.setItem("sortedHeap", JSON.stringify(sortedHeap));
+    window.localStorage.setItem("dataD3", JSON.stringify(dataD3));
+    window.localStorage.setItem("relatedLinks", JSON.stringify(dataUrlTree));
 }
 
-function setXlsFields() {
-    closeSpoiler();
-    $("input:hidden[id='xlsTextCount']").attr("value", textCount);
-    $("input:hidden[id='xlsSortingOrder']").attr("value", getSortingOrder());
-    $("input:hidden[id='xlsIsFilterWords']").attr("value", isFilterWords);
+function setUrlTreeData() {
+    var isVisualization = true;
+    var sortedHeap = getFilteredWords(dataResponse, isVisualization);
+
+    window.localStorage.setItem("sortedHeap", JSON.stringify(sortedHeap));
+    window.localStorage.setItem("dataD3", JSON.stringify(dataD3));
+    window.localStorage.setItem("relatedLinks", JSON.stringify(dataUrlTree));
+}
+
+function requestBinaryCopyOfCalculatedWords(path) {
+    spinner.spin(target);
+    $.fileDownload(path, {httpMethod: "POST", data: dataString})
+                           .done(function () { spinner.stop(target); })
+                           .fail(function () { alert('File download failed!'); });
 }
 
 function runSpinner(isFilter){
@@ -184,6 +206,7 @@ function writeTable(countedWords, pageLength) {
         "order": [ parseInt(tableSortingFieldParam), tableSortingOrderParam ],
         "pageLength": parseInt(pageLength),
         "autoWidth": false,
+        "deferRender": true,
         "columns": [
             {
                 "title": $("#wordsColumNameAnchor").text(),
@@ -197,41 +220,52 @@ function writeTable(countedWords, pageLength) {
     });
 }
 
-function getCountedWords(unFilteredWords, isFilter) {
-    var index;
-    var countedWordsTable = [];
-    var isFound = false;
-    var isFilteredWord = 0;
-
-    if(isFilter) {
-        var wordsFilter = $('#wordsFilter').text().split(' ');
-    }
-
-    $.each( unFilteredWords, function( key, value ) {
-        if(!isFilter) {
-            countedWordsTable[isFilteredWord] = [];
-            isFound = true;
-        } else {
-            index = wordsFilter.indexOf(key);
-            if (index < 0) {
-                countedWordsTable[isFilteredWord] = [];
-                isFound = true;
-            } else {
-                isFound = false;
-            }
-        }
-        if(isFound) {
-            countedWordsTable[isFilteredWord][0] = key;
-            countedWordsTable[isFilteredWord][1] = value;
-            isFilteredWord++;
-        }
-    });
-    return countedWordsTable;
-}
-
 function dataTableDestroy() {
     $('#countedWords').dataTable().fnDestroy();
     $('#countedWords').hide();
+}
+
+function getCountedWords(unFilteredWords, isFilter) {
+    var countedWordsTable = [];
+
+    if(isFilter) {
+        countedWordsTable = getFilteredWords(unFilteredWords);
+    } else {
+        countedWordsTable = getMultiArrayOfCalculatedWords(unFilteredWords);
+    }
+
+    return countedWordsTable;
+}
+
+function getFilteredWords(unFilteredWords, isVisualization) {
+    var index;
+    var copyOfUnfilteredWords = jQuery.extend({}, unFilteredWords);
+    var filteringWords = $('#wordsFilter').text().split(' ');
+
+    for (index = 0; index < filteringWords.length; ++index) {
+        if (copyOfUnfilteredWords.hasOwnProperty(filteringWords[index])) {
+            delete copyOfUnfilteredWords[filteringWords[index]];
+        }
+    }
+    if(isVisualization) {
+        return copyOfUnfilteredWords;
+    } else {
+        return getMultiArrayOfCalculatedWords(copyOfUnfilteredWords);
+    }
+}
+
+function getMultiArrayOfCalculatedWords(calculatedWords) {
+    var countedWordsTable = [];
+    var index = 0;
+
+    $.each(calculatedWords, function(key, value) {
+        countedWordsTable[index] = [];
+        countedWordsTable[index][0] = key;
+        countedWordsTable[index][1] = value;
+        index++;
+    });
+
+    return countedWordsTable;
 }
 
 function getSelectedRows() {
@@ -252,14 +286,20 @@ function setStatusFilterButton(isFilter) {
     }
 }
 
-function displayResponseContainer() {
+function displayResponseContainer() { //todo move divs to elementsContainer
     $("#showFilter").show();
     $("#saveAsPdf").show();
     $("#saveAsXls").show();
     $("#wordCounterResponse").show();
+    $("#wordCloud").show();
     $('#countedWords').show();
     $("#messageCounter").hide();
     $('#errorsContainer').text('');
+    $('#spoilerStatistic').show();
+    $('#reloadWordCounter').show();
+    $('#wordCloudData').show();
+    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
+    getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
 function hideResponseContainer() {
@@ -270,8 +310,13 @@ function hideResponseContainer() {
     $("#saveAsPdf").hide();
     $("#saveAsXls").hide();
     $("#wordCounterResponse").hide();
+    $("#wordCloud").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
+    $('#spoilerStatistic').hide();
+    $('#reloadWordCounter').hide();
+    $('#wordCloudData').hide();
+    $('#wordConnection').hide();
 }
 
 function displayErrorContainer() {
@@ -284,6 +329,9 @@ function displayErrorContainer() {
     $("#wordCounterResponse").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
+    $('#spoilerStatistic').hide();
+    $('#wordCloudData').hide();
+    $('#wordConnection').hide();
 }
 
 function showErrors(dataErrors) {
@@ -304,6 +352,271 @@ function showErrors(dataErrors) {
     }
 }
 
+function showCrawlScope() {
+    if($("input[name=crawlDepth]:checkbox:checked").val()) {
+        $("#crawlScopeClarification").css("color", "#30b1d9");
+        $("input[name=crawlLocalDomain]").prop('disabled', false);
+    } else {
+        $("input[name=crawlLocalDomain]").prop('disabled', true);
+        $("input[name=crawlLocalDomain]").prop('checked', true);
+        $("#crawlScopeClarification").css("color", "#534d4d");
+    }
+}
+
+function showStatistic(dataStatistic) {
+    $.each(dataStatistic, function (key, value) {
+        $('#' + key).html(value)
+    });
+}
+
 function closeSpoiler() {
     $("spoiler_close").click();
 }
+
+function getCrawlScoupe() {
+    if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {
+        crawlScope = "true";
+
+    } else {
+        crawlScope = "false";
+    }
+    return crawlScope;
+}
+
+function getCrawlDepth() {
+    if($("input[name=crawlDepth]:checkbox:checked").val()) {
+        crawlScope = 1;
+    } else {
+        crawlScope = 0;
+    }
+    return crawlScope;
+}
+
+function showWordCloud() {
+    var div = $("#wordCloudData");
+    var canvas = $("#canvas_cloud").get(0);
+        canvas.width  = div.width();
+        canvas.height = div.height();
+    normalizationWords(canvas);
+    var options = {
+        list: countedWords,
+        gridSize: 1,
+        weightFactor: 1,
+        rotateRatio: 0.5
+    };
+    WordCloud(canvas, options);
+}
+
+function showModalWordCloud() {
+    var pageSize = getPageSize();
+    var cloudCanvasWidth = pageSize[2];
+    var cloudCanvasHeight = pageSize[3];
+    var resizePercent = 93 / 100;
+    var cloudCanvas = $("#canvas_cloudModal").get(0);
+        cloudCanvas.width  = cloudCanvasWidth * resizePercent;
+        cloudCanvas.height  = cloudCanvasHeight * resizePercent;
+    var backgroundColor = $("#osx-modal-data-wordCloud").css("background-color");
+    normalizationWords(cloudCanvas);
+    var options = {
+        list: countedWords,
+        gridSize: 1,
+        weightFactor: 1,
+        backgroundColor: backgroundColor,
+        rotateRatio: 0.5
+    };
+    WordCloud(cloudCanvas, options);
+}
+
+function normalizationWords(canvas) { //todo refactor code around 10h
+    countedWords = getCountedWords(dataResponse, true);
+    var countedWordsLength = countedWords.length;
+
+    var wordsListLength = countedWords.length;
+    var maxWordWeight = countedWords[0][1];
+    var minWordWeight = countedWords[wordsListLength - 1][1];
+    var minWeight = 1;
+    var intervalParam = [];
+    var numberIntervals = 1;
+    if(maxWordWeight - minWordWeight > 1) {
+        numberIntervals = 1 + Math.round(Math.log(countedWords.length, 2));
+        var stepLength = (maxWordWeight - minWordWeight) / numberIntervals;
+        var increasePercent = 50;
+        i = 0;
+        intervalParam[i] = [];
+        intervalParam[i][0] = minWordWeight + stepLength;
+        intervalParam[i][1] = minWeight;
+        for(i++; i < numberIntervals; i++) {
+            intervalParam[i] = [];
+            intervalParam[i][0] = intervalParam[i - 1][0] + stepLength;
+            intervalParam[i][1] = intervalParam[i - 1][1] + (intervalParam[i - 1][1] * increasePercent / 100);
+        }
+    } else {
+        intervalParam[0] = [minWordWeight, minWeight];
+    }
+
+    i = 0;
+    for(; i < wordsListLength; i++) {
+        for(var k = 0; k < numberIntervals; k++) {
+            if(countedWords[i][1] <= intervalParam[k][0]) {
+                countedWords[i][1] = intervalParam[k][1];
+                break;
+            }
+        }
+    }
+    var maxStepSize = 2;
+    var increaseFactor = 1.5;
+    var amountWordsInInterval = [];
+    var indexIntervalFactor = 0;
+    var amountIntervalFactor = 0;
+    var countWordsInInterval = 0;
+    for(i = countedWords.length - 2; i >= 0; i--) {
+        countWordsInInterval++;
+        if (countedWords[i][1] / countedWords[i + 1][1] > maxStepSize) {
+            countedWords[i][1] = countedWords[i + 1][1] * increaseFactor;
+        }
+        if(countedWords[i][1] != countedWords[i + 1][1]) {
+            amountWordsInInterval[indexIntervalFactor] = [countedWords[i + 1][1], countWordsInInterval];
+            indexIntervalFactor++;
+            countWordsInInterval = 0;
+            amountIntervalFactor += countedWords[i + 1][1];
+        }
+    }
+    amountWordsInInterval[indexIntervalFactor] = [countedWords[i + 1][1], ++countWordsInInterval];
+    amountIntervalFactor += countedWords[i + 1][1];
+    var constantWordLength = 5;
+    var constantFontSize = 1;
+    var constantWordWidth = 2.4;
+    var constantWordHeight = 0.7;
+    var constantMinFontSize = 16;
+    var constantMinWordLength = 5;
+    var wordHeight = 0;
+    var canvasSquare = (canvas.width * canvas.height);
+    var wordIntervalWidth = 0;
+    var wordIntervalHeight = 0;
+    var wordsIntervalsSquare = 0;
+    var wordIntervalSquare = 0;
+    var fontZoomFactor = 0;
+    var fontSize = 0;
+    var wordWidth = 0;
+    var amountWords = 0;
+    var usedSquare = 0;
+    var minWordsLenth = 7;
+    var minFontZoomFactor = 0.8;
+    var minWordsLenthFactor = 0.7;
+    var i = 0;
+    amountWords = getIntervalFactor(amountWordsInInterval, countedWords[i][1]);
+    wordWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength);
+    wordHeight = constantWordHeight;
+    wordsIntervalsSquare = (countedWords[i][1] * 100 / amountIntervalFactor / amountWords) * (canvasSquare - usedSquare) / 100;
+    wordIntervalHeight = Math.sqrt(wordsIntervalsSquare / (wordWidth * wordHeight) * Math.pow(wordHeight, 2));
+    wordIntervalWidth = constantWordWidth / constantWordHeight * wordIntervalHeight;
+    if(wordIntervalWidth > canvas.height) {
+        wordIntervalHeight = wordIntervalHeight * (canvas.height / wordIntervalWidth);
+        wordIntervalWidth = canvas.height;
+    }
+    fontZoomFactor = wordIntervalHeight / wordHeight;
+    fontSize = constantFontSize * fontZoomFactor;
+    usedSquare += wordIntervalWidth * wordIntervalHeight;
+    var prevWordFactor = countedWords[i][1];
+    if(countedWords[i][1] == 1) {
+       minFontZoomFactor = 0.5; //todo count factor with math
+    }
+    fontSize *= minFontZoomFactor;
+    countedWords[i][1] = fontSize;
+    var currentFontSize = fontSize;
+
+    i++;
+    if(i < countedWordsLength) {
+        do {
+            if (countedWords[i][1] < prevWordFactor) {
+                currentFontSize = currentFontSize / (prevWordFactor / countedWords[i][1]);
+                prevWordFactor = countedWords[i][1];
+            }
+            amountWords = getIntervalFactor(amountWordsInInterval, countedWords[i][1]);
+            wordIntervalWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength * currentFontSize / constantFontSize);
+            wordIntervalHeight = currentFontSize * constantWordHeight / constantFontSize;
+            if (wordIntervalWidth > canvas.height) {
+                wordIntervalHeight = wordIntervalHeight * (canvas.height / wordIntervalWidth);
+                wordIntervalWidth = canvas.height;
+            }
+            if(countedWords[i][0].length > minWordsLenth) {
+                currentFontSize *= minWordsLenthFactor;
+            }
+            fontSize = currentFontSize;
+            if (fontSize < constantMinFontSize) {
+                wordIntervalWidth = (countedWords[i][0].length * constantWordWidth / constantWordLength * constantMinFontSize / constantFontSize);
+                wordIntervalHeight = constantMinFontSize * constantWordHeight / constantFontSize;
+                fontZoomFactor = wordIntervalHeight / wordHeight;
+                fontSize = constantFontSize * fontZoomFactor;
+            }
+            usedSquare += wordIntervalWidth * wordIntervalHeight;
+            countedWords[i][1] = fontSize;
+            i++;
+            if (i == countedWordsLength) {
+                break;
+            }
+        } while (usedSquare < canvasSquare);
+        var removingWord = i;
+        for (; i < countedWordsLength; i++) {
+            countedWords.splice(removingWord, 1);
+        }
+    }
+
+}
+
+function getIntervalFactor(amountWordsInInterval, intervalFactor) {
+    var k = 0;
+    var wordsInIntervalLength = amountWordsInInterval.length;
+    var amountWords = 0;
+    for(; k < wordsInIntervalLength; k++) {
+        if(amountWordsInInterval[k][0] == intervalFactor) {
+            amountWords = amountWordsInInterval[k][1];
+            break;
+        }
+    }
+    return amountWords;
+}
+
+function getPageSize() {
+    var xScroll, yScroll;
+
+    if (window.innerHeight && window.scrollMaxY) {
+        xScroll = document.body.scrollWidth;
+        yScroll = window.innerHeight + window.scrollMaxY;
+    } else if (document.body.scrollHeight > document.body.offsetHeight){
+        xScroll = document.body.scrollWidth;
+        yScroll = document.body.scrollHeight;
+    } else if (document.documentElement && document.documentElement.scrollHeight > document.documentElement.offsetHeight){
+        xScroll = document.documentElement.scrollWidth;
+        yScroll = document.documentElement.scrollHeight;
+    } else {
+        xScroll = document.body.offsetWidth;
+        yScroll = document.body.offsetHeight;
+    }
+
+    var windowWidth, windowHeight;
+    if (self.innerHeight) {
+        windowWidth = self.innerWidth;
+        windowHeight = self.innerHeight;
+    } else if (document.documentElement && document.documentElement.clientHeight) {
+        windowWidth = document.documentElement.clientWidth;
+        windowHeight = document.documentElement.clientHeight;
+    } else if (document.body) {
+        windowWidth = document.body.clientWidth;
+        windowHeight = document.body.clientHeight;
+    }
+
+    if(yScroll < windowHeight){
+        pageHeight = windowHeight;
+    } else {
+        pageHeight = yScroll;
+    }
+
+    if(xScroll < windowWidth){
+        pageWidth = windowWidth;
+    } else {
+        pageWidth = xScroll;
+    }
+    return [pageWidth,pageHeight,windowWidth,windowHeight];
+}
+

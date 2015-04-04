@@ -68,8 +68,8 @@ public class CountingWordsFunctionalityTest {
     public void countWordsPlainText_conditionTwo() {
         // given
         driver.get(BASE_URL);
-        final String expectedResult = "під'їзд 2\nй 1\nєнот 1\nґедзь 1";
         final String text = "Під'їзд, ПІД'ЇЗД, ґедзь, єнот, й";
+        final String expectedResult = "під'їзд 2\nєнот 1\nґедзь 1\nй 1";
 
         // when
         putDataAndClickCountButton(driver, text);
@@ -84,8 +84,8 @@ public class CountingWordsFunctionalityTest {
     public void countWordsPlainText_conditionThree() {
         // given
         driver.get(BASE_URL);
-        final String expectedResult = "sweet 2\nlady 1\nloving 1\nwife 1";
         final String text = "SWEET sweet lady loving wife";
+        final String expectedResult = "sweet 2\nloving 1\nwife 1\nlady 1";
 
         // when
         putDataAndClickCountButton(driver, text);
@@ -139,7 +139,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, noTextOnPage);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -159,7 +159,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, invalidLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -228,7 +228,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, noTextInPdf);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -272,7 +272,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then
@@ -299,7 +299,7 @@ public class CountingWordsFunctionalityTest {
         putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
+        driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
         //then

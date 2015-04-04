@@ -20,10 +20,10 @@ public class XlsxToStringConverterIntegrationTest {
         final String expected = "один\nдва\nдва\nтри три, три\n";
 
         //when
-        String actualResult = xlsxToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = xlsxToStringConverter.convertToString(new RequestContainer(url));
 
         //then
-        Assert.assertEquals(expected, actualResult);
+        Assert.assertEquals(expected, actualResult.getPlainText());
     }
 
     @Test(expected = RuntimeException.class)
@@ -32,7 +32,7 @@ public class XlsxToStringConverterIntegrationTest {
         final String url = "http://www.xmlfiles.com/examples/cd_ca22123talog.xml";
 
         //when
-        String actualResult = xlsxToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = xlsxToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception
@@ -44,7 +44,7 @@ public class XlsxToStringConverterIntegrationTest {
         final String url = null;
 
         //when
-        String actualResult = xlsxToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = xlsxToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception
@@ -56,7 +56,7 @@ public class XlsxToStringConverterIntegrationTest {
         final String url = "";
 
         //when
-        String actualResult = xlsxToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = xlsxToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception

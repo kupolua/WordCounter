@@ -34,7 +34,7 @@ public class WordCounterServiceImplTest {
 
         when(clientRequest.getSortingOrder()).thenReturn(sorter);
         when(splitter.getSplitRequests(anyString())).thenReturn(new HashSet<>());
-        when(concurrentExecutor.countAsynchronously(anyCollection())).thenReturn(new ArrayList<>());
+        when(concurrentExecutor.countAsynchronously(anyCollection(), anyInt(), anyBoolean())).thenReturn(new ArrayList<>());
         when(integrator.integrateResults(anyList())).thenReturn(threadContainer);
         when(filter.removeUnimportantWords(anyMap(), anyBoolean())).thenReturn(new HashMap<>());
     }
@@ -58,7 +58,7 @@ public class WordCounterServiceImplTest {
         verify(clientRequest, times(2)).getTextCount();
         verify(clientRequest, times(2)).getSortingOrder();
         verify(splitter).getSplitRequests(anyString());
-        verify(concurrentExecutor).countAsynchronously(anyCollection());
+        verify(concurrentExecutor).countAsynchronously(anyCollection(), anyInt(), anyBoolean());
         verify(integrator).integrateResults(anyList());
         verify(filter).removeUnimportantWords(anyMap(), anyBoolean());
         verify(sorter).getSortedWords(anyMap());
@@ -124,7 +124,7 @@ public class WordCounterServiceImplTest {
         verify(clientRequest, times(2)).getTextCount();
         verify(clientRequest, times(2)).getSortingOrder();
         verify(splitter).getSplitRequests(anyString());
-        verify(concurrentExecutor).countAsynchronously(anyCollection());
+        verify(concurrentExecutor).countAsynchronously(anyCollection(), anyInt(), anyBoolean());
         verify(integrator).integrateResults(anyList());
         verify(filter).removeUnimportantWords(anyMap(), anyBoolean());
         verify(sorter).getSortedWords(anyMap());

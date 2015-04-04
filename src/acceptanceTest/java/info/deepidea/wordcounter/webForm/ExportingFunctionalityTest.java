@@ -11,11 +11,12 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import java.io.File;
 
 import static info.deepidea.wordcounter.webForm.utils.Constants.*;
-import static info.deepidea.wordcounter.webForm.utils.Util.*;
+import static info.deepidea.wordcounter.webForm.utils.Util.putDataAndClickCountButton;
+import static info.deepidea.wordcounter.webForm.utils.Util.waitForJQueryProcessing;
 import static org.junit.Assert.assertTrue;
 
 public class ExportingFunctionalityTest {
-    private static final int WAIT_TIME = 1000;
+    private static final int WAIT_TIME = 5000;
     private static WebDriver driver;
     private static String pathResources;
 

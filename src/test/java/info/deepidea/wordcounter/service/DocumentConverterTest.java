@@ -9,9 +9,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @RunWith(MockitoJUnitRunner.class)
 public class DocumentConverterTest {
     @Mock private HtmlTextTypeImpl htmlType;
@@ -30,17 +27,8 @@ public class DocumentConverterTest {
 
     @Before
     public void setup() {
-        converter = new DocumentConverter();
-
-        Set<DocumentToStringConverter> documentToStringConverters = new HashSet<>();
-        documentToStringConverters.add(htmlConverter);
-        documentToStringConverters.add(pdfConverter);
-        documentToStringConverters.add(docConverter);
-        documentToStringConverters.add(plainConverter);
-        documentToStringConverters.add(xlsConverter);
-        documentToStringConverters.add(xlsxConverter);
-
-        DocumentConverter.setDocumentToStringConverters(documentToStringConverters);
+        converter = new DocumentConverter(htmlConverter, pdfConverter, docConverter,
+                                          plainConverter, xlsConverter, xlsxConverter);
     }
 
     @Test

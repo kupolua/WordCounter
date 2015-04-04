@@ -20,10 +20,10 @@ public class XlsToStringConverterIntegrationTest {
         final String expected = "один\nдва\nдва\nтри три, три\n";
 
         //when
-        String actualResult = xlsToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = xlsToStringConverter.convertToString(new RequestContainer(url));
 
         //then
-        Assert.assertEquals(expected, actualResult);
+        Assert.assertEquals(expected, actualResult.getPlainText());
     }
 
     @Test(expected = RuntimeException.class)
@@ -32,7 +32,7 @@ public class XlsToStringConverterIntegrationTest {
         final String url = "https://dl.dropboxusercontent.com/u/12495182/tests/few_BAD_URL_Words.xls";
 
         //when
-        String actualResult = xlsToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = xlsToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception
@@ -44,7 +44,7 @@ public class XlsToStringConverterIntegrationTest {
         final String url = null;
 
         //when
-        String actualResult = xlsToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = xlsToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception
@@ -56,7 +56,7 @@ public class XlsToStringConverterIntegrationTest {
         final String url = "";
 
         //when
-        String actualResult = xlsToStringConverter.convertToString(url);
+        ConvertedDataContainer actualResult = xlsToStringConverter.convertToString(new RequestContainer(url));
 
         //then
         //expected exception

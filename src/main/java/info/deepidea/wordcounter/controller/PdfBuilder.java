@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,7 +27,9 @@ public class PdfBuilder extends AbstractPdfView {
                                     PdfWriter writer,
                                     HttpServletRequest request,
                                     HttpServletResponse response)  {
+
         try {
+            setCookie(response);
             setExportFileName(response);
 
             addErrorsIntoDocumentIfExists(document, model);
@@ -43,6 +46,16 @@ public class PdfBuilder extends AbstractPdfView {
         }
     }
 
+    private void setCookie(HttpServletResponse response) {
+        Cookie cookie = new Cookie(FILE_DOWNLOAD_COOKIE_NAME, FILE_DOWNLOAD_COOKIE_VALUE);
+        cookie.setPath(FILE_DOWNLOAD_COOKIE_PATH);
+        response.addCookie(cookie);
+    }
+
+    private void setExportFileName(HttpServletResponse response) {
+        response.setHeader(RESPONSE_HEADER_NAME, HEADER_VALUE_PDF);
+    }
+
     private void addResultIntoDocumentIfExist(Map<String, Object> model,
                                               Document document,
                                               HttpServletRequest request) throws DocumentException, IOException {
@@ -54,10 +67,6 @@ public class PdfBuilder extends AbstractPdfView {
             setResultCells(table, cell, calculatedWords);
             document.add(table);
         }
-    }
-
-    private void setExportFileName(HttpServletResponse response) {
-        response.setHeader(RESPONSE_HEADER_NAME, HEADER_VALUE_PDF);
     }
 
     private PdfPTable getPdfPTable() throws DocumentException {
