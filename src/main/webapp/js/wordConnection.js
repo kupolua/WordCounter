@@ -535,8 +535,11 @@ function getTheData(control, selectedDiagram) {
         sitesKVArray = d3.entries(dataBySites);
         heapKVArray = d3.entries(sortedHeap);
         linksKVArray = d3.entries(dataByLinks);
-        if(selectedDiagram != "originalRequest") {
+        if(selectedDiagram != "originalRequest" && linksKVArray.length > 1) {
             linksKVArray.forEach(putLinksToPage);
+        } else {
+            linksKVArray.forEach(putLinksToPage);
+            $("#splitDiagrams").hide();
         }
     }
 
