@@ -451,6 +451,12 @@ label {
     text-align:left;
     font-family: 'Open Sans', sans-serif;
 }
+#feedback a {
+    text-align:center;
+    color: #b7aeae;
+    font-size: 12px;
+    padding-bottom: 10px;
+}
 footer {
     text-align:center;
     color: #b7aeae;

@@ -190,6 +190,7 @@
 <div id="wordCloudRunuble"></div>
 <footer>
     <spring:message code="index.footer"/>
+<div id="feedback"><a href="" class="sendFeedback" onclick="sendFeedback()" target="_blank"><spring:message code="index.feedback"/></a></div>
     <p>V. ${version}</p>
 </footer>
 </body>

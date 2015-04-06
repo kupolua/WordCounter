@@ -20,6 +20,10 @@ $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
         e.preventDefault();
     });
+    $(".sendFeedback").hover(function(e) {
+            $(this).css("color",e.type === "mouseenter"?"#30b1d9":"#b7aeae")
+        }
+    );
 
     $("#getCountedWords").click(function(e){
         opts = {
@@ -619,5 +623,9 @@ function getPageSize() {
         pageWidth = xScroll;
     }
     return [pageWidth,pageHeight,windowWidth,windowHeight];
+}
+
+function sendFeedback() {
+    $(".sendFeedback").attr("href", "mailto:deepidea.software@gmail.com").click();
 }
 
