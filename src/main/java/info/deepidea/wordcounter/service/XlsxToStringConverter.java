@@ -45,7 +45,7 @@ public class XlsxToStringConverter implements DocumentToStringConverter {
         Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
 
 
-        return new ConvertedDataContainer(xlsx, extractedText);
+        return new ConvertedDataContainer(xlsx + userRequest.getClientRequest(), extractedText);
     }
 
     protected String extractXlsxWithoutSheetName(InputStream input) throws IOException {

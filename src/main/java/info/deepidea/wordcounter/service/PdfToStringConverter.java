@@ -44,7 +44,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         String extractedText = getTextFromAllPages(reader);
         Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
 
-        return new ConvertedDataContainer(pdf, extractedText);
+        return new ConvertedDataContainer(pdf + userRequest.getClientRequest(), extractedText);
     }
 
     protected PdfReader getPdfReader(String userUrl) throws IOException {

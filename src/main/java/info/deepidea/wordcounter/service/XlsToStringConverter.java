@@ -44,7 +44,7 @@ public class XlsToStringConverter implements DocumentToStringConverter {
         }
         Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
 
-        return new ConvertedDataContainer(xls, extractedText);
+        return new ConvertedDataContainer(xls + userRequest.getClientRequest(), extractedText);
     }
 
     protected String extractXlsWithoutSheetName(InputStream input) throws IOException {

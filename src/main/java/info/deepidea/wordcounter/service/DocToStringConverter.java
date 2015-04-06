@@ -46,7 +46,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
         LOG.info("Connection to " + userRequest.getClientRequest() + " has been successfully established.");
         Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
 
-        return new ConvertedDataContainer(doc, extractedText);
+        return new ConvertedDataContainer(doc + userRequest.getClientRequest(), extractedText);
     }
 
     protected Tika getTika() {
