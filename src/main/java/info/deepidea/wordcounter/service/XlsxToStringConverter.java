@@ -33,6 +33,7 @@ public class XlsxToStringConverter implements DocumentToStringConverter {
         Assertions.assertStringIsNotNullOrEmpty(userRequest.getClientRequest());
         InputStream stream = openStream(userRequest.getClientRequest());
         String extractedText;
+        final String xlsx = "Xlsx";
         try {
             extractedText = extractXlsxWithoutSheetName(stream);
         } catch (IOException e) {
@@ -43,7 +44,8 @@ public class XlsxToStringConverter implements DocumentToStringConverter {
         }
         Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
 
-        return new ConvertedDataContainer(userRequest.getClientRequest(), extractedText);
+
+        return new ConvertedDataContainer(xlsx, extractedText);
     }
 
     protected String extractXlsxWithoutSheetName(InputStream input) throws IOException {

@@ -33,6 +33,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
         final Tika tika = getTika();
         URL url = createUrlObject(userRequest.getClientRequest());
         String extractedText;
+        final String doc = "Doc";
         try {
             extractedText = tika.parseToString(url);
         } catch (IOException e) {
@@ -45,7 +46,7 @@ public class DocToStringConverter implements DocumentToStringConverter {
         LOG.info("Connection to " + userRequest.getClientRequest() + " has been successfully established.");
         Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
 
-        return new ConvertedDataContainer(userRequest.getClientRequest(), extractedText);
+        return new ConvertedDataContainer(doc, extractedText);
     }
 
     protected Tika getTika() {

@@ -30,6 +30,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
     public ConvertedDataContainer convertToString(RequestContainer userRequest) {
         Assertions.assertStringIsNotNullOrEmpty(userRequest.getClientRequest());
         PdfReader reader = null;
+        final String pdf = "Pdf";
         try {
             reader = getPdfReader(userRequest.getClientRequest());
         } catch (IOException e) {
@@ -43,7 +44,7 @@ public class PdfToStringConverter implements DocumentToStringConverter {
         String extractedText = getTextFromAllPages(reader);
         Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
 
-        return new ConvertedDataContainer(userRequest.getClientRequest(), extractedText);
+        return new ConvertedDataContainer(pdf, extractedText);
     }
 
     protected PdfReader getPdfReader(String userUrl) throws IOException {

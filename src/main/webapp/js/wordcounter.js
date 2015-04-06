@@ -119,7 +119,7 @@ $(document).ready(function() {
 });
 
 function setWordConnectionData() {
-    var isVisualization = true;
+    var isVisualization = true; //todo rename isVisualization
     var sortedHeap = getFilteredWords(dataResponse, isVisualization);
     for (var property in dataD3) {
         if (dataD3.hasOwnProperty(property)) {
@@ -298,8 +298,9 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $('#spoilerStatistic').show();
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
-    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
-    getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
+    var isDrawing = Object.keys(dataD3)[0].substr(0, 4) === "http";
+    getCrawlDepth() && isDrawing ? $('#wordConnection').show() : $('#wordConnection').hide();
+    getCrawlDepth() && isDrawing ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
 function hideResponseContainer() {

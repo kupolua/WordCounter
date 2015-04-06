@@ -338,7 +338,6 @@ function makeFilteredData(control, selectedNode) {
         if (link.target.isCurrentlyFocused) { //todo remove duplicate code to function()
             link.target.name = link.target.key;
             link.source.currentWord = link.target.key;
-//            link.source.isShowed = 1;
             link.source.isTarget = true;
             control.data.isShowed = true;
             newLinks.push(link);
@@ -348,7 +347,6 @@ function makeFilteredData(control, selectedNode) {
         if (link.source.isCurrentlyFocused) { //todo remove duplicate code to function()
             link.target.name = link.target.key;
             link.source.currentWord = link.target.key;
-//            link.source.isShowed = 1;
             link.source.isSource = true;
             link.source.isShowWeight = true;
             control.data.isShowed = true;
@@ -604,8 +602,8 @@ function getFilteredData(selectedDiagram) {
     var countedWords = [];
     var numberWords = 7;
     var maxWords;
-    var sites = [];
-    var words = [];
+    var sites = []; //todo rename to source
+    var words = []; //todo rename to target
 
     linksKVArray.forEach(function(d) {
         if(d.key === selectedDiagram) {
@@ -630,7 +628,7 @@ function getFilteredData(selectedDiagram) {
 
     var totalCount = d3.entries(countedWords);
 
-    for(var i = 0; i < numberWords; i++) {
+    for(var i = 0; i < numberWords; i++) { //todo implement sorting
         var maxKey = 0;
         var maxValue = 0;
 
