@@ -86,16 +86,20 @@
                         <a href="#" class="osx" onclick="closeSpoiler()"><spring:message code="index.contentLocalLang"/></a>
                     </div>
                     <div id="saveAsPdf">
-                            <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>"/>
+                            <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" title="<spring:message code="index.saveAsPdf"/>"/>
                     </div>
                     <div id="saveAsXls">
-                            <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>"/>
+                            <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" title="<spring:message code="index.saveAsXls"/>"/>
                     </div>
                     <div id="wordConnection">
-                        <a href="d3v1" target="_blank" onclick="setWordConnectionData()"><spring:message code="index.wordConnection"/></a>
+                        <a href="d3v1" target="_blank" onclick="setWordConnectionData()">
+                            <img src="img/c_2.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
+                        </a>
                     </div>
                     <div id="urlTree">
-                        <a href="d3v2" target="_blank" onclick="setUrlTreeData()"><spring:message code="index.urlTree"/></a>
+                        <a href="d3v2" target="_blank" onclick="setUrlTreeData()">
+                            <img src="img/t_2.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
+                        </a>
                     </div>
                 </div>
             </div>

@@ -387,6 +387,22 @@ legend {
     font-family: 'Open Sans', sans-serif;
     color: #534d4d;
 }
+#wordConnection {
+    display: none;
+    padding-top: 3px;
+    padding-left: 15px;
+    padding-bottom: 9px;
+    font-family: 'Open Sans', sans-serif;
+    color: #534d4d;
+}
+#urlTree {
+    display: none;
+    padding-top: 3px;
+    padding-left: 15px;
+    padding-bottom: 9px;
+    font-family: 'Open Sans', sans-serif;
+    color: #534d4d;
+}
 #buttonGetFilterWords {
     display: none;
 }
@@ -413,24 +429,7 @@ legend {
     font-size: 14px;
     color: #534d4d;
 }
-#wordConnection {
-    display: none;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-bottom: 10px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    color: #534d4d;
-}
-#urlTree {
-    display: none;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-bottom: 10px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    color: #534d4d;
-}
+
 #note {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
