@@ -11,11 +11,13 @@ public enum SupportedHttpProtocol {
         this.text = text;
     }
 
-    public static boolean isWebProtocol(String str) {
-        Assertions.assertStringIsNotNullOrEmpty(str);
+    public static boolean isWebProtocol(String clientRequest) {
+        Assertions.assertStringIsNotNullOrEmpty(clientRequest);
         boolean result = false;
+        final String requestInTheLowerCase = clientRequest.toLowerCase();
+        final String trimmedRequest = requestInTheLowerCase.trim();
         for (SupportedHttpProtocol protocol : SupportedHttpProtocol.values()) {
-            if (str.trim().startsWith(protocol.text)) {
+            if (trimmedRequest.startsWith(protocol.text)) {
                 result = true;
                 break;
             }
