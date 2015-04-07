@@ -625,7 +625,3 @@ function getPageSize() {
     return [pageWidth,pageHeight,windowWidth,windowHeight];
 }
 
-function sendFeedback() {
-    $(".sendFeedback").attr("href", "mailto:deepidea.software@gmail.com").click();
-}
-

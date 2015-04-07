@@ -2,6 +2,7 @@ package info.deepidea.wordcounter.webForm;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -29,6 +30,7 @@ public class FeedbackFunctionalityTest {
         driver.quit();
     }
 
+    @Ignore
     @Test //todo complete feedback Test after choice feedback system
     public void feedback() {
         // given
