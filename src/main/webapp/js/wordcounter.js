@@ -434,6 +434,9 @@ function showModalWordCloud() {
 
 function normalizationWords(canvas) { //todo refactor code around 10h
     countedWords = getCountedWords(dataResponse, true);
+    if(countedWords.length === 0) {
+        countedWords = getCountedWords(dataResponse, false);
+    }
     var countedWordsLength = countedWords.length;
 
     var wordsListLength = countedWords.length;
