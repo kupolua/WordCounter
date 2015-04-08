@@ -36,7 +36,7 @@ public class FeedbackFunctionalityTest {
         // given
         final String elementIdWordCloud = "sendFeedback";
         driver.get(BASE_URL);
-        String link = "http://kupol.in.ua/wordcounter/testData/1500_words.pdf";
+        String link = "http://deepidea.info/wordcounter/testData/1500_words.pdf";
 
         // when
 //        driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();

@@ -31,7 +31,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 44
     public void testExportToPdf_cyrillicHtml() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/page_cyrillic.html";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_DESCENDING;
@@ -67,7 +67,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 45
     public void testExportToPdfRu_latinHtml() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/page_latin.html";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_DESCENDING;
@@ -103,7 +103,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 46
     public void testExportToPdfUk_noTextPptx() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/Ppt_no_text.pptx";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/Ppt_no_text.pptx";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_DESCENDING;
@@ -139,7 +139,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 47
     public void testExportToXlsEn_cyrillicHtml() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/page_cyrillic.html";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_DESCENDING;
@@ -175,7 +175,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 48
     public void testExportToXlsDe_latinHtml() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/page_latin.html";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_DESCENDING;
@@ -211,7 +211,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 49
     public void testExportToXlsUk_noTextPptx() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/Ppt_no_text.pptx";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/Ppt_no_text.pptx";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_DESCENDING;
@@ -247,7 +247,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 50
     public void testExportPdfDe_latinHtml_Filter() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/page_latin.html";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_DESCENDING;
@@ -285,7 +285,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 51
     public void testExportPdfRu_ruAlphabet_SortKeyAscend() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/RU_alphabet.docx";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = KEY_ASCENDING;
@@ -323,7 +323,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 52
     public void testExportPdfRu_allLangOdt_FilterValueAscend() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/all_lang.odt";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/all_lang.odt";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_ASCENDING;
@@ -361,7 +361,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 53
     public void testExportXlsRu_cyrillicHtml_FilterValueDescend() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/page_cyrillic.html";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = VALUE_DESCENDING;
@@ -399,7 +399,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 54
     public void testExportXlsRu_enAlphabet_KeyDescend() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/EN_alphabet.docx";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = KEY_DESCENDING;
@@ -437,7 +437,7 @@ public class ExportingFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT) // line 55
     public void testExportXlsRu_allLangOdt_FilterKeyAscend() throws Exception {
         // given
-        final String requestedTextCount = "http://kupol.in.ua/wordcounter/testData/all_lang.odt";
+        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/all_lang.odt";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = KEY_ASCENDING;
@@ -476,7 +476,7 @@ public class ExportingFunctionalityTest {
     public void testExportPdfRu_brokenUrlAndNormalUrl_FilterKeyAscend() throws Exception {
         // given
         final String requestedTextCount = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html \n" +
-                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+                "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = KEY_DESCENDING;
@@ -515,7 +515,7 @@ public class ExportingFunctionalityTest {
     public void testExportXlsRu_brokenUrlAndNormalUrl_FilterKeyAscend() throws Exception {
         // given
         final String requestedTextCount = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html \n" +
-                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+                "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
         final String depth = "0";
         final String internalOnly = "true";
         final String requestedSortingOrder = KEY_DESCENDING;

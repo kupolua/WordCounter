@@ -26,9 +26,9 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     @Test
     public void testEnterThreeLinks() throws Exception {
         // given
-        final String requestedValue = "http://kupol.in.ua/wordcounter/testData/page_latin.html " +
-                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
-                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String requestedValue = "http://deepidea.info/wordcounter/testData/page_latin.html " +
+                "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
         final String depth = "0";
         final String internalOnly = "true";
 
@@ -78,8 +78,8 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     public void testEnterThreeLinks_withBrokenHtmlLink() throws Exception {
         // given
         final String requestedValue = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html " +
-                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
-                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+                "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
         final String depth = "0";
         final String internalOnly = "true";
         final String errorMassage = "Cannot connect to the source: >http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
@@ -126,13 +126,13 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withNoReadableTextInPdf() throws Exception {
         // given
-        final String requestedValue = "http://kupol.in.ua/wordcounter/testData/page_latin.html " +
-                "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf " +
-                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String requestedValue = "http://deepidea.info/wordcounter/testData/page_latin.html " +
+                "http://deepidea.info/wordcounter/testData/Pdf_no_text.pdf " +
+                "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
         final String depth = "0";
         final String internalOnly = "true";
         final String errorMassage = "System cannot count text in the source as it is empty or contains non-readable" +
-                " content or symbols: >http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
+                " content or symbols: >http://deepidea.info/wordcounter/testData/Pdf_no_text.pdf";
 
         Request request = buildRequestWithParamValue(requestedValue, depth, internalOnly);
 
@@ -177,13 +177,13 @@ public class CountingWordsThreeUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withBrokenTxtLink() throws Exception {
         // given
-        final String requestedValue = "http://kupol.in.ua/wordcounter/testData/test_page_latin.html " +
-                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
-                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
+        final String requestedValue = "http://deepidea.info/wordcounter/testData/test_page_latin.html " +
+                "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://deepidea.info/wordcounter/testData/letters%2Bnumbers...txt";
         final String depth = "0";
         final String internalOnly = "true";
-        final String errorMassageConnect = "Cannot connect to the source: >http://kupol.in.ua/wordcounter/testData/test_page_latin.html";
-        final String errorMassageDocument = "Cannot connect to the source: >http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers...txt";
+        final String errorMassageConnect = "Cannot connect to the source: >http://deepidea.info/wordcounter/testData/test_page_latin.html";
+        final String errorMassageDocument = "Cannot connect to the source: >http://deepidea.info/wordcounter/testData/letters%2Bnumbers...txt";
 
         Request request = buildRequestWithParamValue(requestedValue, depth, internalOnly);
 

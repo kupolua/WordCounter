@@ -26,7 +26,7 @@ public class CountingWordsUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInWebPage_cyrillic() throws Exception {
         // given
-        final String cyrillicPage = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
+        final String cyrillicPage = "http://deepidea.info/wordcounter/testData/page_cyrillic.html";
         final String depth = "0";
         final String internalOnly = "true";
 
@@ -72,7 +72,7 @@ public class CountingWordsUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInWebPage_latin() throws Exception {
         // given
-        final String cyrillicPage = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String cyrillicPage = "http://deepidea.info/wordcounter/testData/page_latin.html";
         final String depth = "0";
         final String internalOnly = "true";
 
@@ -115,7 +115,7 @@ public class CountingWordsUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInDocumentViaUrl_noText() throws Exception {
         // given
-        final String htmlNoText = "http://kupol.in.ua/wordcounter/testData/no_text.html";
+        final String htmlNoText = "http://deepidea.info/wordcounter/testData/no_text.html";
         final String depth = "0";
         final String internalOnly = "true";
 
@@ -190,7 +190,7 @@ public class CountingWordsUrlsFunctionalityTest {
     public void testCountWordsInDocumentViaUrl_pptx() throws Exception {
         // given
         final String pptxUrl =
-                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
+                "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
         final String depth = "0";
         final String internalOnly = "true";
 
@@ -233,7 +233,7 @@ public class CountingWordsUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInDocumentViaUrl_txt() throws Exception {
         // given
-        final String txtUrl = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String txtUrl = "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
         final String depth = "0";
         final String internalOnly = "true";
 
@@ -276,7 +276,7 @@ public class CountingWordsUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInDocumentViaUrl_pdf() throws Exception {
         // given
-        final String pdfUrl = "http://kupol.in.ua/wordcounter/testData/1500_words.pdf";
+        final String pdfUrl = "http://deepidea.info/wordcounter/testData/1500_words.pdf";
         final String depth = "0";
         final String internalOnly = "true";
 
@@ -320,7 +320,7 @@ public class CountingWordsUrlsFunctionalityTest {
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testCountWordsInDocumentViaUrl_pdfNoText() throws Exception {
         // given
-        final String pdfUrl = "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf";
+        final String pdfUrl = "http://deepidea.info/wordcounter/testData/Pdf_no_text.pdf";
         final String depth = "0";
         final String internalOnly = "true";
 
@@ -337,7 +337,7 @@ public class CountingWordsUrlsFunctionalityTest {
 
         List<String> expectedError = new ArrayList<String>() {{
             add("System cannot count text in the source as it is empty or contains non-readable content or symbols: >" +
-                    "http://kupol.in.ua/wordcounter/testData/Pdf_no_text.pdf");
+                    "http://deepidea.info/wordcounter/testData/Pdf_no_text.pdf");
         }};
 
         final Map<String, Integer> wordStatistic = new HashMap<>();

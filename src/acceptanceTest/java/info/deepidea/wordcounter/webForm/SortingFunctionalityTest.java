@@ -63,8 +63,10 @@ public class SortingFunctionalityTest {
     public void testSorting_byQuantityDescending_docx() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String inputDocumentUrl = "http://kupol.in.ua/wordcounter/testData/test_sorting1.docx";
-        final String expectedResult = "zebra 2\nзвон 2\nautomotive 1";
+        final String inputDocumentUrl = "http://deepidea.info/wordcounter/testData/test_sorting1.docx";
+        final String expectedResult = "automotive 1\n" +
+                "zebra 1\n" +
+                "звон 1";
 
         // when
         putDataAndClickCountButton(driver, inputDocumentUrl);
@@ -101,8 +103,10 @@ public class SortingFunctionalityTest {
     public void testSorting_byQuantityAscending_docx() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String inputDocumentUrl = "http://kupol.in.ua/wordcounter/testData/test_sorting1.docx";
-        final String expectedResult = "automotive 1\nzebra 2\nзвон 2";
+        final String inputDocumentUrl = "http://deepidea.info/wordcounter/testData/test_sorting1.docx";
+        final String expectedResult = "automotive 1\n" +
+                "zebra 1\n" +
+                "звон 1";
 
         // when
         putDataAndClickCountButton(driver, inputDocumentUrl);

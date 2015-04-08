@@ -59,9 +59,9 @@ public class StatisticWordsFunctionalityTest {
     @Test
     public void testEnterThreeLinks() {
         // given
-        final String request = "http://kupol.in.ua/wordcounter/testData/page_latin.html " +
-                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
-                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String request = "http://deepidea.info/wordcounter/testData/page_latin.html " +
+                "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
         final String expectedEnterThreeLinks = "test 3\n" +
                 "думи 2\n" +
                 "a 1\n" +
@@ -116,8 +116,8 @@ public class StatisticWordsFunctionalityTest {
     public void testEnterThreeLinks_withBrokenHtmlLink() throws Exception {
         // given
         final String request = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html " +
-                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
-                "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+                "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
+                "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
         final String expectedEnterThreeLinks = "думи 2\n" + "мої 1\n" + "people 1\n" + "nice 1";
         String expectedErrorMassage = "Cannot connect to the source: >http://kupol....in.ua/wordcounter/testData/" +
                 "test_page_latin.html";
@@ -160,9 +160,9 @@ public class StatisticWordsFunctionalityTest {
         driver.get(BASE_URL);
         driverSecondary.get(BASE_URL);
 
-        final String pageLatinLink = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String pageLatinLink = "http://deepidea.info/wordcounter/testData/page_latin.html";
         final String htmlTestPageSecondary =
-                "http://kupol.in.ua/wordcounter/testData/textForSeleniumTestSecondary.pdf";
+                "http://deepidea.info/wordcounter/testData/textForSeleniumTestSecondary.pdf";
         final String expectedResult = "test 3\n" +
                 "a 1\n" +
                 "santa-monica 1Name Amount\n" +

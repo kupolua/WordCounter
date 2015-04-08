@@ -19,12 +19,20 @@ public class ResultsPresentationFunctionalityTest {
     private static final String ELEMENT_DATA_TABLES_LENGTH = "countedWords_length";
     private static final String ELEMENT_ID_LINK_NEXT = "countedWords_next";
     private static final String DATA_TABLES_LENGTH_100 = "100";
-    private static final String HTML_TEST_PAGE_PRESENTATION = "http://defas.com.ua/java/textForTestShowEntries.html";
-    private static final String EXPECTED_BY_DEFAULT = "и 3\njava 2\nновая 2\nв 2\nвремя 2\nверсия 2\nswing 2\n" +
-            "версии 2\n" + "будет 2\n" + "старт 2";
+    private static final String HTML_TEST_PAGE_PRESENTATION = "http://deepidea.info/wordcounter/testData/textForTestShowEntries.html";
+    private static final String EXPECTED_BY_DEFAULT = "входят 1\n" +
+            "intellij 1\n" +
+            "новые 1\n" +
+            "последовательности 1\n" +
+            "программистов 1\n" +
+            "многие 1\n" +
+            "разработка 1\n" +
+            "обновляет 1\n" +
+            "java 1\n" +
+            "через 1";
     private static final String ELEMENT_ID_LINK_PREV = "countedWords_previous";
-    private static final String RU_ALPHABET_LINK = "http://kupol.in.ua/wordcounter/testData/RU_alphabet.docx";
-    private static final String EN_ALPHABET_LINK = "http://kupol.in.ua/wordcounter/testData/EN_alphabet.docx";
+    private static final String RU_ALPHABET_LINK = "http://deepidea.info/wordcounter/testData/RU_alphabet.docx";
+    private static final String EN_ALPHABET_LINK = "http://deepidea.info/wordcounter/testData/EN_alphabet.docx";
     private static final String X_PATH_LAST_PAGE = "//*[@id=\"countedWords_paginate\"]/ul/li[7]/a";
     private static WebDriver driver;
 
@@ -57,11 +65,31 @@ public class ResultsPresentationFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String dataTablesLength25 = "25";
-        final String expectedShowEntries25 = "и 3\n" + "java 2\n" + "новая 2\n" + "в 2\n" + "время 2\n" + "версия 2\n" +
-                "swing 2\n" + "версии 2\n" + "будет 2\n" + "старт 2\n" + "тренинг 2\n" + "на 2\n" + "быстрый 2\n" +
-                "очень 2\n" + "входят 1\n" + "intellij 1\n" + "новые 1\n" + "последовательности 1\n" +
-                "программистов 1\n" + "многие 1\n" + "разработка 1\n" + "обновляет 1\n" + "через 1\n" + "этой 1\n" +
-                "пришло 1";
+        final String expectedShowEntries25 = "входят 1\n" +
+                "intellij 1\n" +
+                "новые 1\n" +
+                "последовательности 1\n" +
+                "программистов 1\n" +
+                "многие 1\n" +
+                "разработка 1\n" +
+                "обновляет 1\n" +
+                "java 1\n" +
+                "через 1\n" +
+                "этой 1\n" +
+                "пришло 1\n" +
+                "нам 1\n" +
+                "javafx 1\n" +
+                "электронные 1\n" +
+                "отличается 1\n" +
+                "участников 1\n" +
+                "результат 1\n" +
+                "решили 1\n" +
+                "новая 1\n" +
+                "первой 1\n" +
+                "интерфейсы 1\n" +
+                "человек 1\n" +
+                "в 1\n" +
+                "актуальные 1";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
@@ -78,15 +106,56 @@ public class ResultsPresentationFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String dataTablesLength50 = "50";
-        final String expectedShowEntries50 = "и 3\n" + "java 2\n" + "новая 2\n" + "в 2\n" + "время 2\n" + "версия 2\n" +
-                "swing 2\n" + "версии 2\n" + "будет 2\n" + "старт 2\n" + "тренинг 2\n" + "на 2\n" + "быстрый 2\n" +
-                "очень 2\n" + "входят 1\n" + "intellij 1\n" + "новые 1\n" + "последовательности 1\n" +
-                "программистов 1\n" + "многие 1\n" + "разработка 1\n" + "обновляет 1\n" + "через 1\n" + "этой 1\n" +
-                "пришло 1\n" + "нам 1\n" + "javafx 1\n" + "электронные 1\n" + "отличается 1\n" + "участников 1\n" +
-                "результат 1\n" + "решили 1\n" + "первой 1\n" + "интерфейсы 1\n" + "человек 1\n" + "актуальные 1\n" +
-                "появились 1\n" + "лучших 1\n" + "стандартных 1\n" + "отзывы 1\n" + "стали 1\n" + "о 1\n" + "чем 1\n" +
-                "вдохновляет 1\n" + "использоваться 1\n" + "которые 1\n" + "тренинга 1\n" + "поэтому 1\n" +
-                "например 1\n" + "ваши 1";
+        final String expectedShowEntries50 = "входят 1\n" +
+                "intellij 1\n" +
+                "новые 1\n" +
+                "последовательности 1\n" +
+                "программистов 1\n" +
+                "многие 1\n" +
+                "разработка 1\n" +
+                "обновляет 1\n" +
+                "java 1\n" +
+                "через 1\n" +
+                "этой 1\n" +
+                "пришло 1\n" +
+                "нам 1\n" +
+                "javafx 1\n" +
+                "электронные 1\n" +
+                "отличается 1\n" +
+                "участников 1\n" +
+                "результат 1\n" +
+                "решили 1\n" +
+                "новая 1\n" +
+                "первой 1\n" +
+                "интерфейсы 1\n" +
+                "человек 1\n" +
+                "в 1\n" +
+                "актуальные 1\n" +
+                "появились 1\n" +
+                "лучших 1\n" +
+                "стандартных 1\n" +
+                "и 1\n" +
+                "отзывы 1\n" +
+                "стали 1\n" +
+                "о 1\n" +
+                "чем 1\n" +
+                "вдохновляет 1\n" +
+                "использоваться 1\n" +
+                "которые 1\n" +
+                "тренинга 1\n" +
+                "поэтому 1\n" +
+                "например 1\n" +
+                "ваши 1\n" +
+                "полного 1\n" +
+                "это 1\n" +
+                "изменились 1\n" +
+                "время 1\n" +
+                "версия 1\n" +
+                "вместо 1\n" +
+                "создать 1\n" +
+                "такой 1\n" +
+                "цифра 1\n" +
+                "плюс 1";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
@@ -131,22 +200,106 @@ public class ResultsPresentationFunctionalityTest {
     public void testShowEntries100() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String expectedShowEntries100 = "и 3\n" + "java 2\n" + "новая 2\n" + "в 2\n" + "время 2\n" +
-                "версия 2\n" + "swing 2\n" + "версии 2\n" + "будет 2\n" + "старт 2\n" + "тренинг 2\n" + "на 2\n" +
-                "быстрый 2\n" + "очень 2\n" + "входят 1\n" + "intellij 1\n" + "новые 1\n" + "последовательности 1\n" +
-                "программистов 1\n" + "многие 1\n" + "разработка 1\n" + "обновляет 1\n" + "через 1\n" + "этой 1\n" +
-                "пришло 1\n" + "нам 1\n" + "javafx 1\n" + "электронные 1\n" + "отличается 1\n" + "участников 1\n" +
-                "результат 1\n" + "решили 1\n" + "первой 1\n" + "интерфейсы 1\n" + "человек 1\n" + "актуальные 1\n" +
-                "появились 1\n" + "лучших 1\n" + "стандартных 1\n" + "отзывы 1\n" + "стали 1\n" + "о 1\n" + "чем 1\n" +
-                "вдохновляет 1\n" + "использоваться 1\n" + "которые 1\n" + "тренинга 1\n" + "поэтому 1\n" +
-                "например 1\n" + "ваши 1\n" + "полного 1\n" + "это 1\n" + "изменились 1\n" + "вместо 1\n" +
-                "создать 1\n" + "такой 1\n" + "цифра 1\n" + "плюс 1\n" + "свои 1\n" + "добавилось 1\n" + "тем 1\n" +
-                "чтобы 1\n" + "прохождения 1\n" + "нашли 1\n" + "одной 1\n" + "большая 1\n" + "приходило 1\n" +
-                "добавляет 1\n" + "работу 1\n" + "мы 1\n" + "сюда 1\n" + "регистрация 1\n" + "отличия 1\n" +
-                "много 1\n" + "но 1\n" + "основные 1\n" + "обновления 1\n" + "инструменты 1\n" + "ide 1\n" + "для 1\n" +
-                "материалов 1\n" + "уверенно 1\n" + "более 1\n" + "от 1\n" + "idea 1\n" + "идти 1\n" + "прошло 1\n" +
-                "программировать 1\n" + "полностью 1\n" + "материалы 1\n" + "после 1\n" + "что 1\n" + "диктует 1\n" +
-                "были 1\n" + "части 1\n" + "библиотек 1\n" + "темы 1\n" + "писем 1\n" + "связка 1\n" + "условия 1";
+        final String expectedShowEntries100 = "входят 1\n" +
+                "intellij 1\n" +
+                "новые 1\n" +
+                "последовательности 1\n" +
+                "программистов 1\n" +
+                "многие 1\n" +
+                "разработка 1\n" +
+                "обновляет 1\n" +
+                "java 1\n" +
+                "через 1\n" +
+                "этой 1\n" +
+                "пришло 1\n" +
+                "нам 1\n" +
+                "javafx 1\n" +
+                "электронные 1\n" +
+                "отличается 1\n" +
+                "участников 1\n" +
+                "результат 1\n" +
+                "решили 1\n" +
+                "новая 1\n" +
+                "первой 1\n" +
+                "интерфейсы 1\n" +
+                "человек 1\n" +
+                "в 1\n" +
+                "актуальные 1\n" +
+                "появились 1\n" +
+                "лучших 1\n" +
+                "стандартных 1\n" +
+                "и 1\n" +
+                "отзывы 1\n" +
+                "стали 1\n" +
+                "о 1\n" +
+                "чем 1\n" +
+                "вдохновляет 1\n" +
+                "использоваться 1\n" +
+                "которые 1\n" +
+                "тренинга 1\n" +
+                "поэтому 1\n" +
+                "например 1\n" +
+                "ваши 1\n" +
+                "полного 1\n" +
+                "это 1\n" +
+                "изменились 1\n" +
+                "время 1\n" +
+                "версия 1\n" +
+                "вместо 1\n" +
+                "создать 1\n" +
+                "такой 1\n" +
+                "цифра 1\n" +
+                "плюс 1\n" +
+                "swing 1\n" +
+                "свои 1\n" +
+                "добавилось 1\n" +
+                "версии 1\n" +
+                "тем 1\n" +
+                "чтобы 1\n" +
+                "будет 1\n" +
+                "старт 1\n" +
+                "прохождения 1\n" +
+                "нашли 1\n" +
+                "одной 1\n" +
+                "большая 1\n" +
+                "приходило 1\n" +
+                "добавляет 1\n" +
+                "работу 1\n" +
+                "тренинг 1\n" +
+                "мы 1\n" +
+                "на 1\n" +
+                "сюда 1\n" +
+                "регистрация 1\n" +
+                "отличия 1\n" +
+                "быстрый 1\n" +
+                "много 1\n" +
+                "но 1\n" +
+                "основные 1\n" +
+                "обновления 1\n" +
+                "инструменты 1\n" +
+                "ide 1\n" +
+                "для 1\n" +
+                "материалов 1\n" +
+                "уверенно 1\n" +
+                "более 1\n" +
+                "от 1\n" +
+                "idea 1\n" +
+                "идти 1\n" +
+                "прошло 1\n" +
+                "программировать 1\n" +
+                "полностью 1\n" +
+                "материалы 1\n" +
+                "после 1\n" +
+                "что 1\n" +
+                "диктует 1\n" +
+                "были 1\n" +
+                "части 1\n" +
+                "очень 1\n" +
+                "библиотек 1\n" +
+                "темы 1\n" +
+                "писем 1\n" +
+                "связка 1\n" +
+                "условия 1";
 
         // when
         putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
@@ -249,7 +402,7 @@ public class ResultsPresentationFunctionalityTest {
     public void testSpoiler_close() throws Exception {
         // given
         final String htmlBrokenPageLatin = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html";
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String txtLink = "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
 
         driver.get(BASE_URL);
 
@@ -272,7 +425,7 @@ public class ResultsPresentationFunctionalityTest {
     @Test
     public void testSpoiler_notUse() throws Exception {
         // given
-        final String txtLink = "http://kupol.in.ua/wordcounter/testData/letters%2Bnumbers.txt";
+        final String txtLink = "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
 
         driver.get(BASE_URL);
 

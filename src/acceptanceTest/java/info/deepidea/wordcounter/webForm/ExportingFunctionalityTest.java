@@ -46,7 +46,7 @@ public class ExportingFunctionalityTest {
     public void testExportPdf() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String pageLink = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
+        final String pageLink = "http://deepidea.info/wordcounter/testData/page_cyrillic.html";
         final String pdfName = "calculatedWords.pdf";
 
         // when
@@ -67,7 +67,7 @@ public class ExportingFunctionalityTest {
     public void testExportXls() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String pageLink = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
+        final String pageLink = "http://deepidea.info/wordcounter/testData/page_cyrillic.html";
         final String xlsName = "calculatedWords.xls";
 
         // when

@@ -2,7 +2,6 @@ package info.deepidea.wordcounter.webForm;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +35,7 @@ public class WordCloudFunctionalityTest {
     public void wordCloudCanvas() {
         // given
         driver.get(BASE_URL);
-        String link = "http://kupol.in.ua/wordcounter/testData/1500_words.pdf";
+        String link = "http://deepidea.info/wordcounter/testData/1500_words.pdf";
 
         // when
         putDataAndClickCountButton(driver, link);
@@ -50,7 +49,7 @@ public class WordCloudFunctionalityTest {
     public void wordCloudCanvas_badLink() {
         // given
         driver.get(BASE_URL);
-        String link = "http://kupol.in.ua/wordcounter/testData/1500_words_bad.pdf";
+        String link = "http://deepidea.info/wordcounter/testData/1500_words_bad.pdf";
 
         // when
         putDataAndClickCountButton(driver, link);
@@ -66,7 +65,7 @@ public class WordCloudFunctionalityTest {
         // given
         final String elementIdWordCloud = "wordCloudModal";
         driver.get(BASE_URL);
-        String link = "http://kupol.in.ua/wordcounter/testData/1500_words.pdf";
+        String link = "http://deepidea.info/wordcounter/testData/1500_words.pdf";
 
         // when
         putDataAndClickCountButton(driver, link);

@@ -29,7 +29,7 @@ public class SearchingFunctionalityTest {
     public void testSearchWord() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String htmlPageCyrillic = "http://kupol.in.ua/wordcounter/testData/page_cyrillic.html";
+        final String htmlPageCyrillic = "http://deepidea.info/wordcounter/testData/page_cyrillic.html";
         final String elementCssInputSearch = "input[type=\"search\"]";
         final String searchWord = "нет";
         final String expectedSearchWord = "нет 1";
@@ -50,7 +50,7 @@ public class SearchingFunctionalityTest {
     public void testSearchWord_noSuchWord() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String htmlPageLatin = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String htmlPageLatin = "http://deepidea.info/wordcounter/testData/page_latin.html";
         final String elementCssInputSearch = "input[type=\"search\"]";
         final String searchWord = "yet";
         final String expectedSearchWord = "No matching records found";
@@ -70,7 +70,7 @@ public class SearchingFunctionalityTest {
     public void testSearchWord_putNumber() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String odtLink = "http://kupol.in.ua/wordcounter/testData/all_lang.odt";
+        final String odtLink = "http://deepidea.info/wordcounter/testData/all_lang.odt";
         final String elementCssInputSearch = "input[type=\"search\"]";
         final String searchWord = "2";
         final String expectedSearchWord = "аэросъемка 2\n" + "sweet 2\n" + "дымарь 2";

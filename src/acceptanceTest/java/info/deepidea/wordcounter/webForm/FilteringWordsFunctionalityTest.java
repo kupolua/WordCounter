@@ -41,7 +41,7 @@ public class FilteringWordsFunctionalityTest {
     public void testFilterWords_latin_html() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String inputHtmlUrl = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String inputHtmlUrl = "http://deepidea.info/wordcounter/testData/page_latin.html";
         final String expectedResult = "test 3\nsanta-monica 1";
 
         // when
@@ -100,7 +100,7 @@ public class FilteringWordsFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String frenchText =
-                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
+                "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
         final String expectedResult = "думи 2\nмої 1";
 
         // when
@@ -119,7 +119,7 @@ public class FilteringWordsFunctionalityTest {
     public void testRemoveFilter_latinUrl_html() throws Exception {
         // given
         driver.get(BASE_URL);
-        final String inputLatinUrl = "http://kupol.in.ua/wordcounter/testData/page_latin.html";
+        final String inputLatinUrl = "http://deepidea.info/wordcounter/testData/page_latin.html";
         final String expectedResult = "test 3\na 1\nsanta-monica 1";
 
         // when
@@ -164,7 +164,7 @@ public class FilteringWordsFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String inputPptxUrl =
-                "http://kupol.in.ua/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
+                "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx";
         final String expectedResult = "думи 2\nмої 1";
 
         // when
