@@ -20,10 +20,6 @@ $(document).ready(function() {
     $("#wordCounterForm").submit(function(e){
         e.preventDefault();
     });
-    $(".sendFeedback").hover(function(e) {
-            $(this).css("color",e.type === "mouseenter"?"#30b1d9":"#b7aeae")
-        }
-    );
 
     $("#getCountedWords").click(function(e){
         opts = {
@@ -123,16 +119,11 @@ $(document).ready(function() {
 });
 
 function setWordConnectionData() {
-    var isVisualization = true; //todo rename isVisualization
+    var isVisualization = true;
     var sortedHeap = getFilteredWords(dataResponse, isVisualization);
-    for (var property in dataD3) {
-        if (dataD3.hasOwnProperty(property)) {
-            dataD3[property] = getFilteredWords(dataD3[property], isVisualization);
-        }
-    }
+
     window.localStorage.setItem("sortedHeap", JSON.stringify(sortedHeap));
     window.localStorage.setItem("dataD3", JSON.stringify(dataD3));
-    window.localStorage.setItem("relatedLinks", JSON.stringify(dataUrlTree));
 }
 
 function setUrlTreeData() {
@@ -302,9 +293,8 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $('#spoilerStatistic').show();
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
-    var isDrawing = Object.keys(dataD3)[0].substr(0, 4) === "http";
-    getCrawlDepth() && isDrawing ? $('#wordConnection').show() : $('#wordConnection').hide();
-    getCrawlDepth() && isDrawing ? $('#urlTree').show() : $('#urlTree').hide();
+    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
+    getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
 function hideResponseContainer() {
