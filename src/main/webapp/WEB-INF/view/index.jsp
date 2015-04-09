@@ -14,7 +14,7 @@
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/modal-window.css" rel="stylesheet" type="text/css" media="screen" />
 
-    <script src="js/wordcloud2.js" type="text/javascript"></script>
+    <script src="js/wordcloud.js" type="text/javascript"></script>
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/jquery.simplemodal.js" type="text/javascript"></script>
     <script src="js/modal-window.js" type="text/javascript"></script>
@@ -23,7 +23,7 @@
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/dataTables.foundation.js" type="text/javascript"></script>
-    <script src="js/spin.js" type="text/javascript"></script>
+    <script src="js/spinner.js" type="text/javascript"></script>
     <script src="js/wordcounter.js"  type="text/javascript"></script>
 
 </head>
@@ -92,12 +92,12 @@
                             <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" title="<spring:message code="index.saveAsXls"/>"/>
                     </div>
                     <div id="wordConnection">
-                        <a href="d3v1" target="_blank" onclick="setWordConnectionData()">
+                        <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
                             <img src="img/c_2.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
                         </a>
                     </div>
                     <div id="urlTree">
-                        <a href="d3v2" target="_blank" onclick="setUrlTreeData()">
+                        <a href="urlTree" target="_blank" onclick="setUrlTreeData()">
                             <img src="img/t_2.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
                         </a>
                     </div>

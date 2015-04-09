@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/d3v1")
-public class D3V1Controller {
+@RequestMapping("/topWordsRelationDiagram")
+public class TopWordsRelationDiagramController {
     @Value("${app.version}")
     private String version;
 
     @RequestMapping(method = RequestMethod.GET)
     public String about(ModelMap model) {
         model.addAttribute("version", version);
-        return "d3v1";
+        return "topWordsRelationDiagram";
     }
 }

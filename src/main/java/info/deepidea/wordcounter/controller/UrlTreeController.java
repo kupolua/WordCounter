@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/d3v2")
-public class D3V2Controller {
+@RequestMapping("/urlTree")
+public class UrlTreeController {
     @Value("${app.version}")
     private String version;
 
     @RequestMapping(method = RequestMethod.GET)
     public String about(ModelMap model) {
         model.addAttribute("version", version);
-        return "d3v2";
+        return "urlTree";
     }
 }

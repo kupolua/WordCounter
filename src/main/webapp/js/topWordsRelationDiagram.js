@@ -1,6 +1,5 @@
 var heapKVArray;
 var sitesKVArray;
-var linksKVArray;
 google.load("jquery", "1");
 google.setOnLoadCallback(function () {
     initialize().then(
@@ -9,16 +8,6 @@ google.setOnLoadCallback(function () {
         }
     );
 });
-
-function drawSelectedDiagram(selectedDiagram) {
-    $("#chart").html("");
-    initialize(selectedDiagram).then(
-        function (control) {
-            doTheTreeViz(control);
-        }
-    );
-}
-
 function doTheTreeViz(control) {
 
     var svg = control.svg;
@@ -338,6 +327,7 @@ function makeFilteredData(control, selectedNode) {
         if (link.target.isCurrentlyFocused) { //todo remove duplicate code to function()
             link.target.name = link.target.key;
             link.source.currentWord = link.target.key;
+//            link.source.isShowed = 1;
             link.source.isTarget = true;
             control.data.isShowed = true;
             newLinks.push(link);
@@ -347,6 +337,7 @@ function makeFilteredData(control, selectedNode) {
         if (link.source.isCurrentlyFocused) { //todo remove duplicate code to function()
             link.target.name = link.target.key;
             link.source.currentWord = link.target.key;
+//            link.source.isShowed = 1;
             link.source.isSource = true;
             link.source.isShowWeight = true;
             control.data.isShowed = true;
@@ -429,7 +420,7 @@ function getPixelDims(scratch, t, isShowWeight) {
     return {width: scratch.outerWidth(), height: scratch.outerHeight() * 1.5};
 }
 
-function initialize(selectedDiagram) {
+function initialize() {
 
     var initPromise = $.Deferred();
     var control = {};
@@ -486,7 +477,7 @@ function initialize(selectedDiagram) {
         .css("font-size", control.options.labelFontSize + "px");
     $('body').append(control.scratch);
 
-    getTheData(control, selectedDiagram).then(function (data) {
+    getTheData(control).then(function (data) {
 
         control.data = data;
         control.nodes = data.nodes;
@@ -514,7 +505,7 @@ function initialize(selectedDiagram) {
     return initPromise.promise();
 }
 
-function getTheData(control, selectedDiagram) {
+function getTheData(control) {
     var massage = $.Deferred();
 
     var maxWords = 7;
@@ -523,26 +514,8 @@ function getTheData(control, selectedDiagram) {
     var sitesIndex;
     var sortedHeap = JSON.parse(window.localStorage.getItem("sortedHeap"));
     var dataBySites = JSON.parse(window.localStorage.getItem("dataD3"));
-    var dataByLinks = JSON.parse(window.localStorage.getItem("relatedLinks"));
     sitesKVArray = d3.entries(dataBySites);
     heapKVArray = d3.entries(sortedHeap);
-    linksKVArray = d3.entries(dataByLinks);
-
-    if(selectedDiagram && selectedDiagram != "originalRequest") {
-        sitesKVArray = getFilteredData(selectedDiagram)[0];
-        heapKVArray = getFilteredData(selectedDiagram)[1];
-    } else {
-        sitesKVArray = d3.entries(dataBySites);
-        heapKVArray = d3.entries(sortedHeap);
-        linksKVArray = d3.entries(dataByLinks);
-        if(selectedDiagram != "originalRequest" && linksKVArray.length > 1) {
-            linksKVArray.forEach(putLinksToPage);
-        } else {
-            linksKVArray.forEach(putLinksToPage);
-            $("#splitDiagrams").hide();
-        }
-    }
-
 
     for (var index = 0; index < maxWords; index++) {
         newData[index] = {name: heapKVArray[index].key, isShowWeight: true, wordWeight:heapKVArray[index].value, key: heapKVArray[index].key, pages: []};
@@ -600,70 +573,6 @@ function normalizeRadiusOfCentralCircles(data, control) {
     }
 
 }
-function getFilteredData(selectedDiagram) {
-    var dataContainer;
-    var countedWords = [];
-    var numberWords = 7;
-    var maxWords;
-    var sites = []; //todo rename to source
-    var words = []; //todo rename to target
-
-    linksKVArray.forEach(function(d) {
-        if(d.key === selectedDiagram) {
-            dataContainer = d.value;
-        }
-    });
-    var i = 0;
-    dataContainer.forEach(function(d) {
-        var currentUrl;
-        sitesKVArray.forEach(function(s) {
-            if(s.key === d) {
-                currentUrl = s.value;
-                sites[i] = s;
-            }
-        });
-        i++;
-        maxWords = d3.entries(currentUrl);
-        maxWords.forEach(function(c) {
-            countedWords[c.key] = countedWords[c.key] ? countedWords[c.key] + c.value : c.value;
-        });
-    });
-
-    var totalCount = d3.entries(countedWords);
-
-    for(var i = 0; i < numberWords; i++) { //todo implement sorting
-        var maxKey = 0;
-        var maxValue = 0;
-
-        totalCount.forEach(function(w) {
-            if(i == 0) {
-                maxKey = maxValue < w.value ? w.key : maxKey;
-                maxValue = maxValue < w.value ? w.value : maxValue;
-                words[i] = {"key":maxKey, "value":maxValue};
-            } else {
-                maxKey = maxValue < w.value && w.value < words[i - 1].value ? w.key : maxKey;
-                maxValue = maxValue < w.value && w.value < words[i - 1].value ? w.value : maxValue;
-                words[i] = {"key":maxKey, "value":maxValue};
-            }
-
-        });
-    }
-    return [sites, words];
-}
-
-function putLinksToPage(value, index, dataByLinks) {
-    var cssId = index + 3;
-    $("#splitDiagrams").append("<div class=\"" + cssId + "\" onClick=\"drawSelectedDiagram('"+ value.key +"')\">" + value.key + "</div>");
-    $(".urlContainer div:nth-child(" + cssId + ")")
-        .css("padding-left", "5px")
-        .css("padding-bottom", "10px")
-        .css("float", "left");
-    $("." + cssId).hover(function(e) {
-            $(this).css("color",e.type === "mouseenter"?"#970E11":"#30b1d9")
-        }
-    )
-}
-
 function parseUri (str) {
     var	o   = parseUri.options,
         m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
@@ -678,7 +587,7 @@ function parseUri (str) {
     });
 
     return uri;
-}
+};
 
 parseUri.options = {
     strictMode: false,
