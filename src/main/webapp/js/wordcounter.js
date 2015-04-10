@@ -3,6 +3,8 @@ var dataResponse;
 var isFilter = false;
 var isFilterWords = 0;
 var textCount;
+var urlCount;
+var userRequest;
 var countedWords;
 var selectedRows = 10;
 var tableSortingFieldParam = 1;
@@ -42,9 +44,11 @@ $(document).ready(function() {
         };
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
+        urlCount = $("textarea#urlCount").val();
         crawlDepth = getCrawlDepth();
         crawlScope = getCrawlScoupe(); //todo remove u
-        dataString = "textCount=" + encodeURIComponent(textCount) + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
+        userRequest = textCount.length > 0 ? textCount : urlCount;
+        dataString = "textCount=" + encodeURIComponent(userRequest) + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
         $.ajax({
             type: "POST",
             url: "./countWords",
@@ -56,10 +60,11 @@ $(document).ready(function() {
                 dataStatistic = data.wordStatistic;
                 dataD3 = data.d3TestData;
                 dataUrlTree = data.relatedLinks;
+                setStatusFilter();
                 countedWords = getCountedWords(dataResponse, isFilter);
 
                 if (countedWords.length > 0) {
-                    setStatusFilterButton(isFilter);
+//                    setStatusFilter(isFilter);
                     displayResponseContainer();
                     if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
                         selectedRows = getSelectedRows();
@@ -117,6 +122,11 @@ $(document).ready(function() {
         requestBinaryCopyOfCalculatedWords(path);
     });
 });
+
+function clearRequest(idTextarea, idContainer) {
+    $("textarea#" + idTextarea).val("");
+    $("#" + idContainer).hide();
+}
 
 function setWordConnectionData() {
     var isVisualization = true;
@@ -188,7 +198,7 @@ function getSortingOrder() {
 function setTableContext(isFilter) {
     selectedRows = getSelectedRows();
     countedWords = getCountedWords(dataResponse, isFilter);
-    setStatusFilterButton(isFilter);
+    setStatusFilter(isFilter);
     dataTableDestroy();
     displayResponseContainer();
 }
@@ -268,17 +278,19 @@ function getSelectedRows() {
     return getSelectedRows.val();
 }
 
-function setStatusFilterButton(isFilter) {
-    $("#noWordCounter").hide();
-    if(!isFilter) {
-        $("#buttonGetUnFilterWords").hide();
-        $("#buttonGetFilterWords").show();
-        isFilterWords = false;
-    } else {
-        $("#buttonGetFilterWords").hide();
-        $("#buttonGetUnFilterWords").show();
-        isFilterWords = true;
-    }
+function showFilteredWords() {
+    $("#filterContainer").show();
+    $("input[name=filterCheck]:checkbox:checked").val() ? $("#filterShow").show() : $("#filterShow").hide();
+}
+function showCrawl() {
+    $("#crawlContainer").show();
+    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
+    getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
+}
+
+function setStatusFilter() {
+    isFilterWords = $("input[name=filterCheck]:checkbox:checked").val() ? true : false;
+    isFilter = isFilterWords;
 }
 
 function displayResponseContainer() { //todo move divs to elementsContainer
@@ -290,11 +302,9 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $('#countedWords').show();
     $("#messageCounter").hide();
     $('#errorsContainer').text('');
-    $('#spoilerStatistic').show();
+    $('#statisticContainer').show();
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
-    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
-    getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
 function hideResponseContainer() {
@@ -308,7 +318,7 @@ function hideResponseContainer() {
     $("#wordCloud").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
-    $('#spoilerStatistic').hide();
+    $('#statisticContainer').hide();
     $('#reloadWordCounter').hide();
     $('#wordCloudData').hide();
     $('#wordConnection').hide();
@@ -324,7 +334,7 @@ function displayErrorContainer() {
     $("#wordCounterResponse").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
-    $('#spoilerStatistic').hide();
+    $('#statisticContainer').hide();
     $('#wordCloudData').hide();
     $('#wordConnection').hide();
 }
