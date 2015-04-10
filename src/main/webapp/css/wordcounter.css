@@ -594,11 +594,6 @@ input[type="button"]:active {
 	top:1px;
 	text-align:left;
 }
-#feedback {
-    width: 100%;
-    height: 27px;
-    padding-top: 10px;
-}
 #version {
     padding-top: 10px;
 }

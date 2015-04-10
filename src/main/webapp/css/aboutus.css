@@ -70,3 +70,18 @@ body#aboutUS a#aboutUsLink {
     color: #534d4d;
     font-family: 'Open Sans', sans-serif;
 }
+#feedbackText {
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    color: #534d4d;
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+#feedbackAdress {
+    width: 100%;
+    height: 27px;
+    padding-top: 10px;
+}
