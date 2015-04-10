@@ -44,7 +44,7 @@ $(document).ready(function() {
         };
         target = document.getElementById('spinnerAnchor');
         textCount = $("textarea#textCount").val();
-        urlCount = $("textarea#urlCount").val();
+        urlCount = checkPrefix($("textarea#urlCount").val());
         crawlDepth = getCrawlDepth();
         crawlScope = getCrawlScoupe(); //todo remove u
         userRequest = textCount.length > 0 ? textCount : urlCount;
@@ -122,6 +122,20 @@ $(document).ready(function() {
         requestBinaryCopyOfCalculatedWords(path);
     });
 });
+
+function checkPrefix(requestedUrls) {
+    var prefix = "http://";
+    var splitRequest = requestedUrls.split(/\s+/);
+    var correctRequest = "";
+    for (var urlIndex = 0; urlIndex < splitRequest.length; urlIndex++) {
+        if (splitRequest[urlIndex].lastIndexOf(prefix, 0) != 0) {
+            correctRequest += prefix + splitRequest[urlIndex] + " ";
+        } else {
+            correctRequest += splitRequest[urlIndex] + " ";
+        }
+    }
+    return correctRequest;
+}
 
 function clearRequest(idTextarea, idContainer) {
     $("textarea#" + idTextarea).val("");
