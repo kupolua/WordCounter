@@ -94,17 +94,19 @@
     <div id="webFormContainer" name="webFormContainer">
             <div id="spinnerAnchor"></div>
             <div id="CountWords" class="bottoms">
-                <div>
+                <div class="leftBottoms">
                     <input id="getCountedWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
-                </div>
-                <div>
                     <input id="reloadWordCounter" type="button" value="<spring:message code="index.bReloadWordCounter"/>" onclick="location.reload()"/>
                 </div>
-                <div id="saveAsPdf">
-                    <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" title="<spring:message code="index.saveAsPdf"/>"/>
-                </div>
-                <div id="saveAsXls">
-                    <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" title="<spring:message code="index.saveAsXls"/>"/>
+                <div class="rightExport">
+                    <div id="exportBottoms" class="exportBottoms">
+                        <div id="saveAsPdf">
+                            <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" title="<spring:message code="index.saveAsPdf"/>"/>
+                        </div>
+                        <div id="saveAsXls">
+                            <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" title="<spring:message code="index.saveAsXls"/>"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         <fieldset>

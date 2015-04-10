@@ -27,6 +27,27 @@
 #wordCloud {
     display: none;
 }
+.bottoms {
+    width:100%;
+    float:left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.leftBottoms {
+    text-align: left;
+    width:60%;
+    float:left;
+}
+.rightExport {
+    width:40%;
+    overflow:hidden;
+}
+.exportBottoms div:nth-child(1) {
+    float:left;
+}
+.exportBottoms div:nth-child(2) {
+    float:left;
+}
 .container {
     width:100%;
     float:left;
