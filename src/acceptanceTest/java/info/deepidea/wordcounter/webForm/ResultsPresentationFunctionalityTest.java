@@ -410,12 +410,6 @@ public class ResultsPresentationFunctionalityTest {
         putDataAndClickCountButton(driver, htmlBrokenPageLatin + SEPARATOR + txtLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.className(elementCssSpoilerOpen)).click();
-        Thread.sleep(TIME_WAIT_SPOILER);
-        String elementClassSpoilerClose = "spoilerStatistic_close";
-        driver.findElement(By.className(elementClassSpoilerClose)).click();
-        Thread.sleep(TIME_WAIT_SPOILER);
-
         //then
         String elementCssErrorContainer = "#errorsContainer";
         final boolean isSpoilerOpen = driver.findElement(By.cssSelector(elementCssErrorContainer)).isDisplayed();

@@ -85,7 +85,6 @@ public class StatisticWordsFunctionalityTest {
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
-        driver.findElement(By.id(STATISTIC_SPOILER)).click();
         String actualResult = driver.findElement(By.id(STATISTIC_TABLE)).getText();
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks+actualResult);
@@ -137,7 +136,6 @@ public class StatisticWordsFunctionalityTest {
         putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
-        driver.findElement(By.id(STATISTIC_SPOILER)).click();
         String actualStatisticResult = driver.findElement(By.id(STATISTIC_TABLE)).getText();
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
@@ -183,9 +181,7 @@ public class StatisticWordsFunctionalityTest {
         driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(htmlTestPageSecondary);
 
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-        driver.findElement(By.id(STATISTIC_SPOILER)).click();
         driverSecondary.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
-        driverSecondary.findElement(By.id(STATISTIC_SPOILER)).click();
 
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         waitForJQueryProcessing(driverSecondary, WAIT_FOR_ELEMENT);

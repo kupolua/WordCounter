@@ -94,20 +94,9 @@ $(document).ready(function() {
         });
     });
 
-    $("#buttonGetFilterWords").click(function(e){
-        isFilter = true;
-        var activSpinner = runSpinner(isFilter);
-        activSpinner.done(function(){ spinner.stop(target); });
-    });
-
-    $("#buttonGetUnFilterWords").click(function(e){
-        isFilter = false;
-        var activSpinner = runSpinner(isFilter);
-        activSpinner.done(function(){ spinner.stop(target); });
-    });
-
     $("#saveAsPdf").click(function(e) {
-        dataString = "textCount=" + encodeURIComponent(textCount) + "&sortingOrder=" + getSortingOrder()
+        userRequest = textCount.length > 0 ? textCount : urlCount;
+        dataString = "textCount=" + encodeURIComponent(userRequest) + "&sortingOrder=" + getSortingOrder()
             + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
 
         var path = "/WordCounter/downloadPDF";
@@ -115,7 +104,8 @@ $(document).ready(function() {
     });
 
     $("#saveAsXls").click(function(e) {
-        dataString = "textCount=" + encodeURIComponent(textCount) + "&sortingOrder=" + getSortingOrder()
+        userRequest = textCount.length > 0 ? textCount : urlCount;
+        dataString = "textCount=" + encodeURIComponent(userRequest) + "&sortingOrder=" + getSortingOrder()
             + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
 
         var path = "/WordCounter/downloadExcel";
