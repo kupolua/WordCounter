@@ -9,6 +9,14 @@
 #CountWords {
     clear: both;
 }
+#dataContainer{
+    width: 100%;
+    float: left;
+}
+#wordFooter {
+    width: 100%;
+    float: left;
+}
 #statisticContainer {
     display: none;
     display:none;
