@@ -145,9 +145,14 @@ function clearRequest(idTextarea, idContainer) {
 function setWordConnectionData() {
     var isVisualization = true;
     var sortedHeap = getFilteredWords(dataResponse, isVisualization);
-
+    for (var property in dataD3) {
+        if (dataD3.hasOwnProperty(property)) {
+            dataD3[property] = getFilteredWords(dataD3[property], isVisualization);
+        }
+    }
     window.localStorage.setItem("sortedHeap", JSON.stringify(sortedHeap));
     window.localStorage.setItem("dataD3", JSON.stringify(dataD3));
+    window.localStorage.setItem("relatedLinks", JSON.stringify(dataUrlTree));
 }
 
 function setUrlTreeData() {
