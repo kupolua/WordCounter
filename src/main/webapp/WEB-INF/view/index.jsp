@@ -76,33 +76,6 @@
         </form>
         <fieldset>
             <legend><spring:message code="index.response"/></legend>
-            <div id="filterContainer" class="filterContainer">
-                <div class="filterButton">
-                    <div id="getFilterWords" class="buttonGetFilterWords">
-                        <input id="buttonGetFilterWords" type="button" value="<spring:message code="index.bFilter"/>" onclick="closeSpoiler()"/>
-                        <input id="buttonGetUnFilterWords" type="button" value="<spring:message code="index.bUnFilter"/>" onclick="closeSpoiler()"/>
-                    </div>
-                    <div id="showFilter" class="showFilter">
-                        <a href="#" class="osx" onclick="closeSpoiler()"><spring:message code="index.contentLocalLang"/></a>
-                    </div>
-                    <div id="saveAsPdf">
-                            <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" title="<spring:message code="index.saveAsPdf"/>"/>
-                    </div>
-                    <div id="saveAsXls">
-                            <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" title="<spring:message code="index.saveAsXls"/>"/>
-                    </div>
-                    <div id="wordConnection">
-                        <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
-                            <img src="img/c_2.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
-                        </a>
-                    </div>
-                    <div id="urlTree">
-                        <a href="urlTree" target="_blank" onclick="setUrlTreeData()">
-                            <img src="img/t_2.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
-                        </a>
-                    </div>
-                </div>
-            </div>
             <div id="errorsSpoiler" class="spoiler_open" tabindex="1">
                 <div id="errors" class="spoiler_desc">
                     <div id="errorsContainer" name="errorsContainer"></div>
@@ -110,40 +83,7 @@
                 <span class="spoiler_title"><spring:message code="index.errorsTitleOpen"/></span>
                 <span id="spoiler_close" tabindex="0" class="spoiler_close"><spring:message code="index.errorsTitleClose"/></span>
             </div>
-            <div id="spoilerStatistic" class="spoilerStatistic_open" tabindex="1">
-                <div id="statistic" class="spoilerStatistic_desc">
-                    <div id="statisticContainer" name="statisticContainer">
-                        <div style=" width:100%; height:1px; clear:both;"></div>
-                        <div id="statisticContainer">
-                            <table id="wordStatistic" cellpadding="0" cellspacing="0" border="0" class="display">
-                                <tr>
-                                    <td><b><spring:message code="index.statisticTitleName"/></b></td>
-                                    <td><b><spring:message code="index.statisticTitleValue"/></b></td>
-                                </tr>
-                                <tr>
-                                    <td><spring:message code="index.statisticTotalWords"/></td>
-                                    <td><div id="statisticTotalWords"></div></td>
-                                </tr>
-                                <tr>
-                                    <td><spring:message code="index.statisticUniqueWords"/></td>
-                                    <td><div id="statisticUniqueWords"></div></td>
-                                </tr>
-                                <tr>
-                                    <td><spring:message code="index.statisticTotalCharacters"/></td>
-                                    <td><div id="statisticTotalCharacters"></div></td>
-                                </tr>
-                                <tr>
-                                    <td><spring:message code="index.statisticCharactersWithoutSpaces"/></td>
-                                    <td><div id="statisticCharactersWithoutSpaces"></div></td>
-                                </tr>
-                            </table></div>
-                        <div id="statisticContainer" class="charts"></div>
-                        <div style=" width:100%; height:1px; clear:both;"></div>
-                    </div>
-                </div>
-                <span class="spoilerStatistic_title"><spring:message code="index.statisticTitleOpen"/></span>
-                <span id="spoilerStatistic_close" tabindex="0" class="spoilerStatistic_close"><spring:message code="index.statisticTitleClose"/></span>
-            </div>
+
             <div id="responseContainer">
                 <div id="messageCounter"><spring:message code="index.noCount"/></div>
                 <div id="wordCloud" class="container">
@@ -162,6 +102,55 @@
                     </div>
                 </div>
             </div>
+                <div id="statisticContainer">
+                   <div id="spanContainer">
+                        <span id="spoil"><spring:message code="index.statisticTitleOpen"/></span>
+                   </div>
+                   <div id="statTable">
+                        <table id="wordStatistic" cellpadding="0" cellspacing="0" border="0" class="display">
+                                            <tr>
+                                                <td><b><spring:message code="index.statisticTitleName"/></b></td>
+                                                <td><b><spring:message code="index.statisticTitleValue"/></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td><spring:message code="index.statisticTotalWords"/></td>
+                                                <td><div id="statisticTotalWords"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><spring:message code="index.statisticUniqueWords"/></td>
+                                                <td><div id="statisticUniqueWords"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><spring:message code="index.statisticTotalCharacters"/></td>
+                                                <td><div id="statisticTotalCharacters"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><spring:message code="index.statisticCharactersWithoutSpaces"/></td>
+                                                <td><div id="statisticCharactersWithoutSpaces"></div></td>
+                                            </tr>
+                        </table>
+                   </div>
+                </div>
+                <div id="filterContainer" class="filterContainer">
+                            <div class="filterButton">
+                                <div id="saveAsPdf">
+                                        <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" title="<spring:message code="index.saveAsPdf"/>"/>
+                                </div>
+                                <div id="saveAsXls">
+                                        <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" title="<spring:message code="index.saveAsXls"/>"/>
+                                </div>
+                                <div id="wordConnection">
+                                    <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
+                                        <img src="img/c_2.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
+                                    </a>
+                                </div>
+                                <div id="urlTree">
+                                    <a href="urlTree" target="_blank" onclick="setUrlTreeData()">
+                                        <img src="img/t_2.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
+                                    </a>
+                                </div>
+                            </div>
+                </div>
         </fieldset>
     </div>
 </div>

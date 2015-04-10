@@ -290,7 +290,7 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $('#countedWords').show();
     $("#messageCounter").hide();
     $('#errorsContainer').text('');
-    $('#spoilerStatistic').show();
+    $('#statisticContainer').show();
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
     getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
@@ -308,7 +308,7 @@ function hideResponseContainer() {
     $("#wordCloud").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
-    $('#spoilerStatistic').hide();
+    $('#statisticContainer').hide();
     $('#reloadWordCounter').hide();
     $('#wordCloudData').hide();
     $('#wordConnection').hide();
@@ -324,7 +324,7 @@ function displayErrorContainer() {
     $("#wordCounterResponse").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
-    $('#spoilerStatistic').hide();
+    $('#statisticContainer').hide();
     $('#wordCloudData').hide();
     $('#wordConnection').hide();
 }
