@@ -171,12 +171,12 @@
                     <%--<div id="visualization" class="visualization">--%>
                     <div id="wordConnection">
                         <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
-                            <img src="img/c_2.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
+                            <img src="img/related.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
                         </a>
                     </div>
                     <div id="urlTree">
                         <a href="urlTree" target="_blank" onclick="setUrlTreeData()">
-                            <img src="img/t_2.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
+                            <img src="img/tree.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
                         </a>
                     </div>
                     <%--</div>--%>
