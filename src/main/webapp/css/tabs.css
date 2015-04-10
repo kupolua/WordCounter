@@ -70,11 +70,10 @@
 }
 
 #container {
-    /*max-width: 980px;*/
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    padding: 25px 10px 0;
+    padding-top: 10px;
 }
 h1 {
     padding: 50px 0;

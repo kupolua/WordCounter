@@ -298,8 +298,6 @@ function showFilteredWords() {
 }
 function showCrawl() {
     $("#crawlContainer").show();
-    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
-    getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
 function setStatusFilter() {
@@ -311,6 +309,7 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $("#showFilter").show();
     $("#saveAsPdf").show();
     $("#saveAsXls").show();
+    $("#textExport").show();
     $("#wordCounterResponse").show();
     $("#wordCloud").show();
     $('#countedWords').show();
@@ -319,6 +318,8 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $('#statisticContainer').show();
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
+    getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
+    getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
 function hideResponseContainer() {
@@ -328,6 +329,7 @@ function hideResponseContainer() {
     $("#showFilter").hide();
     $("#saveAsPdf").hide();
     $("#saveAsXls").hide();
+    $("#textExport").hide();
     $("#wordCounterResponse").hide();
     $("#wordCloud").hide();
     $('#countedWords').hide();
@@ -345,6 +347,7 @@ function displayErrorContainer() {
     $("#showFilter").hide();
     $("#saveAsPdf").hide();
     $("#saveAsXls").hide();
+    $("#textExport").hide();
     $("#wordCounterResponse").hide();
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();

@@ -106,6 +106,10 @@
                         <div id="saveAsXls">
                             <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>" title="<spring:message code="index.saveAsXls"/>"/>
                         </div>
+                        <div id="textExport">
+                            <spring:message code="index.textExport"/>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -136,7 +140,7 @@
                     </div>
                 </div>
             </div>
-                <div id="statisticContainer">
+                <div id="statisticContainer" class="visualization">
                    <div id="spanContainer">
                         <span id="spoil"><spring:message code="index.statisticTitleOpen"/></span>
                    </div>
@@ -164,21 +168,23 @@
                             </tr>
                         </table>
                    </div>
-                </div>
-                <div id="filterContainer" class="filterContainer">
-                    <div class="filterButton">
-                        <div id="wordConnection">
-                            <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
-                                <img src="img/c_2.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
-                            </a>
-                        </div>
-                        <div id="urlTree">
-                            <a href="urlTree" target="_blank" onclick="setUrlTreeData()">
-                                <img src="img/t_2.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
-                            </a>
-                        </div>
+                    <%--<div id="visualization" class="visualization">--%>
+                    <div id="wordConnection">
+                        <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
+                            <img src="img/c_2.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
+                        </a>
                     </div>
+                    <div id="urlTree">
+                        <a href="urlTree" target="_blank" onclick="setUrlTreeData()">
+                            <img src="img/t_2.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
+                        </a>
+                    </div>
+                    <%--</div>--%>
                 </div>
+                <%--<div id="filterContainer" class="filterContainer">--%>
+                    <%--<div class="filterButton">--%>
+                    <%--</div>--%>
+                <%--</div>--%>
         </fieldset>
     </div>
 </div>
