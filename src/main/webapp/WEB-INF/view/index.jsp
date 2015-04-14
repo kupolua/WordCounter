@@ -72,20 +72,19 @@
             </section>
             <section id="content2">
                 <textarea id="urlCount" name="urlCount" cols="125" rows="7" onclick="showCrawl()"></textarea>
-                <div id="crawlContainer">
+                <div id="crawlContainer" class="crawlContainer">
                     <div>
                         <input type="checkbox" name="crawlDepth" value="true" onclick="showCrawlScope()" id="crawlDepthInput"/>
                         <b><spring:message code="index.crawlDepth"/></b>
                     </div>
-                    <%--<div id="crawler" class="crawlContainer">--%>
                         <div id="crawlDepth" class="crawlLeft">
                             <input type="checkbox" checked disabled="disabled" name="crawlLocalDomain" value="true" id="crawlLocalDomainInput"/>
                             <spring:message code="index.crawlScope"/>
                         </div>
-                    <%--</div>--%>
                     <div id="crawlLocalDomain">
                         <div id="crawlScopeClarification"><spring:message code="index.crawlScopeClarification"/></div>
                     </div>
+                    <div>)</div>
                 </div>
             </section>
         </div>

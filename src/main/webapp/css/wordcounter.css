@@ -88,16 +88,29 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 12px;
     color: #534d4d;
-    padding-bottom: 9px;
+    /*padding-bottom: 9px;*/
+    padding-top: 5px;
 }
 #crawlContainer {
     display: none;
+    padding-bottom: 2px;
     /*width: 100%;*/
 }
-.crawlLeft {
-    width:100%;
-    float:left;
+.crawlContainer div:nth-child(1) {
+    float: left;
 }
+.crawlContainer div:nth-child(2) {
+    padding-left: 15px;
+    float: left;
+}
+.crawlContainer div:nth-child(2) {
+    padding-left: 15px;
+    float: left;
+}
+/*.crawlLeft {*/
+    /*width:100%;*/
+    /*float:left;*/
+/*}*/
 #crawlDepthInput {
     display: inline;
     margin-right: 5px;

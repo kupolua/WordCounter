@@ -73,6 +73,7 @@ $(document).ready(function() {
                     writeTable(countedWords, selectedRows);
                     showStatistic(dataStatistic);
                     showWordCloud();
+                    scrollToAnchor("#responseContainer");
                 } else {
                     displayErrorContainer();
                     showErrors(dataErrors);
@@ -112,6 +113,11 @@ $(document).ready(function() {
         requestBinaryCopyOfCalculatedWords(path);
     });
 });
+
+function scrollToAnchor(wordTable){
+    var tag = $(wordTable);
+    $('html,body').animate({scrollTop: tag.offset().top}, 2000);
+}
 
 function checkPrefix(requestedUrls) {
     var prefix = "http://";
