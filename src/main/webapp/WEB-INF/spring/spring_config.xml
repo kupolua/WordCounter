@@ -11,6 +11,13 @@
     <context:property-placeholder location="classpath:wordcounter.properties"/>
     <mvc:annotation-driven />
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/urlTree" />
+            <bean class="info.deepidea.wordcounter.controller.BrowserInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <bean id="localeChangeInterceptor"
           class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
         <property name="paramName" value="language" />
