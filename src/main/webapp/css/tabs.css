@@ -138,10 +138,10 @@ section {
     margin-right: 10px;
 }
 .tabs label[for*="1"]:before {
-    content: "\f19a";
+    content: "\f15c";
 }
 .tabs label[for*="2"]:before {
-    content: "\f17a";
+    content: "\f08e";
 }
 .tabs label[for*="3"]:before {
     content: "\f13b";

@@ -10,6 +10,8 @@
 
     <link href="css/wordcounter.css" rel="stylesheet" type="text/css"/>
     <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="css/socialButtoms.css" rel="stylesheet" type="text/css"/>
     <link href="css/dataTables.foundation.css" rel="stylesheet" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/modal-window.css" rel="stylesheet" type="text/css" media="screen" />
@@ -21,6 +23,7 @@
     <script src="js/modal-window.js" type="text/javascript"></script>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="js/socialButtoms.js" type="text/javascript"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
     <script src="js/dataTables.foundation.js" type="text/javascript"></script>
@@ -30,45 +33,52 @@
 </head>
 
 <body id="home">
-
+<div id="shareBar">
+    <div class="social-container">
+        <div class="links">
+            <a href="#" data-type="twitter" data-url="http://w.deepidea.info" data-description="<spring:message code="index.welcomeHeader"/>" data-via="deepidea.software" class="deepideaSocial fa fa-twitter"></a>
+            <a href="#" data-type="facebook" data-url="http://w.deepidea.info" data-title="<spring:message code="index.welcomeHeader"/>" data-description="<spring:message code="index.welcomeHeader"/>" data-media="http://w.deepidea.info/WordCounter/wordcounter.png" class="deepideaSocial fa fa-facebook"></a>
+            <a href="#" data-type="googleplus" data-url="http://w.deepidea.info" data-description="<spring:message code="index.welcomeHeader"/>" class="deepideaSocial fa fa-google-plus"></a>
+            <a href="#" data-type="linkedin" data-url="http://w.deepidea.info" data-description="<spring:message code="index.welcomeHeader"/>" data-media="http://w.deepidea.info/WordCounter/wordcounter.png" class="deepideaSocial fa fa-linkedin"></a>
+        </div>
+    </div>
+</div>
 <div id="allContent">
     <div id="logo">
         <img src="img/wc-6.png" alt="WordCounterLogo">
     </div>
     <div id="navi">
             <ul>
-              <li><a href="/WordCounter" id="homeNav"><spring:message code="about.home"/></a></li>
-              <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
+                <li><a href="/WordCounter" id="homeNav"><spring:message code="about.home"/></a></li>
+                <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
             </ul>
     </div>
-<div id="headingText">
-    <div id="welcomeText">
-        <div id="p1"><spring:message code="index.welcomeHeader"/></div>
-        <div id="p2"><spring:message code="index.welcomeText"/></div>
-            <a href="about"><spring:message code="index.showMore"/></a>
-    </div>
- </div>
+    <div id="headingText">
+        <div id="welcomeText">
+            <div id="p1"><spring:message code="index.welcomeHeader"/></div>
+            <div id="p2"><spring:message code="index.welcomeText"/><a id="aboutUs" href="about"><spring:message code="index.showMore"/></a></div>
+
+        </div>
+     </div>
     <div id="container">
         <div class="tabs">
             <input id="tab1" type="radio" name="tabs" checked>
-            <label for="tab1" title="inputText" onclick="clearRequest('urlCount', 'crawlContainer')">Text</label>
+            <label for="tab1" title="inputText" onclick="clearRequest('urlCount', 'crawlContainer')">
+                <spring:message code="index.tabText"/>
+            </label>
 
             <input id="tab2" type="radio" name="tabs">
-            <label for="tab2" title="inputUrls" onclick="clearRequest('textCount', 'filterContainer')">URLs</label>
+            <label for="tab2" title="inputUrls" onclick="clearRequest('textCount', 'filterContainer')">
+                <spring:message code="index.tabUrl"/>
+            </label>
 
             <section id="content1">
                 <textarea id="textCount" name="textCount" cols="125" rows="7" onclick="showFilteredWords()"></textarea>
-                <%--<div id="filterContainer1" class="filterContainer1">--%>
-                    <%--<div id="showFilter1" class="showFilter1">--%>
                      <div id="filterContainer">
                         <input id="filterCheck" type="checkbox" name="filterCheck" value="true" onclick="showFilteredWords()"/>
                         <spring:message code="index.bUnFilter"/>
-                    <%--</div>--%>
-                    <%--<div id="showFilter" class="showFilter1">--%>
                         <a href="#" id="filterShow" class="osx"><spring:message code="index.contentLocalLang"/></a>
                      </div>
-                    <%--</div>--%>
-                <%--</div>--%>
             </section>
             <section id="content2">
                 <textarea id="urlCount" name="urlCount" cols="125" rows="7" onclick="showCrawl()"></textarea>
@@ -168,7 +178,6 @@
                             </tr>
                         </table>
                    </div>
-                    <%--<div id="visualization" class="visualization">--%>
                     <div id="wordConnection">
                         <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
                             <img src="img/related.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
@@ -179,12 +188,7 @@
                             <img src="img/tree.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
                         </a>
                     </div>
-                    <%--</div>--%>
                 </div>
-                <%--<div id="filterContainer" class="filterContainer">--%>
-                    <%--<div class="filterButton">--%>
-                    <%--</div>--%>
-                <%--</div>--%>
         </fieldset>
         </div>
     </div>

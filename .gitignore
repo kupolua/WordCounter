@@ -6,3 +6,4 @@ logs
 /video
 .DS_Store
 *.iml
+WordCounter.iml

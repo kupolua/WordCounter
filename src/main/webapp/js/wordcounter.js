@@ -19,6 +19,7 @@ var errorsMessage = "";
 var isErrors = false;
 
 $(document).ready(function() {
+    $('.deepideaSocial').deepideaSocial();
     $("#wordCounterForm").submit(function(e){
         e.preventDefault();
     });
@@ -73,7 +74,7 @@ $(document).ready(function() {
                     writeTable(countedWords, selectedRows);
                     showStatistic(dataStatistic);
                     showWordCloud();
-                    scrollToAnchor("#responseContainer");
+                    scrollToAnchor("#dataContainer");
                 } else {
                     displayErrorContainer();
                     showErrors(dataErrors);

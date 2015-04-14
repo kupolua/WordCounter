@@ -51,6 +51,8 @@
     float:left;
 }
 .rightExport {
+    position: relative;
+    top: 30px;
     width:40%;
     overflow:hidden;
 }
@@ -103,8 +105,9 @@
     padding-left: 15px;
     float: left;
 }
-.crawlContainer div:nth-child(2) {
-    padding-left: 15px;
+.crawlContainer div:nth-child(3) {
+    padding-left: 3px;
+    padding-right: 3px;
     float: left;
 }
 /*.crawlLeft {*/
@@ -415,7 +418,6 @@
 	font-size: 18px;
 	float: left;
 	margin: 0 0 1em 0;
-	padding: 0;
 	background-color: #f2f2f2;
 	border-bottom: 1px solid #ccc;
 	text-align: center;
@@ -452,15 +454,18 @@ body#home a#homeNav {
     padding-bottom: 10px;
 }
 #p1 {
-    font-size: 25px;
+    font-size: 18px;
     font-weight:bold;
     text-align: center;
-    padding-bottom: 13px;
+    padding-bottom: 7px;
 }
 #p2 {
-    font-size: 20px;
-    text-align: left;
-    padding-bottom: 15px;
+    font-size: 13px;
+    text-align: center;
+    padding-bottom: 7px;
+}
+#aboutUs {
+    padding-left: 5px;
 }
 #headingText {
     width: 100%;
