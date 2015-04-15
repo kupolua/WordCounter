@@ -71,7 +71,7 @@
                 <%--</div>--%>
             </section>
             <section id="content2">
-                <textarea id="urlCount" name="urlCount" cols="125" rows="7" onclick="showCrawl()">i.ua</textarea>
+                <textarea id="urlCount" name="urlCount" cols="125" rows="7" onclick="showCrawl()"></textarea>
                 <div id="crawlContainer" class="crawlContainer">
                     <div>
                         <input type="checkbox" name="crawlDepth" value="true" onclick="showCrawlScope()" id="crawlDepthInput"/>
