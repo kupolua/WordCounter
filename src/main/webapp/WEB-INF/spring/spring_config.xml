@@ -13,7 +13,7 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/urlTree" />
+            <mvc:mapping path="/**" />
             <bean class="info.deepidea.wordcounter.controller.BrowserInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

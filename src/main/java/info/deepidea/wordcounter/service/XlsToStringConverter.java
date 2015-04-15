@@ -42,6 +42,8 @@ public class XlsToStringConverter implements DocumentToStringConverter {
         } finally {
             closeInputStream(stream);
         }
+
+        LOG.info("Connection to " + userRequest.getClientRequest() + " has been successfully established.");
         Assertions.assertStringIsNotNullOrEmpty(extractedText, userRequest.getClientRequest());
 
         return new ConvertedDataContainer(xls + userRequest.getClientRequest(), extractedText);
