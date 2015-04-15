@@ -23,17 +23,28 @@
     width:auto;
     /*height:auto;*/
     margin-left:15px;
-    text-align:left;
 }
 
 #statTable {
+     width:40%;
+     padding-top:20px;
+ }
+#wordStatistic {
+    width:100%;
+
+}
+#sTable {
+    width:80%;
+    float:left;
     padding-top:15px;
 }
+
 #isWordCloudModalClosed {
     display: none;
 }
 #wordCloud {
     display: none;
+    border-bottom:2px dotted rgb(209, 209, 224);
 }
 #textExport {
     display: none;
@@ -56,13 +67,13 @@
     width:40%;
     overflow:hidden;
 }
-.exportBottoms div:nth-child(1) {
+.exportButtons div:nth-child(1) {
     float:right;
 }
-.exportBottoms div:nth-child(2) {
+.exportButtons div:nth-child(2) {
     float:right;
 }
-.exportBottoms div:nth-child(3) {
+.exportButtons div:nth-child(3) {
     padding-top: 15px;
     float:right;
 }
@@ -191,10 +202,45 @@
     transition: height 0.3s ease;
 }
 
-#spanContainer {
-    border-bottom: 1px dotted #050302;
-    width:100%;
+#statisticTableSpan {
+    display:none;
+    width:97%;
+    font-size:17px;
+    font-weight:bold;
+    color:rgb(83, 77, 77);
 }
+
+#relDiagramSpan {
+    width:97%;
+    font-size:17px;
+    font-weight:bold;
+    color:rgb(83, 77, 77);
+}
+
+#treeDiagramSpan {
+    width:70%;
+    font-size:17px;
+    font-weight:bold;
+    color:rgb(83, 77, 77);
+}
+
+/*.spanContainer div:nth-child(1) {
+    width: 38%;
+    float:left;
+    text-align:left;
+    margin-right:20px;
+}
+.spanContainer div:nth-child(2) {
+    width: 28%;
+    float:left;
+    text-align:left;
+    margin-right:20px;
+}
+.spanContainer div:nth-child(3) {
+    width: 30%;
+    float:left;
+    text-align:left;
+}*/
 
 .spoilerStatistic_open:focus { height: auto; }
 .spoilerStatistic_open:focus .spoilerStatistic_close { display: block; }
@@ -215,19 +261,20 @@
 }
 
 .visualization div:nth-child(1) {
+    width: 100%;
+    float: left;
+    text-align:left;
 }
 .visualization div:nth-child(2) {
-    width: 40%;
+    vertical-align: middle;
+    width: 100%;
     float: left;
+    text-align:left;
 }
 .visualization div:nth-child(3) {
-    vertical-align: middle;
-    width: 30%;
+    width: 100%;
     float: left;
-}
-.visualization div:nth-child(4) {
-    width: 30%;
-    float: left;
+    text-align:left;
 }
 
 /* Error Spoiler*/
@@ -493,19 +540,23 @@ legend {
 }
 #wordConnection {
     display: none;
-    padding-top: 3px;
-    padding-left: 15px;
-    padding-bottom: 9px;
     font-family: 'Open Sans', sans-serif;
     color: #534d4d;
+    width:30%;
+    padding-top:20px;
+}
+#relDiagramImg {
+    padding-top:15px;
 }
 #urlTree {
     display: none;
-    padding-top: 3px;
-    padding-left: 15px;
-    padding-bottom: 9px;
     font-family: 'Open Sans', sans-serif;
     color: #534d4d;
+    width:30%;
+    padding-top:20px;
+}
+#treeDiagramImg {
+    padding-top:15px;
 }
 #buttonGetFilterWords {
     display: none;

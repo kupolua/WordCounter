@@ -49,8 +49,8 @@
     </div>
     <div id="navi">
             <ul>
-                <li><a href="/WordCounter" id="homeNav"><spring:message code="about.home"/></a></li>
-                <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
+              <li><a href="/WordCounter" id="homeNav"><spring:message code="about.home"/></a></li>
+              <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
             </ul>
     </div>
     <div id="headingText">
@@ -108,7 +108,7 @@
                     <input id="reloadWordCounter" type="button" value="<spring:message code="index.bReloadWordCounter"/>" onclick="location.reload()"/>
                 </div>
                 <div class="rightExport">
-                    <div id="exportBottoms" class="exportBottoms">
+                    <div id="exportButtons" class="exportButtons">
                         <div id="saveAsPdf">
                             <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>" title="<spring:message code="index.saveAsPdf"/>"/>
                         </div>
@@ -118,7 +118,6 @@
                         <div id="textExport">
                             <spring:message code="index.textExport"/>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -151,42 +150,55 @@
                 </div>
             </div>
                 <div id="statisticContainer" class="visualization">
-                   <div id="spanContainer">
-                        <span id="spoil"><spring:message code="index.statisticTitleOpen"/></span>
-                   </div>
-                   <div id="statTable">
-                        <table id="wordStatistic" cellpadding="0" cellspacing="0" border="0" class="display">
-                            <tr>
-                                <td><b><spring:message code="index.statisticTitleName"/></b></td>
-                                <td><b><spring:message code="index.statisticTitleValue"/></b></td>
-                            </tr>
-                            <tr>
-                                <td><spring:message code="index.statisticTotalWords"/></td>
-                                <td><div id="statisticTotalWords"></div></td>
-                            </tr>
-                            <tr>
-                                <td><spring:message code="index.statisticUniqueWords"/></td>
-                                <td><div id="statisticUniqueWords"></div></td>
-                            </tr>
-                            <tr>
-                                <td><spring:message code="index.statisticTotalCharacters"/></td>
-                                <td><div id="statisticTotalCharacters"></div></td>
-                            </tr>
-                            <tr>
-                                <td><spring:message code="index.statisticCharactersWithoutSpaces"/></td>
-                                <td><div id="statisticCharactersWithoutSpaces"></div></td>
-                            </tr>
-                        </table>
-                   </div>
+                    <div id="statTable">
+                        <div id="statisticTableSpan">
+                            <span><spring:message code="index.statisticTitleOpen"/></span>
+                        </div>
+                        <div id="sTable">
+                            <table id="wordStatistic" cellpadding="0" cellspacing="0" border="0" class="display">
+                                <tr>
+                                    <td><b><spring:message code="index.statisticTitleName"/></b></td>
+                                    <td><b><spring:message code="index.statisticTitleValue"/></b></td>
+                                </tr>
+                                <tr>
+                                    <td><spring:message code="index.statisticTotalWords"/></td>
+                                    <td><div id="statisticTotalWords"></div></td>
+                                </tr>
+                                <tr>
+                                    <td><spring:message code="index.statisticUniqueWords"/></td>
+                                    <td><div id="statisticUniqueWords"></div></td>
+                                </tr>
+                                <tr>
+                                    <td><spring:message code="index.statisticTotalCharacters"/></td>
+                                    <td><div id="statisticTotalCharacters"></div></td>
+                                </tr>
+                                <tr>
+                                    <td><spring:message code="index.statisticCharactersWithoutSpaces"/></td>
+                                    <td><div id="statisticCharactersWithoutSpaces"></div></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
                     <div id="wordConnection">
-                        <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
-                            <img src="img/related.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
-                        </a>
+                        <div id="relDiagramSpan">
+                            <span><spring:message code="index.wordConnection"/></span>
+                        </div>
+                        <div id="relDiagramImg">
+                            <a href="topWordsRelationDiagram" target="_blank" onclick="setWordConnectionData()">
+                                <img src="img/related.png" title="<spring:message code="index.wordConnection"/>" alt="<spring:message code="index.wordConnection"/>"/>
+                            </a>
+                        </div>
                     </div>
                     <div id="urlTree">
-                        <a href="urlTree" target="_blank" onclick="setUrlTreeData()">
-                            <img src="img/tree.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
-                        </a>
+                        <div id="treeDiagramSpan">
+                            <span><spring:message code="index.urlTree"/></span>
+                        </div>
+                        <div id="treeDiagramImg">
+                            <a href="urlTree" target="_blank" onclick="setUrlTreeData()">
+                                <img src="img/tree.png" alt="<spring:message code="index.urlTree"/>" title="<spring:message code="index.urlTree"/>" />
+                            </a>
+                        </div>
                     </div>
                 </div>
         </fieldset>

@@ -318,9 +318,12 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $("#messageCounter").hide();
     $('#errorsContainer').text('');
     $('#statisticContainer').show();
+    $('#statisticTableSpan').show();
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
     getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
+//    getCrawlDepth() ? $('#relDiagramSpan').show() : $('#relDiagramSpan').hide();
+//    getCrawlDepth() ? $('#treeDiagramSpan').show() : $('#treeDiagramSpan').hide();
     getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
@@ -337,6 +340,7 @@ function hideResponseContainer() {
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
     $('#statisticContainer').hide();
+    $('#statisticTableSpan').hide();
     $('#reloadWordCounter').hide();
     $('#wordCloudData').hide();
     $('#wordConnection').hide();
@@ -354,6 +358,7 @@ function displayErrorContainer() {
     $('#countedWords').hide();
     $('#errorsSpoiler').hide();
     $('#statisticContainer').hide();
+    $('#statisticTableSpan').hide();
     $('#wordCloudData').hide();
     $('#wordConnection').hide();
 }
