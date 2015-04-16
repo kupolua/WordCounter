@@ -34,6 +34,7 @@ public class SortingFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.className(elementIdSorting)).click();
         driver.findElement(By.cssSelector("th.sorting_asc")).click();
 
@@ -52,6 +53,7 @@ public class SortingFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.className(elementIdSorting)).click();
 
         // then
@@ -71,6 +73,7 @@ public class SortingFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputDocumentUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.className(elementIdSorting)).click();
         driver.findElement(By.className(elementIdSorting)).click();
         driver.findElement(By.className("sorting_asc")).click();
@@ -90,6 +93,7 @@ public class SortingFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.className(elementIdSorting)).click();
         driver.findElement(By.className(elementIdSorting)).click();
         driver.findElement(By.className("sorting_asc")).click();
@@ -111,6 +115,7 @@ public class SortingFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputDocumentUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.className(elementIdSorting)).click();
 
         // then
@@ -128,6 +133,7 @@ public class SortingFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, inputText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.className("sorting_desc")).click();
 
         // then

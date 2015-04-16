@@ -183,6 +183,7 @@ public class ResultsPresentationFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength50);
 
         driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
@@ -329,7 +330,7 @@ public class ResultsPresentationFunctionalityTest {
     }
 
     @Test
-    public void testNextPage() {
+    public void testNextPage() throws InterruptedException {
         // given
         driver.get(BASE_URL);
         final String expectedResult = "м 2\n" + "н 2\n" + "о 2\n" + "п 2\n" + "с 2\n" + "т 2\n" + "у 2\n" + "ф 2\n" +
@@ -338,6 +339,7 @@ public class ResultsPresentationFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
 
         // then
@@ -364,7 +366,7 @@ public class ResultsPresentationFunctionalityTest {
     }
 
     @Test
-    public void testLastPage() {
+    public void testLastPage() throws InterruptedException {
         // given
         driver.get(BASE_URL);
         final String expectedResult = "д 1\n" + "ж 1\n" + "р 1\n" + "я 1\n" + "o 1\n" + "r 1\n" + "t 1\n" + "z 1";
@@ -372,6 +374,7 @@ public class ResultsPresentationFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.xpath(X_PATH_LAST_PAGE)).click();
 
         // then
@@ -380,7 +383,7 @@ public class ResultsPresentationFunctionalityTest {
     }
 
     @Test
-    public void testFirstPage() {
+    public void testFirstPage() throws InterruptedException {
         // given
         driver.get(BASE_URL);
         final String xPathFirstPage = "//*[@id=\"countedWords_paginate\"]/ul/li[2]/a";
@@ -390,6 +393,7 @@ public class ResultsPresentationFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.xpath(X_PATH_LAST_PAGE)).click();
         driver.findElement(By.xpath(xPathFirstPage)).click();
 

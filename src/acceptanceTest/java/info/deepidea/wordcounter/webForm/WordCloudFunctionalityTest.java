@@ -61,7 +61,7 @@ public class WordCloudFunctionalityTest {
 
 //    @Ignore
     @Test
-    public void wordCloudCanvas_modalWindow() {
+    public void wordCloudCanvas_modalWindow() throws InterruptedException {
         // given
         final String elementIdWordCloud = "wordCloudModal";
         driver.get(BASE_URL);
@@ -70,6 +70,7 @@ public class WordCloudFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, link);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
 
         driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(elementIdWordCloud)));

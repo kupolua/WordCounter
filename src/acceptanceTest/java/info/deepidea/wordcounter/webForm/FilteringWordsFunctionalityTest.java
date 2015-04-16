@@ -138,6 +138,7 @@ public class FilteringWordsFunctionalityTest {
 
         putDataAndClickCountButton(driver, inputLatinUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
 
         driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
 
@@ -161,7 +162,7 @@ public class FilteringWordsFunctionalityTest {
         driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
         putDataAndClickCountButton(driver, cyrillicText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
+        Thread.sleep(2000);
         driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
         putDataAndClickCountButton(driver, cyrillicText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
@@ -223,7 +224,7 @@ public class FilteringWordsFunctionalityTest {
 
         putDataAndClickCountButton(driver, inessentialText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
+        Thread.sleep(2000);
         driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(elementIdFilteringWords)));
 
@@ -246,6 +247,7 @@ public class FilteringWordsFunctionalityTest {
 
         putDataAndClickCountButton(driver, inessentialText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
         driver.findElement(By.linkText(linkTextX)).click();
         Thread.sleep(WAIT_TIME);
@@ -269,6 +271,7 @@ public class FilteringWordsFunctionalityTest {
 
         putDataAndClickCountButton(driver, inessentialText);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
         driver.findElement(By.cssSelector(elementCssModalClose)).click();
         Thread.sleep(WAIT_TIME);

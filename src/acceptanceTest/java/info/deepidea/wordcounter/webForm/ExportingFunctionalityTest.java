@@ -52,6 +52,7 @@ public class ExportingFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, pageLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
         driver.findElement(By.id(BUTTON_PDF)).click();
         Thread.sleep(WAIT_TIME);
 
@@ -73,6 +74,7 @@ public class ExportingFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, pageLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(WAIT_TIME);
         driver.findElement(By.id(BUTTON_XLS)).click();
         Thread.sleep(WAIT_TIME);
 

@@ -135,6 +135,7 @@ public class StatisticWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
+        Thread.sleep(2000);
 
         String actualStatisticResult = driver.findElement(By.id(STATISTIC_TABLE)).getText();
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();

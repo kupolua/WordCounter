@@ -271,7 +271,7 @@ public class CountingWordsFunctionalityTest {
         // when
         putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
+        Thread.sleep(2000);
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
@@ -292,13 +292,12 @@ public class CountingWordsFunctionalityTest {
         final String expectedEnterThreeLinks = "test 3\n" + "a 1\n" + "santa-monica 1\n" + "people 1\n" + "nice 1";
         String expectedErrorMassage = "System cannot count text in the source as it is empty or contains non-readable" +
                 " content or symbols: >http://deepidea.info/wordcounter/testData/Pdf_no_text.pdf";
-
         driver.get(BASE_URL);
 
         // when
         putDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
+        Thread.sleep(2000);
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
