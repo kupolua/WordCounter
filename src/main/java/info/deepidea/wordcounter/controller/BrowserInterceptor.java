@@ -24,11 +24,13 @@ public class BrowserInterceptor extends HandlerInterceptorAdapter {
         final String headerName = "User-Agent";
 
         final String userAgent = request.getHeader(headerName);
-        for (String eachBrowserFeature : incompatibleBrowsers) {
-            if (userAgent.contains(eachBrowserFeature)) {
-                response.sendRedirect(pageForRedirection);
-                LOG.info("Request from "+ eachBrowserFeature +" has been intercepted and redirected to " + pageForRedirection);
-                return false;
+        if (userAgent != null) {
+            for (String eachBrowserFeature : incompatibleBrowsers) {
+                if (userAgent.contains(eachBrowserFeature)) {
+                    response.sendRedirect(pageForRedirection);
+                    LOG.info("Request from "+ eachBrowserFeature +" has been intercepted and redirected to " + pageForRedirection);
+                    return false;
+                }
             }
         }
 
