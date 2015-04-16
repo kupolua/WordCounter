@@ -19,7 +19,6 @@ var errorsMessage = "";
 var isErrors = false;
 
 $(document).ready(function() {
-    $('.deepideaSocial').deepideaSocial();
     $("#wordCounterForm").submit(function(e){
         e.preventDefault();
     });
@@ -113,6 +112,12 @@ $(document).ready(function() {
         var path = "/WordCounter/downloadExcel";
         requestBinaryCopyOfCalculatedWords(path);
     });
+});
+
+$(window).load(function(){
+    var ancorPosition = $("#content1").offset();
+    $("#shareBar").css('top', ancorPosition.top);
+    $('.deepideaSocial').deepideaSocial();
 });
 
 function scrollToAnchor(wordTable){
@@ -651,4 +656,3 @@ function getPageSize() {
     }
     return [pageWidth,pageHeight,windowWidth,windowHeight];
 }
-
