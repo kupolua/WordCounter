@@ -39,8 +39,6 @@ public class FeedbackFunctionalityTest {
         String link = "http://deepidea.info/wordcounter/testData/1500_words.pdf";
 
         // when
-//        driver.findElement(By.cssSelector(ELEMENT_SHOW_FILTER)).click();
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(elementIdWordCloud)));
 
         //then
         WebDriverWait wait = new WebDriverWait(driver, 5);

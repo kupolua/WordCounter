@@ -367,3 +367,4 @@ public class CountingWordsFunctionalityTest {
         assertEquals(expectedResult, actualResult);
     }
 }
+

@@ -194,3 +194,4 @@ public class StatisticWordsFunctionalityTest {
         assertEquals(expectedResult, actualResult+actualStatisticResult);
     }
 }
+
