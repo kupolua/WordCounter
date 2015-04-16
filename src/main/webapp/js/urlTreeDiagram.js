@@ -53,7 +53,6 @@ function getData() {
 
     var dataTree = makeUrlTreeObject(relatedLinksKVArray);
 
-    console.log(sitesKVArray);
     return dataTree;
 }
 
