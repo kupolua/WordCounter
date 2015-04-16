@@ -26,7 +26,7 @@ public class LocalizationFunctionalityTest {
     public void testLanguage_textEN() throws Exception {
         // given
         final String languageType = LANGUAGE_DEFAULT_EN;
-        final String expected = "Get the most frequently used words in one click!";
+        final String expected = "Get the statistic of most frequently used words in one click!";
 
         Request request = buildRequestWithParamValue(languageType);
 
@@ -47,7 +47,7 @@ public class LocalizationFunctionalityTest {
     public void testLanguage_textRU() throws Exception {
         // given
         final String languageType = LANGUAGE_RU;
-        final String expected = "Получите список наиболее часто используемых слов в один миг!";
+        final String expected = "Получите статистику наиболее часто используемых слов в один миг!";
 
         Request request = buildRequestWithParamValue(languageType);
 
@@ -68,7 +68,8 @@ public class LocalizationFunctionalityTest {
     public void testLanguage_textUA() throws Exception {
         // given
         final String languageType = LANGUAGE_UK;
-        final String expected = "Отримайте перелік слів, що найчастіше зустрічаються у тексті, всього за одну мить!";
+        final String expected = "Отримайте статистику слів, що найчастіше зустрічаються у тексті, всього за одну" +
+                " мить!";
 
         Request request = buildRequestWithParamValue(languageType);
 
@@ -89,7 +90,7 @@ public class LocalizationFunctionalityTest {
     public void testLanguage_textDefault() throws Exception {
         // given
         final String languageType = LANGUAGE_DE;
-        final String expected = "Get the most frequently used words in one click!";
+        final String expected = "Get the statistic of most frequently used words in one click!";
 
         Request request = buildRequestWithParamValue(languageType);
 

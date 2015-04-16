@@ -117,7 +117,7 @@ public class LocalizationFunctionalityTest {
     public void testEnglishLocal() {
         // given
         final String localizationEn = "en";
-        final String expectedResult = "Get the most frequently used words in one click!";
+        final String expectedResult = "Get the statistic of most frequently used words in one click!";
         driver = getWebDriver(localizationEn);
 
         // when
@@ -133,7 +133,7 @@ public class LocalizationFunctionalityTest {
     public void testRussianLocal() {
         // given
         final String localizationRu = "ru";
-        final String expectedResult = "Получите список наиболее часто используемых слов в один миг!";
+        final String expectedResult = "Получите статистику наиболее часто используемых слов в один миг!";
         driver = getWebDriver(localizationRu);
 
         // when
@@ -149,7 +149,7 @@ public class LocalizationFunctionalityTest {
     public void testUkraineLocal() {
         // given
         final String localizationUk = "uk";
-        final String expectedResult = "Отримайте перелік слів, що найчастіше зустрічаються у тексті, всього за одну" +
+        final String expectedResult = "Отримайте статистику слів, що найчастіше зустрічаються у тексті, всього за одну" +
                 " мить!";
         driver = getWebDriver(localizationUk);
 
@@ -166,7 +166,7 @@ public class LocalizationFunctionalityTest {
     public void testGermanyLocal() {
         // given
         final String localizationDe = "de";
-        final String expectedResult = "Get the most frequently used words in one click!";
+        final String expectedResult = "Get the statistic of most frequently used words in one click!";
         driver = getWebDriver(localizationDe);
 
         // when

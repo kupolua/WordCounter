@@ -45,7 +45,7 @@ public class InformationAboutFunctionalityTest {
         // given
         driver.get(BASE_URL);
         final String elementIdAboutUsText = "aboutText";
-        String aboutUsCssSelector = "#welcomeText > a";
+        String aboutUsCssSelector = "#p2 > a";
 
         // when
         driver.findElement(By.cssSelector(aboutUsCssSelector)).click();
