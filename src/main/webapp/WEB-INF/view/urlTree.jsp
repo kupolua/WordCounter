@@ -36,6 +36,17 @@
           <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
         </ul>
     </div>
+    <div id="ieMessage">
+        <div>
+           <spring:message code="ie.message"/>
+        </div>
+        <div>
+           <spring:message code="supported.browsers"/>
+           <a href="http://www.firefox.com/">Firefox</a>
+           <a href="http://www.google.com/chrome"> Chrome</a>
+           <a href="http://www.opera.com/"> Opera</a>
+        </div>
+    </div>
     <div id="tree-container"></div>
 </body>
 </html>

@@ -87,27 +87,11 @@ body#home a#homeNav {
     padding-bottom: 10px;
     border-bottom: 1px solid #ccc;
 }
-#aboutText {
-    padding-top: 10px;
-    text-align: left;
-    font-size: 18px;
-    color: #534d4d;
-    font-family: 'Open Sans', sans-serif;
-}
 #aboutText ul {
     list-style-type: circle;
     padding: 0;
     list-style-position: inside;
     ext-indent: -2em; position: relative; left: 2em; margin-right: 2em;
-}
-#aboutUsText {
-    line-height: 1.5;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: left;
-    font-size: 18px;
-    color: #534d4d;
-    font-family: 'Open Sans', sans-serif;
 }
 .node circle {
     fill: #fff;
@@ -121,4 +105,15 @@ body#home a#homeNav {
     fill: none;
     stroke: #ccc;
     stroke-width: 1.5px;
+}
+
+#ieMessage {
+    display: none;
+    text-align: left;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    color: #FF495F;
+    font-color: #FF495F;
+    font-weight: bold;
 }

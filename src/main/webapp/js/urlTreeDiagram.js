@@ -2,6 +2,11 @@ var sitesKVArray;
 $(document).ready(function() {
     var treeData4 = getData();
 
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    if (isIE) {
+        $("#ieMessage").show();
+    }
+
     urlDragAndDrop(treeData4);
 //    urlFolding();
 });
