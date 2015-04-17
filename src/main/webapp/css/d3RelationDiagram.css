@@ -5,7 +5,7 @@
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     margin: 1em auto 4em auto;
     /*width: 960px;*/
-    width: 80%;
+    width: 100%;
    }
 
    h1 {
@@ -110,6 +110,7 @@
 
    svg {
     font: 10px sans-serif;
+       margin-left: 10px;
    }
 
    .axis path, .axis line {

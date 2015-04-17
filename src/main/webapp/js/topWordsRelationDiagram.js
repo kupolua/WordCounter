@@ -531,12 +531,17 @@ function getTheData(control, selectedDiagram) {
         sitesKVArray = getFilteredData(selectedDiagram)[0];
         heapKVArray = getFilteredData(selectedDiagram)[1];
     } else {
-        sitesKVArray = d3.entries(dataBySites);
-        heapKVArray = d3.entries(sortedHeap);
-        linksKVArray = d3.entries(dataByLinks);
+//        sitesKVArray = d3.entries(dataBySites);
+//        heapKVArray = d3.entries(sortedHeap);
+//        linksKVArray = d3.entries(dataByLinks);
         if(selectedDiagram != "originalRequest") {
             linksKVArray.forEach(putLinksToPage);
         }
+    }
+    if(linksKVArray.length === 1) {
+        $("#splitDiagrams").hide();
+    } else {
+        $("#splitDiagrams").show();
     }
 
     for (var index = 0; index < maxWords; index++) {
