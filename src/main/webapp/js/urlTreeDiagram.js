@@ -29,7 +29,7 @@ function makeUrlTreeObject(relatedLinksKVArray) {
     var amountOfRootWords = 0;
     for (var secondDepthIndex = 0; secondDepthIndex < relatedLinksKVArray.length; secondDepthIndex++) {
         var amountOfSecondDepthWords = 0;
-        rootObject.children.push({name: relatedLinksKVArray[secondDepthIndex].key, children :[]});
+        rootObject.children.push({name: relatedLinksKVArray[secondDepthIndex].key, amountOfRequestedLinks: relatedLinksKVArray.length, children :[]});
         for (var thirdDepthIndex = 0; thirdDepthIndex < relatedLinksKVArray[secondDepthIndex].value.length; thirdDepthIndex++) {
             var amountOfUrlWords = getOverallAmountOfWordsByUrl(relatedLinksKVArray[secondDepthIndex].value[thirdDepthIndex]);
             amountOfSecondDepthWords += amountOfUrlWords;
@@ -416,12 +416,26 @@ function urlDragAndDrop(treeData) {
         var nodes = tree.nodes(root).reverse(),
             links = tree.links(nodes);
 
+        var secondDepthLength;
+
+        nodes.forEach(function(d) {
+            if (d.depth == 1) {
+                var dLength = d.name.length * 8;
+                secondDepthLength = dLength < 300 ? 300 : dLength;
+            }
+        });
         // Set widths between levels based on maxLabelLength.
         nodes.forEach(function(d) {
-//            d.y = (d.depth * (maxLabelLength * 10)); //maxLabelLength * 10px
+            //d.y = (d.depth * (maxLabelLength * 10)); //maxLabelLength * 10px
             // alternatively to keep a fixed scale one can set a fixed depth per level
             // Normalize for fixed-depth by commenting out below line
-            d.y = (d.depth * 200); //500px per level.
+            if (d.depth == 1) {
+                d.y = secondDepthLength;
+            } else if (d.depth == 0) {
+                d.y = 0;
+            } else if (d.depth == 2) {
+                d.y = secondDepthLength + 300;
+            }
         });
 
         // Update the nodes…
@@ -451,6 +465,7 @@ function urlDragAndDrop(treeData) {
                 return d.children || d._children ? -10 : 10;
             })
             .attr("dy", ".35em")
+        //return (d.amountOfRequestedLinks < 2) && (d.name.length > 17) ? "2em" : ".35em";
             .attr('class', 'nodeText')
             .attr("text-anchor", function(d) {
                 return d.children || d._children ? "end" : "start";
