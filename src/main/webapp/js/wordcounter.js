@@ -127,13 +127,15 @@ function scrollToAnchor(wordTable){
 
 function checkPrefix(requestedUrls) {
     var prefix = "http://";
+    var httpPrefix = "http:";
+    var httpsPrefix = "https";
     var splitRequest = requestedUrls.split(/\s+/);
     var correctRequest = "";
     for (var urlIndex = 0; urlIndex < splitRequest.length; urlIndex++) {
-        if (splitRequest[urlIndex].lastIndexOf(prefix, 0) != 0) {
-            correctRequest += prefix + splitRequest[urlIndex] + " ";
-        } else {
+        if (splitRequest[urlIndex].substr(0, 5) === httpPrefix || splitRequest[urlIndex].substr(0, 5) === httpsPrefix) {
             correctRequest += splitRequest[urlIndex] + " ";
+        } else {
+            correctRequest += prefix + splitRequest[urlIndex] + " ";
         }
     }
     return correctRequest;
