@@ -70,10 +70,11 @@ $(document).ready(function() {
                         selectedRows = getSelectedRows();
                     }
                     showErrors(dataErrors);
+                    initFilterContainer();
                     writeTable(countedWords, selectedRows);
                     showStatistic(dataStatistic);
                     showWordCloud();
-                    scrollToAnchor("#dataContainer");
+                    scrollToAnchor("#exportButtons");
                 } else {
                     displayErrorContainer();
                     showErrors(dataErrors);
@@ -93,6 +94,18 @@ $(document).ready(function() {
                 spinner.stop(target);
             }
         });
+    });
+
+    $("#buttonGetFilterWords").click(function(e){
+        isFilter = true;
+        var activSpinner = runSpinner(isFilter);
+        activSpinner.done(function(){ spinner.stop(target); });
+    });
+
+    $("#buttonGetUnFilterWords").click(function(e){
+        isFilter = false;
+        var activSpinner = runSpinner(isFilter);
+        activSpinner.done(function(){ spinner.stop(target); });
     });
 
     $("#saveAsPdf").click(function(e) {
@@ -246,6 +259,19 @@ function writeTable(countedWords, pageLength) {
             }
         ]
     });
+    displayFilterContainer();
+}
+
+function initFilterContainer() {
+    $("#filterContainer").prependTo("#content1");
+    $("#filterShow").prependTo("#content1");
+    $("#filterContainer").hide();
+}
+
+function displayFilterContainer() {
+    $("#filterContainer").show();
+    $("#filterContainer").appendTo("#countedWords_length").prev();
+    $("#filterShow").appendTo("#countedWords_filter").prev();
 }
 
 function dataTableDestroy() {
@@ -302,20 +328,36 @@ function getSelectedRows() {
 }
 
 function showFilteredWords() {
-    $("#filterContainer").show();
     $("input[name=filterCheck]:checkbox:checked").val() ? $("#filterShow").show() : $("#filterShow").hide();
+    isFilter = $("input[name=filterCheck]:checkbox:checked").val() ? true : false;
+    $("#filterContainer").appendTo("#initWordsFilter");
+    $("#filterShow").appendTo("#initWordsFilter");
+    $("#filterContainer").hide();
+    var activSpinner = runSpinner(isFilter);
+    activSpinner.done(function(){ spinner.stop(target); });
 }
+
 function showCrawl() {
     $("#crawlContainer").show();
 }
 
 function setStatusFilter() {
     isFilterWords = $("input[name=filterCheck]:checkbox:checked").val() ? true : false;
-    isFilter = isFilterWords;
+//    isFilter = isFilterWords;
+    if(!isFilter) {
+        $("#buttonGetUnFilterWords").hide();
+        $("#buttonGetFilterWords").show();
+        isFilterWords = false;
+    } else {
+        $("#buttonGetFilterWords").hide();
+        $("#buttonGetUnFilterWords").show();
+        isFilterWords = true;
+    }
 }
 
 function displayResponseContainer() { //todo move divs to elementsContainer
     $("#showFilter").show();
+//    $("#filterContainerButton").show();
     $("#saveAsPdf").show();
     $("#saveAsXls").show();
     $("#textExport").show();
@@ -329,8 +371,6 @@ function displayResponseContainer() { //todo move divs to elementsContainer
     $('#reloadWordCounter').show();
     $('#wordCloudData').show();
     getCrawlDepth() ? $('#wordConnection').show() : $('#wordConnection').hide();
-//    getCrawlDepth() ? $('#relDiagramSpan').show() : $('#relDiagramSpan').hide();
-//    getCrawlDepth() ? $('#treeDiagramSpan').show() : $('#treeDiagramSpan').hide();
     getCrawlDepth() ? $('#urlTree').show() : $('#urlTree').hide();
 }
 
@@ -339,6 +379,7 @@ function hideResponseContainer() {
     $("#buttonGetUnFilterWords").hide();
     $("#buttonGetFilterWords").hide();
     $("#showFilter").hide();
+//    $("#filterContainerButton").hide();
     $("#saveAsPdf").hide();
     $("#saveAsXls").hide();
     $("#textExport").hide();
@@ -355,9 +396,10 @@ function hideResponseContainer() {
 
 function displayErrorContainer() {
     $("#messageCounter").hide();
-    $("#buttonGetUnFilterWords").hide();
-    $("#buttonGetFilterWords").hide();
+//    $("#buttonGetUnFilterWords").hide();
+//    $("#buttonGetFilterWords").hide();
     $("#showFilter").hide();
+//    $("#filterContainerButton").hide();
     $("#saveAsPdf").hide();
     $("#saveAsXls").hide();
     $("#textExport").hide();
@@ -405,9 +447,9 @@ function showStatistic(dataStatistic) {
     });
 }
 
-function closeSpoiler() {
-    $("spoiler_close").click();
-}
+//function closeSpoiler() {
+//    $("spoiler_close").click();
+//}
 
 function getCrawlScoupe() {
     if($("input[name=crawlLocalDomain]:checkbox:checked").val()) {

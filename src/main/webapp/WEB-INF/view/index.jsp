@@ -81,12 +81,8 @@
             </label>
 
             <section id="content1">
-                <textarea id="textCount" name="textCount" cols="125" rows="7" onclick="showFilteredWords()"></textarea>
-                     <div id="filterContainer">
-                        <input id="filterCheck" type="checkbox" name="filterCheck" value="true" onclick="showFilteredWords()"/>
-                        <spring:message code="index.bUnFilter"/>
-                        <a href="#" id="filterShow" class="osx"><spring:message code="index.contentLocalLang"/></a>
-                     </div>
+                <%--<textarea id="textCount" name="textCount" cols="125" rows="7" onclick="showFilteredWords()"></textarea>--%>
+                <textarea id="textCount" name="textCount" cols="125" rows="7"></textarea>
             </section>
             <section id="content2">
                 <textarea id="urlCount" name="urlCount" cols="125" rows="7" onclick="showCrawl()"></textarea>
@@ -108,7 +104,6 @@
     </div>
 <div id="wordCounterContent">
     <div id="webFormContainer" name="webFormContainer">
-            <div id="spinnerAnchor"></div>
             <div id="CountWords" class="bottoms">
                 <div class="leftBottoms">
                     <input id="getCountedWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
@@ -131,6 +126,25 @@
         <div id="dataContainer">
         <fieldset>
             <legend><spring:message code="index.response"/></legend>
+            <div id="filterContainerButton" class="filterContainerButton">
+                <div class="filterButton">
+                    <div id="getFilterWords" class="buttonGetFilterWords">
+                        <input id="buttonGetFilterWords" type="button" value="<spring:message code="index.bFilter"/>" onclick="closeSpoiler()"/>
+                        <input id="buttonGetUnFilterWords" type="button" value="<spring:message code="index.bUnFilter"/>" onclick="closeSpoiler()"/>
+                    </div>
+                    <div id="showFilter" class="showFilter">
+                        <%--<a href="#" class="osx" onclick="closeSpoiler()"><spring:message code="index.contentLocalLang"/></a>--%>
+                        <a href="#" class="osx"><spring:message code="index.contentLocalLang"/></a>
+                    </div>
+                    <div id="saveAsPdfB">
+                        <input id="getPdf" type="image" src="img/pdf-32.png" alt="<spring:message code="index.saveAsPdf"/>"/>
+                    </div>
+                    <div id="saveAsXlsB">
+                        <input id="getXls" type="image" src="img/excel-32.png" alt="<spring:message code="index.saveAsXls"/>"/>
+                    </div>
+                </div>
+            </div>
+            <div id="spinnerAnchor"></div>
             <div id="errorsSpoiler" class="spoiler_open" tabindex="1">
                 <div id="errors" class="spoiler_desc">
                     <div id="errorsContainer" name="errorsContainer"></div>
@@ -232,6 +246,13 @@
         </div>
     </div>
     </div>
+</div>
+<div id="initWordsFilter">
+    <div id="filterContainer">
+        <input id="filterCheck" type="checkbox" name="filterCheck" value="true" onclick="showFilteredWords()"/>
+        <spring:message code="index.bUnFilter"/>
+    </div>
+    <a href="#" id="filterShow" class="osx"><spring:message code="index.contentLocalLang"/></a>
 </div>
 <div id="isWordCloudModalClosed"></div>
 <div id="wordCloudRunuble"></div>

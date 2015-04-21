@@ -435,18 +435,56 @@
     padding-top: 15px;
     float: left;
 }
-#filterContainer {
+#initWordsFilter {
     display: none;
+}
+#filterContainer {
+    text-align: left;
+    display: none;
+    font-size: 0.875em;
+    color: #999;
+    float: right;
 }
 #filterCheck {
     display: block;
     float: left;
-    margin-top: 1px;
     margin-right: 5px;
 }
+/*#filterShowContainer {*/
+    /*display: none;*/
+    /*font-size: 0.875em;*/
+    /*margin-top: 10px;*/
+    /*float: left;*/
+/*}*/
 #filterShow{
     display: none;
-    padding-left: 20px;
+    font-size: 0.875em;
+    margin-top: 10px;
+    float: left;
+}
+#filterContainerButton {
+    width: 100%;
+    text-align: left;
+    display: none;
+    font-size: 0.875em;
+    color: #999;
+    float: left;
+}
+.filterContainerButton div:nth-child(1) {
+    padding-left: 15px;
+    float: left;
+}
+.filterContainerButton div:nth-child(2) {
+    padding-left: 15px;
+    float: left;
+}
+.filterContainerButton div:nth-child(3) {
+    padding-left: 5px;
+    float: left;
+}
+.filterContainerButton div:nth-child(4) {
+    padding-left: 5px;
+    float: left;
 }
 .filterContainer1 div:nth-child(1){
     padding-left: 5px;
@@ -454,6 +492,7 @@
     float: left;
 }
 .filterContainer1 div:nth-child(2){
+    font-size: 10px;
     padding-left: 5px;
     padding-top: 15px;
     float: left;
