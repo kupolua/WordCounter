@@ -100,41 +100,41 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expectedPdf, actualPdf);
     }
 
-    @Test(timeout = DEFAULT_TIMEOUT) // line 46
-    public void testExportToPdfUk_noTextPptx() throws Exception {
-        // given
-        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/Ppt_no_text.pptx";
-        final String depth = "0";
-        final String internalOnly = "true";
-        final String requestedSortingOrder = VALUE_DESCENDING;
-        final String requestedIsFilterWords = "false";
-
-        // when
-        Request request = buildRequestWithParamValue(
-                COUNT_URL_PDF,
-                requestedTextCount,
-                depth,
-                internalOnly,
-                requestedSortingOrder,
-                requestedIsFilterWords,
-                MEDIA_TYPE_PDF,
-                LANGUAGE_UK);
-        Response response = client.newCall(request).execute();
-
-        // then
-        if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(
-                    COUNT_URL_PDF, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
-        }
-
-        File pdf = new File(PATH_RESOURCES + "expectedUkFromNoTextPptx.pdf");
-        String expectedPdf = documentConverter.parseToString(pdf);
-
-        InputStream inputPdf = response.body().byteStream();
-        String actualPdf = documentConverter.parseToString(inputPdf);
-
-        Assert.assertEquals(expectedPdf, actualPdf);
-    }
+//    @Test(timeout = DEFAULT_TIMEOUT) // line 46
+//    public void testExportToPdfUk_noTextPptx() throws Exception {
+//        // given
+//        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/Ppt_no_text.pptx";
+//        final String depth = "0";
+//        final String internalOnly = "true";
+//        final String requestedSortingOrder = VALUE_DESCENDING;
+//        final String requestedIsFilterWords = "false";
+//
+//        // when
+//        Request request = buildRequestWithParamValue(
+//                COUNT_URL_PDF,
+//                requestedTextCount,
+//                depth,
+//                internalOnly,
+//                requestedSortingOrder,
+//                requestedIsFilterWords,
+//                MEDIA_TYPE_PDF,
+//                LANGUAGE_UK);
+//        Response response = client.newCall(request).execute();
+//
+//        // then
+//        if (!response.isSuccessful()) {
+//            Assert.fail(createFailMessage(
+//                    COUNT_URL_PDF, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
+//        }
+//
+//        File pdf = new File(PATH_RESOURCES + "expectedUkFromNoTextPptx.pdf");
+//        String expectedPdf = documentConverter.parseToString(pdf);
+//
+//        InputStream inputPdf = response.body().byteStream();
+//        String actualPdf = documentConverter.parseToString(inputPdf);
+//
+//        Assert.assertEquals(expectedPdf, actualPdf);
+//    }
 
     @Test(timeout = DEFAULT_TIMEOUT) // line 47
     public void testExportToXlsEn_cyrillicHtml() throws Exception {
@@ -208,41 +208,41 @@ public class ExportingFunctionalityTest {
         Assert.assertEquals(expectedXls, actualXls);
     }
 
-    @Test(timeout = DEFAULT_TIMEOUT) // line 49
-    public void testExportToXlsUk_noTextPptx() throws Exception {
-        // given
-        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/Ppt_no_text.pptx";
-        final String depth = "0";
-        final String internalOnly = "true";
-        final String requestedSortingOrder = VALUE_DESCENDING;
-        final String requestedIsFilterWords = "false";
-
-        // when
-        Request request = buildRequestWithParamValue(
-                COUNT_URL_XLS,
-                requestedTextCount,
-                depth,
-                internalOnly,
-                requestedSortingOrder,
-                requestedIsFilterWords,
-                MEDIA_TYPE_XLS,
-                LANGUAGE_UK);
-        Response response = client.newCall(request).execute();
-
-        // then
-        if (!response.isSuccessful()) {
-            Assert.fail(createFailMessage(
-                    COUNT_URL_XLS, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
-        }
-
-        File xls = new File(PATH_RESOURCES + "expectedUkFromNoTextPptx.xls");
-        String expectedXls = documentConverter.parseToString(xls);
-
-        InputStream expXls = response.body().byteStream();
-        String actualXls = documentConverter.parseToString(expXls);
-
-        Assert.assertEquals(expectedXls, actualXls);
-    }
+//    @Test(timeout = DEFAULT_TIMEOUT) // line 49
+//    public void testExportToXlsUk_noTextPptx() throws Exception {
+//        // given
+//        final String requestedTextCount = "http://deepidea.info/wordcounter/testData/Ppt_no_text.pptx";
+//        final String depth = "0";
+//        final String internalOnly = "true";
+//        final String requestedSortingOrder = VALUE_DESCENDING;
+//        final String requestedIsFilterWords = "false";
+//
+//        // when
+//        Request request = buildRequestWithParamValue(
+//                COUNT_URL_XLS,
+//                requestedTextCount,
+//                depth,
+//                internalOnly,
+//                requestedSortingOrder,
+//                requestedIsFilterWords,
+//                MEDIA_TYPE_XLS,
+//                LANGUAGE_UK);
+//        Response response = client.newCall(request).execute();
+//
+//        // then
+//        if (!response.isSuccessful()) {
+//            Assert.fail(createFailMessage(
+//                    COUNT_URL_XLS, requestedTextCount, requestedSortingOrder, requestedIsFilterWords));
+//        }
+//
+//        File xls = new File(PATH_RESOURCES + "expectedUkFromNoTextPptx.xls");
+//        String expectedXls = documentConverter.parseToString(xls);
+//
+//        InputStream expXls = response.body().byteStream();
+//        String actualXls = documentConverter.parseToString(expXls);
+//
+//        Assert.assertEquals(expectedXls, actualXls);
+//    }
 
     @Test(timeout = DEFAULT_TIMEOUT) // line 50
     public void testExportPdfDe_latinHtml_Filter() throws Exception {
@@ -473,7 +473,7 @@ public class ExportingFunctionalityTest {
     }
 
     @Test(timeout = DEFAULT_TIMEOUT) // line 56
-    public void testExportPdfRu_brokenUrlAndNormalUrl_FilterKeyAscend() throws Exception {
+    public void testExportPdfRu_brokenUrlAndNormalUrl_FilterKeyDescend() throws Exception {
         // given
         final String requestedTextCount = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html \n" +
                 "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";
@@ -512,7 +512,7 @@ public class ExportingFunctionalityTest {
     }
 
     @Test(timeout = DEFAULT_TIMEOUT) // line 57
-    public void testExportXlsRu_brokenUrlAndNormalUrl_FilterKeyAscend() throws Exception {
+    public void testExportXlsRu_brokenUrlAndNormalUrl_FilterKeyDescend() throws Exception {
         // given
         final String requestedTextCount = "http://kupol....in.ua/wordcounter/testData/test_page_latin.html \n" +
                 "http://deepidea.info/wordcounter/testData/letters%2Bnumbers.txt";

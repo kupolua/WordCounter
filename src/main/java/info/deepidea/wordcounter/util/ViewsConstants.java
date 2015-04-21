@@ -33,4 +33,16 @@ public class ViewsConstants {
     public static final String FILE_DOWNLOAD_COOKIE_NAME = "fileDownload";
     public static final String FILE_DOWNLOAD_COOKIE_VALUE = "true";
     public static final String FILE_DOWNLOAD_COOKIE_PATH = "/";
+    public static final String STAT_CHAR_WITHOUT_SPACES_EN = "Characters Without Spaces";
+    public static final String STAT_CHAR_WITHOUT_SPACES_RU = "Всего символов(без пробелов)";
+    public static final String STAT_CHAR_WITHOUT_SPACES_UK = "Загалом символів(без пробілів)";
+    public static final String STAT_UNIQUE_EN = "Unique Words";
+    public static final String STAT_UNIQUE_RU = "Всего уникальных слов";
+    public static final String STAT_UNIQUE_UK = "Загалом унікальних слів";
+    public static final String STAT_TOTAL_WORDS_EN = "Total Words";
+    public static final String STAT_TOTAL_WORDS_RU = "Всего слов";
+    public static final String STAT_TOTAL_WORDS_UK = "Загалом слів";
+    public static final String STAT_TOTAL_CHARS_EN = "Total Characters";
+    public static final String STAT_TOTAL_CHARS_RU = "Всего символов";
+    public static final String STAT_TOTAL_CHARS_UK = "Загалом символів";
 }

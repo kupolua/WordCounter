@@ -11,7 +11,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import java.io.File;
 
 import static info.deepidea.wordcounter.webForm.utils.Constants.*;
-import static info.deepidea.wordcounter.webForm.utils.Util.putDataAndClickCountButton;
+import static info.deepidea.wordcounter.webForm.utils.Util.putUrlDataAndClickCountButton;
 import static info.deepidea.wordcounter.webForm.utils.Util.waitForJQueryProcessing;
 import static org.junit.Assert.assertTrue;
 
@@ -50,7 +50,7 @@ public class ExportingFunctionalityTest {
         final String pdfName = "calculatedWords.pdf";
 
         // when
-        putDataAndClickCountButton(driver, pageLink);
+        putUrlDataAndClickCountButton(driver, pageLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         driver.findElement(By.id(BUTTON_PDF)).click();
@@ -72,7 +72,7 @@ public class ExportingFunctionalityTest {
         final String xlsName = "calculatedWords.xls";
 
         // when
-        putDataAndClickCountButton(driver, pageLink);
+        putUrlDataAndClickCountButton(driver, pageLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(WAIT_TIME);
         driver.findElement(By.id(BUTTON_XLS)).click();

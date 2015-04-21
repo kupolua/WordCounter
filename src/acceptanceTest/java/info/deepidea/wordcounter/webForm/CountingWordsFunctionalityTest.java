@@ -40,7 +40,7 @@ public class CountingWordsFunctionalityTest {
         final String request = "http://deepidea.info/wordcounter/testData/page_cyrillic.html";
 
         // when
-        putDataAndClickCountButton(driver, request);
+        putUrlDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -119,7 +119,7 @@ public class CountingWordsFunctionalityTest {
         final String expectedResult = "test 3\na 1\nsanta-monica 1";
 
         // when
-        putDataAndClickCountButton(driver, "http://deepidea.info/wordcounter/testData/page_latin.html");
+        putUrlDataAndClickCountButton(driver, "http://deepidea.info/wordcounter/testData/page_latin.html");
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -136,7 +136,7 @@ public class CountingWordsFunctionalityTest {
                 " entered not readable text?";
 
         // when
-        putDataAndClickCountButton(driver, noTextOnPage);
+        putUrlDataAndClickCountButton(driver, noTextOnPage);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
@@ -156,7 +156,7 @@ public class CountingWordsFunctionalityTest {
                 " >http://kupol...in.ua/wordcounter/testData/no_text.html";
 
         // when
-        putDataAndClickCountButton(driver, invalidLink);
+        putUrlDataAndClickCountButton(driver, invalidLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
@@ -176,7 +176,7 @@ public class CountingWordsFunctionalityTest {
         String expectedResult = "думи 2\nмої 1";
 
         // when
-        putDataAndClickCountButton(driver, pptxLink);
+        putUrlDataAndClickCountButton(driver, pptxLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -192,7 +192,7 @@ public class CountingWordsFunctionalityTest {
         String expectedResult = "people 1\nnice 1";
 
         // when
-        putDataAndClickCountButton(driver, txtLink);
+        putUrlDataAndClickCountButton(driver, txtLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -208,7 +208,7 @@ public class CountingWordsFunctionalityTest {
         String expectedResult = "word 665\nтексте 507\nмінімум 253\nв 75";
 
         // when
-        putDataAndClickCountButton(driver, pdfLink);
+        putUrlDataAndClickCountButton(driver, pdfLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -225,7 +225,7 @@ public class CountingWordsFunctionalityTest {
                 " content or symbols: >http://deepidea.info/wordcounter/testData/Pdf_no_text.pdf";
 
         // when
-        putDataAndClickCountButton(driver, noTextInPdf);
+        putUrlDataAndClickCountButton(driver, noTextInPdf);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
@@ -248,7 +248,7 @@ public class CountingWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, request);
+        putUrlDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
@@ -269,7 +269,7 @@ public class CountingWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, request);
+        putUrlDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
@@ -295,7 +295,7 @@ public class CountingWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, request);
+        putUrlDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
@@ -324,7 +324,7 @@ public class CountingWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, request);
+        putUrlDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
@@ -346,11 +346,13 @@ public class CountingWordsFunctionalityTest {
                 "http://deepidea.info/wordcounter/testData/textForSeleniumTestSecondary.pdf";
 
         // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(pageLatinLink);
+        driver.findElement(By.id(ELEMENT_ID_URL_TAB)).click();
+        driver.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).sendKeys(pageLatinLink);
 
-        driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(htmlTestPageSecondary);
+        driverSecondary.findElement(By.id(ELEMENT_ID_URL_TAB)).click();
+        driverSecondary.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).clear();
+        driverSecondary.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).sendKeys(htmlTestPageSecondary);
 
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
         driverSecondary.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();

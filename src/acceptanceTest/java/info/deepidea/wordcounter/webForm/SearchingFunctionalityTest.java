@@ -35,7 +35,7 @@ public class SearchingFunctionalityTest {
         final String expectedSearchWord = "нет 1";
 
         // when
-        putDataAndClickCountButton(driver, htmlPageCyrillic);
+        putUrlDataAndClickCountButton(driver, htmlPageCyrillic);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.cssSelector(elementCssInputSearch)).clear();
         driver.findElement(By.cssSelector(elementCssInputSearch)).sendKeys(searchWord);
@@ -76,7 +76,7 @@ public class SearchingFunctionalityTest {
         final String expectedSearchWord = "аэросъемка 2\n" + "sweet 2\n" + "дымарь 2";
 
         // when
-        putDataAndClickCountButton(driver, odtLink);
+        putUrlDataAndClickCountButton(driver, odtLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.cssSelector(elementCssInputSearch)).clear();
         driver.findElement(By.cssSelector(elementCssInputSearch)).sendKeys(searchWord);

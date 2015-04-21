@@ -15,7 +15,7 @@ public class PlainToStringConverter implements DocumentToStringConverter {
 
     @Override
     public ConvertedDataContainer convertToString(RequestContainer userRequest) {
-        final String sourceName = "PlainText";
+        final String sourceName = "!Plain_Text";
         return new ConvertedDataContainer(sourceName, userRequest.getClientRequest());
     }
 }

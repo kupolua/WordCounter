@@ -71,15 +71,26 @@ public class CountersIntegratorImpl implements CountersIntegrator {
     }
 
     private void addLinks(Map<String, Set<String>> relatedLinks, ThreadResultContainer eachContainer) {
+        final String[] cancellationPrefix = {"!Plain_", "Pdf", "Doc", "Xls", "Xlsx"};
         if (eachContainer.getVisitedPage() != null) {
-            Set<String> existingPages = relatedLinks.get(eachContainer.getMarker());
-            if (existingPages == null) {
-                Set<String> newPages = new HashSet<>(1);
-                newPages.add(eachContainer.getVisitedPage());
-                relatedLinks.put(eachContainer.getMarker(), newPages);
-            } else {
-                existingPages.add(eachContainer.getVisitedPage());
-                relatedLinks.put(eachContainer.getMarker(), existingPages);
+            boolean isProperLink = true;
+            for (String eachPrefix : cancellationPrefix) {
+                if (eachContainer.getVisitedPage().startsWith(eachPrefix)) {
+                    isProperLink = false;
+                    break;
+                }
+            }
+
+            if (isProperLink) {
+                Set<String> existingPages = relatedLinks.get(eachContainer.getMarker());
+                if (existingPages == null) {
+                    Set<String> newPages = new HashSet<>(1);
+                    newPages.add(eachContainer.getVisitedPage());
+                    relatedLinks.put(eachContainer.getMarker(), newPages);
+                } else {
+                    existingPages.add(eachContainer.getVisitedPage());
+                    relatedLinks.put(eachContainer.getMarker(), existingPages);
+                }
             }
         }
     }

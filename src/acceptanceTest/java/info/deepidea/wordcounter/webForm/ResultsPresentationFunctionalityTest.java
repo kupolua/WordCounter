@@ -52,7 +52,7 @@ public class ResultsPresentationFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
+        putUrlDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         // then
@@ -92,7 +92,7 @@ public class ResultsPresentationFunctionalityTest {
                 "актуальные 1";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
+        putUrlDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength25);
 
@@ -158,7 +158,7 @@ public class ResultsPresentationFunctionalityTest {
                 "плюс 1";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
+        putUrlDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength50);
 
@@ -181,7 +181,7 @@ public class ResultsPresentationFunctionalityTest {
         final String expectedResult8 = "д 1\n" + "ж 1\n" + "р 1\n" + "я 1\n" + "o 1\n" + "r 1\n" + "t 1\n" + "z 1";
 
         // when
-        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
+        putUrlDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength50);
@@ -303,7 +303,7 @@ public class ResultsPresentationFunctionalityTest {
                 "условия 1";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
+        putUrlDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(DATA_TABLES_LENGTH_100);
 
@@ -319,7 +319,7 @@ public class ResultsPresentationFunctionalityTest {
         final String dataTablesLength10 = "10";
 
         // when
-        putDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
+        putUrlDataAndClickCountButton(driver, HTML_TEST_PAGE_PRESENTATION);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(DATA_TABLES_LENGTH_100);
         new Select(driver.findElement(By.name(ELEMENT_DATA_TABLES_LENGTH))).selectByVisibleText(dataTablesLength10);
@@ -337,7 +337,7 @@ public class ResultsPresentationFunctionalityTest {
                 "х 2\n" + "ц 2";
 
         // when
-        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
+        putUrlDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
@@ -355,7 +355,7 @@ public class ResultsPresentationFunctionalityTest {
                 "к 2\n" + "л 2";
 
         // when
-        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
+        putUrlDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         driver.findElement(By.id(ELEMENT_ID_LINK_NEXT)).click();
         driver.findElement(By.id(ELEMENT_ID_LINK_PREV)).click();
@@ -372,7 +372,7 @@ public class ResultsPresentationFunctionalityTest {
         final String expectedResult = "д 1\n" + "ж 1\n" + "р 1\n" + "я 1\n" + "o 1\n" + "r 1\n" + "t 1\n" + "z 1";
 
         // when
-        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
+        putUrlDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         driver.findElement(By.xpath(X_PATH_LAST_PAGE)).click();
@@ -391,7 +391,7 @@ public class ResultsPresentationFunctionalityTest {
                 "к 2\n" + "л 2";
 
         // when
-        putDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
+        putUrlDataAndClickCountButton(driver, RU_ALPHABET_LINK + SEPARATOR + EN_ALPHABET_LINK);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         driver.findElement(By.xpath(X_PATH_LAST_PAGE)).click();

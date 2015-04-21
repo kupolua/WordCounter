@@ -43,8 +43,8 @@ $(document).ready(function() {
             left: '50%' // Left position relative to parent
         };
         target = document.getElementById('spinnerAnchor');
-        textCount = $("textarea#textCount").val();
-        urlCount = checkPrefix($("textarea#urlCount").val());
+        textCount = checkAndNeutralizePrefix($("textarea#textCount").val());
+        urlCount = checkAndAddPrefix($("textarea#urlCount").val());
         crawlDepth = getCrawlDepth();
         crawlScope = getCrawlScoupe(); //todo remove u
         userRequest = textCount.length > 0 ? textCount : urlCount;
@@ -138,17 +138,24 @@ function scrollToAnchor(wordTable){
     $('html,body').animate({scrollTop: tag.offset().top}, 2000);
 }
 
-function checkPrefix(requestedUrls) {
+function checkAndNeutralizePrefix(requestedText) {
+    var correctText = requestedText.replace(/:/gi, ";");
+    return correctText;
+}
+
+function checkAndAddPrefix(requestedUrls) {
     var prefix = "http://";
     var httpPrefix = "http:";
     var httpsPrefix = "https";
     var splitRequest = requestedUrls.split(/\s+/);
     var correctRequest = "";
     for (var urlIndex = 0; urlIndex < splitRequest.length; urlIndex++) {
-        if (splitRequest[urlIndex].substr(0, 5) === httpPrefix || splitRequest[urlIndex].substr(0, 5) === httpsPrefix) {
-            correctRequest += splitRequest[urlIndex] + " ";
-        } else {
-            correctRequest += prefix + splitRequest[urlIndex] + " ";
+        if (splitRequest[urlIndex].trim() != "") {
+            if (splitRequest[urlIndex].toLowerCase().substr(0, 5) === httpPrefix || splitRequest[urlIndex].toLowerCase().substr(0, 5) === httpsPrefix) {
+                correctRequest += splitRequest[urlIndex] + " ";
+            } else {
+                correctRequest += prefix + splitRequest[urlIndex] + " ";
+            }
         }
     }
     return correctRequest;

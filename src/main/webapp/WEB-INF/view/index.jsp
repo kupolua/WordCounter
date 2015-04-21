@@ -76,7 +76,7 @@
             </label>
 
             <input id="tab2" type="radio" name="tabs">
-            <label for="tab2" title="inputUrls" onclick="clearRequest('textCount', 'filterContainer')">
+            <label id="urlTab" for="tab2" title="inputUrls" onclick="clearRequest('textCount', 'filterContainer')">
                 <spring:message code="index.tabUrl"/>
             </label>
 

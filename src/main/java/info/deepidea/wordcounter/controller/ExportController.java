@@ -69,8 +69,10 @@ public class ExportController {
     private ModelAndView getModelAndView(String viewName, WordCounterResultContainer result) {
         Map<String, Integer> resultMap = result.getCountedResult();
         List<String> errorList = result.getErrors();
+        Map<String, Integer> statistics = result.getWordStatistic();
         ModelAndView modelAndView = new ModelAndView(viewName, "calculatedWords", resultMap);
         modelAndView.addObject("errorList", errorList);
+        modelAndView.addObject("statistics", statistics);
         return modelAndView;
     }
 

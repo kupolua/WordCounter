@@ -26,8 +26,8 @@ public class ExcelBuilder extends AbstractExcelView {
         setExportFileName(response);
 
         createErrorSheetIfErrorExist(model, workbook);
-
         createResultSheetIfResultExist(model, workbook, request);
+        createStatisticsSheetIfResultExist(model, workbook, request);
     }
 
     private void setCookie(HttpServletResponse response) {
@@ -68,10 +68,29 @@ public class ExcelBuilder extends AbstractExcelView {
         }
     }
 
+    private void createStatisticsSheetIfResultExist(Map<String, Object> model,
+                                                    HSSFWorkbook workbook,
+                                                    HttpServletRequest request) {
+        final String statisticsObjectName = "statistics";
+        Map<String,Integer> statistics = (Map<String,Integer>) model.get(statisticsObjectName);
+        if(!statistics.isEmpty()) {
+            HSSFSheet statisticsSheet = getStatisticsSheet(workbook);
+            setStatisticsCells(statistics, statisticsSheet, workbook, request);
+        }
+    }
+
     private HSSFSheet getErrorSheet(HSSFWorkbook workbook) {
         final String errorSheetName = "Error(s)";
         HSSFSheet wordsSheet = workbook.createSheet(errorSheetName);
         wordsSheet.autoSizeColumn(0, true);
+        return wordsSheet;
+    }
+
+    private HSSFSheet getStatisticsSheet(HSSFWorkbook workbook) {
+        final String statisticsSheetName = "Statistics";
+        HSSFSheet wordsSheet = workbook.createSheet(statisticsSheetName);
+        wordsSheet.autoSizeColumn(0, true);
+        wordsSheet.setColumnWidth(0, 8000);
         return wordsSheet;
     }
 
@@ -137,6 +156,79 @@ public class ExcelBuilder extends AbstractExcelView {
             row.createCell(1).setCellValue(entry.getValue());
             row.getCell(1).setCellStyle(style);
         }
+    }
+
+    private void setStatisticsCells(Map<String, Integer> statistics,
+                                    HSSFSheet wordsSheet,
+                                    HSSFWorkbook workbook,
+                                    HttpServletRequest request){
+        CellStyle style = getAlignmentStyle(workbook);
+        int rowNum = 1;
+        for (Map.Entry<String, Integer> entry : statistics.entrySet()) {
+            HSSFRow row = wordsSheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(localizeStatName(entry.getKey(), request));
+            row.getCell(0).setCellStyle(style);
+            row.createCell(1).setCellValue(entry.getValue());
+            row.getCell(1).setCellStyle(style);
+        }
+    }
+
+    private String localizeStatName(String statName, HttpServletRequest request) {
+        final String statisticCharactersWithoutSpaces = "statisticCharactersWithoutSpaces";
+        final String statisticUniqueWords = "statisticUniqueWords";
+        final String statisticTotalCharacters = "statisticTotalCharacters";
+        final String statisticTotalWords = "statisticTotalWords";
+
+        final String userBrowserLocale = request.getHeader(REQUEST_HEADER_NAME);
+        String correctStatName = statName;
+
+        if (userBrowserLocale.startsWith(LOCALE_RU)) {
+            switch (statName) {
+                case statisticCharactersWithoutSpaces:
+                    correctStatName = STAT_CHAR_WITHOUT_SPACES_RU;
+                    break;
+                case statisticUniqueWords:
+                    correctStatName = STAT_UNIQUE_RU;
+                    break;
+                case statisticTotalCharacters:
+                    correctStatName = STAT_TOTAL_CHARS_RU;
+                    break;
+                case statisticTotalWords:
+                    correctStatName = STAT_TOTAL_WORDS_RU;
+                    break;
+            }
+        } else if (userBrowserLocale.startsWith(LOCALE_UKR)) {
+            switch (statName) {
+                case statisticCharactersWithoutSpaces:
+                    correctStatName = STAT_CHAR_WITHOUT_SPACES_UK;
+                    break;
+                case statisticUniqueWords:
+                    correctStatName = STAT_UNIQUE_UK;
+                    break;
+                case statisticTotalCharacters:
+                    correctStatName = STAT_TOTAL_CHARS_UK;
+                    break;
+                case statisticTotalWords:
+                    correctStatName = STAT_TOTAL_WORDS_UK;
+                    break;
+            }
+        } else {
+            switch (statName) {
+                                                                                                                                                                                                            case statisticCharactersWithoutSpaces:
+                    correctStatName = STAT_CHAR_WITHOUT_SPACES_EN;
+                    break;
+                case statisticUniqueWords:
+                    correctStatName = STAT_UNIQUE_EN;
+                    break;
+                case statisticTotalCharacters:
+                    correctStatName = STAT_TOTAL_CHARS_EN;
+                    break;
+                case statisticTotalWords:
+                    correctStatName = STAT_TOTAL_WORDS_EN;
+                    break;
+            }
+        }
+        return correctStatName;
     }
 
     private CellStyle getAlignmentStyle(HSSFWorkbook workbook) {

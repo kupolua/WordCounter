@@ -52,7 +52,7 @@ public class WordCloudFunctionalityTest {
         String link = "http://deepidea.info/wordcounter/testData/1500_words_bad.pdf";
 
         // when
-        putDataAndClickCountButton(driver, link);
+        putUrlDataAndClickCountButton(driver, link);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
@@ -68,7 +68,7 @@ public class WordCloudFunctionalityTest {
         String link = "http://deepidea.info/wordcounter/testData/1500_words.pdf";
 
         // when
-        putDataAndClickCountButton(driver, link);
+        putUrlDataAndClickCountButton(driver, link);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
 

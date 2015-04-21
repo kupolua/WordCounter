@@ -81,7 +81,7 @@ public class StatisticWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, request);
+        putUrlDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         //then
@@ -99,7 +99,7 @@ public class StatisticWordsFunctionalityTest {
                 " >http://kupol...in.ua/wordcounter/testData/no_text.html";
 
         // when
-        putDataAndClickCountButton(driver, invalidLink);
+        putUrlDataAndClickCountButton(driver, invalidLink);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
 
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
@@ -133,7 +133,7 @@ public class StatisticWordsFunctionalityTest {
         driver.get(BASE_URL);
 
         // when
-        putDataAndClickCountButton(driver, request);
+        putUrlDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
 
@@ -175,11 +175,13 @@ public class StatisticWordsFunctionalityTest {
                 "27";
 
         // when
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driver.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(pageLatinLink);
+        driver.findElement(By.id(ELEMENT_ID_URL_TAB)).click();
+        driver.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).sendKeys(pageLatinLink);
 
-        driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).clear();
-        driverSecondary.findElement(By.id(ELEMENT_ID_TEXT_AREA)).sendKeys(htmlTestPageSecondary);
+        driverSecondary.findElement(By.id(ELEMENT_ID_URL_TAB)).click();
+        driverSecondary.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).clear();
+        driverSecondary.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).sendKeys(htmlTestPageSecondary);
 
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
         driverSecondary.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();

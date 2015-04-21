@@ -2,7 +2,6 @@ package info.deepidea.wordcounter.service;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.*;
@@ -29,7 +28,6 @@ public class CountersIntegratorImplTest {
         // thrown exception
     }
 
-    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test
     public void testIntegrateResults_oneInput() throws Exception {
         // given
@@ -50,7 +48,7 @@ public class CountersIntegratorImplTest {
         }};
 
         Map<String, Set<String>> expectedLinks = new HashMap<String, Set<String>>() {{
-            put("bbc.com", new HashSet<>(Arrays.asList("bbc.com/tv")));
+            put("bbc.com", new HashSet<>(Arrays.asList("bbc.com")));
         }};
 
         assertEquals(expectedWords, actual.getCountedResult());
@@ -157,8 +155,9 @@ public class CountersIntegratorImplTest {
 
         Map<String, Integer> values = new HashMap<>();
         values.put(word, count);
-
-        result.add(new ThreadResultContainer(values, wordStatistic, getRelatedLinks(clientRequest), clientRequest));
+        ThreadResultContainer container = new ThreadResultContainer(values, wordStatistic, getRelatedLinks(clientRequest), clientRequest);
+        container.setMarker(clientRequest);
+        result.add(container);
 
         return result;
     }

@@ -33,7 +33,7 @@ public class PdfBuilder extends AbstractPdfView {
             setExportFileName(response);
 
             addErrorsIntoDocumentIfExists(document, model);
-
+            addStatisticsIntoDocumentIfExist(model, document, request);
             addResultIntoDocumentIfExist(model, document, request);
         } catch (DocumentException e) {
             final String msg = "An error has occurred while creating a document.";
@@ -61,7 +61,7 @@ public class PdfBuilder extends AbstractPdfView {
                                               HttpServletRequest request) throws DocumentException, IOException {
         Map<String,Integer> calculatedWords = (Map<String,Integer>) model.get(MODEL_NAME);
         if (!calculatedWords.isEmpty()) {
-            PdfPTable table = getPdfPTable();
+            PdfPTable table = getWordsTable();
             PdfPCell cell = getPdfPCell();
             setHeadCells(table, cell, request);
             setResultCells(table, cell, calculatedWords);
@@ -69,7 +69,7 @@ public class PdfBuilder extends AbstractPdfView {
         }
     }
 
-    private PdfPTable getPdfPTable() throws DocumentException {
+    private PdfPTable getWordsTable() throws DocumentException {
         PdfPTable table = new PdfPTable(COLUMNS);
         table.setWidthPercentage(WIDTH_PERCENTAGE);
         table.setWidths(new float[] {WIDTH_TABLE_ONE, WIDTH_TABLE_TWO});
@@ -81,6 +81,19 @@ public class PdfBuilder extends AbstractPdfView {
         PdfPCell cell = new PdfPCell();
         cell.setPadding(PADDING);
         return cell;
+    }
+
+    private void addStatisticsIntoDocumentIfExist(Map<String, Object> model,
+                                                  Document document,
+                                                  HttpServletRequest request) throws DocumentException, IOException {
+        final String statisticsObjectName = "statistics";
+        Map<String,Integer> statistics = (Map<String,Integer>) model.get(statisticsObjectName);
+        if (!statistics.isEmpty()) {
+            PdfPTable table = getWordsTable();
+            PdfPCell cell = getPdfPCell();
+            setStatisticCells(table, cell, statistics, request);
+            document.add(table);
+        }
     }
 
     private void setHeadCells(PdfPTable table,
@@ -109,7 +122,8 @@ public class PdfBuilder extends AbstractPdfView {
         return new Font(unicodeArialBold);
     }
 
-    private void setResultCells(PdfPTable table, PdfPCell cell, Map<String, Integer> calculatedWords) throws IOException, DocumentException {
+    private void setResultCells(PdfPTable table, PdfPCell cell,
+                                Map<String, Integer> calculatedWords) throws IOException, DocumentException {
         Font font = getArialNormalFont();
         for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
             cell.setPhrase(new Phrase(entry.getKey(), font));
@@ -117,6 +131,75 @@ public class PdfBuilder extends AbstractPdfView {
             cell.setPhrase(new Phrase(String.valueOf(entry.getValue()), font));
             table.addCell(cell);
         }
+    }
+
+    private void setStatisticCells(PdfPTable table, PdfPCell cell, Map<String, Integer> calculatedWords,
+                                   HttpServletRequest request) throws IOException, DocumentException {
+        Font font = getArialNormalFont();
+        for (Map.Entry<String, Integer> entry : calculatedWords.entrySet()) {
+            cell.setPhrase(new Phrase(localizeStatName(entry.getKey(), request), font));
+            table.addCell(cell);
+            cell.setPhrase(new Phrase(String.valueOf(entry.getValue()), font));
+            table.addCell(cell);
+        }
+    }
+
+    private String localizeStatName(String statName, HttpServletRequest request) {
+        final String statisticCharactersWithoutSpaces = "statisticCharactersWithoutSpaces";
+        final String statisticUniqueWords = "statisticUniqueWords";
+        final String statisticTotalCharacters = "statisticTotalCharacters";
+        final String statisticTotalWords = "statisticTotalWords";
+
+        final String userBrowserLocale = request.getHeader(REQUEST_HEADER_NAME);
+        String correctStatName = statName;
+
+        if (userBrowserLocale.startsWith(LOCALE_RU)) {
+            switch (statName) {
+                case statisticCharactersWithoutSpaces:
+                    correctStatName = STAT_CHAR_WITHOUT_SPACES_RU;
+                    break;
+                case statisticUniqueWords:
+                    correctStatName = STAT_UNIQUE_RU;
+                    break;
+                case statisticTotalCharacters:
+                    correctStatName = STAT_TOTAL_CHARS_RU;
+                    break;
+                case statisticTotalWords:
+                    correctStatName = STAT_TOTAL_WORDS_RU;
+                    break;
+            }
+        } else if (userBrowserLocale.startsWith(LOCALE_UKR)) {
+            switch (statName) {
+                case statisticCharactersWithoutSpaces:
+                    correctStatName = STAT_CHAR_WITHOUT_SPACES_UK;
+                    break;
+                case statisticUniqueWords:
+                    correctStatName = STAT_UNIQUE_UK;
+                    break;
+                case statisticTotalCharacters:
+                    correctStatName = STAT_TOTAL_CHARS_UK;
+                    break;
+                case statisticTotalWords:
+                    correctStatName = STAT_TOTAL_WORDS_UK;
+                    break;
+            }
+        } else {
+            switch (statName) {
+                case statisticCharactersWithoutSpaces:
+                    correctStatName = STAT_CHAR_WITHOUT_SPACES_EN;
+                    break;
+                case statisticUniqueWords:
+                    correctStatName = STAT_UNIQUE_EN;
+                    break;
+                case statisticTotalCharacters:
+                    correctStatName = STAT_TOTAL_CHARS_EN;
+                    break;
+                case statisticTotalWords:
+                    correctStatName = STAT_TOTAL_WORDS_EN;
+                    break;
+            }
+        }
+        return correctStatName;
     }
 
     private Font getArialNormalFont() throws IOException, DocumentException {

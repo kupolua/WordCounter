@@ -5,7 +5,6 @@ import info.deepidea.wordcounter.service.WordCounterResultContainerImpl;
 import com.squareup.okhttp.*;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.*;
@@ -22,7 +21,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         objectMapper = new ObjectMapper();
     }
 
-    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test
     public void testEnterThreeLinks() throws Exception {
         // given
@@ -61,7 +59,10 @@ public class CountingWordsThreeUrlsFunctionalityTest {
             put("statisticTotalWords", 10);
         }};
 
-        final Map<String, Set<String>> relatedLinks = Collections.emptyMap();
+        final Map<String, Set<String>> relatedLinks = new HashMap(){{
+            put("http://deepidea.info/wordcounter/testData/page_latin.html",
+                    new HashSet(Arrays.asList("http://deepidea.info/wordcounter/testData/page_latin.html")));
+        }};
 
         final WordCounterResultContainerImpl expected =
                 new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks, Collections.emptyMap());
@@ -73,7 +74,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withBrokenHtmlLink() throws Exception {
         // given
@@ -122,7 +122,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withNoReadableTextInPdf() throws Exception {
         // given
@@ -162,7 +161,10 @@ public class CountingWordsThreeUrlsFunctionalityTest {
             put("statisticTotalWords", 7);
         }};
 
-        final Map<String, Set<String>> relatedLinks = Collections.emptyMap();
+        final Map<String, Set<String>> relatedLinks = new HashMap(){{
+            put("http://deepidea.info/wordcounter/testData/page_latin.html",
+                    new HashSet(Arrays.asList("http://deepidea.info/wordcounter/testData/page_latin.html")));
+        }};
 
         final WordCounterResultContainerImpl expected =
                 new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks, Collections.emptyMap());
@@ -173,7 +175,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Ignore //todo WORDS-564 Rewrite functional test after approval response structure
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testEnterThreeLinks_withBrokenTxtLink() throws Exception {
         // given
@@ -182,7 +183,6 @@ public class CountingWordsThreeUrlsFunctionalityTest {
                 "http://deepidea.info/wordcounter/testData/letters%2Bnumbers...txt";
         final String depth = "0";
         final String internalOnly = "true";
-        final String errorMassageConnect = "Cannot connect to the source: >http://deepidea.info/wordcounter/testData/test_page_latin.html";
         final String errorMassageDocument = "Cannot connect to the source: >http://deepidea.info/wordcounter/testData/letters%2Bnumbers...txt";
 
         Request request = buildRequestWithParamValue(requestedValue, depth, internalOnly);
@@ -198,20 +198,25 @@ public class CountingWordsThreeUrlsFunctionalityTest {
         Map<String, Integer> expectedCountedWords = new HashMap<String, Integer>() {{
             put("думи", 2);
             put("мої", 1);
+            put("test", 3);
+            put("a", 1);
+            put("santa-monica", 1);
         }};
 
         List<String> expectedError = new ArrayList<>();
-        expectedError.add(errorMassageConnect);
         expectedError.add(errorMassageDocument);
 
         final Map<String, Integer> wordStatistic = new HashMap<String, Integer>() {{
-            put("statisticCharactersWithoutSpaces", 12);
-            put("statisticUniqueWords", 2);
-            put("statisticTotalCharacters", 15);
-            put("statisticTotalWords", 3);
+            put("statisticCharactersWithoutSpaces", 39);
+            put("statisticUniqueWords", 5);
+            put("statisticTotalCharacters", 49);
+            put("statisticTotalWords", 8);
         }};
 
-        final Map<String, Set<String>> relatedLinks = Collections.emptyMap();
+        final Map<String, Set<String>> relatedLinks = new HashMap(){{
+            put("http://deepidea.info/wordcounter/testData/test_page_latin.html",
+                    new HashSet(Arrays.asList("http://deepidea.info/wordcounter/testData/test_page_latin.html")));
+        }};
 
         final WordCounterResultContainerImpl expected =
                 new WordCounterResultContainerImpl(expectedCountedWords, expectedError, wordStatistic, relatedLinks, Collections.emptyMap());

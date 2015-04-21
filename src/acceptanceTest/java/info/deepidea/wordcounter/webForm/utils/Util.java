@@ -36,6 +36,14 @@ public class Util {
         driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
     }
 
+    public static void putUrlDataAndClickCountButton(WebDriver driver, String data) {
+        driver.findElement(By.id(ELEMENT_ID_URL_TAB)).click();
+        driver.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).clear();
+        driver.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).click();
+        driver.findElement(By.id(ELEMENT_ID_URL_TEXT_AREA)).sendKeys(data);
+        driver.findElement(By.id(BUTTON_ID_COUNT_WORDS)).click();
+    }
+
     public static boolean waitForJQueryProcessing(WebDriver driver, int timeOutInSeconds) {
         final String jqueryActive = "return jQuery.active == 0";
         boolean jQcondition = false;

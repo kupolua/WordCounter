@@ -71,7 +71,7 @@ public class SortingFunctionalityTest {
                 "звон 1";
 
         // when
-        putDataAndClickCountButton(driver, inputDocumentUrl);
+        putUrlDataAndClickCountButton(driver, inputDocumentUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         driver.findElement(By.className(elementIdSorting)).click();
@@ -113,7 +113,7 @@ public class SortingFunctionalityTest {
                 "звон 1";
 
         // when
-        putDataAndClickCountButton(driver, inputDocumentUrl);
+        putUrlDataAndClickCountButton(driver, inputDocumentUrl);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
         driver.findElement(By.className(elementIdSorting)).click();
