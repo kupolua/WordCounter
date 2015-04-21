@@ -136,12 +136,14 @@ public class FilteringWordsFunctionalityTest {
 
         // when
         putUrlDataAndClickCountButton(driver, inputLatinUrl);
+        Thread.sleep(3000);
         driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
 
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
         Thread.sleep(2000);
 
         putUrlDataAndClickCountButton(driver, inputLatinUrl);
+        Thread.sleep(3000);
         driver.findElement(By.id(BUTTON_ID_FILTERING_WORDS)).click();
 
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
