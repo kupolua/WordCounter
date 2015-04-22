@@ -200,6 +200,10 @@ function runSpinner(isFilter){
     var activeTime = 200;
     spinner = new Spinner(opts).spin(target);
     setTimeout(function(){
+        $("#filterContainer").appendTo("#initWordsFilter");
+        $("#filterShow").appendTo("#initWordsFilter");
+        $("#filterContainer").hide();
+
         setTableContext(isFilter);
         showErrors(dataErrors);
         writeTable(countedWords, selectedRows);
@@ -337,9 +341,6 @@ function getSelectedRows() {
 function showFilteredWords() {
     $("input[name=filterCheck]:checkbox:checked").val() ? $("#filterShow").show() : $("#filterShow").hide();
     isFilter = $("input[name=filterCheck]:checkbox:checked").val() ? true : false;
-    $("#filterContainer").appendTo("#initWordsFilter");
-    $("#filterShow").appendTo("#initWordsFilter");
-    $("#filterContainer").hide();
     var activSpinner = runSpinner(isFilter);
     activSpinner.done(function(){ spinner.stop(target); });
 }

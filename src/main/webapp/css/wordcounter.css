@@ -439,9 +439,11 @@
     display: none;
 }
 #filterContainer {
+    padding-top: 10px;
     text-align: left;
     display: none;
     font-size: 0.875em;
+    height: 0.875em;
     color: #999;
     float: right;
 }
