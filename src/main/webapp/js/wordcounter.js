@@ -131,6 +131,11 @@ $(window).load(function(){
     $("#shareBar").css('top', ancorPosition.top);
     $('.deepideaSocial').deepideaSocial();
 });
+function reloadPage() {
+    $("textarea#textCount").val("");
+    $("textarea#urlCount").val("");
+    location.reload()
+}
 
 function scrollToAnchor(wordTable){
     var tag = $(wordTable);
