@@ -128,7 +128,7 @@ public class CountingWordsFunctionalityTest {
     }
 
     @Test
-    public void countWordInWebPageViaUrl_noTextOnPage() {
+    public void countWordInWebPageViaUrl_noTextOnPage() throws Exception{
         // given
         driver.get(BASE_URL);
         final String noTextOnPage = "http://deepidea.info/wordcounter/testData/no_text.html";
@@ -138,7 +138,7 @@ public class CountingWordsFunctionalityTest {
         // when
         putUrlDataAndClickCountButton(driver, noTextOnPage);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
+        Thread.sleep(2000);
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
@@ -217,7 +217,7 @@ public class CountingWordsFunctionalityTest {
     }
 
     @Test
-    public void countWordInDocumentViaUrl_noTextInFile_Pdf() {
+    public void countWordInDocumentViaUrl_noTextInFile_Pdf() throws Exception {
         // given
         driver.get(BASE_URL);
         String noTextInPdf = "http://deepidea.info/wordcounter/testData/Pdf_no_text.pdf";
@@ -227,7 +227,7 @@ public class CountingWordsFunctionalityTest {
         // when
         putUrlDataAndClickCountButton(driver, noTextInPdf);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
+        Thread.sleep(2000);
         driver.findElement(By.className(elementCssErrorSpoilerOpen)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(ELEMENT_CSS_ERROR_CONTAINER)));
 
@@ -310,7 +310,7 @@ public class CountingWordsFunctionalityTest {
     }
 
     @Test
-    public void testEnterThreeLinks_withBrokenTxtLink() {
+    public void testEnterThreeLinks_withBrokenTxtLink() throws Exception {
         // given
         final String request = "http://deepidea.info/wordcounter/testData/test_page_latin.html " +
                 "http://deepidea.info/wordcounter/testData/%D0%BA%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%D0%B8%D1%86%D0%B0.pptx " +
@@ -326,7 +326,7 @@ public class CountingWordsFunctionalityTest {
         // when
         putUrlDataAndClickCountButton(driver, request);
         waitForJQueryProcessing(driver, WAIT_FOR_ELEMENT);
-
+        Thread.sleep(3000);
         //then
         String actualEnterThreeLinks = driver.findElement(By.cssSelector(ANCHOR_HTML_PAGE_WITH_WORDS)).getText();
         assertEquals(expectedEnterThreeLinks, actualEnterThreeLinks);

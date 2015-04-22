@@ -87,10 +87,12 @@ $(document).ready(function() {
             beforeSend: function(){
                 $('#CountWords').attr("disabled", true);
                 spinner = new Spinner(opts).spin(target);
+                $.blockUI({ message: null });
             },
             complete: function(){
                 $('#CountWords').attr("disabled", false);
                 spinner.stop(target);
+                $.unblockUI();
             }
         });
     });
@@ -425,6 +427,7 @@ function displayErrorContainer() {
 }
 
 function showErrors(dataErrors) {
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
     if (dataErrors == "") {
         isErrors = false;
     } else {
@@ -434,6 +437,10 @@ function showErrors(dataErrors) {
         });
     }
     if (isErrors){
+        if (isIE) {
+            $('#errorsSpoiler').css("display", "table");
+            $(".spoiler_open").attr("class", "spoiler_openIe");
+        }
         $('#errorsSpoiler').show();
         $('#errorsContainer').html(errorsMessage);
         errorsMessage = '';

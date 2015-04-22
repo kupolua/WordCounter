@@ -23,6 +23,7 @@
     <script src="js/modal-window.js" type="text/javascript"></script>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="js/blockUI.js" type="text/javascript"></script>
     <script src="js/socialButtoms.js" type="text/javascript"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="js/jquery.fileDownload.js" type="text/javascript"></script>
