@@ -165,7 +165,7 @@
                     <div id="cloud" class="right">
                         <div id="wordCloudData">
                             <div id="showModalCloud" class="showModalCloud"><a href="#" id="showWordCloudLink" class="osx-wordCloud" onclick="showModalWordCloud()"><spring:message code="index.openModal"/></a></div>
-                            <canvas id="canvas_cloud"></canvas>
+                            <a href="#" id="showWordCloudLink" class="osx-wordCloud" onclick="showModalWordCloud()"><canvas id="canvas_cloud"></canvas></a>
                         </div>
                     </div>
                 </div>

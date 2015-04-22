@@ -64,7 +64,6 @@ $(document).ready(function() {
                 countedWords = getCountedWords(dataResponse, isFilter);
 
                 if (countedWords.length > 0) {
-//                    setStatusFilter(isFilter);
                     displayResponseContainer();
                     if ( $.fn.dataTable.isDataTable( '#countedWords' ) ) {
                         selectedRows = getSelectedRows();
