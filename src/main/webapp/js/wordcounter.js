@@ -208,14 +208,15 @@ function runSpinner(isFilter){
     var deferred = $.Deferred();
     var activeTime = 200;
     spinner = new Spinner(opts).spin(target);
+    $.blockUI({ message: null });
     setTimeout(function(){
         $("#filterContainer").appendTo("#initWordsFilter");
         $("#filterShow").appendTo("#initWordsFilter");
         $("#filterContainer").hide();
-
         setTableContext(isFilter);
         showErrors(dataErrors);
         writeTable(countedWords, selectedRows);
+        $.unblockUI();
         deferred.resolve();
     }, activeTime);
     return deferred;
