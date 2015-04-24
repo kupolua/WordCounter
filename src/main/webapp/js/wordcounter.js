@@ -196,8 +196,11 @@ function setUrlTreeData() {
 
 function requestBinaryCopyOfCalculatedWords(path) {
     spinner.spin(target);
+    $.blockUI({ message: null });
     $.fileDownload(path, {httpMethod: "POST", data: dataString})
-                           .done(function () { spinner.stop(target); })
+                           .done(function () {  spinner.stop(target);
+                                                $.unblockUI();
+                                             })
                            .fail(function () { alert('File download failed!'); });
 }
 
