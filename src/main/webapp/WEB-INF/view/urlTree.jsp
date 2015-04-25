@@ -32,7 +32,7 @@
     </div>
     <div id="navi">
         <ul>
-          <li><a href="/WordCounter"><spring:message code="about.home"/></a></li>
+          <li><a href="/WordSurfer"><spring:message code="about.home"/></a></li>
           <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
         </ul>
     </div>

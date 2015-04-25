@@ -19,7 +19,7 @@
     </script>
 </head>
 <body>
-    <a href="/WordCounter"><spring:message code="about.home"/></a>
+    <a href="/WordSurfer"><spring:message code="about.home"/></a>
     <h1>
         <font color="red">${exception}</font>
     </h1>

@@ -7,6 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="robots" content="noindex,nofollow"/>
+    <title>Word Surfer ${version}</title>
 
     <link href="css/aboutus.css" rel="stylesheet" type="text/css"/>
     <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
@@ -28,7 +29,7 @@
     </div>
     <div id="navi">
         <ul>
-          <li><a href="/WordCounter"><spring:message code="about.home"/></a></li>
+          <li><a href="/WordSurfer"><spring:message code="about.home"/></a></li>
           <li><a href="about" id="aboutUsLink"><spring:message code="index.aboutLink"/></a></li>
         </ul>
     </div>
