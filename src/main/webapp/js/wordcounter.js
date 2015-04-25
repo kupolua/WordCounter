@@ -114,7 +114,7 @@ $(document).ready(function() {
         dataString = "textCount=" + encodeURIComponent(userRequest) + "&sortingOrder=" + getSortingOrder()
             + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
 
-        var path = "/WordCounter/downloadPDF";
+        var path = "/WordSurfer/downloadPDF";
         requestBinaryCopyOfCalculatedWords(path);
     });
 
@@ -123,7 +123,7 @@ $(document).ready(function() {
         dataString = "textCount=" + encodeURIComponent(userRequest) + "&sortingOrder=" + getSortingOrder()
             + "&isFilterWords=" + isFilterWords + "&crawlDepth=" + crawlDepth + "&crawlScope=" + crawlScope;
 
-        var path = "/WordCounter/downloadExcel";
+        var path = "/WordSurfer/downloadExcel";
         requestBinaryCopyOfCalculatedWords(path);
     });
 });
@@ -198,10 +198,14 @@ function requestBinaryCopyOfCalculatedWords(path) {
     spinner.spin(target);
     $.blockUI({ message: null });
     $.fileDownload(path, {httpMethod: "POST", data: dataString})
-                           .done(function () {  spinner.stop(target);
+                           .done(function () {
+                                                spinner.stop(target);
                                                 $.unblockUI();
                                              })
-                           .fail(function () { alert('File download failed!'); });
+                           .fail(function () {
+                                                alert('File download failed!');
+                                                $.unblockUI();
+                                                });
 }
 
 function runSpinner(isFilter){
