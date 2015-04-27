@@ -89,9 +89,6 @@
     width:60%;
     float:left;
 }
-#urlCount {
-    /*margin-bottom: 30px;*/
-}
 #crawler {
     padding-top: 3px;
     padding-bottom: 9px;
@@ -440,6 +437,7 @@
 }
 #filterContainer {
     padding-top: 10px;
+    padding-bottom: 17px;
     text-align: left;
     display: none;
     font-size: 0.875em;

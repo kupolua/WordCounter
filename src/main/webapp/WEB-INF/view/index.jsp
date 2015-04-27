@@ -83,10 +83,10 @@
 
             <section id="content1">
                 <%--<textarea id="textCount" name="textCount" cols="125" rows="7" onclick="showFilteredWords()"></textarea>--%>
-                <textarea id="textCount" name="textCount" cols="125" rows="7"></textarea>
+                <textarea id="textCount" name="textCount" cols="125" rows="17"></textarea>
             </section>
             <section id="content2">
-                <textarea id="urlCount" name="urlCount" cols="125" rows="7" onclick="showCrawl()"></textarea>
+                <textarea id="urlCount" name="urlCount" cols="25" rows="15" onclick="showCrawl()"></textarea>
                 <div id="crawlContainer" class="crawlContainer">
                     <div id="crawlDepth">
                         <input type="checkbox" name="crawlDepth" value="true" onclick="showCrawlScope()" id="crawlDepthInput"/>
@@ -108,7 +108,7 @@
             <div id="CountWords" class="bottoms">
                 <div class="leftBottoms">
                     <input id="getCountedWords" type="button" value="<spring:message code="index.bCountWords"/>"/>
-                    <input id="reloadWordCounter" type="button" value="<spring:message code="index.bReloadWordCounter"/>" onclick="location.reload()"/>
+                    <input id="reloadWordCounter" type="button" value="<spring:message code="index.bReloadWordCounter"/>" onclick="reloadPage()"/>
                 </div>
                 <div class="rightExport">
                     <div id="exportButtons" class="exportButtons">

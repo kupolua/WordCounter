@@ -170,6 +170,7 @@ function checkAndAddPrefix(requestedUrls) {
 function clearRequest(idTextarea, idContainer) {
     $("textarea#" + idTextarea).val("");
     $("#" + idContainer).hide();
+    $("input[name=crawlDepth]").prop('checked', false);
 }
 
 function setWordConnectionData() {
