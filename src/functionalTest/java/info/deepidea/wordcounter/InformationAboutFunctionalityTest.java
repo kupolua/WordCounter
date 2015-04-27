@@ -26,7 +26,7 @@ public class InformationAboutFunctionalityTest {
     // given
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testLanguage_textEN() throws Exception {
-        final String expected = "About Word Counter";
+        final String expected = "About Word Surfer";
 
         Request request = buildRequestWithParamValue();
 
