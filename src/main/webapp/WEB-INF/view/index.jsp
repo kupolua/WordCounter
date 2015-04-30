@@ -54,7 +54,7 @@
 </div>
 <div id="allContent">
     <div id="logo">
-        <img src="img/wc-6.png" alt="WordCounterLogo">
+        <img src="img/ws-1.png" alt="WordCounterLogo">
     </div>
     <div id="navi">
             <ul>
